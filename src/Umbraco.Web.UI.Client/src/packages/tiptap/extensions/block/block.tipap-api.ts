@@ -4,6 +4,7 @@ import { Node } from '@umbraco-cms/backoffice/external/tiptap';
 import { UMB_BLOCK_RTE_DATA_CONTENT_KEY } from '@umbraco-cms/backoffice/rte';
 import { UMB_BLOCK_RTE_MANAGER_CONTEXT } from '@umbraco-cms/backoffice/block-rte';
 import { UmbId } from '@umbraco-cms/backoffice/id';
+import { DOMPurify } from '@umbraco-cms/backoffice/external/dompurify';
 import type { UmbBlockDataModel } from '@umbraco-cms/backoffice/block';
 import type { UmbBlockRteLayoutModel } from '@umbraco-cms/backoffice/block-rte';
 import type { UmbControllerHost } from '@umbraco-cms/backoffice/controller-api';
@@ -66,16 +67,30 @@ const umbRteBlock = Node.create({
 
 			// Check if the pasted content contains blocks
 			if (html.includes('umb-rte-block')) {
+				// Sanitize HTML first to prevent XSS attacks
+				const sanitizedHtml = DOMPurify.sanitize(html, {
+					ALLOWED_TAGS: ['umb-rte-block', 'umb-rte-block-inline', 'div', 'p', 'span', 'br',
+								   'strong', 'em', 'u', 's', 'a', 'ul', 'ol', 'li', 'h1', 'h2',
+								   'h3', 'h4', 'h5', 'h6', 'blockquote', 'code', 'pre', 'img',
+								   'table', 'thead', 'tbody', 'tr', 'td', 'th'],
+					ALLOWED_ATTR: ['data-content-key', 'href', 'src', 'alt', 'title', 'class', 'id',
+								   'data-block-key', 'contenteditable'],
+					CUSTOM_ELEMENT_HANDLING: {
+						tagNameCheck: /^umb-rte-block/,
+						attributeNameCheck: /^data-/,
+						allowCustomizedBuiltInElements: true
+					}
+				});
+
 				// Replace contentKeys with new unique IDs
-				const modifiedHtml = html.replace(
+				const modifiedHtml = sanitizedHtml.replace(
 					/data-content-key="([^"]*)"/g,
 					() => `data-content-key="${UmbId.new()}"`
 				);
 
-				// Insert the modified content
+				// Insert the sanitized and modified content
 				const parser = new DOMParser();
 				const doc = parser.parseFromString(modifiedHtml, 'text/html');
-				const content = Array.from(doc.body.childNodes);
 
 				view.dispatch(view.state.tr.replaceSelectionWith(
 					view.state.schema.nodeFromDOM(doc.body).content
@@ -123,13 +138,28 @@ const umbRteBlockInline = umbRteBlock.extend({
 
 			// Check if the pasted content contains inline blocks
 			if (html.includes('umb-rte-block-inline')) {
+				// Sanitize HTML first to prevent XSS attacks
+				const sanitizedHtml = DOMPurify.sanitize(html, {
+					ALLOWED_TAGS: ['umb-rte-block', 'umb-rte-block-inline', 'div', 'p', 'span', 'br',
+								   'strong', 'em', 'u', 's', 'a', 'ul', 'ol', 'li', 'h1', 'h2',
+								   'h3', 'h4', 'h5', 'h6', 'blockquote', 'code', 'pre', 'img',
+								   'table', 'thead', 'tbody', 'tr', 'td', 'th'],
+					ALLOWED_ATTR: ['data-content-key', 'href', 'src', 'alt', 'title', 'class', 'id',
+								   'data-block-key', 'contenteditable'],
+					CUSTOM_ELEMENT_HANDLING: {
+						tagNameCheck: /^umb-rte-block/,
+						attributeNameCheck: /^data-/,
+						allowCustomizedBuiltInElements: true
+					}
+				});
+
 				// Replace contentKeys with new unique IDs
-				const modifiedHtml = html.replace(
+				const modifiedHtml = sanitizedHtml.replace(
 					/data-content-key="([^"]*)"/g,
 					() => `data-content-key="${UmbId.new()}"`
 				);
 
-				// Insert the modified content
+				// Insert the sanitized and modified content
 				const parser = new DOMParser();
 				const doc = parser.parseFromString(modifiedHtml, 'text/html');
 
