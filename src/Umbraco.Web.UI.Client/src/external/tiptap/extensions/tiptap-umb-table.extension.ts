@@ -104,7 +104,7 @@ export const UmbTableHeader = TableHeader.extend({
 										grip.appendChild(document.createElement('uui-symbol-more'));
 
 										grip.className = colSelected ? 'grip-column selected' : 'grip-column';
-										grip.setAttribute('popovertarget', colSelected ? 'table-column-menu' : '');
+										// Remove popovertarget to prevent conflict with bubble menu plugin
 
 										grip.addEventListener('mousedown', (event) => {
 											event.preventDefault();
@@ -198,7 +198,7 @@ export const UmbTableCell = TableCell.extend({
 										grip.appendChild(document.createElement('uui-symbol-more'));
 
 										grip.className = rowSelected ? 'grip-row selected' : 'grip-row';
-										grip.setAttribute('popovertarget', rowSelected ? 'table-row-menu' : '');
+										// Remove popovertarget to prevent conflict with bubble menu plugin
 
 										grip.addEventListener('mousedown', (event) => {
 											event.preventDefault();
