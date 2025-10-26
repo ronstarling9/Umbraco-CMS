@@ -6,8 +6,9 @@ export interface UmbValidator extends EventTarget {
 
 	/**
 	 * Validate the form, will return a promise that resolves to true if what the Validator represents is valid.
+	 * @param autoFocus - Whether to automatically focus the first invalid element. Defaults to true.
 	 */
-	validate(): Promise<void>;
+	validate(autoFocus?: boolean): Promise<void>;
 
 	/**
 	 * Reset the validator to its initial state.
