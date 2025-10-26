@@ -682,6 +682,15 @@ export class UmbBlockGridEntryElement extends UmbLitElement implements UmbProper
 				opacity: var(--umb-block-grid-entry-actions-opacity, 0);
 				transition: opacity 120ms;
 			}
+
+			/* Fix for focus outline cutoff on action bar buttons */
+			uui-action-bar ::slotted(:hover),
+			uui-action-bar ::slotted(:focus),
+			uui-action-bar ::slotted(:focus-visible),
+			uui-action-bar ::slotted(:focus-within) {
+				z-index: 1;
+				position: relative;
+			}
 			uui-button-inline-create {
 				top: 0px;
 				position: absolute;
