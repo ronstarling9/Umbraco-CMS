@@ -74,8 +74,8 @@ export abstract class UmbElementPropertyDatasetContext<
 
 		this.observe(
 			this._dataOwner.readOnlyGuard.isPermittedForVariant(this.#variantId),
-			(isReadOnly) => {
-				this._readOnly.setValue(isReadOnly);
+			(isPermitted) => {
+				this._readOnly.setValue(!isPermitted);
 			},
 			null,
 		);

@@ -28,8 +28,8 @@ export class UmbBlockElementPropertyDatasetContext
 		this.consumeContext(UMB_BLOCK_WORKSPACE_CONTEXT, (workspace) => {
 			this.observe(
 				workspace?.readOnlyGuard.isPermittedForVariant(elementManager.getVariantId()),
-				(isReadOnly) => {
-					this._readOnly.setValue(isReadOnly ?? false);
+				(isPermitted) => {
+					this._readOnly.setValue(!(isPermitted ?? true));
 				},
 				'umbObserveReadOnlyStates',
 			);
