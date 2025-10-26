@@ -116,11 +116,11 @@ export class UmbBlockWorkspaceViewEditContentNoRouterElement extends UmbLitEleme
 						)}
 					</uui-tab-group>`
 				: nothing}
-			${this._activeTabKey !== undefined || (this._tabs && this._tabs.length > 0)
+			${this._activeTabKey !== undefined
 				? html`<umb-block-workspace-view-edit-tab
 						.managerName=${'content'}
 						.hideSingleGroup=${true}
-						.containerId=${this._activeTabKey ?? (this._tabs && this._tabs.length > 0 ? this._tabs[0].key : null)}>
+						.containerId=${this._activeTabKey}>
 					</umb-block-workspace-view-edit-tab>`
 				: nothing}
 		`;
