@@ -75,6 +75,9 @@ export class UmbBlockWorkspaceViewEditContentNoRouterElement extends UmbLitEleme
 			} else if (this._tabs.length > 0) {
 				//this._activeTabName = this._tabs[0].name;
 				this._activeTabKey = this._tabs[0].key;
+			} else {
+				// Ensure activeTabKey is set even when no tabs exist
+				this._activeTabKey = null;
 			}
 		}
 	}
@@ -113,11 +116,11 @@ export class UmbBlockWorkspaceViewEditContentNoRouterElement extends UmbLitEleme
 						)}
 					</uui-tab-group>`
 				: nothing}
-			${this._activeTabKey !== undefined
+			${this._activeTabKey !== undefined || (this._tabs && this._tabs.length > 0)
 				? html`<umb-block-workspace-view-edit-tab
 						.managerName=${'content'}
 						.hideSingleGroup=${true}
-						.containerId=${this._activeTabKey}>
+						.containerId=${this._activeTabKey ?? (this._tabs && this._tabs.length > 0 ? this._tabs[0].key : null)}>
 					</umb-block-workspace-view-edit-tab>`
 				: nothing}
 		`;
