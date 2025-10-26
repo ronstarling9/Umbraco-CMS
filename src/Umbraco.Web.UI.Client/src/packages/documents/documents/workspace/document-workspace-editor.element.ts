@@ -34,8 +34,17 @@ export class UmbDocumentWorkspaceEditorElement extends UmbLitElement {
 		this.consumeContext(UMB_APP_LANGUAGE_CONTEXT, (instance) => {
 			this.#appLanguage = instance;
 			this.observe(this.#appLanguage?.appLanguageCulture, (appCulture) => {
+				const previousCulture = this.#appCulture;
 				this.#appCulture = appCulture;
 				this.#generateRoutes();
+
+				// Navigate to the new language route when language changes
+				if (previousCulture && previousCulture !== appCulture && this.#workspaceRoute && appCulture) {
+					const newPath = `${this.#workspaceRoute}/${appCulture}`;
+					history.pushState({}, '', newPath);
+					// Trigger route change by dispatching a popstate event
+					window.dispatchEvent(new PopStateEvent('popstate'));
+				}
 			});
 		});
 
