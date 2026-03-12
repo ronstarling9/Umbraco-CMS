@@ -55,7 +55,8 @@ public class CalculatedStartNodesUserController : UserControllerBase
             return UserOperationStatusResult(UserOperationStatus.UserNotFound);
         }
 
-        CalculatedUserStartNodesResponseModel responseModel = await _userPresentationFactory.CreateCalculatedUserStartNodesResponseModelAsync(user);
+        CalculatedUserStartNodesResponseModel responseModel =
+            await _userPresentationFactory.CreateCalculatedUserStartNodesResponseModelAsync(user);
         return Ok(responseModel);
     }
 }

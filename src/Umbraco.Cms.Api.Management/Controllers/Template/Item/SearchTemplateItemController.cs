@@ -39,7 +39,8 @@ public class SearchTemplateItemController : TemplateItemControllerBase
             return Ok(new PagedModel<TemplateItemResponseModel> { Total = searchResult.Total });
         }
 
-        IEnumerable<ITemplate> templates = await _templateService.GetAllAsync(searchResult.Items.Select(item => item.Key).ToArray());
+        IEnumerable<ITemplate> templates =
+            await _templateService.GetAllAsync(searchResult.Items.Select(item => item.Key).ToArray());
         var result = new PagedModel<TemplateItemResponseModel>
         {
             Items = _mapper.MapEnumerable<ITemplate, TemplateItemResponseModel>(templates),

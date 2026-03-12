@@ -48,7 +48,9 @@ public class BulkDeleteUserController : UserControllerBase
             return Forbidden();
         }
 
-        UserOperationStatus result = await _userService.DeleteAsync(CurrentUserKey(_backOfficeSecurityAccessor), model.UserIds.Select(x => x.Id).ToHashSet());
+        UserOperationStatus result =
+            await _userService.DeleteAsync(
+                CurrentUserKey(_backOfficeSecurityAccessor), model.UserIds.Select(x => x.Id).ToHashSet());
 
         return result is UserOperationStatus.Success
             ? Ok()

@@ -19,7 +19,8 @@ public class RootStaticFileTreeController : StaticFileTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public RootStaticFileTreeController(IPhysicalFileSystem physicalFileSystem, IPhysicalFileSystemTreeService fileSystemTreeService)
+    public RootStaticFileTreeController(
+        IPhysicalFileSystem physicalFileSystem, IPhysicalFileSystemTreeService fileSystemTreeService)
     : base(physicalFileSystem, fileSystemTreeService)
     {
     }

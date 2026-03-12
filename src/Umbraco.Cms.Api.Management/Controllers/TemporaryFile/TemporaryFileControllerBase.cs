@@ -10,7 +10,8 @@ namespace Umbraco.Cms.Api.Management.Controllers.TemporaryFile;
 [ApiExplorerSettings(GroupName = "Temporary File")]
 public abstract class TemporaryFileControllerBase : ManagementApiControllerBase
 {
-    protected IActionResult TemporaryFileStatusResult(TemporaryFileOperationStatus operationStatus) =>
+    protected IActionResult TemporaryFileStatusResult(TemporaryFileOperationStatus operationStatus)
+        =>
         OperationStatusResult(operationStatus, problemDetailsBuilder => operationStatus switch
         {
             TemporaryFileOperationStatus.FileExtensionNotAllowed => BadRequest(problemDetailsBuilder
@@ -33,7 +34,8 @@ public abstract class TemporaryFileControllerBase : ManagementApiControllerBase
                 .Build()),
         });
 
-    protected IActionResult TemporaryFileNotFound() => OperationStatusResult(TemporaryFileOperationStatus.NotFound, TemporaryFileNotFound);
+    protected IActionResult TemporaryFileNotFound()
+        => OperationStatusResult(TemporaryFileOperationStatus.NotFound, TemporaryFileNotFound);
 
     private IActionResult TemporaryFileNotFound(ProblemDetailsBuilder problemDetailsBuilder) => NotFound(problemDetailsBuilder
         .WithTitle("The temporary file could not be found")

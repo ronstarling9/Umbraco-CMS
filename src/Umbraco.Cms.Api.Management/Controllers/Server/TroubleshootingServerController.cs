@@ -13,7 +13,8 @@ public class TroubleshootingServerController : ServerControllerBase
     private readonly ISystemTroubleshootingInformationService _systemTroubleshootingInformationService;
     private readonly IUmbracoMapper _mapper;
 
-    public TroubleshootingServerController(ISystemTroubleshootingInformationService systemTroubleshootingInformationService, IUmbracoMapper mapper)
+    public TroubleshootingServerController(
+        ISystemTroubleshootingInformationService systemTroubleshootingInformationService, IUmbracoMapper mapper)
     {
         _systemTroubleshootingInformationService = systemTroubleshootingInformationService;
         _mapper = mapper;
@@ -26,7 +27,9 @@ public class TroubleshootingServerController : ServerControllerBase
     [EndpointDescription("Gets troubleshooting information and diagnostics for the server.")]
     public Task<IActionResult> GetTroubleshooting(CancellationToken cancellationToken)
     {
-        ServerTroubleshootingResponseModel responseModel = _mapper.Map<ServerTroubleshootingResponseModel>(_systemTroubleshootingInformationService.GetTroubleshootingInformation())!;
+        ServerTroubleshootingResponseModel responseModel =
+            _mapper.Map<ServerTroubleshootingResponseModel>(
+                _systemTroubleshootingInformationService.GetTroubleshootingInformation())!;
 
         return Task.FromResult<IActionResult>(Ok(responseModel));
     }

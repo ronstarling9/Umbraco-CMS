@@ -30,7 +30,8 @@ public class ItemStaticFileItemController : StaticFileItemControllerBase
         }
 
         paths = paths.Select(path => path.VirtualPathToSystemPath()).ToHashSet();
-        IEnumerable<StaticFileItemResponseModel> responseModels = _fileItemPresentationFactory.CreateStaticFileItemResponseModels(paths);
+        IEnumerable<StaticFileItemResponseModel> responseModels =
+            _fileItemPresentationFactory.CreateStaticFileItemResponseModels(paths);
         return Task.FromResult<IActionResult>(Ok(responseModels));
     }
 }

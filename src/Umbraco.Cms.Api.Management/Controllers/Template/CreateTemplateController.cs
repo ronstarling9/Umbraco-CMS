@@ -31,7 +31,8 @@ public class CreateTemplateController : TemplateControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Creates a new template.")]
     [EndpointDescription("Creates a new template with the configuration specified in the request model.")]
-    public async Task<IActionResult> Create(CancellationToken cancellationToken, CreateTemplateRequestModel requestModel)
+    public async Task<IActionResult> Create(
+        CancellationToken cancellationToken, CreateTemplateRequestModel requestModel)
     {
         Attempt<ITemplate, TemplateOperationStatus> result = await _templateService.CreateAsync(
             requestModel.Name,

@@ -41,7 +41,8 @@ public class AncestorsTemplateItemController : TemplateItemControllerBase
             return Ok(Enumerable.Empty<ItemAncestorsResponseModel<TemplateItemResponseModel>>());
         }
 
-        IEnumerable<ItemAncestorsResponseModel<TemplateItemResponseModel>> result = await _itemAncestorService.GetAncestorsAsync<TemplateItemResponseModel>(
+        IEnumerable<ItemAncestorsResponseModel<TemplateItemResponseModel>> result =
+            await _itemAncestorService.GetAncestorsAsync<TemplateItemResponseModel>(
             UmbracoObjectTypes.Template,
             null,
             ids,
@@ -49,7 +50,8 @@ public class AncestorsTemplateItemController : TemplateItemControllerBase
             {
                 Guid[] ancestorKeys = ancestors.Select(a => a.Key).ToArray();
                 IEnumerable<ITemplate> templates = await _templateService.GetAllAsync(ancestorKeys);
-                return _umbracoMapper.MapEnumerable<ITemplate, TemplateItemResponseModel>(templates);
+                return _umbracoMapper.MapEnumerable<ITemplate, TemplateItemResponseModel>(
+                    templates);
             });
 
         return Ok(result);

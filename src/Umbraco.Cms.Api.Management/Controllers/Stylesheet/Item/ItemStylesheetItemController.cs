@@ -30,7 +30,8 @@ public class ItemStylesheetItemController : StylesheetItemControllerBase
         }
 
         paths = paths.Select(path => path.VirtualPathToSystemPath()).ToHashSet();
-        IEnumerable<StylesheetItemResponseModel> responseModels = _fileItemPresentationFactory.CreateStylesheetItemResponseModels(paths);
+        IEnumerable<StylesheetItemResponseModel> responseModels =
+            _fileItemPresentationFactory.CreateStylesheetItemResponseModels(paths);
         return Task.FromResult<IActionResult>(Ok(responseModels));
     }
 }

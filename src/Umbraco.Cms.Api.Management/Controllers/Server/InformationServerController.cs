@@ -13,7 +13,8 @@ public class InformationServerController : ServerControllerBase
     private readonly IServerInformationService _serverInformationService;
     private readonly IUmbracoMapper _umbracoMapper;
 
-    public InformationServerController(IServerInformationService serverInformationService, IUmbracoMapper umbracoMapper)
+    public InformationServerController(
+        IServerInformationService serverInformationService, IUmbracoMapper umbracoMapper)
     {
         _serverInformationService = serverInformationService;
         _umbracoMapper = umbracoMapper;
@@ -26,7 +27,8 @@ public class InformationServerController : ServerControllerBase
     [EndpointDescription("Gets detailed information about the server environment and configuration.")]
     public Task<IActionResult> Information(CancellationToken cancellationToken)
     {
-        ServerInformationResponseModel responseModel = _umbracoMapper.Map<ServerInformationResponseModel>(_serverInformationService.GetServerInformation())!;
+        ServerInformationResponseModel responseModel =
+            _umbracoMapper.Map<ServerInformationResponseModel>(_serverInformationService.GetServerInformation())!;
 
         return Task.FromResult<IActionResult>(Ok(responseModel));
     }

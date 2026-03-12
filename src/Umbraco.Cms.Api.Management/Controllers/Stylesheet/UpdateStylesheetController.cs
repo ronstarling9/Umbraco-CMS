@@ -47,7 +47,8 @@ public class UpdateStylesheetController : StylesheetControllerBase
         path = DecodePath(path).VirtualPathToSystemPath();
         StylesheetUpdateModel updateModel = _umbracoMapper.Map<StylesheetUpdateModel>(requestModel)!;
 
-        Attempt<IStylesheet?, StylesheetOperationStatus> updateAttempt = await _stylesheetService.UpdateAsync(path, updateModel, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IStylesheet?, StylesheetOperationStatus> updateAttempt =
+            await _stylesheetService.UpdateAsync(path, updateModel, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return updateAttempt.Success
             ? Ok()

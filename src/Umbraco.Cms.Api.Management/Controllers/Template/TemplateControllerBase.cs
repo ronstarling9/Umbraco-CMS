@@ -14,7 +14,8 @@ namespace Umbraco.Cms.Api.Management.Controllers.Template;
 [Authorize(Policy = AuthorizationPolicies.TreeAccessTemplates)]
 public class TemplateControllerBase : ManagementApiControllerBase
 {
-    protected IActionResult TemplateOperationStatusResult(TemplateOperationStatus status) =>
+    protected IActionResult TemplateOperationStatusResult(TemplateOperationStatus status)
+        =>
         OperationStatusResult(status, problemDetailsBuilder => status switch
         {
             TemplateOperationStatus.TemplateNotFound => TemplateNotFound(),
@@ -62,6 +63,6 @@ public class TemplateControllerBase : ManagementApiControllerBase
 
     protected IActionResult TemplateNotFound(ProblemDetailsBuilder problemDetailsBuilder)
         => NotFound(problemDetailsBuilder
-        .WithTitle("The template could not be found")
+            .WithTitle("The template could not be found")
         .Build());
 }

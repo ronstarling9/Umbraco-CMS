@@ -35,7 +35,8 @@ public class DeleteStylesheetController : StylesheetControllerBase
     public async Task<IActionResult> Delete(CancellationToken cancellationToken, string path)
     {
         path = DecodePath(path).VirtualPathToSystemPath();
-        StylesheetOperationStatus operationStatus = await _stylesheetService.DeleteAsync(path, CurrentUserKey(_backOfficeSecurityAccessor));
+        StylesheetOperationStatus operationStatus =
+            await _stylesheetService.DeleteAsync(path, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return operationStatus is StylesheetOperationStatus.Success
             ? Ok()
