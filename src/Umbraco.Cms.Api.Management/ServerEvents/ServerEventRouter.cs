@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using System.IO;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Core;
@@ -53,10 +54,8 @@ internal sealed class ServerEventRouter : IServerEventRouter
         {
             await _eventHub.Clients.Group(serverEvent.EventSource).notify(serverEvent);
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is HubException or IOException or OperationCanceledException)
         {
-            // Intentionally broad: SignalR hub delivery can fail with HubException, IOException, or other
-            // transport-layer exceptions. Server event routing must not propagate failures to callers.
             _logger.LogWarning(ex, "Failed to route server event {EventType} for {EventSource}", serverEvent.EventType, serverEvent.EventSource);
         }
     }
@@ -80,10 +79,8 @@ internal sealed class ServerEventRouter : IServerEventRouter
         {
             await _eventHub.Clients.Clients(userConnections).notify(serverEvent);
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is HubException or IOException or OperationCanceledException)
         {
-            // Intentionally broad: SignalR hub delivery can fail with HubException, IOException, or other
-            // transport-layer exceptions. Server event routing must not propagate failures to callers.
             _logger.LogWarning(ex, "Failed to notify user {UserKey} of server event {EventType}", userKey, serverEvent.EventType);
         }
     }
@@ -100,10 +97,8 @@ internal sealed class ServerEventRouter : IServerEventRouter
         {
             await _eventHub.Clients.All.notify(serverEvent);
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is HubException or IOException or OperationCanceledException)
         {
-            // Intentionally broad: SignalR hub delivery can fail with HubException, IOException, or other
-            // transport-layer exceptions. Server event routing must not propagate failures to callers.
             _logger.LogWarning(ex, "Failed to broadcast server event {EventType}", serverEvent.EventType);
         }
     }
