@@ -14,7 +14,8 @@ public class ConfigurationCurrentUserController : CurrentUserControllerBase
 {
     private readonly IUserPresentationFactory _userPresentationFactory;
 
-    public ConfigurationCurrentUserController(IUserPresentationFactory userPresentationFactory) => _userPresentationFactory = userPresentationFactory;
+    public ConfigurationCurrentUserController(IUserPresentationFactory userPresentationFactory)
+        => _userPresentationFactory = userPresentationFactory;
 
     [MapToApiVersion("1.0")]
     [HttpGet("configuration")]
@@ -23,7 +24,8 @@ public class ConfigurationCurrentUserController : CurrentUserControllerBase
     [EndpointDescription("Gets the configuration settings for the current user.")]
     public async Task<IActionResult> Configuration(CancellationToken cancellationToken)
     {
-        CurrentUserConfigurationResponseModel model = await _userPresentationFactory.CreateCurrentUserConfigurationModelAsync();
+        CurrentUserConfigurationResponseModel model =
+            await _userPresentationFactory.CreateCurrentUserConfigurationModelAsync();
         return Ok(model);
     }
 }

@@ -15,7 +15,9 @@ public class DeleteWebhookController : WebhookControllerBase
     private readonly IWebhookService _webhookService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public DeleteWebhookController(IWebhookService webhookService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public DeleteWebhookController(
+        IWebhookService webhookService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _webhookService = webhookService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;

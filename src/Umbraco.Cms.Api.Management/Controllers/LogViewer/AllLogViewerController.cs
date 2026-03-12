@@ -57,7 +57,8 @@ public class AllLogViewerController : LogViewerControllerBase
         var levels = logLevels?.Select(l => l.ToString()).ToArray();
 
         Attempt<PagedModel<ILogEntry>?, LogViewerOperationStatus> logsAttempt =
-            await _logViewerService.GetPagedLogsAsync(startDate, endDate, skip, take, orderDirection, filterExpression, levels);
+            await _logViewerService.GetPagedLogsAsync(
+                startDate, endDate, skip, take, orderDirection, filterExpression, levels);
 
         if (logsAttempt.Success)
         {

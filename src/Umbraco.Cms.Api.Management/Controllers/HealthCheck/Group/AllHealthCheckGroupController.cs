@@ -46,7 +46,8 @@ public class AllHealthCheckGroupController : HealthCheckGroupControllerBase
         var viewModel = new PagedViewModel<HealthCheckGroupResponseModel>
         {
             Total = groups.Length,
-            Items = _umbracoMapper.MapEnumerable<IGrouping<string?, Core.HealthChecks.HealthCheck>, HealthCheckGroupResponseModel>(groups.Skip(skip).Take(take))
+            Items = _umbracoMapper.MapEnumerable<IGrouping<string?, Core.HealthChecks.HealthCheck>, HealthCheckGroupResponseModel>(
+                groups.Skip(skip).Take(take))
         };
 
         return Task.FromResult<ActionResult<PagedViewModel<HealthCheckGroupResponseModel>>>(Ok(viewModel));

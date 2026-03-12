@@ -23,7 +23,10 @@ public class DomainsController : DocumentControllerBase
     private readonly IUmbracoMapper _umbracoMapper;
 
     [ActivatorUtilitiesConstructor]
-    public DomainsController(IAuthorizationService authorizationService, IDomainService domainService, IUmbracoMapper umbracoMapper)
+    public DomainsController(
+        IAuthorizationService authorizationService,
+        IDomainService domainService,
+        IUmbracoMapper umbracoMapper)
     {
         _authorizationService = authorizationService;
         _domainService = domainService;

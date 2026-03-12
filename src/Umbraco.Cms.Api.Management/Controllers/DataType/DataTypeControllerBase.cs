@@ -53,7 +53,8 @@ public abstract class DataTypeControllerBase : ManagementApiControllerBase
                 .Build()),
         });
 
-    protected IActionResult DataTypeNotFound() => OperationStatusResult(DataTypeOperationStatus.NotFound, DataTypeNotFound);
+    protected IActionResult DataTypeNotFound()
+        => OperationStatusResult(DataTypeOperationStatus.NotFound, DataTypeNotFound);
 
     private IActionResult DataTypeNotFound(ProblemDetailsBuilder problemDetailsBuilder)
         => NotFound(problemDetailsBuilder

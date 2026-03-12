@@ -44,7 +44,8 @@ public class RestoreDocumentRecycleBinController : DocumentRecycleBinControllerB
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [EndpointSummary("Restores a document from the recycle bin.")]
     [EndpointDescription("Restores a document from the recycle bin to its original location or a specified parent.")]
-    public async Task<IActionResult> Restore(CancellationToken cancellationToken, Guid id, MoveMediaRequestModel moveDocumentRequestModel)
+    public async Task<IActionResult> Restore(
+        CancellationToken cancellationToken, Guid id, MoveMediaRequestModel moveDocumentRequestModel)
     {
         AuthorizationResult authorizationResult = await _authorizationService.AuthorizeResourceAsync(
             User,

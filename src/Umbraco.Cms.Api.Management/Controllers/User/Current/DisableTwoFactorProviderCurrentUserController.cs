@@ -36,7 +36,8 @@ public class DisableTwoFactorProviderCurrentUserController : CurrentUserControll
     {
         Guid userKey = CurrentUserKey(_backOfficeSecurityAccessor);
 
-        Attempt<TwoFactorOperationStatus> result = await _userTwoFactorLoginService.DisableByCodeAsync(providerName, userKey, code);
+        Attempt<TwoFactorOperationStatus> result =
+            await _userTwoFactorLoginService.DisableByCodeAsync(providerName, userKey, code);
 
         return result.Success
             ? Ok()

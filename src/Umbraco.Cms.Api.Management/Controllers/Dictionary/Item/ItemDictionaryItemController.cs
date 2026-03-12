@@ -36,7 +36,8 @@ public class ItemDictionaryItemController : DictionaryItemControllerBase
 
         IEnumerable<IDictionaryItem> dictionaryItems = await _dictionaryItemService.GetManyAsync(ids.ToArray());
 
-        List<DictionaryItemItemResponseModel> responseModels = _mapper.MapEnumerable<IDictionaryItem, DictionaryItemItemResponseModel>(dictionaryItems);
+        List<DictionaryItemItemResponseModel> responseModels =
+            _mapper.MapEnumerable<IDictionaryItem, DictionaryItemItemResponseModel>(dictionaryItems);
         return Ok(responseModels);
     }
 }

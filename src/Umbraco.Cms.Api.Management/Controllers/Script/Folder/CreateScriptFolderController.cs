@@ -36,10 +36,12 @@ public class CreateScriptFolderController : ScriptFolderControllerBase
         CreateScriptFolderRequestModel requestModel)
     {
         ScriptFolderCreateModel createModel = _mapper.Map<ScriptFolderCreateModel>(requestModel)!;
-        Attempt<ScriptFolderModel?, ScriptFolderOperationStatus> result = await _scriptFolderService.CreateAsync(createModel);
+        Attempt<ScriptFolderModel?, ScriptFolderOperationStatus> result =
+            await _scriptFolderService.CreateAsync(createModel);
 
         return result.Success
-            ? CreatedAtPath<ByPathScriptFolderController>(controller => nameof(controller.ByPath), result.Result!.Path.SystemPathToVirtualPath())
+            ? CreatedAtPath<ByPathScriptFolderController>(
+                controller => nameof(controller.ByPath), result.Result!.Path.SystemPathToVirtualPath())
             : OperationStatusResult(result.Status);
     }
 }

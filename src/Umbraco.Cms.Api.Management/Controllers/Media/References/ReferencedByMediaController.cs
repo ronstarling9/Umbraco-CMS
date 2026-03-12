@@ -25,7 +25,8 @@ public class ReferencedByMediaController : MediaControllerBase
         _relationTypePresentationFactory = relationTypePresentationFactory;
     }
 
-    [Obsolete("Use the ReferencedBy2 action method instead. Scheduled for removal in Umbraco 19, when ReferencedBy2 will be renamed back to ReferencedBy.")]
+    [Obsolete("Use the ReferencedBy2 action method instead. Scheduled for removal in Umbraco 19, "
+        + "when ReferencedBy2 will be renamed back to ReferencedBy.")]
     [NonAction]
     public async Task<ActionResult<PagedViewModel<IReferenceResponseModel>>> ReferencedBy(
         CancellationToken cancellationToken,
@@ -33,7 +34,8 @@ public class ReferencedByMediaController : MediaControllerBase
         int skip = 0,
         int take = 20)
     {
-        PagedModel<RelationItemModel> relationItems = await _trackedReferencesService.GetPagedRelationsForItemAsync(id, skip, take, true);
+        PagedModel<RelationItemModel> relationItems =
+            await _trackedReferencesService.GetPagedRelationsForItemAsync(id, skip, take, true);
 
         var pagedViewModel = new PagedViewModel<IReferenceResponseModel>
         {
@@ -56,14 +58,17 @@ public class ReferencedByMediaController : MediaControllerBase
     [ProducesResponseType(typeof(PagedViewModel<IReferenceResponseModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Gets a collection of items that reference a media item.")]
-    [EndpointDescription("Gets a paginated collection of items that reference the media item identified by the provided Id.")]
+    [EndpointDescription(
+        "Gets a paginated collection of items that reference the media item identified by the provided Id.")]
     public async Task<IActionResult> ReferencedBy2(
         CancellationToken cancellationToken,
         Guid id,
         int skip = 0,
         int take = 20)
     {
-        Attempt<PagedModel<RelationItemModel>, GetReferencesOperationStatus> relationItemsAttempt = await _trackedReferencesService.GetPagedRelationsForItemAsync(id, UmbracoObjectTypes.Media, skip, take, true);
+        Attempt<PagedModel<RelationItemModel>, GetReferencesOperationStatus> relationItemsAttempt =
+            await _trackedReferencesService.GetPagedRelationsForItemAsync(
+                id, UmbracoObjectTypes.Media, skip, take, true);
 
         if (relationItemsAttempt.Success is false)
         {
@@ -73,7 +78,8 @@ public class ReferencedByMediaController : MediaControllerBase
         var pagedViewModel = new PagedViewModel<IReferenceResponseModel>
         {
             Total = relationItemsAttempt.Result.Total,
-            Items = await _relationTypePresentationFactory.CreateReferenceResponseModelsAsync(relationItemsAttempt.Result.Items),
+            Items = await _relationTypePresentationFactory
+                .CreateReferenceResponseModelsAsync(relationItemsAttempt.Result.Items),
         };
 
         return Ok(pagedViewModel);

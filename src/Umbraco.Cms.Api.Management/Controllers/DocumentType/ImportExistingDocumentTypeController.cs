@@ -39,7 +39,8 @@ public class ImportExistingDocumentTypeController : DocumentTypeControllerBase
         Guid id,
         ImportDocumentTypeRequestModel model)
     {
-        Attempt<IContentType?, ContentTypeImportOperationStatus> importAttempt = await _contentTypeImportService.Import(model.File.Id, CurrentUserKey(_backOfficeSecurityAccessor), id);
+        Attempt<IContentType?, ContentTypeImportOperationStatus> importAttempt =
+            await _contentTypeImportService.Import(model.File.Id, CurrentUserKey(_backOfficeSecurityAccessor), id);
 
         return importAttempt.Success is false
             ? ContentTypeImportOperationStatusResult(importAttempt.Status)

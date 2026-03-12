@@ -47,7 +47,8 @@ public class BuildModelsBuilderController : ModelsBuilderControllerBase
                     Type = "Error",
                 };
 
-                return Task.FromResult<IActionResult>(new ObjectResult(problemDetailsModel) { StatusCode = StatusCodes.Status428PreconditionRequired });
+                return Task.FromResult<IActionResult>(
+                    new ObjectResult(problemDetailsModel) { StatusCode = StatusCodes.Status428PreconditionRequired });
             }
 
             _modelGenerator.GenerateModels();

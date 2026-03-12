@@ -14,13 +14,20 @@ public class ScriptViewModelsMapDefinition : IMapDefinition
 {
     public void DefineMaps(IUmbracoMapper mapper)
     {
-        mapper.Define<IScript, ScriptResponseModel>((_, _) => new ScriptResponseModel { Name = string.Empty, Path = string.Empty, Content = string.Empty }, Map);
-        mapper.Define<CreateScriptRequestModel, ScriptCreateModel>((_, _) => new ScriptCreateModel { Name = string.Empty }, Map);
-        mapper.Define<UpdateScriptRequestModel, ScriptUpdateModel>((_, _) => new ScriptUpdateModel { Content = string.Empty }, Map);
-        mapper.Define<RenameScriptRequestModel, ScriptRenameModel>((_, _) => new ScriptRenameModel { Name = string.Empty }, Map);
+        mapper.Define<IScript, ScriptResponseModel>(
+            (_, _) => new ScriptResponseModel { Name = string.Empty, Path = string.Empty, Content = string.Empty },
+            Map);
+        mapper.Define<CreateScriptRequestModel, ScriptCreateModel>(
+            (_, _) => new ScriptCreateModel { Name = string.Empty }, Map);
+        mapper.Define<UpdateScriptRequestModel, ScriptUpdateModel>(
+            (_, _) => new ScriptUpdateModel { Content = string.Empty }, Map);
+        mapper.Define<RenameScriptRequestModel, ScriptRenameModel>(
+            (_, _) => new ScriptRenameModel { Name = string.Empty }, Map);
 
-        mapper.Define<ScriptFolderModel, ScriptFolderResponseModel>((_, _) => new ScriptFolderResponseModel { Name = string.Empty, Path = string.Empty }, Map);
-        mapper.Define<CreateScriptFolderRequestModel, ScriptFolderCreateModel>((_, _) => new ScriptFolderCreateModel { Name = string.Empty }, Map);
+        mapper.Define<ScriptFolderModel, ScriptFolderResponseModel>(
+            (_, _) => new ScriptFolderResponseModel { Name = string.Empty, Path = string.Empty }, Map);
+        mapper.Define<CreateScriptFolderRequestModel, ScriptFolderCreateModel>(
+            (_, _) => new ScriptFolderCreateModel { Name = string.Empty }, Map);
     }
 
     // Umbraco.Code.MapAll

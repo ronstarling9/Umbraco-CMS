@@ -40,7 +40,8 @@ public class MemberGroupControllerBase : ManagementApiControllerBase
                 .Build()),
         };
 
-    protected IActionResult MemberGroupNotFound() => OperationStatusResult(MemberGroupOperationStatus.NotFound, problemDetailsBuilder
+    protected IActionResult MemberGroupNotFound()
+        => OperationStatusResult(MemberGroupOperationStatus.NotFound, problemDetailsBuilder
             => NotFound(problemDetailsBuilder
                 .WithTitle("The requested member group could not be found")
                 .Build()));

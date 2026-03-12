@@ -38,7 +38,8 @@ public class AllRelationTypeController : RelationTypeControllerBase
         var pagedResult = new PagedViewModel<RelationTypeResponseModel>
         {
             Total = allRelationTypes.Total,
-            Items = _umbracoMapper.MapEnumerable<IRelationType, RelationTypeResponseModel>(allRelationTypes.Items.Skip(skip).Take(take)),
+            Items = _umbracoMapper.MapEnumerable<IRelationType, RelationTypeResponseModel>(
+                allRelationTypes.Items.Skip(skip).Take(take)),
         };
 
         return Ok(pagedResult);

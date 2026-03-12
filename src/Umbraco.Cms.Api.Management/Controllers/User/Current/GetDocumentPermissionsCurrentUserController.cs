@@ -38,14 +38,16 @@ public class GetDocumentPermissionsCurrentUserController : CurrentUserController
         CancellationToken cancellationToken,
         [FromQuery(Name = "id")] HashSet<Guid> ids)
     {
-        Attempt<IEnumerable<NodePermissions>, UserOperationStatus> permissionsAttempt = await _userService.GetDocumentPermissionsAsync(CurrentUserKey(_backOfficeSecurityAccessor), ids);
+        Attempt<IEnumerable<NodePermissions>, UserOperationStatus> permissionsAttempt =
+            await _userService.GetDocumentPermissionsAsync(CurrentUserKey(_backOfficeSecurityAccessor), ids);
 
         if (permissionsAttempt.Success is false)
         {
             return UserOperationStatusResult(permissionsAttempt.Status);
         }
 
-        List<UserPermissionViewModel> viewModels = _mapper.MapEnumerable<NodePermissions, UserPermissionViewModel>(permissionsAttempt.Result);
+        List<UserPermissionViewModel> viewModels =
+            _mapper.MapEnumerable<NodePermissions, UserPermissionViewModel>(permissionsAttempt.Result);
 
         return Ok(new UserPermissionsResponseModel { Permissions = viewModels });
     }

@@ -18,7 +18,10 @@ public class AncestorsMediaTypeTreeController : MediaTypeTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public AncestorsMediaTypeTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IMediaTypeService mediaTypeService)
+    public AncestorsMediaTypeTreeController(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IMediaTypeService mediaTypeService)
         : base(entityService, flagProviders, mediaTypeService)
     {
     }

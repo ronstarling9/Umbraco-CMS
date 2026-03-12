@@ -10,9 +10,12 @@ public class HealthCheckViewModelsMapDefinition : IMapDefinition
     public void DefineMaps(IUmbracoMapper mapper)
     {
         mapper.Define<HealthCheckActionRequestModel, HealthCheckAction>((_, _) => new HealthCheckAction(), Map);
-        mapper.Define<HealthCheckAction, HealthCheckActionRequestModel>((_, _) => new HealthCheckActionRequestModel { ValueRequired = false, HealthCheck = new() }, Map);
-        mapper.Define<HealthCheckStatus, HealthCheckResultResponseModel>((_, _) => new HealthCheckResultResponseModel { Message = string.Empty }, Map);
-        mapper.Define<Core.HealthChecks.HealthCheck, HealthCheckViewModel>((_, _) => new HealthCheckViewModel { Name = string.Empty }, Map);
+        mapper.Define<HealthCheckAction, HealthCheckActionRequestModel>(
+            (_, _) => new HealthCheckActionRequestModel { ValueRequired = false, HealthCheck = new() }, Map);
+        mapper.Define<HealthCheckStatus, HealthCheckResultResponseModel>(
+            (_, _) => new HealthCheckResultResponseModel { Message = string.Empty }, Map);
+        mapper.Define<Core.HealthChecks.HealthCheck, HealthCheckViewModel>(
+            (_, _) => new HealthCheckViewModel { Name = string.Empty }, Map);
         mapper.Define<IGrouping<string?, Core.HealthChecks.HealthCheck>, HealthCheckGroupPresentationModel>(
             (_, _) => new HealthCheckGroupPresentationModel
             {
@@ -20,7 +23,8 @@ public class HealthCheckViewModelsMapDefinition : IMapDefinition
                 Checks = new List<HealthCheckViewModel>()
             },
             Map);
-        mapper.Define<IGrouping<string?, Core.HealthChecks.HealthCheck>, HealthCheckGroupResponseModel>((_, _) => new HealthCheckGroupResponseModel { Name = string.Empty }, Map);
+        mapper.Define<IGrouping<string?, Core.HealthChecks.HealthCheck>, HealthCheckGroupResponseModel>(
+            (_, _) => new HealthCheckGroupResponseModel { Name = string.Empty }, Map);
     }
 
     // Umbraco.Code.MapAll
@@ -41,7 +45,8 @@ public class HealthCheckViewModelsMapDefinition : IMapDefinition
     private static void Map(HealthCheckAction source, HealthCheckActionRequestModel target, MapperContext context)
     {
         Guid healthCheckId = source.HealthCheckId
-                             ?? throw new ArgumentException("Cannot map a health check action without a health check", nameof(source));
+            ?? throw new ArgumentException(
+                "Cannot map a health check action without a health check", nameof(source));
 
         target.HealthCheck = new ReferenceByIdModel(healthCheckId);
         target.Alias = source.Alias;
@@ -72,18 +77,25 @@ public class HealthCheckViewModelsMapDefinition : IMapDefinition
     }
 
     // Umbraco.Code.MapAll
-    private static void Map(IGrouping<string?, Core.HealthChecks.HealthCheck> source, HealthCheckGroupPresentationModel target, MapperContext context)
+    private static void Map(
+        IGrouping<string?, Core.HealthChecks.HealthCheck> source,
+        HealthCheckGroupPresentationModel target,
+        MapperContext context)
     {
         if (source.Key is not null)
         {
             target.Name = source.Key;
         }
 
-        target.Checks = context.MapEnumerable<Core.HealthChecks.HealthCheck, HealthCheckViewModel>(source.OrderBy(x => x.Name));
+        target.Checks = context.MapEnumerable<Core.HealthChecks.HealthCheck, HealthCheckViewModel>(
+            source.OrderBy(x => x.Name));
     }
 
     // Umbraco.Code.MapAll
-    private static void Map(IGrouping<string?, Core.HealthChecks.HealthCheck> source, HealthCheckGroupResponseModel target, MapperContext context)
+    private static void Map(
+        IGrouping<string?, Core.HealthChecks.HealthCheck> source,
+        HealthCheckGroupResponseModel target,
+        MapperContext context)
     {
         if (source.Key is not null)
         {

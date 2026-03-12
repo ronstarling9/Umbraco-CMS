@@ -41,7 +41,8 @@ public class DocumentPreviewUrlController : DocumentControllerBase
                 .Build());
         }
 
-        DocumentUrlInfo? previewUrlInfo = await _documentUrlFactory.GetPreviewUrlAsync(content, providerAlias, culture, segment);
+        DocumentUrlInfo? previewUrlInfo =
+            await _documentUrlFactory.GetPreviewUrlAsync(content, providerAlias, culture, segment);
         if (previewUrlInfo is null)
         {
             return BadRequest(new ProblemDetailsBuilder()

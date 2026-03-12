@@ -26,7 +26,9 @@ public class AncestorsMediaItemController : MediaItemControllerBase
 
     [HttpGet("ancestors")]
     [MapToApiVersion("1.0")]
-    [ProducesResponseType(typeof(IEnumerable<ItemAncestorsResponseModel<MediaItemResponseModel>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(
+        typeof(IEnumerable<ItemAncestorsResponseModel<MediaItemResponseModel>>),
+        StatusCodes.Status200OK)]
     [EndpointSummary("Gets ancestors for a collection of media items.")]
     [EndpointDescription("Gets the ancestor chains for media items identified by the provided Ids.")]
     public async Task<IActionResult> Ancestors(
@@ -38,7 +40,8 @@ public class AncestorsMediaItemController : MediaItemControllerBase
             return Ok(Enumerable.Empty<ItemAncestorsResponseModel<MediaItemResponseModel>>());
         }
 
-        IEnumerable<ItemAncestorsResponseModel<MediaItemResponseModel>> result = await _itemAncestorService.GetAncestorsAsync(
+        IEnumerable<ItemAncestorsResponseModel<MediaItemResponseModel>> result =
+            await _itemAncestorService.GetAncestorsAsync(
             UmbracoObjectTypes.Media,
             null,
             ids,

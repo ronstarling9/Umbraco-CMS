@@ -37,7 +37,8 @@ public class EnableTwoFactorProviderCurrentUserController : CurrentUserControlle
     {
         Guid userKey = CurrentUserKey(_backOfficeSecurityAccessor);
 
-        Attempt<TwoFactorOperationStatus> result = await _userTwoFactorLoginService.ValidateAndSaveAsync(providerName, userKey, model.Secret, model.Code);
+        Attempt<TwoFactorOperationStatus> result =
+            await _userTwoFactorLoginService.ValidateAndSaveAsync(providerName, userKey, model.Secret, model.Code);
 
         return result.Success
             ? Ok()

@@ -44,7 +44,8 @@ public class CreateMediaTypeController : MediaTypeControllerBase
         CreateMediaTypeRequestModel requestModel)
     {
         MediaTypeCreateModel model = _mediaTypeEditingPresentationFactory.MapCreateModel(requestModel);
-        Attempt<IMediaType?, ContentTypeOperationStatus> result = await _mediaTypeEditingService.CreateAsync(model, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IMediaType?, ContentTypeOperationStatus> result =
+            await _mediaTypeEditingService.CreateAsync(model, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? CreatedAtId<ByKeyMediaTypeController>(controller => nameof(controller.ByKey), result.Result!.Key)

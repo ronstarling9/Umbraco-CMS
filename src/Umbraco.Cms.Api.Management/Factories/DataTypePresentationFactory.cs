@@ -36,14 +36,18 @@ public class DataTypePresentationFactory : IDataTypePresentationFactory
     {
         if (!_propertyEditorCollection.TryGet(requestModel.EditorAlias, out IDataEditor? editor))
         {
-            return Attempt.FailWithStatus<IDataType, DataTypeOperationStatus>(DataTypeOperationStatus.PropertyEditorNotFound, new DataType(new VoidEditor(_dataValueEditorFactory), _configurationEditorJsonSerializer));
+            return Attempt.FailWithStatus<IDataType, DataTypeOperationStatus>(
+                DataTypeOperationStatus.PropertyEditorNotFound,
+                new DataType(new VoidEditor(_dataValueEditorFactory), _configurationEditorJsonSerializer));
         }
 
         Attempt<int, DataTypeOperationStatus> parentAttempt = await GetParentId(requestModel);
 
         if (parentAttempt.Success == false)
         {
-            return Attempt.FailWithStatus<IDataType, DataTypeOperationStatus>(parentAttempt.Status, new DataType(new VoidEditor(_dataValueEditorFactory), _configurationEditorJsonSerializer));
+            return Attempt.FailWithStatus<IDataType, DataTypeOperationStatus>(
+                parentAttempt.Status,
+                new DataType(new VoidEditor(_dataValueEditorFactory), _configurationEditorJsonSerializer));
         }
 
         DateTime createDate = _timeProvider.GetLocalNow().DateTime;
@@ -89,11 +93,14 @@ public class DataTypePresentationFactory : IDataTypePresentationFactory
         return Attempt.SucceedWithStatus(DataTypeOperationStatus.Success, Constants.System.Root);
     }
 
-    public Task<Attempt<IDataType, DataTypeOperationStatus>> CreateAsync(UpdateDataTypeRequestModel requestModel, IDataType current)
+    public Task<Attempt<IDataType, DataTypeOperationStatus>> CreateAsync(
+        UpdateDataTypeRequestModel requestModel, IDataType current)
     {
         if (!_propertyEditorCollection.TryGet(requestModel.EditorAlias, out IDataEditor? editor))
         {
-            return Task.FromResult(Attempt.FailWithStatus<IDataType, DataTypeOperationStatus>(DataTypeOperationStatus.PropertyEditorNotFound, new DataType(new VoidEditor(_dataValueEditorFactory), _configurationEditorJsonSerializer) ));
+            return Task.FromResult(Attempt.FailWithStatus<IDataType, DataTypeOperationStatus>(
+                DataTypeOperationStatus.PropertyEditorNotFound,
+                new DataType(new VoidEditor(_dataValueEditorFactory), _configurationEditorJsonSerializer)));
         }
 
         IDataType dataType = (IDataType)current.DeepClone();
@@ -105,11 +112,13 @@ public class DataTypePresentationFactory : IDataTypePresentationFactory
         dataType.DatabaseType = GetEditorValueStorageType(editor, configurationData);
         dataType.ConfigurationData = configurationData;
 
-        return Task.FromResult(Attempt.SucceedWithStatus<IDataType, DataTypeOperationStatus>(DataTypeOperationStatus.Success, dataType));
+        return Task.FromResult(Attempt.SucceedWithStatus<IDataType, DataTypeOperationStatus>(
+            DataTypeOperationStatus.Success, dataType));
     }
 
 
-    private ValueStorageType GetEditorValueStorageType(IDataEditor editor, IDictionary<string, object> configurationData)
+    private ValueStorageType GetEditorValueStorageType(
+        IDataEditor editor, IDictionary<string, object> configurationData)
     {
         var configurationObject = editor.GetConfigurationEditor()
             .ToConfigurationObject(configurationData, _configurationEditorJsonSerializer);
@@ -123,7 +132,8 @@ public class DataTypePresentationFactory : IDataTypePresentationFactory
         return ValueTypes.ToStorageType(valueType);
     }
 
-    private IDictionary<string, object> MapConfigurationData<T>(T source, IDataEditor editor) where T : DataTypeModelBase
+    private IDictionary<string, object> MapConfigurationData<T>(T source, IDataEditor editor)
+        where T : DataTypeModelBase
     {
         var configuration = source
             .Values

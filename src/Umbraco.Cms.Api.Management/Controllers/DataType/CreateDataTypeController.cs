@@ -21,7 +21,10 @@ public class CreateDataTypeController : DataTypeControllerBase
     private readonly IDataTypePresentationFactory _dataTypePresentationFactory;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public CreateDataTypeController(IDataTypeService dataTypeService, IDataTypePresentationFactory dataTypePresentationFactory, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public CreateDataTypeController(
+        IDataTypeService dataTypeService,
+        IDataTypePresentationFactory dataTypePresentationFactory,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _dataTypeService = dataTypeService;
         _dataTypePresentationFactory = dataTypePresentationFactory;
@@ -35,7 +38,9 @@ public class CreateDataTypeController : DataTypeControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Creates a new data type.")]
     [EndpointDescription("Creates a new data type with the configuration specified in the request model.")]
-    public async Task<IActionResult> Create(CancellationToken cancellationToken, CreateDataTypeRequestModel createDataTypeRequestModel)
+    public async Task<IActionResult> Create(
+        CancellationToken cancellationToken,
+        CreateDataTypeRequestModel createDataTypeRequestModel)
     {
         var attempt = await _dataTypePresentationFactory.CreateAsync(createDataTypeRequestModel);
         if (!attempt.Success)
@@ -43,7 +48,8 @@ public class CreateDataTypeController : DataTypeControllerBase
             return DataTypeOperationStatusResult(attempt.Status);
         }
 
-        Attempt<IDataType, DataTypeOperationStatus> result = await _dataTypeService.CreateAsync(attempt.Result, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IDataType, DataTypeOperationStatus> result =
+            await _dataTypeService.CreateAsync(attempt.Result, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? CreatedAtId<ByKeyDataTypeController>(controller => nameof(controller.ByKey), result.Result.Key)

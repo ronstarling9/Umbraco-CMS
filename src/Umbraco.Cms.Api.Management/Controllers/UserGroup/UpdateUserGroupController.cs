@@ -46,14 +46,16 @@ public class UpdateUserGroupController : UserGroupControllerBase
             return UserGroupOperationStatusResult(UserGroupOperationStatus.NotFound);
         }
 
-        Attempt<IUserGroup, UserGroupOperationStatus> userGroupUpdateAttempt = await _userGroupPresentationFactory.UpdateAsync(existingUserGroup, updateUserGroupRequestModel);
+        Attempt<IUserGroup, UserGroupOperationStatus> userGroupUpdateAttempt =
+            await _userGroupPresentationFactory.UpdateAsync(existingUserGroup, updateUserGroupRequestModel);
         if (userGroupUpdateAttempt.Success is false)
         {
             return UserGroupOperationStatusResult(userGroupUpdateAttempt.Status);
         }
 
         IUserGroup userGroup = userGroupUpdateAttempt.Result;
-        Attempt<IUserGroup, UserGroupOperationStatus> result = await _userGroupService.UpdateAsync(userGroup, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IUserGroup, UserGroupOperationStatus> result =
+            await _userGroupService.UpdateAsync(userGroup, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

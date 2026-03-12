@@ -38,15 +38,19 @@ public class CreateDocumentBlueprintController : DocumentBlueprintControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Creates a new document blueprint.")]
     [EndpointDescription("Creates a new document blueprint with the configuration specified in the request model.")]
-    public async Task<IActionResult> Create(CancellationToken cancellationToken, CreateDocumentBlueprintRequestModel requestModel)
+    public async Task<IActionResult> Create(
+        CancellationToken cancellationToken, CreateDocumentBlueprintRequestModel requestModel)
     {
         ContentBlueprintCreateModel model = _blueprintEditingPresentationFactory.MapCreateModel(requestModel);
 
         // We don't need to validate user access because we "only" require access to the Settings section to create new blueprints from scratch
-        Attempt<ContentCreateResult, ContentEditingOperationStatus> result = await _contentBlueprintEditingService.CreateAsync(model, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<ContentCreateResult, ContentEditingOperationStatus> result =
+            await _contentBlueprintEditingService.CreateAsync(
+                model, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
-            ? CreatedAtId<ByKeyDocumentBlueprintController>(controller => nameof(controller.ByKey), result.Result.Content!.Key)
+            ? CreatedAtId<ByKeyDocumentBlueprintController>(
+                controller => nameof(controller.ByKey), result.Result.Content!.Key)
             : ContentEditingOperationStatusResult(result.Status);
     }
 }

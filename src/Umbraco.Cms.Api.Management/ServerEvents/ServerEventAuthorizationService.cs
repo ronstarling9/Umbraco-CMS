@@ -58,7 +58,9 @@ internal sealed class ServerEventAuthorizationService : IServerEventAuthorizatio
 
         foreach (var eventSource in AuthorizableEventSources)
         {
-            if (GroupedAuthorizersByEventSource.TryGetValue(eventSource, out List<IEventSourceAuthorizer>? authorizers) is false || authorizers.Count == 0)
+            if (GroupedAuthorizersByEventSource.TryGetValue(
+                    eventSource, out List<IEventSourceAuthorizer>? authorizers) is false
+                || authorizers.Count == 0)
             {
                 throw new InvalidOperationException($"No authorizers found for event source {eventSource}");
             }

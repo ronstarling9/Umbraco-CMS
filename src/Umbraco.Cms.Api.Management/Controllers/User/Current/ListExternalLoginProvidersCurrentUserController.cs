@@ -41,7 +41,8 @@ public class ListExternalLoginProvidersCurrentUserController : CurrentUserContro
             await _backOfficeExternalLoginService.ExternalLoginStatusForUserAsync(userKey);
 
         return result.Success
-            ? Ok(_mapper.MapEnumerable<UserExternalLoginProviderModel, UserExternalLoginProviderResponseModel>(result.Result))
+            ? Ok(_mapper.MapEnumerable<UserExternalLoginProviderModel, UserExternalLoginProviderResponseModel>(
+                result.Result))
             : ExternalLoginOperationStatusResult(result.Status);
     }
 }

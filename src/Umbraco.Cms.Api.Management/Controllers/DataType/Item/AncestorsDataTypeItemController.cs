@@ -17,7 +17,9 @@ public class AncestorsDataTypeItemController : DatatypeItemControllerBase
 
     [HttpGet("ancestors")]
     [MapToApiVersion("1.0")]
-    [ProducesResponseType(typeof(IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(
+        typeof(IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>>),
+        StatusCodes.Status200OK)]
     [EndpointSummary("Gets ancestors for a collection of data type items.")]
     [EndpointDescription("Gets the ancestor chains for data type items identified by the provided Ids.")]
     public async Task<IActionResult> Ancestors(
@@ -29,10 +31,11 @@ public class AncestorsDataTypeItemController : DatatypeItemControllerBase
             return Ok(Enumerable.Empty<ItemAncestorsResponseModel<NamedItemResponseModel>>());
         }
 
-        IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>> result = await _itemAncestorService.GetAncestorsAsync(
-            UmbracoObjectTypes.DataType,
-            UmbracoObjectTypes.DataTypeContainer,
-            ids);
+        IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>> result =
+            await _itemAncestorService.GetAncestorsAsync(
+                UmbracoObjectTypes.DataType,
+                UmbracoObjectTypes.DataTypeContainer,
+                ids);
 
         return Ok(result);
     }

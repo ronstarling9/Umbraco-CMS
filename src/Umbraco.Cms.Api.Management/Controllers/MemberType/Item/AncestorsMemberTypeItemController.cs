@@ -17,7 +17,9 @@ public class AncestorsMemberTypeItemController : MemberTypeItemControllerBase
 
     [HttpGet("ancestors")]
     [MapToApiVersion("1.0")]
-    [ProducesResponseType(typeof(IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(
+        typeof(IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>>),
+        StatusCodes.Status200OK)]
     [EndpointSummary("Gets ancestors for a collection of member type items.")]
     [EndpointDescription("Gets the ancestor chains for member type items identified by the provided Ids.")]
     public async Task<IActionResult> Ancestors(
@@ -29,8 +31,9 @@ public class AncestorsMemberTypeItemController : MemberTypeItemControllerBase
             return Ok(Enumerable.Empty<ItemAncestorsResponseModel<NamedItemResponseModel>>());
         }
 
-        IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>> result = await _itemAncestorService.GetAncestorsAsync(
-            UmbracoObjectTypes.MemberType,
+        IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>> result =
+            await _itemAncestorService.GetAncestorsAsync(
+                UmbracoObjectTypes.MemberType,
             UmbracoObjectTypes.MemberTypeContainer,
             ids);
 

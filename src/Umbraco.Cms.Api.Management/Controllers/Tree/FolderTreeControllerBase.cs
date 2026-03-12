@@ -108,7 +108,8 @@ public abstract class FolderTreeControllerBase<TItem> : NamedEntityTreeControlle
             take,
             out totalItems);
 
-    protected override IEntitySlim[] GetSiblingEntities(Guid target, int before, int after, out long totalBefore, out long totalAfter)
+    protected override IEntitySlim[] GetSiblingEntities(
+        Guid target, int before, int after, out long totalBefore, out long totalAfter)
     {
         totalBefore = 0;
         totalAfter = 0;
@@ -150,7 +151,10 @@ public abstract class FolderTreeControllerBase<TItem> : NamedEntityTreeControlle
 
         var ancestorIds = entity.AncestorIds();
         // annoyingly we can't use EntityService.GetAll() with container object types, so we have to get them one by one
-        IEntitySlim[] containers = ancestorIds.Select(id => EntityService.Get(id, FolderObjectType)).WhereNotNull().ToArray();
+        IEntitySlim[] containers = ancestorIds
+            .Select(id => EntityService.Get(id, FolderObjectType))
+            .WhereNotNull()
+            .ToArray();
         IEnumerable<IEntitySlim> ancestors = ancestorIds.Any()
             ? EntityService
                 .GetAll(ItemObjectType, ancestorIds)
@@ -182,7 +186,8 @@ public abstract class FolderTreeControllerBase<TItem> : NamedEntityTreeControlle
             .ToArray();
     }
 
-    private UmbracoObjectTypes[] GetObjectTypes() => _foldersOnly ? [FolderObjectType] : [FolderObjectType, ItemObjectType];
+    private UmbracoObjectTypes[] GetObjectTypes()
+        => _foldersOnly ? [FolderObjectType] : [FolderObjectType, ItemObjectType];
 
     protected async Task<ActionResult<PagedViewModel<TItem>>> SearchTreeEntities(
         string? query,

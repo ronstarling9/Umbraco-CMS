@@ -23,7 +23,9 @@ public class DocumentBlueprintTreeControllerBase : FolderTreeControllerBase<Docu
     private readonly IDocumentPresentationFactory _documentPresentationFactory;
 
     [Obsolete("Please use the constructor taking all parameters. Scheduled for removal in Umbraco 18.")]
-    public DocumentBlueprintTreeControllerBase(IEntityService entityService, IDocumentPresentationFactory documentPresentationFactory)
+    public DocumentBlueprintTreeControllerBase(
+        IEntityService entityService,
+        IDocumentPresentationFactory documentPresentationFactory)
         : this(
               entityService,
               StaticServiceProvider.Instance.GetRequiredService<FlagProviderCollection>(),
@@ -32,7 +34,10 @@ public class DocumentBlueprintTreeControllerBase : FolderTreeControllerBase<Docu
     }
 
     [Obsolete("Please use the constructor taking all parameters. Scheduled for removal in Umbraco 19.")]
-    public DocumentBlueprintTreeControllerBase(IEntityService entityService, FlagProviderCollection flagProviders, IDocumentPresentationFactory documentPresentationFactory)
+    public DocumentBlueprintTreeControllerBase(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IDocumentPresentationFactory documentPresentationFactory)
         : this(
             entityService,
             flagProviders,
@@ -59,21 +64,25 @@ public class DocumentBlueprintTreeControllerBase : FolderTreeControllerBase<Docu
     {
         get
         {
-            var ordering = Ordering.By(Infrastructure.Persistence.Dtos.NodeDto.NodeObjectTypeColumnName, Direction.Descending); // We need to override to change direction
+            // We need to override to change direction
+            var ordering = Ordering.By(
+                Infrastructure.Persistence.Dtos.NodeDto.NodeObjectTypeColumnName, Direction.Descending);
             ordering.Next = Ordering.By(Infrastructure.Persistence.Dtos.NodeDto.TextColumnName);
 
             return ordering;
         }
     }
 
-    protected override DocumentBlueprintTreeItemResponseModel[] MapTreeItemViewModels(Guid? parentId, IEntitySlim[] entities)
+    protected override DocumentBlueprintTreeItemResponseModel[] MapTreeItemViewModels(
+        Guid? parentId, IEntitySlim[] entities)
         => entities.Select(entity =>
         {
             DocumentBlueprintTreeItemResponseModel responseModel = MapTreeItemViewModel(parentId, entity);
             if (entity is IDocumentEntitySlim documentEntitySlim)
             {
                 responseModel.HasChildren = false;
-                responseModel.DocumentType = _documentPresentationFactory.CreateDocumentTypeReferenceResponseModel(documentEntitySlim);
+                responseModel.DocumentType =
+                    _documentPresentationFactory.CreateDocumentTypeReferenceResponseModel(documentEntitySlim);
             }
             return responseModel;
         }).ToArray();

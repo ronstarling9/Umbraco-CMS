@@ -33,7 +33,10 @@ public class ItemMediaItemController : MediaItemControllerBase
 
     [Obsolete("Please use the constructor with all parameters. Scheduled for removal in Umbraco 18")]
     public ItemMediaItemController(IEntityService entityService, IMediaPresentationFactory mediaPresentationFactory)
-        : this(entityService, mediaPresentationFactory, StaticServiceProvider.Instance.GetRequiredService<FlagProviderCollection>())
+        : this(
+            entityService,
+            mediaPresentationFactory,
+            StaticServiceProvider.Instance.GetRequiredService<FlagProviderCollection>())
     {
     }
 
@@ -55,7 +58,8 @@ public class ItemMediaItemController : MediaItemControllerBase
             .GetAll(UmbracoObjectTypes.Media, ids.ToArray())
             .OfType<IMediaEntitySlim>();
 
-        IEnumerable<MediaItemResponseModel> responseModels = media.Select(_mediaPresentationFactory.CreateItemResponseModel);
+        IEnumerable<MediaItemResponseModel> responseModels =
+            media.Select(_mediaPresentationFactory.CreateItemResponseModel);
         await PopulateFlags(responseModels);
 
         return Ok(responseModels);

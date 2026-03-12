@@ -3,7 +3,9 @@ using Umbraco.Cms.Core.Models.ContentEditing;
 
 namespace Umbraco.Cms.Api.Management.Factories;
 
-internal sealed class MediaEditingPresentationFactory : ContentEditingPresentationFactory<MediaValueModel, MediaVariantRequestModel>, IMediaEditingPresentationFactory
+internal sealed class MediaEditingPresentationFactory
+    : ContentEditingPresentationFactory<MediaValueModel, MediaVariantRequestModel>,
+        IMediaEditingPresentationFactory
 {
     public MediaCreateModel MapCreateModel(CreateMediaRequestModel createRequestModel)
     {

@@ -45,12 +45,16 @@ public class CreateCreatedPackageController : CreatedPackageControllerBase
         CancellationToken cancellationToken,
         CreatePackageRequestModel createPackageRequestModel)
     {
-        PackageDefinition packageDefinition = _packagePresentationFactory.CreatePackageDefinition(createPackageRequestModel);
+        PackageDefinition packageDefinition =
+            _packagePresentationFactory.CreatePackageDefinition(createPackageRequestModel);
 
-        Attempt<PackageDefinition, PackageOperationStatus> result = await _packagingService.CreateCreatedPackageAsync(packageDefinition, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<PackageDefinition, PackageOperationStatus> result =
+            await _packagingService.CreateCreatedPackageAsync(
+                packageDefinition, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
-            ? CreatedAtId<ByKeyCreatedPackageController>(controller => nameof(controller.ByKey), packageDefinition.PackageId)
+            ? CreatedAtId<ByKeyCreatedPackageController>(
+                controller => nameof(controller.ByKey), packageDefinition.PackageId)
             : PackageOperationStatusResult(result.Status);
     }
 }

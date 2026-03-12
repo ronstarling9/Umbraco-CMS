@@ -17,7 +17,8 @@ public class SiblingMemberTypeTreeController : MemberTypeTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public SiblingMemberTypeTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IMemberTypeService memberTypeService)
+    public SiblingMemberTypeTreeController(
+        IEntityService entityService, FlagProviderCollection flagProviders, IMemberTypeService memberTypeService)
         : base(entityService, flagProviders, memberTypeService)
     {
     }

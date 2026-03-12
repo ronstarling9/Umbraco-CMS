@@ -13,7 +13,9 @@ public class TemporaryFileConfigurationPresentationFactory : ITemporaryFileConfi
     private readonly ContentSettings _contentSettings;
     private readonly ContentImagingSettings _imagingSettings;
 
-    [Obsolete("Use the constructor that accepts IOptionsSnapshot<ContentImagingSettings> and does not accept IImageUrlGenerator instead. Scheduled for removal in Umbraco 19.")]
+    [Obsolete(
+        "Use the constructor that accepts IOptionsSnapshot<ContentImagingSettings> and does not accept" +
+        " IImageUrlGenerator instead. Scheduled for removal in Umbraco 19.")]
     public TemporaryFileConfigurationPresentationFactory(
         IOptionsSnapshot<ContentSettings> contentSettings,
         IOptionsSnapshot<RuntimeSettings> runtimeSettings,
@@ -23,10 +25,14 @@ public class TemporaryFileConfigurationPresentationFactory : ITemporaryFileConfi
             runtimeSettings,
             StaticServiceProvider.Instance.GetRequiredService<IOptionsSnapshot<ContentImagingSettings>>())
     {
-        // IImageUrlGenerator parameter is ignored - kept for DI compatibility with existing registrations, but not used in the factory. This is to avoid breaking changes when adding the new constructor that accepts IOptionsSnapshot<ContentImagingSettings>.
+        // IImageUrlGenerator parameter is ignored - kept for DI compatibility with existing registrations,
+        // but not used in the factory. This is to avoid breaking changes when adding the new constructor
+        // that accepts IOptionsSnapshot<ContentImagingSettings>.
     }
 
-    [Obsolete("Use the constructor that accepts IOptionsSnapshot<ContentImagingSettings> and does not accept IImageUrlGenerator instead. Scheduled for removal in Umbraco 19.")]
+    [Obsolete(
+        "Use the constructor that accepts IOptionsSnapshot<ContentImagingSettings> and does not accept" +
+        " IImageUrlGenerator instead. Scheduled for removal in Umbraco 19.")]
     public TemporaryFileConfigurationPresentationFactory(
         IOptionsSnapshot<ContentSettings> contentSettings,
         IOptionsSnapshot<RuntimeSettings> runtimeSettings,
@@ -37,7 +43,9 @@ public class TemporaryFileConfigurationPresentationFactory : ITemporaryFileConfi
             runtimeSettings,
             imagingSettings)
     {
-        // IImageUrlGenerator parameter is ignored - kept for DI compatibility with existing registrations, but not used in the factory. This is to avoid breaking changes when adding the new constructor that accepts IOptionsSnapshot<ContentImagingSettings>.
+        // IImageUrlGenerator parameter is ignored - kept for DI compatibility with existing registrations,
+        // but not used in the factory. This is to avoid breaking changes when adding the new constructor
+        // that accepts IOptionsSnapshot<ContentImagingSettings>.
     }
 
     public TemporaryFileConfigurationPresentationFactory(

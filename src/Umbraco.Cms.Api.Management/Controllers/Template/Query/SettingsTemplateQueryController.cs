@@ -31,11 +31,12 @@ public class SettingsTemplateQueryController : TemplateQueryControllerBase
 
         IEnumerable<TemplateQueryOperatorViewModel> operators = GetOperators();
 
-        return Task.FromResult<ActionResult<TemplateQuerySettingsResponseModel>>(Ok(new TemplateQuerySettingsResponseModel
-        {
-            DocumentTypeAliases = contentTypeAliases,
-            Properties = properties,
-            Operators = operators
-        }));
+        return Task.FromResult<ActionResult<TemplateQuerySettingsResponseModel>>(
+            Ok(new TemplateQuerySettingsResponseModel
+            {
+                DocumentTypeAliases = contentTypeAliases,
+                Properties = properties,
+                Operators = operators
+            }));
     }
 }

@@ -11,7 +11,8 @@ public class GetTelemetryController : TelemetryControllerBase
 {
     private readonly IMetricsConsentService _metricsConsentService;
 
-    public GetTelemetryController(IMetricsConsentService metricsConsentService) => _metricsConsentService = metricsConsentService;
+    public GetTelemetryController(IMetricsConsentService metricsConsentService)
+        => _metricsConsentService = metricsConsentService;
 
     [HttpGet("level")]
     [MapToApiVersion("1.0")]
@@ -19,5 +20,6 @@ public class GetTelemetryController : TelemetryControllerBase
     [EndpointSummary("Gets telemetry information.")]
     [EndpointDescription("Gets the current telemetry configuration and consent level.")]
     public Task<TelemetryRepresentationBase> Get(CancellationToken cancellationToken)
-        => Task.FromResult<TelemetryRepresentationBase>(new TelemetryResponseModel { TelemetryLevel = _metricsConsentService.GetConsentLevel() });
+        => Task.FromResult<TelemetryRepresentationBase>(
+            new TelemetryResponseModel { TelemetryLevel = _metricsConsentService.GetConsentLevel() });
 }

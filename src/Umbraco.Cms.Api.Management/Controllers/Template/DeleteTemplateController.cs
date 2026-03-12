@@ -15,7 +15,8 @@ public class DeleteTemplateController : TemplateControllerBase
     private readonly ITemplateService _templateService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public DeleteTemplateController(ITemplateService templateService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public DeleteTemplateController(
+        ITemplateService templateService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _templateService = templateService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -30,7 +31,8 @@ public class DeleteTemplateController : TemplateControllerBase
     [EndpointDescription("Deletes a template identified by the provided Id.")]
     public async Task<IActionResult> Delete(CancellationToken cancellationToken, Guid id)
     {
-        Attempt<ITemplate?, TemplateOperationStatus> result = await _templateService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<ITemplate?, TemplateOperationStatus> result =
+            await _templateService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
         return result.Success
             ? Ok()
             : TemplateOperationStatusResult(result.Status);

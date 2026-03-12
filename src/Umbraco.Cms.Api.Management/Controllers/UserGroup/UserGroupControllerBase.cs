@@ -86,16 +86,19 @@ public class UserGroupControllerBase : ManagementApiControllerBase
                 .WithDetail("The user is not in the group.")),
             UserGroupOperationStatus.Unauthorized => Unauthorized(problemDetailsBuilder
                 .WithTitle("Unauthorized access")
-                .WithDetail("The performing user does not have the necessary access to perform this operation. Check the log for details.")
+                .WithDetail(
+                    "The performing user does not have the necessary access to perform this operation. Check the log for details.")
                 .Build()),
             _ => StatusCode(StatusCodes.Status500InternalServerError, problemDetailsBuilder
                 .WithTitle("Unknown user group operation status.")
                 .Build()),
         });
 
-    protected IActionResult UserGroupNotFound() => OperationStatusResult(UserGroupOperationStatus.NotFound, UserGroupNotFound);
+    protected IActionResult UserGroupNotFound()
+        => OperationStatusResult(UserGroupOperationStatus.NotFound, UserGroupNotFound);
 
-    protected IActionResult UserGroupNotFound(ProblemDetailsBuilder problemDetailsBuilder) => NotFound(problemDetailsBuilder
+    protected IActionResult UserGroupNotFound(ProblemDetailsBuilder problemDetailsBuilder)
+        => NotFound(problemDetailsBuilder
         .WithTitle("The user group could not be found")
         .Build());
 }

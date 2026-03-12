@@ -17,7 +17,8 @@ public class SearchMediaTypeItemController : MediaTypeItemControllerBase
     private readonly IMediaTypeService _mediaTypeService;
     private readonly IUmbracoMapper _mapper;
 
-    public SearchMediaTypeItemController(IEntitySearchService entitySearchService, IMediaTypeService mediaTypeService, IUmbracoMapper mapper)
+    public SearchMediaTypeItemController(
+        IEntitySearchService entitySearchService, IMediaTypeService mediaTypeService, IUmbracoMapper mapper)
     {
         _entitySearchService = entitySearchService;
         _mediaTypeService = mediaTypeService;
@@ -31,13 +32,16 @@ public class SearchMediaTypeItemController : MediaTypeItemControllerBase
     [EndpointDescription("Searches media type items by the provided query with pagination support.")]
     public Task<IActionResult> Search(CancellationToken cancellationToken, string query, int skip = 0, int take = 100)
     {
-        PagedModel<IEntitySlim> searchResult = _entitySearchService.Search(UmbracoObjectTypes.MediaType, query, skip, take);
+        PagedModel<IEntitySlim> searchResult =
+            _entitySearchService.Search(UmbracoObjectTypes.MediaType, query, skip, take);
         if (searchResult.Items.Any() is false)
         {
-            return Task.FromResult<IActionResult>(Ok(new PagedModel<MediaTypeItemResponseModel> { Total = searchResult.Total }));
+            return Task.FromResult<IActionResult>(
+                Ok(new PagedModel<MediaTypeItemResponseModel> { Total = searchResult.Total }));
         }
 
-        IEnumerable<IMediaType> mediaTypes = _mediaTypeService.GetMany(searchResult.Items.Select(item => item.Key).ToArray().EmptyNull());
+        IEnumerable<IMediaType> mediaTypes = _mediaTypeService
+            .GetMany(searchResult.Items.Select(item => item.Key).ToArray().EmptyNull());
         var result = new PagedModel<MediaTypeItemResponseModel>
         {
             Items = _mapper.MapEnumerable<IMediaType, MediaTypeItemResponseModel>(mediaTypes),

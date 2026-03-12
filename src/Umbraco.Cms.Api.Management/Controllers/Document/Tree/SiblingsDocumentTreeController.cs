@@ -88,7 +88,8 @@ public class SiblingsDocumentTreeController : DocumentTreeControllerBase
     [ProducesResponseType(typeof(SubsetViewModel<DocumentTreeItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets a collection of document tree sibling items.")]
     [EndpointDescription("Gets a collection of document tree items that are siblings of the provided Id.")]
-    public async Task<ActionResult<SubsetViewModel<DocumentTreeItemResponseModel>>> Siblings(CancellationToken cancellationToken, Guid target, int before, int after, Guid? dataTypeId = null)
+    public async Task<ActionResult<SubsetViewModel<DocumentTreeItemResponseModel>>> Siblings(
+        CancellationToken cancellationToken, Guid target, int before, int after, Guid? dataTypeId = null)
     {
         IgnoreUserStartNodesForDataType(dataTypeId);
         return await GetSiblings(target, before, after);

@@ -48,7 +48,8 @@ public class CreateDocumentController : CreateDocumentControllerBase
                 await _contentEditingService.CreateAsync(model, CurrentUserKey(_backOfficeSecurityAccessor));
 
             return result.Success
-                ? CreatedAtId<ByKeyDocumentController>(controller => nameof(controller.ByKey), result.Result.Content!.Key)
+                ? CreatedAtId<ByKeyDocumentController>(
+                    controller => nameof(controller.ByKey), result.Result.Content!.Key)
                 : ContentEditingOperationStatusResult(result.Status);
         });
 }

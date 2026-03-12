@@ -7,7 +7,8 @@ namespace Umbraco.Cms.Api.Management.Security.Authorization.Media;
 /// <summary>
 ///     Authorizes that the current user has the correct permission access to the media item(s) specified in the request.
 /// </summary>
-public class MediaPermissionHandler : MustSatisfyRequirementAuthorizationHandler<MediaPermissionRequirement, MediaPermissionResource>
+public class MediaPermissionHandler
+    : MustSatisfyRequirementAuthorizationHandler<MediaPermissionRequirement, MediaPermissionResource>
 {
     private readonly IAuthorizationHelper _authorizationHelper;
     private readonly IMediaPermissionAuthorizer _mediaPermissionAuthorizer;
@@ -17,7 +18,9 @@ public class MediaPermissionHandler : MustSatisfyRequirementAuthorizationHandler
     /// </summary>
     /// <param name="mediaPermissionAuthorizer">Authorizer for media access.</param>
     /// <param name="authorizationHelper">The authorization helper.</param>
-    public MediaPermissionHandler(IMediaPermissionAuthorizer mediaPermissionAuthorizer, IAuthorizationHelper authorizationHelper)
+    public MediaPermissionHandler(
+        IMediaPermissionAuthorizer mediaPermissionAuthorizer,
+        IAuthorizationHelper authorizationHelper)
     {
         _mediaPermissionAuthorizer = mediaPermissionAuthorizer;
         _authorizationHelper = authorizationHelper;

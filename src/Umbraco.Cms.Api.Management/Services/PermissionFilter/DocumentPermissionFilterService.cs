@@ -19,7 +19,9 @@ internal sealed class DocumentPermissionFilterService : IDocumentPermissionFilte
     /// <summary>
     /// Initializes a new instance of the <see cref="DocumentPermissionFilterService"/> class.
     /// </summary>
-    /// <param name="backOfficeSecurityAccessor">Provides access to the current backoffice user's security context.</param>
+    /// <param name="backOfficeSecurityAccessor">
+    /// Provides access to the current backoffice user's security context.
+    /// </param>
     /// <param name="userService">Service used to retrieve user and document permissions.</param>
     public DocumentPermissionFilterService(
         IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
@@ -45,7 +47,8 @@ internal sealed class DocumentPermissionFilterService : IDocumentPermissionFilte
     }
 
     /// <inheritdoc />
-    public async Task<(IEntitySlim[] Entities, long TotalBefore, long TotalAfter)> FilterAsync(Guid targetKey, IEntitySlim[] entities, long totalBefore, long totalAfter)
+    public async Task<(IEntitySlim[] Entities, long TotalBefore, long TotalAfter)> FilterAsync(
+        Guid targetKey, IEntitySlim[] entities, long totalBefore, long totalAfter)
     {
         Dictionary<Guid, NodePermissions>? permissionsByNodeKey = await GetDocumentPermissionsByNodeKeyAsync(entities);
         if (permissionsByNodeKey is null)
@@ -57,8 +60,10 @@ internal sealed class DocumentPermissionFilterService : IDocumentPermissionFilte
         var targetIndex = Array.FindIndex(entities, e => e.Key == targetKey);
 
         // Count removed entities before and after the target separately
-        var removedBefore = entities.Take(targetIndex).Count(e => HasBrowsePermission(e, permissionsByNodeKey) is false);
-        var removedAfter = entities.Skip(targetIndex + 1).Count(e => HasBrowsePermission(e, permissionsByNodeKey) is false);
+        var removedBefore = entities.Take(targetIndex)
+            .Count(e => HasBrowsePermission(e, permissionsByNodeKey) is false);
+        var removedAfter = entities.Skip(targetIndex + 1)
+            .Count(e => HasBrowsePermission(e, permissionsByNodeKey) is false);
 
         IEntitySlim[] filteredEntities = FilterEntitiesWithBrowsePermission(entities, permissionsByNodeKey);
 
@@ -82,7 +87,8 @@ internal sealed class DocumentPermissionFilterService : IDocumentPermissionFilte
         => _backOfficeSecurityAccessor.BackOfficeSecurity?.CurrentUser?.Key
            ?? throw new InvalidOperationException("No backoffice user found");
 
-    private static IEntitySlim[] FilterEntitiesWithBrowsePermission(IEntitySlim[] entities, Dictionary<Guid, NodePermissions> permissionsByNodeKey)
+    private static IEntitySlim[] FilterEntitiesWithBrowsePermission(
+        IEntitySlim[] entities, Dictionary<Guid, NodePermissions> permissionsByNodeKey)
         => entities.Where(e => HasBrowsePermission(e, permissionsByNodeKey)).ToArray();
 
     private static bool HasBrowsePermission(IEntitySlim entity, Dictionary<Guid, NodePermissions> permissionsByNodeKey)

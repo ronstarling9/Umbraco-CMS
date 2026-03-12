@@ -51,7 +51,8 @@ public class UpdateLanguageController : LanguageControllerBase
 
         ILanguage updated = _umbracoMapper.Map(updateLanguageRequestModel, current);
 
-        Attempt<ILanguage, LanguageOperationStatus> result = await _languageService.UpdateAsync(updated, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<ILanguage, LanguageOperationStatus> result =
+            await _languageService.UpdateAsync(updated, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

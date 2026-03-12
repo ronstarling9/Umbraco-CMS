@@ -10,5 +10,6 @@ public interface IMediaTypeEditingPresentationFactory
 
     MediaTypeUpdateModel MapUpdateModel(UpdateMediaTypeRequestModel requestModel);
 
-    IEnumerable<AvailableMediaTypeCompositionResponseModel> MapCompositionModels(IEnumerable<ContentTypeAvailableCompositionsResult> compositionResults);
+    IEnumerable<AvailableMediaTypeCompositionResponseModel> MapCompositionModels(
+        IEnumerable<ContentTypeAvailableCompositionsResult> compositionResults);
 }

@@ -44,7 +44,8 @@ public class CreateMediaController : CreateMediaControllerBase
         => await HandleRequest(requestModel.Parent?.Id, async () =>
         {
             MediaCreateModel model = _mediaEditingPresentationFactory.MapCreateModel(requestModel);
-            Attempt<MediaCreateResult, ContentEditingOperationStatus> result = await _mediaEditingService.CreateAsync(model, CurrentUserKey(_backOfficeSecurityAccessor));
+            Attempt<MediaCreateResult, ContentEditingOperationStatus> result =
+                await _mediaEditingService.CreateAsync(model, CurrentUserKey(_backOfficeSecurityAccessor));
 
             return result.Success
                 ? CreatedAtId<ByKeyMediaController>(controller => nameof(controller.ByKey), result.Result.Content!.Key)

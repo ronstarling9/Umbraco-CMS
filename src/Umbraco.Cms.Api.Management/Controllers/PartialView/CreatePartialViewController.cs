@@ -41,10 +41,12 @@ public class CreatePartialViewController : PartialViewControllerBase
         CreatePartialViewRequestModel requestModel)
     {
         PartialViewCreateModel createModel = _umbracoMapper.Map<PartialViewCreateModel>(requestModel)!;
-        Attempt<IPartialView?, PartialViewOperationStatus> createAttempt = await _partialViewService.CreateAsync(createModel, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IPartialView?, PartialViewOperationStatus> createAttempt =
+            await _partialViewService.CreateAsync(createModel, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return createAttempt.Success
-            ? CreatedAtPath<ByPathPartialViewController>(controller => nameof(controller.ByPath), createAttempt.Result!.Path.SystemPathToVirtualPath())
+            ? CreatedAtPath<ByPathPartialViewController>(
+                controller => nameof(controller.ByPath), createAttempt.Result!.Path.SystemPathToVirtualPath())
             : PartialViewOperationStatusResult(createAttempt.Status);
     }
 }

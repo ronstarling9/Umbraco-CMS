@@ -19,7 +19,10 @@ public class ResendInviteUserController : UserControllerBase
     private readonly IUserPresentationFactory _userPresentationFactory;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public ResendInviteUserController(IUserService userService, IUserPresentationFactory userPresentationFactory, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public ResendInviteUserController(
+        IUserService userService,
+        IUserPresentationFactory userPresentationFactory,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _userService = userService;
         _userPresentationFactory = userPresentationFactory;

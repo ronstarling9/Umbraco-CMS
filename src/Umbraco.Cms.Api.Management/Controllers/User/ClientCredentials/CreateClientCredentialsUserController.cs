@@ -31,7 +31,8 @@ public class CreateClientCredentialsUserController : ClientCredentialsUserContro
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [EndpointSummary("Creates client credentials for a user.")]
     [EndpointDescription("Creates OAuth client credentials for the user identified by the provided Id.")]
-    public async Task<IActionResult> Create(CancellationToken cancellationToken, Guid id, CreateUserClientCredentialsRequestModel model)
+    public async Task<IActionResult> Create(
+        CancellationToken cancellationToken, Guid id, CreateUserClientCredentialsRequestModel model)
     {
         AuthorizationResult authorizationResult = await _authorizationService.AuthorizeResourceAsync(
             User,
@@ -43,7 +44,8 @@ public class CreateClientCredentialsUserController : ClientCredentialsUserContro
             return Forbidden();
         }
 
-        Attempt<BackOfficeUserClientCredentialsOperationStatus> result = await _backOfficeUserClientCredentialsManager.SaveAsync(id, model.ClientId, model.ClientSecret);
+        Attempt<BackOfficeUserClientCredentialsOperationStatus> result =
+            await _backOfficeUserClientCredentialsManager.SaveAsync(id, model.ClientId, model.ClientSecret);
         return result.Success
             ? Ok()
             : BackOfficeUserClientCredentialsOperationStatusResult(result.Result);

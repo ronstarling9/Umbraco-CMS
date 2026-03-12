@@ -41,7 +41,8 @@ public class CompositionReferenceMemberTypeController : MemberTypeControllerBase
         }
 
         IEnumerable<IMemberType> composedOf = _memberTypeService.GetComposedOf(memberType.Id);
-        List<MemberTypeCompositionResponseModel> responseModels = _umbracoMapper.MapEnumerable<IMemberType, MemberTypeCompositionResponseModel>(composedOf);
+        List<MemberTypeCompositionResponseModel> responseModels =
+            _umbracoMapper.MapEnumerable<IMemberType, MemberTypeCompositionResponseModel>(composedOf);
 
         return Ok(responseModels);
     }

@@ -36,10 +36,13 @@ public class CreateMemberController : MemberControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [EndpointSummary("Creates a new member.")]
     [EndpointDescription("Creates a new member with the configuration specified in the request model.")]
-    public async Task<IActionResult> Create(CancellationToken cancellationToken, CreateMemberRequestModel createRequestModel)
+    public async Task<IActionResult> Create(
+        CancellationToken cancellationToken,
+        CreateMemberRequestModel createRequestModel)
     {
         MemberCreateModel model = _memberEditingPresentationFactory.MapCreateModel(createRequestModel);
-        Attempt<MemberCreateResult, MemberEditingStatus> result = await _memberEditingService.CreateAsync(model, CurrentUser(_backOfficeSecurityAccessor));
+        Attempt<MemberCreateResult, MemberEditingStatus> result =
+            await _memberEditingService.CreateAsync(model, CurrentUser(_backOfficeSecurityAccessor));
 
         return result.Success
             ? CreatedAtId<ByKeyMemberController>(controller => nameof(controller.ByKey), result.Result.Content!.Key)

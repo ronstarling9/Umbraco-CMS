@@ -24,7 +24,8 @@ public class ReferencedDescendantsMediaController : MediaControllerBase
         _umbracoMapper = umbracoMapper;
     }
 
-    [Obsolete("Use the ReferencedDescendants2 action method instead. Scheduled for removal in Umbraco 19, when ReferencedDescendants2 will be renamed back to ReferencedDescendants.")]
+    [Obsolete("Use the ReferencedDescendants2 action method instead. Scheduled for removal in Umbraco 19, "
+        + "when ReferencedDescendants2 will be renamed back to ReferencedDescendants.")]
     [NonAction]
     public async Task<ActionResult<PagedViewModel<ReferenceByIdModel>>> ReferencedDescendants(
     CancellationToken cancellationToken,
@@ -32,7 +33,8 @@ public class ReferencedDescendantsMediaController : MediaControllerBase
     int skip = 0,
     int take = 20)
     {
-        PagedModel<RelationItemModel> relationItems = await _trackedReferencesSkipTakeService.GetPagedDescendantsInReferencesAsync(id, skip, take, true);
+        PagedModel<RelationItemModel> relationItems =
+            await _trackedReferencesSkipTakeService.GetPagedDescendantsInReferencesAsync(id, skip, take, true);
         var pagedViewModel = new PagedViewModel<ReferenceByIdModel>
         {
             Total = relationItems.Total,
@@ -46,8 +48,8 @@ public class ReferencedDescendantsMediaController : MediaControllerBase
     ///     Gets a page list of the child nodes of the current item used in any kind of relation.
     /// </summary>
     /// <remarks>
-    ///     Used when deleting and unpublishing a single item to check if this item has any descending items that are in any
-    ///     kind of relation.
+    ///     Used when deleting and unpublishing a single item to check if this item has any descending items
+    ///     that are in any kind of relation.
     ///     This is basically finding the descending items which are children in relations.
     /// </remarks>
     [HttpGet("{id:guid}/referenced-descendants")]
@@ -62,7 +64,9 @@ public class ReferencedDescendantsMediaController : MediaControllerBase
         int skip = 0,
         int take = 20)
     {
-        Attempt<PagedModel<RelationItemModel>, GetReferencesOperationStatus> relationItemsAttempt = await _trackedReferencesSkipTakeService.GetPagedDescendantsInReferencesAsync(id, UmbracoObjectTypes.Media, skip, take, true);
+        Attempt<PagedModel<RelationItemModel>, GetReferencesOperationStatus> relationItemsAttempt =
+            await _trackedReferencesSkipTakeService.GetPagedDescendantsInReferencesAsync(
+                id, UmbracoObjectTypes.Media, skip, take, true);
 
         if (relationItemsAttempt.Success is false)
         {
@@ -72,7 +76,8 @@ public class ReferencedDescendantsMediaController : MediaControllerBase
         var pagedViewModel = new PagedViewModel<ReferenceByIdModel>
         {
             Total = relationItemsAttempt.Result.Total,
-            Items = _umbracoMapper.MapEnumerable<RelationItemModel, ReferenceByIdModel>(relationItemsAttempt.Result.Items),
+            Items = _umbracoMapper.MapEnumerable<RelationItemModel, ReferenceByIdModel>(
+                relationItemsAttempt.Result.Items),
         };
 
         return Ok(pagedViewModel);

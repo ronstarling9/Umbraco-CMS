@@ -18,7 +18,9 @@ public class DeleteLanguageController : LanguageControllerBase
     private readonly ILanguageService _languageService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public DeleteLanguageController(ILanguageService languageService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public DeleteLanguageController(
+        ILanguageService languageService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _languageService = languageService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -33,7 +35,8 @@ public class DeleteLanguageController : LanguageControllerBase
     [EndpointDescription("Deletes a language identified by the provided Id.")]
     public async Task<IActionResult> Delete(CancellationToken cancellationToken, string isoCode)
     {
-        Attempt<ILanguage?, LanguageOperationStatus> result = await _languageService.DeleteAsync(isoCode, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<ILanguage?, LanguageOperationStatus> result =
+            await _languageService.DeleteAsync(isoCode, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

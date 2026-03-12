@@ -15,7 +15,8 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Api.Management.Mapping.Media;
 
-public class MediaMapDefinition : ContentMapDefinition<IMedia, MediaValueResponseModel, MediaVariantResponseModel>, IMapDefinition
+public class MediaMapDefinition
+    : ContentMapDefinition<IMedia, MediaValueResponseModel, MediaVariantResponseModel>, IMapDefinition
 {
     private readonly CommonMapper _commonMapper;
     private ContentSettings _contentSettings;
@@ -71,8 +72,8 @@ public class MediaMapDefinition : ContentMapDefinition<IMedia, MediaValueRespons
         target.Variants = MapVariantViewModels(source);
         target.IsTrashed = source.Trashed;
 
-        // If protection for media files in the recycle bin is enabled, and the media item is trashed, amend the value of the file path
-        // to have the `.deleted` suffix that will have been added to the persisted file.
+        // If protection for media files in the recycle bin is enabled, and the media item is trashed, amend
+        // the value of the file path to have the `.deleted` suffix that will have been added to the persisted file.
         if (target.IsTrashed && _contentSettings.EnableMediaRecycleBinProtection)
         {
             foreach (MediaValueResponseModel valueModel in target.Values
@@ -87,7 +88,8 @@ public class MediaMapDefinition : ContentMapDefinition<IMedia, MediaValueRespons
                         Crops = imageCropperValue.Crops,
                         FocalPoint = imageCropperValue.FocalPoint,
                         TemporaryFileId = imageCropperValue.TemporaryFileId,
-                        Src = SuffixMediaPath(imageCropperValue.Src, Core.Constants.Conventions.Media.TrashedMediaSuffix),
+                        Src = SuffixMediaPath(
+                            imageCropperValue.Src, Core.Constants.Conventions.Media.TrashedMediaSuffix),
                     };
                 }
             }
@@ -113,9 +115,9 @@ public class MediaMapDefinition : ContentMapDefinition<IMedia, MediaValueRespons
         target.SortOrder = source.SortOrder;
         target.Creator = _commonMapper.GetOwnerName(source, context);
 
-        // If there's a set of property aliases specified in the collection configuration, we will check if the current property's
-        // value should be mapped. If it isn't one of the ones specified in 'includeProperties', we will just return the result
-        // without mapping the value.
+        // If there's a set of property aliases specified in the collection configuration, we will check if the
+        // current property's value should be mapped. If it isn't one of the ones specified in 'includeProperties',
+        // we will just return the result without mapping the value.
         var includedProperties = context.GetIncludedProperties();
 
         IEnumerable<IProperty> properties = source.Properties;

@@ -19,10 +19,12 @@ internal static class ApplicationBuilderExtensions
         => applicationBuilder.UseWhen(
             httpContext =>
             {
-                var backOfficePath = httpContext.RequestServices.GetRequiredService<IHostingEnvironment>().GetBackOfficePath();
+                var backOfficePath = httpContext.RequestServices
+                    .GetRequiredService<IHostingEnvironment>().GetBackOfficePath();
 
                 // Only use the API exception handler when we are requesting an API
-                return httpContext.Request.Path.Value?.StartsWith($"{backOfficePath}{Constants.Web.ManagementApiPath}") ?? false;
+                return httpContext.Request.Path.Value
+                    ?.StartsWith($"{backOfficePath}{Constants.Web.ManagementApiPath}") ?? false;
             },
             innerBuilder =>
             {
@@ -67,7 +69,8 @@ internal static IApplicationBuilder UseEndpoints(this IApplicationBuilder applic
             // Serve contract
             endpoints.MapGet($"{backOfficePath}{Constants.Web.ManagementApiPath}openapi.json", async context =>
             {
-                await context.Response.SendFileAsync(new EmbeddedFileProvider(typeof(ManagementApiComposer).Assembly).GetFileInfo("OpenApi.json"));
+                await context.Response.SendFileAsync(
+                    new EmbeddedFileProvider(typeof(ManagementApiComposer).Assembly).GetFileInfo("OpenApi.json"));
             });
         });
 

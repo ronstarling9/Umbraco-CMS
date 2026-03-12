@@ -21,7 +21,9 @@ public class DocumentRecycleBinControllerBase : RecycleBinControllerBase<Documen
 {
     private readonly IDocumentPresentationFactory _documentPresentationFactory;
 
-    public DocumentRecycleBinControllerBase(IEntityService entityService, IDocumentPresentationFactory documentPresentationFactory)
+    public DocumentRecycleBinControllerBase(
+        IEntityService entityService,
+        IDocumentPresentationFactory documentPresentationFactory)
         : base(entityService)
         => _documentPresentationFactory = documentPresentationFactory;
 
@@ -36,7 +38,8 @@ public class DocumentRecycleBinControllerBase : RecycleBinControllerBase<Documen
         if (entity is IDocumentEntitySlim documentEntitySlim)
         {
             responseModel.Variants = _documentPresentationFactory.CreateVariantsItemResponseModels(documentEntitySlim);
-            responseModel.DocumentType = _documentPresentationFactory.CreateDocumentTypeReferenceResponseModel(documentEntitySlim);
+            responseModel.DocumentType =
+                _documentPresentationFactory.CreateDocumentTypeReferenceResponseModel(documentEntitySlim);
         }
 
         return responseModel;

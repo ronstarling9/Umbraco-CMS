@@ -12,7 +12,8 @@ public abstract class RequireTreeRootAccessAttribute : ActionFilterAttribute
 {
     public override void OnActionExecuting(ActionExecutingContext context)
     {
-        IBackOfficeSecurityAccessor backOfficeSecurityAccessor = context.HttpContext.RequestServices.GetRequiredService<IBackOfficeSecurityAccessor>();
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor =
+            context.HttpContext.RequestServices.GetRequiredService<IBackOfficeSecurityAccessor>();
         IUser? user = backOfficeSecurityAccessor.BackOfficeSecurity?.CurrentUser;
 
         var startNodeIds = user != null ? GetUserStartNodeIds(user, context) : Array.Empty<int>();

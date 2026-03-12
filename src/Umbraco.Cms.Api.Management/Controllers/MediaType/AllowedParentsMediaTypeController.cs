@@ -29,7 +29,8 @@ public class AllowedParentsMediaTypeController : MediaTypeControllerBase
         CancellationToken cancellationToken,
         Guid id)
     {
-        Attempt<IEnumerable<Guid>, ContentTypeOperationStatus> attempt = await _mediaTypeService.GetAllowedParentKeysAsync(id);
+        Attempt<IEnumerable<Guid>, ContentTypeOperationStatus> attempt =
+            await _mediaTypeService.GetAllowedParentKeysAsync(id);
         if (attempt.Success is false)
         {
             return OperationStatusResult(attempt.Status);

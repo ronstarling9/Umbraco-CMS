@@ -11,7 +11,9 @@ namespace Umbraco.Cms.Api.Management.Controllers.Media.RecycleBin;
 [ApiVersion("1.0")]
 public class SiblingsMediaRecycleBinController : MediaRecycleBinControllerBase
 {
-    public SiblingsMediaRecycleBinController(IEntityService entityService, IMediaPresentationFactory mediaPresentationFactory)
+    public SiblingsMediaRecycleBinController(
+        IEntityService entityService,
+        IMediaPresentationFactory mediaPresentationFactory)
         : base(entityService, mediaPresentationFactory)
     {
     }
@@ -21,6 +23,7 @@ public class SiblingsMediaRecycleBinController : MediaRecycleBinControllerBase
     [ProducesResponseType(typeof(SubsetViewModel<MediaRecycleBinItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets sibling media in the recycle bin.")]
     [EndpointDescription("Gets a collection of sibling media items in the recycle bin at the same level as the provided Id.")]
-    public async Task<ActionResult<SubsetViewModel<MediaRecycleBinItemResponseModel>>> Siblings(CancellationToken cancellationToken, Guid target, int before, int after, Guid? dataTypeId = null)
+    public async Task<ActionResult<SubsetViewModel<MediaRecycleBinItemResponseModel>>> Siblings(
+        CancellationToken cancellationToken, Guid target, int before, int after, Guid? dataTypeId = null)
         => await GetSiblings(target, before, after);
 }

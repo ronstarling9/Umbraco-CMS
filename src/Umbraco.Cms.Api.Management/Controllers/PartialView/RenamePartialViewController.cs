@@ -19,7 +19,10 @@ public class RenamePartialViewController : PartialViewControllerBase
     private readonly IUmbracoMapper _umbracoMapper;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public RenamePartialViewController(IPartialViewService partialViewService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor, IUmbracoMapper umbracoMapper)
+    public RenamePartialViewController(
+        IPartialViewService partialViewService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
+        IUmbracoMapper umbracoMapper)
     {
         _partialViewService = partialViewService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -41,10 +44,12 @@ public class RenamePartialViewController : PartialViewControllerBase
         PartialViewRenameModel renameModel = _umbracoMapper.Map<PartialViewRenameModel>(requestModel)!;
 
         path = DecodePath(path).VirtualPathToSystemPath();
-        Attempt<IPartialView?, PartialViewOperationStatus> renameAttempt = await _partialViewService.RenameAsync(path, renameModel, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IPartialView?, PartialViewOperationStatus> renameAttempt =
+            await _partialViewService.RenameAsync(path, renameModel, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return renameAttempt.Success
-            ? CreatedAtPath<ByPathPartialViewController>(controller => nameof(controller.ByPath), renameAttempt.Result!.Path.SystemPathToVirtualPath())
+            ? CreatedAtPath<ByPathPartialViewController>(
+                controller => nameof(controller.ByPath), renameAttempt.Result!.Path.SystemPathToVirtualPath())
             : PartialViewOperationStatusResult(renameAttempt.Status);
     }
 }

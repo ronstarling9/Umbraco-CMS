@@ -4,7 +4,11 @@ using Umbraco.Cms.Core.Models.ContentEditing;
 
 namespace Umbraco.Cms.Api.Management.Factories;
 
-public interface IContentCollectionPresentationFactory<TContent, TCollectionResponseModel, TValueResponseModelBase, TVariantResponseModel>
+public interface IContentCollectionPresentationFactory<
+    TContent,
+    TCollectionResponseModel,
+    TValueResponseModelBase,
+    TVariantResponseModel>
     where TContent : class, IContentBase
     where TCollectionResponseModel : ContentResponseModelBase<TValueResponseModelBase, TVariantResponseModel>
     where TValueResponseModelBase : ValueResponseModelBase

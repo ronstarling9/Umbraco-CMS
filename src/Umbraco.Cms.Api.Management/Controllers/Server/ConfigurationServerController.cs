@@ -27,7 +27,11 @@ public class ConfigurationServerController : ServerControllerBase
     private readonly IHostingEnvironment _hostingEnvironment;
 
     [ActivatorUtilitiesConstructor]
-    public ConfigurationServerController(IOptions<SecuritySettings> securitySettings, IOptions<GlobalSettings> globalSettings, IBackOfficeExternalLoginProviders externalLoginProviders, IHostingEnvironment hostingEnvironment)
+    public ConfigurationServerController(
+        IOptions<SecuritySettings> securitySettings,
+        IOptions<GlobalSettings> globalSettings,
+        IBackOfficeExternalLoginProviders externalLoginProviders,
+        IHostingEnvironment hostingEnvironment)
     {
         _securitySettings = securitySettings.Value;
         _globalSettings = globalSettings.Value;
@@ -36,8 +40,15 @@ public class ConfigurationServerController : ServerControllerBase
     }
 
     [Obsolete("Please use the constructor with all parameters. Scheduled for removal in Umbraco 19.")]
-    public ConfigurationServerController(IOptions<SecuritySettings> securitySettings, IOptions<GlobalSettings> globalSettings, IBackOfficeExternalLoginProviders externalLoginProviders)
-        : this(securitySettings, globalSettings, externalLoginProviders, StaticServiceProvider.Instance.GetRequiredService<IHostingEnvironment>())
+    public ConfigurationServerController(
+        IOptions<SecuritySettings> securitySettings,
+        IOptions<GlobalSettings> globalSettings,
+        IBackOfficeExternalLoginProviders externalLoginProviders)
+        : this(
+            securitySettings,
+            globalSettings,
+            externalLoginProviders,
+            StaticServiceProvider.Instance.GetRequiredService<IHostingEnvironment>())
     {
     }
 

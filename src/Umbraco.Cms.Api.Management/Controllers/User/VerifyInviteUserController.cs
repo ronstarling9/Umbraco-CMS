@@ -16,7 +16,9 @@ public class VerifyInviteUserController : UserControllerBase
     private readonly IUserService _userService;
     private readonly IPasswordConfigurationPresentationFactory _passwordConfigurationPresentationFactory;
 
-    public VerifyInviteUserController(IUserService userService, IPasswordConfigurationPresentationFactory passwordConfigurationPresentationFactory)
+    public VerifyInviteUserController(
+        IUserService userService,
+        IPasswordConfigurationPresentationFactory passwordConfigurationPresentationFactory)
     {
         _userService = userService;
         _passwordConfigurationPresentationFactory = passwordConfigurationPresentationFactory;
@@ -37,7 +39,8 @@ public class VerifyInviteUserController : UserControllerBase
         return result.Success
             ? Ok(new VerifyInviteUserResponseModel()
             {
-                PasswordConfiguration = _passwordConfigurationPresentationFactory.CreatePasswordConfigurationResponseModel(),
+                PasswordConfiguration =
+                    _passwordConfigurationPresentationFactory.CreatePasswordConfigurationResponseModel(),
             })
             : UserOperationStatusResult(result.Result);
     }

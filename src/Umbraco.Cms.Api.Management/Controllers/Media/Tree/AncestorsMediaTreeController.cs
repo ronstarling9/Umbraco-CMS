@@ -23,7 +23,13 @@ public class AncestorsMediaTreeController : MediaTreeControllerBase
         AppCaches appCaches,
         IBackOfficeSecurityAccessor backofficeSecurityAccessor,
         IMediaPresentationFactory mediaPresentationFactory)
-        : base(entityService, userStartNodeEntitiesService, dataTypeService, appCaches, backofficeSecurityAccessor, mediaPresentationFactory)
+        : base(
+            entityService,
+            userStartNodeEntitiesService,
+            dataTypeService,
+            appCaches,
+            backofficeSecurityAccessor,
+            mediaPresentationFactory)
     {
     }
 
@@ -36,7 +42,14 @@ public class AncestorsMediaTreeController : MediaTreeControllerBase
         AppCaches appCaches,
         IBackOfficeSecurityAccessor backofficeSecurityAccessor,
         IMediaPresentationFactory mediaPresentationFactory)
-        : base(entityService, flagProviders, userStartNodeEntitiesService, dataTypeService, appCaches, backofficeSecurityAccessor, mediaPresentationFactory)
+        : base(
+            entityService,
+            flagProviders,
+            userStartNodeEntitiesService,
+            dataTypeService,
+            appCaches,
+            backofficeSecurityAccessor,
+            mediaPresentationFactory)
     {
     }
 

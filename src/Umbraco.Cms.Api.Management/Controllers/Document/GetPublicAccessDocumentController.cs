@@ -38,7 +38,8 @@ public class GetPublicAccessDocumentController : DocumentControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Gets public access rules for a document.")]
     [EndpointDescription("Gets the public access protection settings for the document identified by the provided Id.")]
-    public async Task<IActionResult> GetPublicAccess(CancellationToken cancellationToken, Guid id, [FromQuery] bool includeAncestors = false)
+    public async Task<IActionResult> GetPublicAccess(
+        CancellationToken cancellationToken, Guid id, [FromQuery] bool includeAncestors = false)
     {
         AuthorizationResult authorizationResult = await _authorizationService.AuthorizeResourceAsync(
             User,

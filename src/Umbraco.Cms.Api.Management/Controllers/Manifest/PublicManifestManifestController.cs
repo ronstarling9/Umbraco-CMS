@@ -20,7 +20,9 @@ public class PublicManifestManifestController : ManifestControllerBase
     private readonly IBackOfficePathGenerator _backOfficePathGenerator;
 
     [Obsolete("Please use the constructor with all parameters. Scheduled for removal in Umbraco 19.")]
-    public PublicManifestManifestController(IPackageManifestService packageManifestService, IUmbracoMapper umbracoMapper)
+    public PublicManifestManifestController(
+        IPackageManifestService packageManifestService,
+        IUmbracoMapper umbracoMapper)
         : this(
             packageManifestService,
             umbracoMapper,
@@ -48,7 +50,8 @@ public class PublicManifestManifestController : ManifestControllerBase
     public async Task<IActionResult> PublicManifests(CancellationToken cancellationToken)
     {
         IEnumerable<PackageManifest> packageManifests = await _packageManifestService.GetPublicPackageManifestsAsync();
-        IEnumerable<ManifestResponseModel> models = _umbracoMapper.MapEnumerable<PackageManifest, ManifestResponseModel>(packageManifests);
+        IEnumerable<ManifestResponseModel> models =
+            _umbracoMapper.MapEnumerable<PackageManifest, ManifestResponseModel>(packageManifests);
         ReplaceCacheBusterTokens(models, _backOfficePathGenerator.BackOfficeCacheBustHash);
         return Ok(models);
     }

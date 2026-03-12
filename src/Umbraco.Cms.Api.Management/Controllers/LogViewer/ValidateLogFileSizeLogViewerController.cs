@@ -12,7 +12,8 @@ public class ValidateLogFileSizeLogViewerController : LogViewerControllerBase
 {
     private readonly ILogViewerService _logViewerService;
 
-    public ValidateLogFileSizeLogViewerController(ILogViewerService logViewerService) => _logViewerService = logViewerService;
+    public ValidateLogFileSizeLogViewerController(ILogViewerService logViewerService)
+        => _logViewerService = logViewerService;
 
     /// <summary>
     ///     Gets a value indicating whether or not you are able to view logs for a specified date range.

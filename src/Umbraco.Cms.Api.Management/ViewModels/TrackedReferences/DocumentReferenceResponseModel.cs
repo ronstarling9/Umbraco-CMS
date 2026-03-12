@@ -8,5 +8,6 @@ public class DocumentReferenceResponseModel : ReferenceResponseModel
 
     public TrackedReferenceDocumentType DocumentType { get; set; } = new();
 
-    public IEnumerable<DocumentVariantItemResponseModel> Variants { get; set; } = Enumerable.Empty<DocumentVariantItemResponseModel>();
+    public IEnumerable<DocumentVariantItemResponseModel> Variants { get; set; }
+        = Enumerable.Empty<DocumentVariantItemResponseModel>();
 }

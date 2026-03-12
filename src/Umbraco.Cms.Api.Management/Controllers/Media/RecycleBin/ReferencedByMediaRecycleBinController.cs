@@ -39,7 +39,9 @@ public class ReferencedByMediaRecycleBinController : MediaRecycleBinControllerBa
         int skip = 0,
         int take = 20)
     {
-        PagedModel<RelationItemModel> relationItems = await _trackedReferencesService.GetPagedRelationsForRecycleBinAsync(UmbracoObjectTypes.Media, skip, take, true);
+        PagedModel<RelationItemModel> relationItems =
+            await _trackedReferencesService.GetPagedRelationsForRecycleBinAsync(
+                UmbracoObjectTypes.Media, skip, take, true);
 
         var pagedViewModel = new PagedViewModel<IReferenceResponseModel>
         {

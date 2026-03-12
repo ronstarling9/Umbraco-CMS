@@ -44,7 +44,8 @@ public class UpdateScriptController : ScriptControllerBase
         path = DecodePath(path).VirtualPathToSystemPath();
         ScriptUpdateModel updateModel = _umbracoMapper.Map<ScriptUpdateModel>(requestModel)!;
 
-        Attempt<IScript?, ScriptOperationStatus> updateAttempt = await _scriptService.UpdateAsync(path, updateModel, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IScript?, ScriptOperationStatus> updateAttempt =
+            await _scriptService.UpdateAsync(path, updateModel, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return updateAttempt.Success
             ? Ok()

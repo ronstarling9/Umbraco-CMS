@@ -16,7 +16,8 @@ public class DeleteMemberTypeController : MemberTypeControllerBase
     private readonly IMemberTypeService _memberTypeService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public DeleteMemberTypeController(IMemberTypeService memberTypeService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public DeleteMemberTypeController(
+        IMemberTypeService memberTypeService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _memberTypeService = memberTypeService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -30,7 +31,8 @@ public class DeleteMemberTypeController : MemberTypeControllerBase
     [EndpointDescription("Deletes a member type identified by the provided Id.")]
     public async Task<IActionResult> Delete(CancellationToken cancellationToken, Guid id)
     {
-        ContentTypeOperationStatus status = await _memberTypeService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        ContentTypeOperationStatus status =
+            await _memberTypeService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
         return OperationStatusResult(status);
     }
 }

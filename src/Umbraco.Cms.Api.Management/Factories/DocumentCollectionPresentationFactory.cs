@@ -10,12 +10,23 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Api.Management.Factories;
 
-public class DocumentCollectionPresentationFactory : ContentCollectionPresentationFactory<IContent, DocumentCollectionResponseModel, DocumentValueResponseModel, DocumentVariantResponseModel>, IDocumentCollectionPresentationFactory
+public class DocumentCollectionPresentationFactory
+    : ContentCollectionPresentationFactory<
+        IContent,
+        DocumentCollectionResponseModel,
+        DocumentValueResponseModel,
+        DocumentVariantResponseModel>,
+        IDocumentCollectionPresentationFactory
 {
     private readonly IPublicAccessService _publicAccessService;
     private readonly IEntityService _entityService;
 
-    public DocumentCollectionPresentationFactory(IUmbracoMapper mapper, FlagProviderCollection flagProviders, IPublicAccessService publicAccessService, IEntityService entityService, IUserService userService)
+    public DocumentCollectionPresentationFactory(
+        IUmbracoMapper mapper,
+        FlagProviderCollection flagProviders,
+        IPublicAccessService publicAccessService,
+        IEntityService entityService,
+        IUserService userService)
         : base(mapper, flagProviders, userService)
     {
         _publicAccessService = publicAccessService;
@@ -23,7 +34,11 @@ public class DocumentCollectionPresentationFactory : ContentCollectionPresentati
     }
 
     [Obsolete("Please use the constructor with all parameters. Scheduled for removal in Umbraco 18.")]
-    public DocumentCollectionPresentationFactory(IUmbracoMapper mapper, FlagProviderCollection flagProviders, IPublicAccessService publicAccessService, IEntityService entityService)
+    public DocumentCollectionPresentationFactory(
+        IUmbracoMapper mapper,
+        FlagProviderCollection flagProviders,
+        IPublicAccessService publicAccessService,
+        IEntityService entityService)
         : base(mapper, flagProviders)
     {
         _publicAccessService = publicAccessService;
@@ -31,7 +46,10 @@ public class DocumentCollectionPresentationFactory : ContentCollectionPresentati
     }
 
     [Obsolete("Please use the constructor with all parameters. Scheduled for removal in Umbraco 18.")]
-    public DocumentCollectionPresentationFactory(IUmbracoMapper mapper, IPublicAccessService publicAccessService, IEntityService entityService)
+    public DocumentCollectionPresentationFactory(
+        IUmbracoMapper mapper,
+        IPublicAccessService publicAccessService,
+        IEntityService entityService)
         : base(mapper)
     {
         _publicAccessService = publicAccessService;
@@ -39,7 +57,9 @@ public class DocumentCollectionPresentationFactory : ContentCollectionPresentati
     }
 
     /// <inheritdoc/>
-    protected override Task SetUnmappedProperties(ListViewPagedModel<IContent> contentCollection, List<DocumentCollectionResponseModel> collectionResponseModels)
+    protected override Task SetUnmappedProperties(
+        ListViewPagedModel<IContent> contentCollection,
+        List<DocumentCollectionResponseModel> collectionResponseModels)
     {
         // Retrieve all public access entries once (single scope) instead of
         // calling IsProtected per item which creates N scopes.

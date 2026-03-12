@@ -43,7 +43,8 @@ public class ItemDocumentItemController : DocumentItemControllerBase
             .GetAll(UmbracoObjectTypes.Document, ids.ToArray())
             .OfType<IDocumentEntitySlim>();
 
-        IEnumerable<DocumentItemResponseModel> responseModels = documents.Select(_documentPresentationFactory.CreateItemResponseModel);
+        IEnumerable<DocumentItemResponseModel> responseModels =
+            documents.Select(_documentPresentationFactory.CreateItemResponseModel);
         return Ok(responseModels);
     }
 }

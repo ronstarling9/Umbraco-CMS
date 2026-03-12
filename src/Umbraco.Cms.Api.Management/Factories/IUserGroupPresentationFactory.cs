@@ -44,5 +44,7 @@ public interface IUserGroupPresentationFactory
     /// <param name="current">Existing user group to map to.</param>
     /// <param name="request">Update model containing the new values.</param>
     /// <returns>An attempt indicating if the operation was a success as well as a more detailed <see cref="UserGroupOperationStatus"/>.</returns>
-    Task<Attempt<IUserGroup, UserGroupOperationStatus>> UpdateAsync(IUserGroup current, UpdateUserGroupRequestModel request);
+    Task<Attempt<IUserGroup, UserGroupOperationStatus>> UpdateAsync(
+        IUserGroup current,
+        UpdateUserGroupRequestModel request);
 }

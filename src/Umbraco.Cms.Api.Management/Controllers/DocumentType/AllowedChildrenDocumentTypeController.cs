@@ -36,13 +36,15 @@ public class AllowedChildrenDocumentTypeController : DocumentTypeControllerBase
         int skip = 0,
         int take = 100)
     {
-        Attempt<PagedModel<IContentType>?, ContentTypeOperationStatus> attempt = await _contentTypeService.GetAllowedChildrenAsync(id, parentContentKey, skip, take);
+        Attempt<PagedModel<IContentType>?, ContentTypeOperationStatus> attempt =
+            await _contentTypeService.GetAllowedChildrenAsync(id, parentContentKey, skip, take);
         if (attempt.Success is false)
         {
             return OperationStatusResult(attempt.Status);
         }
 
-        List<AllowedDocumentType> viewModels = _umbracoMapper.MapEnumerable<IContentType, AllowedDocumentType>(attempt.Result!.Items);
+        List<AllowedDocumentType> viewModels =
+            _umbracoMapper.MapEnumerable<IContentType, AllowedDocumentType>(attempt.Result!.Items);
 
         var pagedViewModel = new PagedViewModel<AllowedDocumentType>
         {

@@ -19,7 +19,10 @@ public class RootDataTypeTreeController : DataTypeTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public RootDataTypeTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IDataTypeService dataTypeService)
+    public RootDataTypeTreeController(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IDataTypeService dataTypeService)
     : base(entityService, flagProviders, dataTypeService)
     {
     }
@@ -29,7 +32,8 @@ public class RootDataTypeTreeController : DataTypeTreeControllerBase
     [ProducesResponseType(typeof(PagedViewModel<DataTypeTreeItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets a collection of data type items from the root of the tree.")]
     [EndpointDescription("Gets a paginated collection of data type items from the root of the tree with optional filtering.")]
-    public async Task<ActionResult<PagedViewModel<DataTypeTreeItemResponseModel>>> Root(CancellationToken cancellationToken, int skip = 0, int take = 100, bool foldersOnly = false)
+    public async Task<ActionResult<PagedViewModel<DataTypeTreeItemResponseModel>>> Root(
+        CancellationToken cancellationToken, int skip = 0, int take = 100, bool foldersOnly = false)
     {
         RenderFoldersOnly(foldersOnly);
         return await GetRoot(skip, take);

@@ -7,7 +7,8 @@ namespace Umbraco.Cms.Api.Management.Security.Authorization.Dictionary;
 /// <summary>
 ///     Authorizes that the current user has the correct permission access to the dictionary item(s) specified in the request.
 /// </summary>
-public class DictionaryPermissionHandler : MustSatisfyRequirementAuthorizationHandler<DictionaryPermissionRequirement, DictionaryPermissionResource>
+public class DictionaryPermissionHandler
+    : MustSatisfyRequirementAuthorizationHandler<DictionaryPermissionRequirement, DictionaryPermissionResource>
 {
     private readonly IAuthorizationHelper _authorizationHelper;
     private readonly IDictionaryPermissionAuthorizer _dictionaryPermissionAuthorizer;
@@ -17,7 +18,9 @@ public class DictionaryPermissionHandler : MustSatisfyRequirementAuthorizationHa
     /// </summary>
     /// <param name="dictionaryPermissionAuthorizer">Authorizer for content access.</param>
     /// <param name="authorizationHelper">The authorization helper.</param>
-    public DictionaryPermissionHandler(IDictionaryPermissionAuthorizer dictionaryPermissionAuthorizer, IAuthorizationHelper authorizationHelper)
+    public DictionaryPermissionHandler(
+        IDictionaryPermissionAuthorizer dictionaryPermissionAuthorizer,
+        IAuthorizationHelper authorizationHelper)
     {
         _dictionaryPermissionAuthorizer = dictionaryPermissionAuthorizer;
         _authorizationHelper = authorizationHelper;

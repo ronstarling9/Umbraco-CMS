@@ -51,7 +51,8 @@ public class DeleteDocumentController : DocumentControllerBase
             return Forbidden();
         }
 
-        Attempt<IContent?, ContentEditingOperationStatus> result = await _contentEditingService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IContent?, ContentEditingOperationStatus> result =
+            await _contentEditingService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

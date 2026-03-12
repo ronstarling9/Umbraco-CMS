@@ -10,7 +10,8 @@ namespace Umbraco.Cms.Api.Management.Controllers.MemberType.Tree;
 [ApiVersion("1.0")]
 public class AncestorsMemberTypeTreeController : MemberTypeTreeControllerBase
 {
-    public AncestorsMemberTypeTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IMemberTypeService memberTypeService)
+    public AncestorsMemberTypeTreeController(
+        IEntityService entityService, FlagProviderCollection flagProviders, IMemberTypeService memberTypeService)
         : base(entityService, flagProviders, memberTypeService)
     {
     }
@@ -20,6 +21,7 @@ public class AncestorsMemberTypeTreeController : MemberTypeTreeControllerBase
     [ProducesResponseType(typeof(IEnumerable<MemberTypeTreeItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets a collection of ancestor member type items.")]
     [EndpointDescription("Gets a collection of member type items that are ancestors to the provided Id.")]
-    public async Task<ActionResult<IEnumerable<MemberTypeTreeItemResponseModel>>> Ancestors(CancellationToken cancellationToken, Guid descendantId)
+    public async Task<ActionResult<IEnumerable<MemberTypeTreeItemResponseModel>>> Ancestors(
+        CancellationToken cancellationToken, Guid descendantId)
         => await GetAncestors(descendantId);
 }

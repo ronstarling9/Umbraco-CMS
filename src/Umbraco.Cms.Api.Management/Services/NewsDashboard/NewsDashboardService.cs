@@ -77,12 +77,14 @@ public class NewsDashboardService : INewsDashboardService
         var version = _umbracoVersion.SemanticVersion.ToSemanticStringWithoutBuild();
         _siteIdentifierService.TryGetOrCreateSiteIdentifier(out Guid siteIdentifier);
 
-        var language = _backOfficeSecurityAccessor.BackOfficeSecurity?.CurrentUser?.Language ?? _globalSettings.DefaultUILanguage;
+        var language = _backOfficeSecurityAccessor.BackOfficeSecurity?.CurrentUser?.Language
+            ?? _globalSettings.DefaultUILanguage;
 
         var url = $"{BaseUrl}/{Path}?version={version}&siteId={siteIdentifier}&language={language}";
 
         const string CacheKey = "umbraco-dashboard-news";
-        NewsDashboardResponseModel? content = _appCaches.RuntimeCache.GetCacheItem<NewsDashboardResponseModel>(CacheKey);
+        NewsDashboardResponseModel? content =
+            _appCaches.RuntimeCache.GetCacheItem<NewsDashboardResponseModel>(CacheKey);
         if (content is not null)
         {
             return content;
@@ -94,7 +96,8 @@ public class NewsDashboardService : INewsDashboardService
 
             if (TryMapModel(json, out NewsDashboardResponseModel? model))
             {
-                _appCaches.RuntimeCache.InsertCacheItem(CacheKey, () => model, _newsCacheDurationProvider.CacheDuration);
+                _appCaches.RuntimeCache.InsertCacheItem(
+                    CacheKey, () => model, _newsCacheDurationProvider.CacheDuration);
                 content = model;
             }
         }
@@ -106,13 +109,15 @@ public class NewsDashboardService : INewsDashboardService
         return content ?? new NewsDashboardResponseModel { Items = [] };
     }
 
-    private bool TryMapModel(string json, [MaybeNullWhen(false)] out NewsDashboardResponseModel newsDashboardResponseModel)
+    private bool TryMapModel(
+        string json, [MaybeNullWhen(false)] out NewsDashboardResponseModel newsDashboardResponseModel)
     {
         try
         {
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true, };
 
-            List<NewsDashboardItemResponseModel>? items = JsonSerializer.Deserialize<List<NewsDashboardItemResponseModel>>(json, options);
+            List<NewsDashboardItemResponseModel>? items =
+                JsonSerializer.Deserialize<List<NewsDashboardItemResponseModel>>(json, options);
             newsDashboardResponseModel = new NewsDashboardResponseModel { Items = items ?? [] };
 
             return true;

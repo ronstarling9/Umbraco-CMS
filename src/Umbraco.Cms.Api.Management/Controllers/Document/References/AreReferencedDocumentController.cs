@@ -16,7 +16,8 @@ public class AreReferencedDocumentController : DocumentControllerBase
     private readonly ITrackedReferencesService _trackedReferencesSkipTakeService;
     private readonly IUmbracoMapper _umbracoMapper;
 
-    public AreReferencedDocumentController(ITrackedReferencesService trackedReferencesSkipTakeService, IUmbracoMapper umbracoMapper)
+    public AreReferencedDocumentController(
+        ITrackedReferencesService trackedReferencesSkipTakeService, IUmbracoMapper umbracoMapper)
     {
         _trackedReferencesSkipTakeService = trackedReferencesSkipTakeService;
         _umbracoMapper = umbracoMapper;
@@ -40,11 +41,14 @@ public class AreReferencedDocumentController : DocumentControllerBase
         int skip = 0,
         int take = 20)
     {
-        PagedModel<Guid> distinctByKeyItemsWithReferencedRelations = await _trackedReferencesSkipTakeService.GetPagedKeysWithDependentReferencesAsync(ids, Constants.ObjectTypes.Document, skip, take);
+        PagedModel<Guid> distinctByKeyItemsWithReferencedRelations =
+            await _trackedReferencesSkipTakeService.GetPagedKeysWithDependentReferencesAsync(
+                ids, Constants.ObjectTypes.Document, skip, take);
         var pagedViewModel = new PagedViewModel<ReferenceByIdModel>
         {
             Total = distinctByKeyItemsWithReferencedRelations.Total,
-            Items = _umbracoMapper.MapEnumerable<Guid, ReferenceByIdModel>(distinctByKeyItemsWithReferencedRelations.Items),
+            Items = _umbracoMapper.MapEnumerable<Guid, ReferenceByIdModel>(
+                distinctByKeyItemsWithReferencedRelations.Items),
         };
 
         return pagedViewModel;

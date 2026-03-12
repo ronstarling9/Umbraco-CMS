@@ -19,7 +19,10 @@ public class RootDictionaryTreeController : DictionaryTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public RootDictionaryTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IDictionaryItemService dictionaryItemService)
+    public RootDictionaryTreeController(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IDictionaryItemService dictionaryItemService)
         : base(entityService, flagProviders, dictionaryItemService)
     {
     }
@@ -29,7 +32,8 @@ public class RootDictionaryTreeController : DictionaryTreeControllerBase
     [ProducesResponseType(typeof(PagedViewModel<NamedEntityTreeItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets a collection of dictionary items from the root of the tree.")]
     [EndpointDescription("Gets a paginated collection of dictionary items from the root of the tree with optional filtering.")]
-    public async Task<ActionResult<PagedViewModel<NamedEntityTreeItemResponseModel>>> Root(CancellationToken cancellationToken, int skip = 0, int take = 100)
+    public async Task<ActionResult<PagedViewModel<NamedEntityTreeItemResponseModel>>> Root(
+        CancellationToken cancellationToken, int skip = 0, int take = 100)
     {
         PagedModel<IDictionaryItem> paginatedItems = await DictionaryItemService.GetPagedAsync(null, skip, take);
 

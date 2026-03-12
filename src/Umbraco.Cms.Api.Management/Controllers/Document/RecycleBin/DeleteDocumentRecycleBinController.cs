@@ -55,7 +55,8 @@ public class DeleteDocumentRecycleBinController : DocumentRecycleBinControllerBa
             return Forbidden();
         }
 
-        Attempt<IContent?, ContentEditingOperationStatus> result = await _contentEditingService.DeleteFromRecycleBinAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IContent?, ContentEditingOperationStatus> result =
+            await _contentEditingService.DeleteFromRecycleBinAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

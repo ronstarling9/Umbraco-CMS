@@ -26,7 +26,8 @@ public class ConfigurationMediaTypeController : MediaTypeControllerBase
     [EndpointDescription("Gets the configuration settings for media types.")]
     public Task<IActionResult> Configuration(CancellationToken cancellationToken)
     {
-        MediaTypeConfigurationResponseModel responseModel = _configurationPresentationFactory.CreateMediaTypeConfigurationResponseModel();
+        MediaTypeConfigurationResponseModel responseModel =
+            _configurationPresentationFactory.CreateMediaTypeConfigurationResponseModel();
 
         return Task.FromResult<IActionResult>(Ok(responseModel));
     }

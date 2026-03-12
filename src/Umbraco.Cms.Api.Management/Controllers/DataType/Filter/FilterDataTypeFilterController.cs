@@ -36,8 +36,10 @@ public class FilterDataTypeFilterController : DataTypeFilterControllerBase
         string? editorUiAlias = null,
         string? editorAlias = null)
     {
-        PagedModel<IDataType> dataTypes = await _dataTypeService.FilterAsync(name, editorUiAlias, editorAlias, skip, take);
-        List<DataTypeItemResponseModel> responseModels = _mapper.MapEnumerable<IDataType, DataTypeItemResponseModel>(dataTypes.Items);
+        PagedModel<IDataType> dataTypes =
+            await _dataTypeService.FilterAsync(name, editorUiAlias, editorAlias, skip, take);
+        List<DataTypeItemResponseModel> responseModels =
+            _mapper.MapEnumerable<IDataType, DataTypeItemResponseModel>(dataTypes.Items);
         var viewModel = new PagedViewModel<DataTypeItemResponseModel>
         {
             Total = dataTypes.Total,

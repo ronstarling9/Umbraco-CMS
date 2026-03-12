@@ -38,7 +38,8 @@ public class ImportNewMediaTypeController : MediaTypeControllerBase
         CancellationToken cancellationToken,
         ImportMediaTypeRequestModel model)
     {
-        Attempt<IMediaType?, MediaTypeImportOperationStatus> importAttempt = await _mediaTypeImportService.Import(model.File.Id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IMediaType?, MediaTypeImportOperationStatus> importAttempt =
+            await _mediaTypeImportService.Import(model.File.Id, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return importAttempt.Success is false
             ? MediaTypeImportOperationStatusResult(importAttempt.Status)

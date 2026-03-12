@@ -8,7 +8,9 @@ public class PasswordConfigurationPresentationFactory : IPasswordConfigurationPr
 {
     private readonly UserPasswordConfigurationSettings _userPasswordConfigurationSettings;
 
-    public PasswordConfigurationPresentationFactory(IOptionsSnapshot<UserPasswordConfigurationSettings> userPasswordConfigurationSettings) => _userPasswordConfigurationSettings = userPasswordConfigurationSettings.Value;
+    public PasswordConfigurationPresentationFactory(
+        IOptionsSnapshot<UserPasswordConfigurationSettings> userPasswordConfigurationSettings)
+        => _userPasswordConfigurationSettings = userPasswordConfigurationSettings.Value;
 
     public PasswordConfigurationResponseModel CreatePasswordConfigurationResponseModel() =>
         new()

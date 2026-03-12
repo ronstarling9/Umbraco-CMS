@@ -12,7 +12,10 @@ public class ModelsBuilderPresentationFactory : IModelsBuilderPresentationFactor
     private readonly OutOfDateModelsStatus _outOfDateModels;
     private readonly ModelsBuilderSettings _modelsBuilderSettings;
 
-    public ModelsBuilderPresentationFactory(IOptionsMonitor<ModelsBuilderSettings> modelsBuilderSettings, ModelsGenerationError mbErrors, OutOfDateModelsStatus outOfDateModels)
+    public ModelsBuilderPresentationFactory(
+        IOptionsMonitor<ModelsBuilderSettings> modelsBuilderSettings,
+        ModelsGenerationError mbErrors,
+        OutOfDateModelsStatus outOfDateModels)
     {
         _mbErrors = mbErrors;
         _outOfDateModels = outOfDateModels;
@@ -23,7 +26,9 @@ public class ModelsBuilderPresentationFactory : IModelsBuilderPresentationFactor
         new()
         {
             Mode = _modelsBuilderSettings.ModelsMode,
-            CanGenerate = _modelsBuilderSettings.ModelsMode is Constants.ModelsBuilder.ModelsModes.SourceCodeManual or Constants.ModelsBuilder.ModelsModes.SourceCodeAuto,
+            CanGenerate = _modelsBuilderSettings.ModelsMode
+                is Constants.ModelsBuilder.ModelsModes.SourceCodeManual
+                or Constants.ModelsBuilder.ModelsModes.SourceCodeAuto,
             OutOfDateModels = _outOfDateModels.IsOutOfDate,
             LastError = _mbErrors.GetLastError(),
             Version = ApiVersion.Current.Version.ToString(),

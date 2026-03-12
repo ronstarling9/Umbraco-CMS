@@ -32,7 +32,10 @@ public class MediaTypeTreeControllerBase : FolderTreeControllerBase<MediaTypeTre
     }
 
     [Obsolete("Please use the constructor taking all parameters. Scheduled for removal in Umbraco 19.")]
-    public MediaTypeTreeControllerBase(IEntityService entityService, FlagProviderCollection flagProviders, IMediaTypeService mediaTypeService)
+    public MediaTypeTreeControllerBase(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IMediaTypeService mediaTypeService)
         : this(
             entityService,
             flagProviders,

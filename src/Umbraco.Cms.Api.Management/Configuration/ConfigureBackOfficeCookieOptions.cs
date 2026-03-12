@@ -100,16 +100,19 @@ public class ConfigureBackOfficeCookieOptions : IConfigureNamedOptions<CookieAut
 
         options.Events = new CookieAuthenticationEvents
         {
-            // IMPORTANT! If you set any of OnRedirectToLogin, OnRedirectToAccessDenied, OnRedirectToLogout, OnRedirectToReturnUrl
-            // you need to be aware that this will bypass the default behavior of returning the correct status codes for ajax requests and
-            // not redirecting for non-ajax requests. This is because the default behavior is baked into this class here:
+            // IMPORTANT! If you set any of OnRedirectToLogin, OnRedirectToAccessDenied, OnRedirectToLogout,
+            // OnRedirectToReturnUrl you need to be aware that this will bypass the default behavior of returning
+            // the correct status codes for ajax requests and not redirecting for non-ajax requests.
+            // This is because the default behavior is baked into this class here:
             // https://github.com/dotnet/aspnetcore/blob/master/src/Security/Authentication/Cookies/src/CookieAuthenticationEvents.cs#L58
-            // It would be possible to re-use the default behavior if any of these need to be set but that must be taken into account else
-            // our back office requests will not function correctly. For now we don't need to set/configure any of these callbacks because
+            // It would be possible to re-use the default behavior if any of these need to be set but that must
+            // be taken into account else our back office requests will not function correctly.
+            // For now we don't need to set/configure any of these callbacks because
             // the defaults work fine with our setup.
             OnValidatePrincipal = async ctx =>
             {
-                // We need to resolve the BackOfficeSecurityStampValidator per request as a requirement (even in aspnetcore they do this)
+                // We need to resolve the BackOfficeSecurityStampValidator per request as a requirement
+                // (even in aspnetcore they do this)
                 BackOfficeSecurityStampValidator securityStampValidator =
                     ctx.HttpContext.RequestServices.GetRequiredService<BackOfficeSecurityStampValidator>();
 
@@ -162,7 +165,8 @@ public class ConfigureBackOfficeCookieOptions : IConfigureNamedOptions<CookieAut
                 if (backOfficeIdentity != null)
                 {
                     // generate a session id and assign it
-                    // create a session token - if we are configured and not in an upgrade state then use the db, otherwise just generate one
+                    // create a session token - if we are configured and not in an upgrade state then use the db,
+                    // otherwise just generate one
                     Guid session = _runtimeState.Level == RuntimeLevel.Run
                         ? _userService.CreateLoginSession(
                             backOfficeIdentity.GetId()!.Value,

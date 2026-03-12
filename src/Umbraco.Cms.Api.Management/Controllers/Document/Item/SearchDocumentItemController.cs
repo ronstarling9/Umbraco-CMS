@@ -93,7 +93,8 @@ public class SearchDocumentItemController : DocumentItemControllerBase
 
         var result = new PagedModel<DocumentItemResponseModel>
         {
-            Items = searchResult.Items.OfType<IDocumentEntitySlim>().Select(_documentPresentationFactory.CreateItemResponseModel),
+            Items = searchResult.Items.OfType<IDocumentEntitySlim>()
+                .Select(_documentPresentationFactory.CreateItemResponseModel),
             Total = searchResult.Total,
         };
 

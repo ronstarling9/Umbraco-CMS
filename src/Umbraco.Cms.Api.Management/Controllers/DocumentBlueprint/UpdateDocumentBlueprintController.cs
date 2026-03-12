@@ -38,12 +38,15 @@ public class UpdateDocumentBlueprintController : DocumentBlueprintControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Updates a document blueprint.")]
     [EndpointDescription("Updates a document blueprint identified by the provided Id with the details from the request model.")]
-    public async Task<IActionResult> Update(CancellationToken cancellationToken, Guid id, UpdateDocumentBlueprintRequestModel requestModel)
+    public async Task<IActionResult> Update(
+        CancellationToken cancellationToken, Guid id, UpdateDocumentBlueprintRequestModel requestModel)
     {
         ContentBlueprintUpdateModel model = _blueprintEditingPresentationFactory.MapUpdateModel(requestModel);
 
         // We don't need to validate user access because we "only" require access to the Settings section to update blueprints
-        Attempt<ContentUpdateResult, ContentEditingOperationStatus> result = await _contentBlueprintEditingService.UpdateAsync(id, model, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<ContentUpdateResult, ContentEditingOperationStatus> result =
+            await _contentBlueprintEditingService.UpdateAsync(
+                id, model, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

@@ -16,7 +16,8 @@ public class SearchTemplateItemController : TemplateItemControllerBase
     private readonly ITemplateService _templateService;
     private readonly IUmbracoMapper _mapper;
 
-    public SearchTemplateItemController(IEntitySearchService entitySearchService, ITemplateService templateService, IUmbracoMapper mapper)
+    public SearchTemplateItemController(
+        IEntitySearchService entitySearchService, ITemplateService templateService, IUmbracoMapper mapper)
     {
         _entitySearchService = entitySearchService;
         _templateService = templateService;
@@ -28,15 +29,18 @@ public class SearchTemplateItemController : TemplateItemControllerBase
     [ProducesResponseType(typeof(PagedModel<TemplateItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Searches template items.")]
     [EndpointDescription("Searches template items by the provided query with pagination support.")]
-    public async Task<IActionResult> Search(CancellationToken cancellationToken, string query, int skip = 0, int take = 100)
+    public async Task<IActionResult> Search(
+        CancellationToken cancellationToken, string query, int skip = 0, int take = 100)
     {
-        PagedModel<IEntitySlim> searchResult = _entitySearchService.Search(UmbracoObjectTypes.Template, query, skip, take);
+        PagedModel<IEntitySlim> searchResult =
+            _entitySearchService.Search(UmbracoObjectTypes.Template, query, skip, take);
         if (searchResult.Items.Any() is false)
         {
             return Ok(new PagedModel<TemplateItemResponseModel> { Total = searchResult.Total });
         }
 
-        IEnumerable<ITemplate> templates = await _templateService.GetAllAsync(searchResult.Items.Select(item => item.Key).ToArray());
+        IEnumerable<ITemplate> templates =
+            await _templateService.GetAllAsync(searchResult.Items.Select(item => item.Key).ToArray());
         var result = new PagedModel<TemplateItemResponseModel>
         {
             Items = _mapper.MapEnumerable<ITemplate, TemplateItemResponseModel>(templates),

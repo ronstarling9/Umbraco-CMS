@@ -38,10 +38,11 @@ public class ByKeyRedirectUrlManagementController : RedirectUrlManagementControl
 
         IEnumerable<RedirectUrlResponseModel> viewModels = _redirectUrlPresentationFactory.CreateMany(redirects);
 
-        return Task.FromResult<ActionResult<PagedViewModel<RedirectUrlResponseModel>>>(new PagedViewModel<RedirectUrlResponseModel>
-        {
-            Items = viewModels.Skip(skip).Take(take),
-            Total = redirects.Length,
-        });
+        return Task.FromResult<ActionResult<PagedViewModel<RedirectUrlResponseModel>>>(
+            new PagedViewModel<RedirectUrlResponseModel>
+            {
+                Items = viewModels.Skip(skip).Take(take),
+                Total = redirects.Length,
+            });
     }
 }

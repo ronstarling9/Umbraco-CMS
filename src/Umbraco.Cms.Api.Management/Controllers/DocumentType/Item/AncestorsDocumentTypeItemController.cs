@@ -17,7 +17,9 @@ public class AncestorsDocumentTypeItemController : DocumentTypeItemControllerBas
 
     [HttpGet("ancestors")]
     [MapToApiVersion("1.0")]
-    [ProducesResponseType(typeof(IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(
+        typeof(IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>>),
+        StatusCodes.Status200OK)]
     [EndpointSummary("Gets ancestors for a collection of document type items.")]
     [EndpointDescription("Gets the ancestor chains for document type items identified by the provided Ids.")]
     public async Task<IActionResult> Ancestors(
@@ -29,7 +31,8 @@ public class AncestorsDocumentTypeItemController : DocumentTypeItemControllerBas
             return Ok(Enumerable.Empty<ItemAncestorsResponseModel<NamedItemResponseModel>>());
         }
 
-        IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>> result = await _itemAncestorService.GetAncestorsAsync(
+        IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>> result =
+            await _itemAncestorService.GetAncestorsAsync(
             UmbracoObjectTypes.DocumentType,
             UmbracoObjectTypes.DocumentTypeContainer,
             ids);

@@ -15,7 +15,9 @@ public class DeleteMemberController : MemberControllerBase
     private readonly IMemberEditingService _memberEditingService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public DeleteMemberController(IMemberEditingService memberEditingService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public DeleteMemberController(
+        IMemberEditingService memberEditingService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _memberEditingService = memberEditingService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -30,7 +32,8 @@ public class DeleteMemberController : MemberControllerBase
     [EndpointDescription("Deletes a member identified by the provided Id.")]
     public async Task<IActionResult> Delete(CancellationToken cancellationToken, Guid id)
     {
-        Attempt<IMember?, MemberEditingStatus> result = await _memberEditingService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IMember?, MemberEditingStatus> result =
+            await _memberEditingService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

@@ -14,7 +14,9 @@ public class AvailableCompositionMediaTypeController : MediaTypeControllerBase
     private readonly IMediaTypeEditingService _mediaTypeEditingService;
     private readonly IMediaTypeEditingPresentationFactory _presentationFactory;
 
-    public AvailableCompositionMediaTypeController(IMediaTypeEditingService mediaTypeEditingService, IMediaTypeEditingPresentationFactory presentationFactory)
+    public AvailableCompositionMediaTypeController(
+        IMediaTypeEditingService mediaTypeEditingService,
+        IMediaTypeEditingPresentationFactory presentationFactory)
     {
         _mediaTypeEditingService = mediaTypeEditingService;
         _presentationFactory = presentationFactory;
@@ -29,12 +31,14 @@ public class AvailableCompositionMediaTypeController : MediaTypeControllerBase
         CancellationToken cancellationToken,
         MediaTypeCompositionRequestModel compositionModel)
     {
-        IEnumerable<ContentTypeAvailableCompositionsResult> availableCompositions = await _mediaTypeEditingService.GetAvailableCompositionsAsync(
-            compositionModel.Id,
-            compositionModel.CurrentCompositeIds,
-            compositionModel.CurrentPropertyAliases);
+        IEnumerable<ContentTypeAvailableCompositionsResult> availableCompositions =
+            await _mediaTypeEditingService.GetAvailableCompositionsAsync(
+                compositionModel.Id,
+                compositionModel.CurrentCompositeIds,
+                compositionModel.CurrentPropertyAliases);
 
-        IEnumerable<AvailableMediaTypeCompositionResponseModel> responseModels = _presentationFactory.MapCompositionModels(availableCompositions);
+        IEnumerable<AvailableMediaTypeCompositionResponseModel> responseModels =
+            _presentationFactory.MapCompositionModels(availableCompositions);
 
         return Ok(responseModels);
     }

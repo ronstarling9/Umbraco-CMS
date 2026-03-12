@@ -44,7 +44,8 @@ public class ChangePasswordCurrentUserController : CurrentUserControllerBase
             UserKey = userKey,
         };
 
-        Attempt<PasswordChangedModel, UserOperationStatus> response = await _userService.ChangePasswordAsync(userKey, changeModel);
+        Attempt<PasswordChangedModel, UserOperationStatus> response =
+            await _userService.ChangePasswordAsync(userKey, changeModel);
 
         return response.Success
             ? Ok()

@@ -17,7 +17,8 @@ public class ExternalLoginTelemetryProvider : IDetailedTelemetryProvider
 
     public IEnumerable<UsageInformation> GetInformation()
     {
-        IEnumerable<BackOfficeExternaLoginProviderScheme> providers = _externalLoginProviders.GetBackOfficeProvidersAsync().GetAwaiter().GetResult();
+        IEnumerable<BackOfficeExternaLoginProviderScheme> providers =
+            _externalLoginProviders.GetBackOfficeProvidersAsync().GetAwaiter().GetResult();
         yield return new UsageInformation(Constants.Telemetry.BackofficeExternalLoginProviderCount, providers.Count());
     }
 }

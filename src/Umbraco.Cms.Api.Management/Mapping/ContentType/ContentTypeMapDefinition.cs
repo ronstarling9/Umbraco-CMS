@@ -59,7 +59,8 @@ public abstract class ContentTypeMapDefinition<TContentType, TPropertyTypeModel,
         ReferenceByIdModel? ParentGroup(PropertyGroup group)
         {
             var path = group.Alias.Split(Constants.CharArrays.ForwardSlash);
-            return path.Length == 1 || groupKeysByGroupAliases.TryGetValue(path.First(), out Guid parentGroupKey) == false
+            return path.Length == 1
+                || groupKeysByGroupAliases.TryGetValue(path.First(), out Guid parentGroupKey) == false
                 ? null
                 : new ReferenceByIdModel(parentGroupKey);
         }
@@ -78,12 +79,16 @@ public abstract class ContentTypeMapDefinition<TContentType, TPropertyTypeModel,
             .ToArray();
     }
 
-    protected static CompositionType CalculateCompositionType(int contentTypeParentId, IContentTypeComposition contentTypeComposition)
+    protected static CompositionType CalculateCompositionType(
+        int contentTypeParentId, IContentTypeComposition contentTypeComposition)
         => contentTypeComposition.Id == contentTypeParentId
             ? CompositionType.Inheritance
             : CompositionType.Composition;
 
-    protected static IEnumerable<T> MapCompositions<T>(IEnumerable<IContentTypeComposition> directCompositions, int contentTypeParentId, Func<ReferenceByIdModel, CompositionType, T> contentTypeCompositionFactory)
+    protected static IEnumerable<T> MapCompositions<T>(
+        IEnumerable<IContentTypeComposition> directCompositions,
+        int contentTypeParentId,
+        Func<ReferenceByIdModel, CompositionType, T> contentTypeCompositionFactory)
          => directCompositions
          .Select(composition => contentTypeCompositionFactory(
             new ReferenceByIdModel(composition.Key),

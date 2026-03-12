@@ -23,7 +23,9 @@ public static partial class UmbracoBuilderExtensions
     /// <param name="builder">The Umbraco builder.</param>
     /// <param name="configureMvc">Optional action to configure the MVC builder.</param>
     /// <returns>The Umbraco builder.</returns>
-    public static IUmbracoBuilder AddBackOffice(this IUmbracoBuilder builder, Action<IMvcBuilder>? configureMvc = null) =>
+    public static IUmbracoBuilder AddBackOffice(
+        this IUmbracoBuilder builder,
+        Action<IMvcBuilder>? configureMvc = null) =>
         builder
             .AddCore(configureMvc)           // All core services
             .AddBackOfficeCore()             // Backoffice-specific: IBackOfficePathGenerator

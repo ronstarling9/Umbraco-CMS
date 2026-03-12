@@ -29,11 +29,14 @@ public class GetTwoFactorSetupForProviderCurrentUserController : CurrentUserCont
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [EndpointSummary("Gets two-factor setup information.")]
     [EndpointDescription("Gets the setup information for configuring a two-factor authentication provider.")]
-    public async Task<IActionResult> GetTwoFactorProviderByName(CancellationToken cancellationToken, string providerName)
+    public async Task<IActionResult> GetTwoFactorProviderByName(
+        CancellationToken cancellationToken,
+        string providerName)
     {
         Guid userKey = CurrentUserKey(_backOfficeSecurityAccessor);
 
-        Attempt<ISetupTwoFactorModel, TwoFactorOperationStatus> result = await _userTwoFactorLoginService.GetSetupInfoAsync(userKey, providerName);
+        Attempt<ISetupTwoFactorModel, TwoFactorOperationStatus> result =
+            await _userTwoFactorLoginService.GetSetupInfoAsync(userKey, providerName);
 
         return result.Status is TwoFactorOperationStatus.Success
             ? Ok(result.Result)

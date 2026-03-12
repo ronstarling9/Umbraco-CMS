@@ -16,16 +16,31 @@ public class PartialViewViewModelsMapDefinition : IMapDefinition
 {
     public void DefineMaps(IUmbracoMapper mapper)
     {
-        mapper.Define<IPartialView, PartialViewResponseModel>((_, _) => new PartialViewResponseModel { Name = string.Empty, Path = string.Empty, Content = string.Empty }, Map);
-        mapper.Define<CreatePartialViewRequestModel, PartialViewCreateModel>((_, _) => new PartialViewCreateModel { Name = string.Empty }, Map);
-        mapper.Define<UpdatePartialViewRequestModel, PartialViewUpdateModel>((_, _) => new PartialViewUpdateModel { Content = string.Empty }, Map);
-        mapper.Define<RenamePartialViewRequestModel, PartialViewRenameModel>((_, _) => new PartialViewRenameModel { Name = string.Empty }, Map);
+        mapper.Define<IPartialView, PartialViewResponseModel>(
+            (_, _) => new PartialViewResponseModel { Name = string.Empty, Path = string.Empty, Content = string.Empty },
+            Map);
+        mapper.Define<CreatePartialViewRequestModel, PartialViewCreateModel>(
+            (_, _) => new PartialViewCreateModel { Name = string.Empty }, Map);
+        mapper.Define<UpdatePartialViewRequestModel, PartialViewUpdateModel>(
+            (_, _) => new PartialViewUpdateModel { Content = string.Empty }, Map);
+        mapper.Define<RenamePartialViewRequestModel, PartialViewRenameModel>(
+            (_, _) => new PartialViewRenameModel { Name = string.Empty }, Map);
 
-        mapper.Define<PartialViewSnippet, PartialViewSnippetResponseModel>((_, _) => new PartialViewSnippetResponseModel { Id = string.Empty, Name = string.Empty, Content = string.Empty }, Map);
-        mapper.Define<PartialViewSnippetSlim, PartialViewSnippetItemResponseModel>((_, _) => new PartialViewSnippetItemResponseModel { Id = string.Empty, Name = string.Empty }, Map);
+        mapper.Define<PartialViewSnippet, PartialViewSnippetResponseModel>(
+            (_, _) => new PartialViewSnippetResponseModel
+            {
+                Id = string.Empty,
+                Name = string.Empty,
+                Content = string.Empty
+            },
+            Map);
+        mapper.Define<PartialViewSnippetSlim, PartialViewSnippetItemResponseModel>(
+            (_, _) => new PartialViewSnippetItemResponseModel { Id = string.Empty, Name = string.Empty }, Map);
 
-        mapper.Define<PartialViewFolderModel, PartialViewFolderResponseModel>((_, _) => new PartialViewFolderResponseModel { Name = string.Empty, Path = string.Empty }, Map);
-        mapper.Define<CreatePartialViewFolderRequestModel, PartialViewFolderCreateModel>((_, _) => new PartialViewFolderCreateModel { Name = string.Empty }, Map);
+        mapper.Define<PartialViewFolderModel, PartialViewFolderResponseModel>(
+            (_, _) => new PartialViewFolderResponseModel { Name = string.Empty, Path = string.Empty }, Map);
+        mapper.Define<CreatePartialViewFolderRequestModel, PartialViewFolderCreateModel>(
+            (_, _) => new PartialViewFolderCreateModel { Name = string.Empty }, Map);
     }
 
     // Umbraco.Code.MapAll
@@ -88,7 +103,8 @@ public class PartialViewViewModelsMapDefinition : IMapDefinition
     }
 
     // Umbraco.Code.MapAll
-    private void Map(CreatePartialViewFolderRequestModel source, PartialViewFolderCreateModel target, MapperContext context)
+    private void Map(
+        CreatePartialViewFolderRequestModel source, PartialViewFolderCreateModel target, MapperContext context)
     {
         target.Name = source.Name;
         target.ParentPath = source.Parent?.Path.VirtualPathToSystemPath();

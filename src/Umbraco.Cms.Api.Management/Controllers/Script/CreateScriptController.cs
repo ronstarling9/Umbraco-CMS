@@ -39,10 +39,12 @@ public class CreateScriptController : ScriptControllerBase
     public async Task<IActionResult> Create(CancellationToken cancellationToken, CreateScriptRequestModel requestModel)
     {
         ScriptCreateModel createModel = _umbracoMapper.Map<ScriptCreateModel>(requestModel)!;
-        Attempt<IScript?, ScriptOperationStatus> createAttempt = await _scriptService.CreateAsync(createModel, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IScript?, ScriptOperationStatus> createAttempt =
+            await _scriptService.CreateAsync(createModel, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return createAttempt.Success
-            ? CreatedAtPath<ByPathScriptController>(controller => nameof(controller.ByPath), createAttempt.Result!.Path.SystemPathToVirtualPath())
+            ? CreatedAtPath<ByPathScriptController>(
+                controller => nameof(controller.ByPath), createAttempt.Result!.Path.SystemPathToVirtualPath())
             : ScriptOperationStatusResult(createAttempt.Status);
     }
 }

@@ -26,7 +26,8 @@ public class BackOfficeLoginController : Controller
     // GET
     public async Task<IActionResult> Index(CancellationToken cancellationToken, BackOfficeLoginModel model)
     {
-        AuthenticateResult cookieAuthResult = await HttpContext.AuthenticateAsync(Constants.Security.BackOfficeAuthenticationType);
+        AuthenticateResult cookieAuthResult =
+            await HttpContext.AuthenticateAsync(Constants.Security.BackOfficeAuthenticationType);
         if (cookieAuthResult.Succeeded)
         {
             model.UserIsAlreadyLoggedIn = true;
@@ -42,7 +43,8 @@ public class BackOfficeLoginController : Controller
             model.ReturnUrl = model.UmbracoUrl;
         }
 
-        if ( Uri.TryCreate(model.ReturnUrl, UriKind.Relative, out _) is false) // Needs to test for relative and not absolute, as /whatever/ is an absolute path on linux
+        // Needs to test for relative and not absolute, as /whatever/ is an absolute path on linux
+        if (Uri.TryCreate(model.ReturnUrl, UriKind.Relative, out _) is false)
         {
             return BadRequest("ReturnUrl must be a relative path.");
         }

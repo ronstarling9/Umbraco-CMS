@@ -35,7 +35,8 @@ public class ItemMemberTypeItemController : MemberTypeItemControllerBase
         }
 
         IEnumerable<IMemberType> memberTypes = _memberTypeService.GetMany(ids);
-        List<MemberTypeItemResponseModel> responseModels = _mapper.MapEnumerable<IMemberType, MemberTypeItemResponseModel>(memberTypes);
+        List<MemberTypeItemResponseModel> responseModels =
+            _mapper.MapEnumerable<IMemberType, MemberTypeItemResponseModel>(memberTypes);
         return Task.FromResult<IActionResult>(Ok(responseModels));
     }
 }

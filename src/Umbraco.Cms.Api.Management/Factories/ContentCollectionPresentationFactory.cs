@@ -11,7 +11,8 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Api.Management.Factories;
 
-public abstract class ContentCollectionPresentationFactory<TContent, TCollectionResponseModel, TValueResponseModelBase, TVariantResponseModel>
+public abstract class ContentCollectionPresentationFactory<TContent, TCollectionResponseModel, TValueResponseModelBase,
+    TVariantResponseModel>
     where TContent : class, IContentBase
     where TCollectionResponseModel : ContentResponseModelBase<TValueResponseModelBase, TVariantResponseModel>
     where TValueResponseModelBase : ValueResponseModelBase
@@ -50,7 +51,8 @@ public abstract class ContentCollectionPresentationFactory<TContent, TCollection
     {
     }
 
-    public async Task<List<TCollectionResponseModel>> CreateCollectionModelAsync(ListViewPagedModel<TContent> contentCollection)
+    public async Task<List<TCollectionResponseModel>> CreateCollectionModelAsync(
+        ListViewPagedModel<TContent> contentCollection)
     {
         PagedModel<TContent> collectionItemsResult = contentCollection.Items;
         ListViewConfiguration collectionConfiguration = contentCollection.ListViewConfiguration;
@@ -78,11 +80,15 @@ public abstract class ContentCollectionPresentationFactory<TContent, TCollection
         return collectionResponseModels;
     }
 
-    protected virtual Task SetUnmappedProperties(ListViewPagedModel<TContent> contentCollection, List<TCollectionResponseModel> collectionResponseModels) => Task.CompletedTask;
+    protected virtual Task SetUnmappedProperties(
+        ListViewPagedModel<TContent> contentCollection,
+        List<TCollectionResponseModel> collectionResponseModels)
+        => Task.CompletedTask;
 
     private async Task PopulateFlags(IEnumerable<TCollectionResponseModel> models)
     {
-        foreach (IFlagProvider signProvider in _flagProviderCollection.Where(x => x.CanProvideFlags<TCollectionResponseModel>()))
+        foreach (IFlagProvider signProvider in
+            _flagProviderCollection.Where(x => x.CanProvideFlags<TCollectionResponseModel>()))
         {
             await signProvider.PopulateFlagsAsync(models);
         }

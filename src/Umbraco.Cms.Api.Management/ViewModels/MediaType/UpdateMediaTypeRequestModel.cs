@@ -3,7 +3,9 @@
 namespace Umbraco.Cms.Api.Management.ViewModels.MediaType;
 
 public class UpdateMediaTypeRequestModel
-    : UpdateContentTypeRequestModelBase<UpdateMediaTypePropertyTypeRequestModel, UpdateMediaTypePropertyTypeContainerRequestModel>
+    : UpdateContentTypeRequestModelBase<
+        UpdateMediaTypePropertyTypeRequestModel,
+        UpdateMediaTypePropertyTypeContainerRequestModel>
 {
     public IEnumerable<MediaTypeSort> AllowedMediaTypes { get; set; } = Enumerable.Empty<MediaTypeSort>();
 

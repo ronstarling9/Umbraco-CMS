@@ -13,7 +13,8 @@ public class DeleteTemporaryFileController : TemporaryFileControllerBase
 {
     private readonly ITemporaryFileService _temporaryFileService;
 
-    public DeleteTemporaryFileController(ITemporaryFileService temporaryFileService) => _temporaryFileService = temporaryFileService;
+    public DeleteTemporaryFileController(ITemporaryFileService temporaryFileService)
+        => _temporaryFileService = temporaryFileService;
 
     [HttpDelete($"{{{nameof(id)}}}")]
     [MapToApiVersion("1.0")]

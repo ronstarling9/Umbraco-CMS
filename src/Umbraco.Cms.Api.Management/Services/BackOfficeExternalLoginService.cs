@@ -38,7 +38,8 @@ public class BackOfficeExternalLoginService : IBackOfficeExternalLoginService
         _memoryCache = memoryCache;
     }
 
-    public async Task<Attempt<IEnumerable<UserExternalLoginProviderModel>, ExternalLoginOperationStatus>> ExternalLoginStatusForUserAsync(Guid userKey)
+    public async Task<Attempt<IEnumerable<UserExternalLoginProviderModel>, ExternalLoginOperationStatus>>
+        ExternalLoginStatusForUserAsync(Guid userKey)
     {
         IEnumerable<BackOfficeExternaLoginProviderScheme> providers =
             await _backOfficeExternalLoginProviders.GetBackOfficeProvidersAsync();
@@ -68,7 +69,8 @@ public class BackOfficeExternalLoginService : IBackOfficeExternalLoginService
                 ExternalLoginOperationStatus.Success, providerStatuses);
     }
 
-    public async Task<Attempt<ExternalLoginOperationStatus>> UnLinkLoginAsync(ClaimsPrincipal claimsPrincipal, string loginProvider, string providerKey)
+    public async Task<Attempt<ExternalLoginOperationStatus>> UnLinkLoginAsync(
+        ClaimsPrincipal claimsPrincipal, string loginProvider, string providerKey)
     {
         var userId = claimsPrincipal.Identity?.GetUserId();
         if (userId is null)
@@ -118,27 +120,32 @@ public class BackOfficeExternalLoginService : IBackOfficeExternalLoginService
         return Attempt.Succeed(ExternalLoginOperationStatus.Success);
     }
 
-    public async Task<Attempt<IEnumerable<IdentityError>, ExternalLoginOperationStatus>> HandleLoginCallbackAsync(HttpContext httpContext)
+    public async Task<Attempt<IEnumerable<IdentityError>, ExternalLoginOperationStatus>> HandleLoginCallbackAsync(
+        HttpContext httpContext)
     {
         AuthenticateResult cookieAuthenticatedUserAttempt =
             await httpContext.AuthenticateAsync(Constants.Security.BackOfficeAuthenticationType);
 
         if (cookieAuthenticatedUserAttempt.Succeeded is false)
         {
-            return Attempt.FailWithStatus(ExternalLoginOperationStatus.Unauthorized, Enumerable.Empty<IdentityError>());
+            return Attempt.FailWithStatus(
+            ExternalLoginOperationStatus.Unauthorized, Enumerable.Empty<IdentityError>());
         }
 
-        BackOfficeIdentityUser? user = await _backOfficeUserManager.GetUserAsync(cookieAuthenticatedUserAttempt.Principal);
+        BackOfficeIdentityUser? user =
+            await _backOfficeUserManager.GetUserAsync(cookieAuthenticatedUserAttempt.Principal);
         if (user is null)
         {
-            return Attempt.FailWithStatus(ExternalLoginOperationStatus.UserNotFound, Enumerable.Empty<IdentityError>());
+            return Attempt.FailWithStatus(
+            ExternalLoginOperationStatus.UserNotFound, Enumerable.Empty<IdentityError>());
         }
 
         ExternalLoginInfo? info = await _backOfficeSignInManager.GetExternalLoginInfoAsync();
 
         if (info is null)
         {
-            return Attempt.FailWithStatus(ExternalLoginOperationStatus.ExternalInfoNotFound, Enumerable.Empty<IdentityError>());
+            return Attempt.FailWithStatus(
+            ExternalLoginOperationStatus.ExternalInfoNotFound, Enumerable.Empty<IdentityError>());
         }
 
         IdentityResult addLoginResult = await _backOfficeUserManager.AddLoginAsync(user, info);
@@ -149,43 +156,56 @@ public class BackOfficeExternalLoginService : IBackOfficeExternalLoginService
 
         // Update any authentication tokens if succeeded
         await _backOfficeSignInManager.UpdateExternalAuthenticationTokensAsync(info);
-        return Attempt.SucceedWithStatus(ExternalLoginOperationStatus.Success, Enumerable.Empty<IdentityError>());
+        return Attempt.SucceedWithStatus(
+            ExternalLoginOperationStatus.Success, Enumerable.Empty<IdentityError>());
     }
 
-    public async Task<Attempt<Guid?, ExternalLoginOperationStatus>> GenerateLoginProviderSecretAsync(ClaimsPrincipal claimsPrincipal, string loginProvider)
+    public async Task<Attempt<Guid?, ExternalLoginOperationStatus>> GenerateLoginProviderSecretAsync(
+        ClaimsPrincipal claimsPrincipal, string loginProvider)
     {
         if (claimsPrincipal.Identity is null)
         {
-            return Attempt.FailWithStatus<Guid?, ExternalLoginOperationStatus>(ExternalLoginOperationStatus.IdentityNotFound, null);
+            return Attempt.FailWithStatus<Guid?, ExternalLoginOperationStatus>(
+                ExternalLoginOperationStatus.IdentityNotFound, null);
         }
 
-        IEnumerable<BackOfficeExternaLoginProviderScheme> configuredLoginProviders = await _backOfficeExternalLoginProviders.GetBackOfficeProvidersAsync();
-        if (configuredLoginProviders.Any(provider => provider.ExternalLoginProvider.AuthenticationType.Equals(loginProvider))
+        IEnumerable<BackOfficeExternaLoginProviderScheme> configuredLoginProviders =
+            await _backOfficeExternalLoginProviders.GetBackOfficeProvidersAsync();
+        if (configuredLoginProviders.Any(
+                provider => provider.ExternalLoginProvider.AuthenticationType.Equals(loginProvider))
             is false)
         {
-            return Attempt.FailWithStatus<Guid?, ExternalLoginOperationStatus>(ExternalLoginOperationStatus.AuthenticationSchemeNotFound, null);
+            return Attempt.FailWithStatus<Guid?, ExternalLoginOperationStatus>(
+                ExternalLoginOperationStatus.AuthenticationSchemeNotFound, null);
         }
 
         var userId = claimsPrincipal.Identity.GetUserId();
         if (userId is null)
         {
-            return Attempt.FailWithStatus<Guid?, ExternalLoginOperationStatus>(ExternalLoginOperationStatus.IdentityNotFound, null);
+            return Attempt.FailWithStatus<Guid?, ExternalLoginOperationStatus>(
+                ExternalLoginOperationStatus.IdentityNotFound, null);
         }
 
         var secret = Guid.NewGuid();
-        _memoryCache.Set(secret, new LoginProviderUserLink { ClaimsPrincipalUserId = userId, LoginProvider = loginProvider }, new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30) });
+        _memoryCache.Set(
+            secret,
+            new LoginProviderUserLink { ClaimsPrincipalUserId = userId, LoginProvider = loginProvider },
+            new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30) });
 
-        return Attempt<Guid?, ExternalLoginOperationStatus>.Succeed(ExternalLoginOperationStatus.Success, secret);
+        return Attempt<Guid?, ExternalLoginOperationStatus>.Succeed(
+            ExternalLoginOperationStatus.Success, secret);
     }
 
-    public async Task<Attempt<ClaimsPrincipal?, ExternalLoginOperationStatus>> ClaimsPrincipleFromLoginProviderLinkKeyAsync(
+    public async Task<Attempt<ClaimsPrincipal?, ExternalLoginOperationStatus>>
+        ClaimsPrincipleFromLoginProviderLinkKeyAsync(
         string loginProvider,
         Guid linkKey)
     {
         LoginProviderUserLink? cachedSecretValue = _memoryCache.Get<LoginProviderUserLink>(linkKey);
         if (cachedSecretValue is null)
         {
-            return Attempt.FailWithStatus<ClaimsPrincipal?, ExternalLoginOperationStatus>(ExternalLoginOperationStatus.UserSecretNotFound, null);
+            return Attempt.FailWithStatus<ClaimsPrincipal?, ExternalLoginOperationStatus>(
+                ExternalLoginOperationStatus.UserSecretNotFound, null);
         }
 
         if (cachedSecretValue.LoginProvider.Equals(loginProvider) is false)
@@ -194,7 +214,8 @@ public class BackOfficeExternalLoginService : IBackOfficeExternalLoginService
                 ExternalLoginOperationStatus.InvalidSecret, null);
         }
 
-        BackOfficeIdentityUser? user = await _backOfficeUserManager.FindByIdAsync(cachedSecretValue.ClaimsPrincipalUserId);
+        BackOfficeIdentityUser? user =
+            await _backOfficeUserManager.FindByIdAsync(cachedSecretValue.ClaimsPrincipalUserId);
         if (user is null)
         {
             return Attempt.FailWithStatus<ClaimsPrincipal?, ExternalLoginOperationStatus>(
@@ -204,7 +225,8 @@ public class BackOfficeExternalLoginService : IBackOfficeExternalLoginService
         ClaimsPrincipal claimsPrinciple = await _backOfficeSignInManager.CreateUserPrincipalAsync(user);
 
         _memoryCache.Remove(linkKey);
-        return Attempt.SucceedWithStatus<ClaimsPrincipal?, ExternalLoginOperationStatus>(ExternalLoginOperationStatus.Success, claimsPrinciple);
+        return Attempt.SucceedWithStatus<ClaimsPrincipal?, ExternalLoginOperationStatus>(
+            ExternalLoginOperationStatus.Success, claimsPrinciple);
     }
 
     private ExternalLoginOperationStatus FromUserOperationStatusFailure(UserOperationStatus userOperationStatus) =>

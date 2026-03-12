@@ -24,7 +24,8 @@ public class CreateDataTypeFolderController : DataTypeFolderControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Creates a data type folder.")]
     [EndpointDescription("Creates a new data type folder with the provided name and parent location.")]
-    public async Task<IActionResult> Create(CancellationToken cancellationToken, CreateFolderRequestModel createFolderRequestModel)
+    public async Task<IActionResult> Create(
+        CancellationToken cancellationToken, CreateFolderRequestModel createFolderRequestModel)
         => await CreateFolderAsync<ByKeyDataTypeFolderController>(
             createFolderRequestModel,
             controller => nameof(controller.ByKey));

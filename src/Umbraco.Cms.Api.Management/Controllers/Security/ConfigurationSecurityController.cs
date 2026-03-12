@@ -14,7 +14,8 @@ public class ConfigurationSecurityController : SecurityControllerBase
 {
     private readonly IPasswordConfigurationPresentationFactory _passwordConfigurationPresentationFactory;
 
-    public ConfigurationSecurityController(IPasswordConfigurationPresentationFactory passwordConfigurationPresentationFactory)
+    public ConfigurationSecurityController(
+        IPasswordConfigurationPresentationFactory passwordConfigurationPresentationFactory)
         => _passwordConfigurationPresentationFactory = passwordConfigurationPresentationFactory;
 
     [HttpGet("configuration")]
@@ -26,7 +27,8 @@ public class ConfigurationSecurityController : SecurityControllerBase
     {
         var viewModel = new SecurityConfigurationResponseModel
         {
-            PasswordConfiguration = _passwordConfigurationPresentationFactory.CreatePasswordConfigurationResponseModel(),
+            PasswordConfiguration =
+                _passwordConfigurationPresentationFactory.CreatePasswordConfigurationResponseModel(),
         };
 
         return Task.FromResult<IActionResult>(Ok(viewModel));

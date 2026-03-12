@@ -36,7 +36,8 @@ public class ValidateCreateMemberController : MemberControllerBase
         CreateMemberRequestModel requestModel)
     {
         MemberCreateModel model = _memberEditingPresentationFactory.MapCreateModel(requestModel);
-        Attempt<ContentValidationResult, ContentEditingOperationStatus> result = await _memberEditingService.ValidateCreateAsync(model);
+        Attempt<ContentValidationResult, ContentEditingOperationStatus> result =
+            await _memberEditingService.ValidateCreateAsync(model);
 
         return result.Success
             ? Ok()

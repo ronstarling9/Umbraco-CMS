@@ -18,7 +18,8 @@ public class AuditLogPresentationFactory : IAuditLogPresentationFactory
         _userIdKeyResolver = userIdKeyResolver;
     }
 
-    public IEnumerable<AuditLogResponseModel> CreateAuditLogViewModel(IEnumerable<IAuditItem> auditItems) => auditItems.Select(CreateAuditLogViewModel);
+    public IEnumerable<AuditLogResponseModel> CreateAuditLogViewModel(IEnumerable<IAuditItem> auditItems) =>
+        auditItems.Select(CreateAuditLogViewModel);
 
     private AuditLogResponseModel CreateAuditLogViewModel(IAuditItem auditItem) =>
         new()

@@ -64,7 +64,8 @@ public class MediaTreeControllerBase : UserStartNodeTreeControllerBase<MediaTree
 
     protected override UmbracoObjectTypes ItemObjectType => UmbracoObjectTypes.Media;
 
-    protected override Ordering ItemOrdering => Ordering.By(Infrastructure.Persistence.Dtos.NodeDto.SortOrderColumnName);
+    protected override Ordering ItemOrdering
+        => Ordering.By(Infrastructure.Persistence.Dtos.NodeDto.SortOrderColumnName);
 
     protected override MediaTreeItemResponseModel MapTreeItemViewModel(Guid? parentKey, IEntitySlim entity)
     {

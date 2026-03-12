@@ -37,10 +37,15 @@ namespace Umbraco.Extensions
             IFileProvider webFileProvider = webHostEnvironment.WebRootFileProvider;
             IFileProvider contentFileProvider = webHostEnvironment.ContentRootFileProvider;
 
-            IEnumerable<LocalizedTextServiceSupplementaryFileSource> localPluginFileSources = GetPluginLanguageFileSources(contentFileProvider, Cms.Core.Constants.SystemDirectories.AppPlugins, false);
+            IEnumerable<LocalizedTextServiceSupplementaryFileSource> localPluginFileSources =
+                GetPluginLanguageFileSources(
+                    contentFileProvider,
+                    Cms.Core.Constants.SystemDirectories.AppPlugins,
+                    false);
 
             // Gets all language files in /app_plugins real or virtual locations
-            IEnumerable<LocalizedTextServiceSupplementaryFileSource> pluginLangFileSources = GetPluginLanguageFileSources(webFileProvider, Cms.Core.Constants.SystemDirectories.AppPlugins, false);
+            IEnumerable<LocalizedTextServiceSupplementaryFileSource> pluginLangFileSources =
+                GetPluginLanguageFileSources(webFileProvider, Cms.Core.Constants.SystemDirectories.AppPlugins, false);
 
             // User defined language files that overwrite the default, these should not be used by plugin creators
             var userConfigLangFolder = Cms.Core.Constants.SystemDirectories.Config
@@ -52,7 +57,8 @@ namespace Umbraco.Extensions
             {
                 if (langFileSource.IsDirectory && langFileSource.Name.InvariantEquals("lang"))
                 {
-                    foreach (IFileInfo langFile in contentFileProvider.GetDirectoryContents($"{userConfigLangFolder}/{langFileSource.Name}"))
+                    foreach (IFileInfo langFile in contentFileProvider
+                        .GetDirectoryContents($"{userConfigLangFolder}/{langFileSource.Name}"))
                     {
                         if (langFile.Name.InvariantEndsWith(".xml"))
                         {

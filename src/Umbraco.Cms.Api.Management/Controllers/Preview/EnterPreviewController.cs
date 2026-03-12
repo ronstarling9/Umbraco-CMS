@@ -13,7 +13,8 @@ public class EnterPreviewController : PreviewControllerBase
     private readonly IPreviewService _previewService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public EnterPreviewController(IPreviewService previewService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public EnterPreviewController(
+        IPreviewService previewService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _previewService = previewService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -26,7 +27,8 @@ public class EnterPreviewController : PreviewControllerBase
     [EndpointDescription("Enters preview mode for the current user session, allowing viewing of unpublished content.")]
     public async Task<IActionResult> Enter(CancellationToken cancellationToken)
     {
-        return await _previewService.TryEnterPreviewAsync(CurrentUser(_backOfficeSecurityAccessor))
+        return await _previewService.TryEnterPreviewAsync(
+            CurrentUser(_backOfficeSecurityAccessor))
             ? Ok()
             : StatusCode(StatusCodes.Status500InternalServerError, new ProblemDetails
             {

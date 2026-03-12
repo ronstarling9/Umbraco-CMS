@@ -12,7 +12,10 @@ internal sealed class DocumentNotificationPresentationFactory : IDocumentNotific
     private readonly INotificationService _notificationService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public DocumentNotificationPresentationFactory(ActionCollection actionCollection, INotificationService notificationService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public DocumentNotificationPresentationFactory(
+        ActionCollection actionCollection,
+        INotificationService notificationService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _actionCollection = actionCollection;
         _notificationService = notificationService;

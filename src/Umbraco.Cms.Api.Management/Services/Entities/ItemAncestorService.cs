@@ -34,7 +34,8 @@ internal sealed class ItemAncestorService : IItemAncestorService
         return await GetAncestorsAsync(itemObjectType, folderObjectType, entityKeys, AncestorMapper);
 
         Task<IEnumerable<NamedItemResponseModel>> AncestorMapper(IEnumerable<IEntitySlim> entities)
-            => Task.FromResult(_umbracoMapper.MapEnumerable<IEntitySlim, NamedItemResponseModel>(entities).AsEnumerable());
+            => Task.FromResult(
+                _umbracoMapper.MapEnumerable<IEntitySlim, NamedItemResponseModel>(entities).AsEnumerable());
     }
 
     /// <inheritdoc />

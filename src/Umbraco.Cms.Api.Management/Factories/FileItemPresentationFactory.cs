@@ -44,7 +44,10 @@ public class FileItemPresentationFactory : IFileItemPresentationFactory
             _fileSystems.StylesheetsFileSystem,
             (name, path, parent, isFolder) => new() { Name = name, Path = path, Parent = parent, IsFolder = isFolder });
 
-    private IEnumerable<T> CreateItemResponseModels<T>(IEnumerable<string> paths, IFileSystem? fileSystem, Func<string, string, FileSystemFolderModel?, bool, T> itemFactory)
+    private IEnumerable<T> CreateItemResponseModels<T>(
+        IEnumerable<string> paths,
+        IFileSystem? fileSystem,
+        Func<string, string, FileSystemFolderModel?, bool, T> itemFactory)
         where T : FileSystemResponseModelBase
         => fileSystem != null
             ? paths.Where(path => fileSystem.DirectoryExists(path) || fileSystem.FileExists(path)).Select(path =>

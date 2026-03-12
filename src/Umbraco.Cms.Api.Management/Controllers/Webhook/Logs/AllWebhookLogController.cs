@@ -15,7 +15,9 @@ public class AllWebhookLogController : WebhookLogControllerBase
     private readonly IWebhookLogService _webhookLogService;
     private readonly IWebhookPresentationFactory _webhookPresentationFactory;
 
-    public AllWebhookLogController(IWebhookLogService webhookLogService, IWebhookPresentationFactory webhookPresentationFactory)
+    public AllWebhookLogController(
+        IWebhookLogService webhookLogService,
+        IWebhookPresentationFactory webhookPresentationFactory)
     {
         _webhookLogService = webhookLogService;
         _webhookPresentationFactory = webhookPresentationFactory;
@@ -29,7 +31,8 @@ public class AllWebhookLogController : WebhookLogControllerBase
     public async Task<IActionResult> Logs(CancellationToken cancellationToken, int skip = 0, int take = 100)
     {
         PagedModel<WebhookLog> logs = await _webhookLogService.Get(skip, take);
-        PagedViewModel<WebhookLogResponseModel> viewModel = CreatePagedWebhookLogResponseModel(logs, _webhookPresentationFactory);
+        PagedViewModel<WebhookLogResponseModel> viewModel =
+            CreatePagedWebhookLogResponseModel(logs, _webhookPresentationFactory);
         return Ok(viewModel);
     }
 }

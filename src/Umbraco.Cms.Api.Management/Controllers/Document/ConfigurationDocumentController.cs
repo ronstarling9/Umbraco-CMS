@@ -22,7 +22,8 @@ public class ConfigurationDocumentController : DocumentControllerBase
     [EndpointDescription("Gets the configuration settings for documents.")]
     public Task<IActionResult> Configuration(CancellationToken cancellationToken)
     {
-        DocumentConfigurationResponseModel responseModel = _configurationPresentationFactory.CreateDocumentConfigurationResponseModel();
+        DocumentConfigurationResponseModel responseModel =
+            _configurationPresentationFactory.CreateDocumentConfigurationResponseModel();
         return Task.FromResult<IActionResult>(Ok(responseModel));
     }
 }

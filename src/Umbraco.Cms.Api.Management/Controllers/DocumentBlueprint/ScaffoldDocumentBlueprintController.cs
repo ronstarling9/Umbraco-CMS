@@ -17,7 +17,9 @@ public class ScaffoldDocumentBlueprintController : DocumentBlueprintControllerBa
     private readonly IContentBlueprintEditingService _contentBlueprintEditingService;
     private readonly IUmbracoMapper _umbracoMapper;
 
-    public ScaffoldDocumentBlueprintController(IContentBlueprintEditingService contentBlueprintEditingService, IUmbracoMapper umbracoMapper)
+    public ScaffoldDocumentBlueprintController(
+        IContentBlueprintEditingService contentBlueprintEditingService,
+        IUmbracoMapper umbracoMapper)
     {
         _contentBlueprintEditingService = contentBlueprintEditingService;
         _umbracoMapper = umbracoMapper;

@@ -32,7 +32,8 @@ public class MoveDocumentTypeController : DocumentTypeControllerBase
         Guid id,
         MoveDocumentTypeRequestModel moveDocumentTypeRequestModel)
     {
-        Attempt<IContentType?, ContentTypeStructureOperationStatus> result = await _contentTypeService.MoveAsync(id, moveDocumentTypeRequestModel.Target?.Id);
+        Attempt<IContentType?, ContentTypeStructureOperationStatus> result =
+            await _contentTypeService.MoveAsync(id, moveDocumentTypeRequestModel.Target?.Id);
 
         return result.Success
             ? Ok()

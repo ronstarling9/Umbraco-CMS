@@ -41,7 +41,8 @@ public class InviteUserController : UserControllerBase
     {
         UserInviteModel userInvite = await _userPresentationFactory.CreateInviteModelAsync(model);
 
-        Attempt<UserInvitationResult, UserOperationStatus> result = await _userService.InviteAsync(CurrentUserKey(_backOfficeSecurityAccessor), userInvite);
+        Attempt<UserInvitationResult, UserOperationStatus> result =
+            await _userService.InviteAsync(CurrentUserKey(_backOfficeSecurityAccessor), userInvite);
 
         return result.Success
             ? CreatedAtId<ByKeyUserController>(controller => nameof(controller.ByKey), result.Result.InvitedUser!.Key)

@@ -18,8 +18,9 @@ public abstract class BackOfficeSecurityRequirementsOperationFilterBase : IOpera
             return;
         }
 
-        if (!context.MethodInfo.GetCustomAttributes(true).Any(x => x is AllowAnonymousAttribute) &&
-            !(context.MethodInfo.DeclaringType?.GetCustomAttributes(true).Any(x => x is AllowAnonymousAttribute) ?? false))
+        if (!context.MethodInfo.GetCustomAttributes(true).Any(x => x is AllowAnonymousAttribute)
+            && !(context.MethodInfo.DeclaringType?.GetCustomAttributes(true).Any(x => x is AllowAnonymousAttribute)
+                 ?? false))
         {
             operation.Responses ??= new OpenApiResponses();
             operation.Responses.Add(
@@ -29,7 +30,8 @@ public abstract class BackOfficeSecurityRequirementsOperationFilterBase : IOpera
                     Description = "The resource is protected and requires an authentication token",
                 });
 
-            var schemaRef = new OpenApiSecuritySchemeReference(ManagementApiConfiguration.ApiSecurityName, context.Document);
+            var schemaRef = new OpenApiSecuritySchemeReference(
+                ManagementApiConfiguration.ApiSecurityName, context.Document);
             operation.Security ??= new List<OpenApiSecurityRequirement>();
             operation.Security.Add(new OpenApiSecurityRequirement { [schemaRef] = [] });
         }

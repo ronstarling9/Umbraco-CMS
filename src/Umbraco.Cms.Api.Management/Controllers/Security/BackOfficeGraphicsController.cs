@@ -22,17 +22,22 @@ public class BackOfficeGraphicsController : Controller
     public const string LogoAlternativeRouteName = nameof(BackOfficeGraphicsController) + "." + nameof(LogoAlternative);
     public const string LoginBackGroundRouteName = nameof(BackOfficeGraphicsController) + "." + nameof(LoginBackground);
     public const string LoginLogoRouteName = nameof(BackOfficeGraphicsController) + "." + nameof(LoginLogo);
-    public const string LoginLogoAlternativeRouteName = nameof(BackOfficeGraphicsController) + "." + nameof(LoginLogoAlternative);
+    public const string LoginLogoAlternativeRouteName =
+        nameof(BackOfficeGraphicsController) + "." + nameof(LoginLogoAlternative);
 
     private readonly IOptions<ContentSettings> _contentSettings;
     private readonly IContentTypeProvider _contentTypeProvider;
     private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public BackOfficeGraphicsController(IOptions<ContentSettings> contentSettings, IOptions<StaticFileOptions> staticFileOptions, IWebHostEnvironment webHostEnvironment)
+    public BackOfficeGraphicsController(
+        IOptions<ContentSettings> contentSettings,
+        IOptions<StaticFileOptions> staticFileOptions,
+        IWebHostEnvironment webHostEnvironment)
     {
         _contentSettings = contentSettings;
         _webHostEnvironment = webHostEnvironment;
-        _contentTypeProvider = staticFileOptions.Value.ContentTypeProvider ?? new FileExtensionContentTypeProvider();
+        _contentTypeProvider =
+            staticFileOptions.Value.ContentTypeProvider ?? new FileExtensionContentTypeProvider();
     }
 
     [HttpGet("login-background", Name = LoginBackGroundRouteName)]

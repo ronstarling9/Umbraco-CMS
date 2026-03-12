@@ -56,7 +56,8 @@ public class BackOfficeApplicationManager : OpenIdDictApplicationManagerBase, IB
         _authorizeCallbackLogoutPathName = securitySettings.Value.AuthorizeCallbackLogoutPathName;
     }
 
-    public async Task EnsureBackOfficeApplicationAsync(IEnumerable<Uri> backOfficeHosts, CancellationToken cancellationToken = default)
+    public async Task EnsureBackOfficeApplicationAsync(
+        IEnumerable<Uri> backOfficeHosts, CancellationToken cancellationToken = default)
     {
         // Install is okay without this, because we do not need a token to install,
         // but upgrades do, so we need to execute for everything higher than or equal to upgrade.
@@ -68,7 +69,9 @@ public class BackOfficeApplicationManager : OpenIdDictApplicationManagerBase, IB
         Uri[] backOfficeHostsAsArray = backOfficeHosts as Uri[] ?? backOfficeHosts.ToArray();
         if (backOfficeHostsAsArray.Any(url => url.IsAbsoluteUri) is false)
         {
-            throw new ArgumentException($"Expected absolute URLs, got: {string.Join(", ", backOfficeHostsAsArray.Select(url => url.ToString()))}", nameof(backOfficeHosts));
+            throw new ArgumentException(
+                $"Expected absolute URLs, got: {string.Join(", ", backOfficeHostsAsArray.Select(url => url.ToString()))}",
+                nameof(backOfficeHosts));
         }
 
         // A balanced environment:
@@ -98,19 +101,25 @@ public class BackOfficeApplicationManager : OpenIdDictApplicationManagerBase, IB
                 DeveloperOpenIddictApplicationDescriptor(
                     "Umbraco Swagger access",
                     Constants.OAuthClientIds.Swagger,
-                    backOfficeHostsAsArray.Select(backOfficeUrl => CallbackUrlFor(backOfficeUrl, "/umbraco/swagger/oauth2-redirect.html")).ToArray()),
+                    backOfficeHostsAsArray
+                        .Select(backOfficeUrl => CallbackUrlFor(backOfficeUrl, "/umbraco/swagger/oauth2-redirect.html"))
+                        .ToArray()),
                 cancellationToken);
 
             await CreateOrUpdate(
                 DeveloperOpenIddictApplicationDescriptor(
                     "Umbraco Postman access",
                     Constants.OAuthClientIds.Postman,
-                    [new Uri("https://oauth.pstmn.io/v1/callback"), new Uri("https://oauth.pstmn.io/v1/browser-callback")]),
+                    [
+                        new Uri("https://oauth.pstmn.io/v1/callback"),
+                        new Uri("https://oauth.pstmn.io/v1/browser-callback"),
+                    ]),
                 cancellationToken);
         }
     }
 
-    public async Task EnsureBackOfficeClientCredentialsApplicationAsync(string clientId, string clientSecret, CancellationToken cancellationToken = default)
+    public async Task EnsureBackOfficeClientCredentialsApplicationAsync(
+        string clientId, string clientSecret, CancellationToken cancellationToken = default)
     {
         var applicationDescriptor = new OpenIddictApplicationDescriptor
         {
@@ -129,7 +138,8 @@ public class BackOfficeApplicationManager : OpenIdDictApplicationManagerBase, IB
         await CreateOrUpdate(applicationDescriptor, cancellationToken);
     }
 
-    public async Task DeleteBackOfficeClientCredentialsApplicationAsync(string clientId, CancellationToken cancellationToken = default)
+    public async Task DeleteBackOfficeClientCredentialsApplicationAsync(
+        string clientId, CancellationToken cancellationToken = default)
         => await Delete(clientId, cancellationToken);
 
     /// <summary>
@@ -143,7 +153,8 @@ public class BackOfficeApplicationManager : OpenIdDictApplicationManagerBase, IB
     private async Task<Uri[]> MergeWithExistingBackOfficeHostsAsync(Uri[] newHosts, CancellationToken cancellationToken)
     {
         // Find an existing back-office application
-        var application = await ApplicationManager.FindByClientIdAsync(Constants.OAuthClientIds.BackOffice, cancellationToken);
+        var application = await ApplicationManager.FindByClientIdAsync(
+            Constants.OAuthClientIds.BackOffice, cancellationToken);
         if (application is null)
         {
             // No existing application, return new hosts as-is
@@ -151,7 +162,8 @@ public class BackOfficeApplicationManager : OpenIdDictApplicationManagerBase, IB
         }
 
         // Get existing redirect URIs using OpenIddict API
-        ImmutableArray<string> existingRedirectUris = await ApplicationManager.GetRedirectUrisAsync(application, cancellationToken);
+        ImmutableArray<string> existingRedirectUris =
+            await ApplicationManager.GetRedirectUrisAsync(application, cancellationToken);
 
         // Use HashSet for O(n) performance and automatic deduplication
         // Case-insensitive comparison for authorities (host names)
@@ -257,7 +269,8 @@ public class BackOfficeApplicationManager : OpenIdDictApplicationManagerBase, IB
         return descriptor;
     }
 
-    internal OpenIddictApplicationDescriptor DeveloperOpenIddictApplicationDescriptor(string name, string clientId, Uri[] redirectUrls)
+    internal OpenIddictApplicationDescriptor DeveloperOpenIddictApplicationDescriptor(
+        string name, string clientId, Uri[] redirectUrls)
     {
         var developerClientTimeOutValue = new GlobalSettings().TimeOut.ToString("c", CultureInfo.InvariantCulture);
 
@@ -288,5 +301,9 @@ public class BackOfficeApplicationManager : OpenIdDictApplicationManagerBase, IB
         return descriptor;
     }
 
-    private static Uri CallbackUrlFor(Uri url, string relativePath) => new Uri($"{url.GetLeftPart(UriPartial.Authority)}/{relativePath.TrimStart(Constants.CharArrays.ForwardSlash)}");
+    private static Uri CallbackUrlFor(Uri url, string relativePath)
+    {
+        var path = relativePath.TrimStart(Constants.CharArrays.ForwardSlash);
+        return new Uri($"{url.GetLeftPart(UriPartial.Authority)}/{path}");
+    }
 }

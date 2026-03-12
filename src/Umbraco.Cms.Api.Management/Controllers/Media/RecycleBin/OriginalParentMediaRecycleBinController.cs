@@ -56,7 +56,8 @@ public class OriginalParentMediaRecycleBinController : MediaRecycleBinController
             return Forbidden();
         }
 
-        Attempt<IMediaEntitySlim?, RecycleBinQueryResultType> getParentAttempt = await _mediaRecycleBinQueryService.GetOriginalParentAsync(id);
+        Attempt<IMediaEntitySlim?, RecycleBinQueryResultType> getParentAttempt =
+            await _mediaRecycleBinQueryService.GetOriginalParentAsync(id);
         return getParentAttempt.Success switch
         {
             true when getParentAttempt.Status == RecycleBinQueryResultType.Success

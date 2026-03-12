@@ -39,7 +39,8 @@ public class UpdatePublicAccessDocumentController : DocumentControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Updates public access protection for a document.")]
     [EndpointDescription("Updates the member protection settings for a document, controlling which members or member groups can access it.")]
-    public async Task<IActionResult> Update(CancellationToken cancellationToken, Guid id, PublicAccessRequestModel requestModel)
+    public async Task<IActionResult> Update(
+        CancellationToken cancellationToken, Guid id, PublicAccessRequestModel requestModel)
     {
         AuthorizationResult authorizationResult = await _authorizationService.AuthorizeResourceAsync(
             User,
@@ -51,9 +52,11 @@ public class UpdatePublicAccessDocumentController : DocumentControllerBase
             return Forbidden();
         }
 
-        PublicAccessEntrySlim publicAccessEntrySlim = _publicAccessPresentationFactory.CreatePublicAccessEntrySlim(requestModel, id);
+        PublicAccessEntrySlim publicAccessEntrySlim =
+            _publicAccessPresentationFactory.CreatePublicAccessEntrySlim(requestModel, id);
 
-        Attempt<PublicAccessEntry?, PublicAccessOperationStatus> updateAttempt = await _publicAccessService.UpdateAsync(publicAccessEntrySlim);
+        Attempt<PublicAccessEntry?, PublicAccessOperationStatus> updateAttempt =
+            await _publicAccessService.UpdateAsync(publicAccessEntrySlim);
 
         return updateAttempt.Success
             ? Ok()

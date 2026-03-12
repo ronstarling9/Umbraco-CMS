@@ -10,7 +10,9 @@ internal static class DocumentTypeBuilderExtensions
 {
     internal static IUmbracoBuilder AddDocumentTypes(this IUmbracoBuilder builder)
     {
-        builder.Services.AddTransient<IDocumentTypeEditingPresentationFactory, DocumentTypeEditingPresentationFactory>();
+        builder.Services.AddTransient<
+            IDocumentTypeEditingPresentationFactory,
+            DocumentTypeEditingPresentationFactory>();
 
         builder.WithCollectionBuilder<MapDefinitionCollectionBuilder>().Add<DocumentTypeMapDefinition>();
         builder.WithCollectionBuilder<MapDefinitionCollectionBuilder>().Add<DocumentTypeCompositionMapDefinition>();

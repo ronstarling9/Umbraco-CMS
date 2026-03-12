@@ -17,7 +17,9 @@ public class ByKeyDocumentBlueprintController : DocumentBlueprintControllerBase
     private readonly IContentBlueprintEditingService _contentBlueprintEditingService;
     private readonly IUmbracoMapper _umbracoMapper;
 
-    public ByKeyDocumentBlueprintController(IContentBlueprintEditingService contentBlueprintEditingService, IUmbracoMapper umbracoMapper)
+    public ByKeyDocumentBlueprintController(
+        IContentBlueprintEditingService contentBlueprintEditingService,
+        IUmbracoMapper umbracoMapper)
     {
         _contentBlueprintEditingService = contentBlueprintEditingService;
         _umbracoMapper = umbracoMapper;

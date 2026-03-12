@@ -37,7 +37,8 @@ public class ItemTemplateItemController : TemplateItemControllerBase
         // This is far from ideal, that we pick out the entire model, however, we must do this to get the alias.
         // This is (for one) needed for when specifying master template, since alias + .cshtml
         IEnumerable<ITemplate> templates = await _templateService.GetAllAsync(ids.ToArray());
-        List<TemplateItemResponseModel> responseModels = _mapper.MapEnumerable<ITemplate, TemplateItemResponseModel>(templates);
+        List<TemplateItemResponseModel> responseModels =
+            _mapper.MapEnumerable<ITemplate, TemplateItemResponseModel>(templates);
         return Ok(responseModels);
     }
 }

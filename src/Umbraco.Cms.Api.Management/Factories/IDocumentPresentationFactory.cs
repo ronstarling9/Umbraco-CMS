@@ -44,20 +44,25 @@ public interface IDocumentPresentationFactory
             }
 
             if (cultureAndScheduleRequestModel.Schedule.PublishTime is not null
-                && cultureAndScheduleRequestModel.Schedule.PublishTime <= StaticServiceProvider.Instance.GetRequiredService<TimeProvider>().GetUtcNow())
+                && cultureAndScheduleRequestModel.Schedule.PublishTime
+                   <= StaticServiceProvider.Instance.GetRequiredService<TimeProvider>().GetUtcNow())
             {
                 return Attempt.FailWithStatus(ContentPublishingOperationStatus.PublishTimeNeedsToBeInFuture, model);
             }
 
             if (cultureAndScheduleRequestModel.Schedule.UnpublishTime is not null
-                && cultureAndScheduleRequestModel.Schedule.UnpublishTime <= StaticServiceProvider.Instance.GetRequiredService<TimeProvider>().GetUtcNow())
+                && cultureAndScheduleRequestModel.Schedule.UnpublishTime
+                   <= StaticServiceProvider.Instance.GetRequiredService<TimeProvider>().GetUtcNow())
             {
                 return Attempt.FailWithStatus(ContentPublishingOperationStatus.UpublishTimeNeedsToBeInFuture, model);
             }
 
-            if (cultureAndScheduleRequestModel.Schedule.UnpublishTime <= cultureAndScheduleRequestModel.Schedule.PublishTime)
+            if (cultureAndScheduleRequestModel.Schedule.UnpublishTime
+                <= cultureAndScheduleRequestModel.Schedule.PublishTime)
             {
-                return Attempt.FailWithStatus(ContentPublishingOperationStatus.UnpublishTimeNeedsToBeAfterPublishTime, model);
+                return Attempt.FailWithStatus(
+                    ContentPublishingOperationStatus.UnpublishTimeNeedsToBeAfterPublishTime,
+                    model);
             }
 
             model.Add(new CulturePublishScheduleModel

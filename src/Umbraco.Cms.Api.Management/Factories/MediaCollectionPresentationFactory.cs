@@ -7,9 +7,18 @@ using Umbraco.Cms.Core.Services;
 
 namespace Umbraco.Cms.Api.Management.Factories;
 
-public class MediaCollectionPresentationFactory : ContentCollectionPresentationFactory<IMedia, MediaCollectionResponseModel, MediaValueResponseModel, MediaVariantResponseModel>, IMediaCollectionPresentationFactory
+public class MediaCollectionPresentationFactory
+    : ContentCollectionPresentationFactory<
+        IMedia,
+        MediaCollectionResponseModel,
+        MediaValueResponseModel,
+        MediaVariantResponseModel>,
+        IMediaCollectionPresentationFactory
 {
-    public MediaCollectionPresentationFactory(IUmbracoMapper mapper, FlagProviderCollection flagProviders, IUserService userService)
+    public MediaCollectionPresentationFactory(
+        IUmbracoMapper mapper,
+        FlagProviderCollection flagProviders,
+        IUserService userService)
         : base(mapper, flagProviders, userService)
     {
     }

@@ -19,7 +19,10 @@ public class ChildrenMediaTypeTreeController : MediaTypeTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public ChildrenMediaTypeTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IMediaTypeService mediaTypeService)
+    public ChildrenMediaTypeTreeController(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IMediaTypeService mediaTypeService)
         : base(entityService, flagProviders, mediaTypeService)
     {
     }

@@ -35,7 +35,8 @@ public class ItemWebhookItemController : WebhookItemControllerBase
         }
 
         IEnumerable<IWebhook?> webhooks = await _webhookService.GetMultipleAsync(ids);
-        List<WebhookItemResponseModel> entityResponseModels = _mapper.MapEnumerable<IWebhook?, WebhookItemResponseModel>(webhooks);
+        List<WebhookItemResponseModel> entityResponseModels =
+            _mapper.MapEnumerable<IWebhook?, WebhookItemResponseModel>(webhooks);
         return Ok(entityResponseModels);
     }
 }

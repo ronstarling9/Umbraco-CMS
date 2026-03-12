@@ -19,7 +19,10 @@ public class RootDocumentTypeTreeController : DocumentTypeTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public RootDocumentTypeTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IContentTypeService contentTypeService)
+    public RootDocumentTypeTreeController(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IContentTypeService contentTypeService)
         : base(entityService, flagProviders, contentTypeService)
     {
     }

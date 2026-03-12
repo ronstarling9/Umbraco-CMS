@@ -13,7 +13,8 @@ public class ConfigurationDataTypeController : DataTypeControllerBase
 {
     private readonly DataTypesSettings _dataTypesSettings;
 
-    public ConfigurationDataTypeController(IOptionsSnapshot<DataTypesSettings> dataTypesSettings) => _dataTypesSettings = dataTypesSettings.Value;
+    public ConfigurationDataTypeController(IOptionsSnapshot<DataTypesSettings> dataTypesSettings)
+        => _dataTypesSettings = dataTypesSettings.Value;
 
     [HttpGet("configuration")]
     [MapToApiVersion("1.0")]

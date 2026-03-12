@@ -18,7 +18,8 @@ public class AncestorsStaticFileTreeController : StaticFileTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public AncestorsStaticFileTreeController(IPhysicalFileSystem physicalFileSystem, IPhysicalFileSystemTreeService fileSystemTreeService)
+    public AncestorsStaticFileTreeController(
+        IPhysicalFileSystem physicalFileSystem, IPhysicalFileSystemTreeService fileSystemTreeService)
         : base(physicalFileSystem, fileSystemTreeService)
     {
     }

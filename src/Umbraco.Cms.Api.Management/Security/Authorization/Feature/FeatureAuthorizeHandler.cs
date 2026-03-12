@@ -29,7 +29,9 @@ public class FeatureAuthorizeHandler : MustSatisfyRequirementAuthorizationHandle
     }
 
     /// <inheritdoc />
-    protected override async Task<bool> IsAuthorized(AuthorizationHandlerContext context, FeatureAuthorizeRequirement requirement)
+    protected override async Task<bool> IsAuthorized(
+        AuthorizationHandlerContext context,
+        FeatureAuthorizeRequirement requirement)
     {
         Endpoint? endpoint = null;
 

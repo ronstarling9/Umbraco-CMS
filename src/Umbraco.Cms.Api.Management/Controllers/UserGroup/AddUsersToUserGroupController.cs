@@ -54,7 +54,8 @@ public class AddUsersToUserGroupController : UserGroupControllerBase
         }
 
         Attempt<UserGroupOperationStatus> result = await _userGroupService.AddUsersToUserGroupAsync(
-            new UsersToUserGroupManipulationModel(id, userIds.Select(x => x.Id).ToArray()), CurrentUserKey(_backOfficeSecurityAccessor));
+            new UsersToUserGroupManipulationModel(id, userIds.Select(x => x.Id).ToArray()),
+            CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

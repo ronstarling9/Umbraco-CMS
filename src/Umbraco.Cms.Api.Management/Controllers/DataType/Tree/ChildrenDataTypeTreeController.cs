@@ -19,7 +19,10 @@ public class ChildrenDataTypeTreeController : DataTypeTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public ChildrenDataTypeTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IDataTypeService dataTypeService)
+    public ChildrenDataTypeTreeController(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IDataTypeService dataTypeService)
         : base(entityService, flagProviders, dataTypeService)
     {
     }
@@ -29,7 +32,8 @@ public class ChildrenDataTypeTreeController : DataTypeTreeControllerBase
     [ProducesResponseType(typeof(PagedViewModel<DataTypeTreeItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets a collection of data type tree child items.")]
     [EndpointDescription("Gets a paginated collection of data type tree items that are children of the provided parent Id.")]
-    public async Task<ActionResult<PagedViewModel<DataTypeTreeItemResponseModel>>> Children(CancellationToken cancellationToken, Guid parentId, int skip = 0, int take = 100, bool foldersOnly = false)
+    public async Task<ActionResult<PagedViewModel<DataTypeTreeItemResponseModel>>> Children(
+        CancellationToken cancellationToken, Guid parentId, int skip = 0, int take = 100, bool foldersOnly = false)
     {
         RenderFoldersOnly(foldersOnly);
         return await GetChildren(parentId, skip, take);

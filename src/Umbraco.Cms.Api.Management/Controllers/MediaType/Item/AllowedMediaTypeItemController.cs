@@ -26,13 +26,16 @@ public class AllowedMediaTypeItemController : MediaTypeItemControllerBase
     [ProducesResponseType(typeof(PagedModel<AllowedMediaTypeItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets a collection of media type items.")]
     [EndpointDescription("Gets a collection of allowed media type items for the specified file extension.")]
-    public async Task<IActionResult> Item(CancellationToken cancellationToken, string fileExtension, int skip = 0, int take = 100)
+    public async Task<IActionResult> Item(
+        CancellationToken cancellationToken, string fileExtension, int skip = 0, int take = 100)
     {
-        PagedModel<MediaTypeFileExtensionMatchResult> matchResults = await _mediaTypeEditingService.GetMediaTypesForFileExtensionWithMatchInfoAsync(fileExtension, skip, take);
+        PagedModel<MediaTypeFileExtensionMatchResult> matchResults =
+            await _mediaTypeEditingService.GetMediaTypesForFileExtensionWithMatchInfoAsync(fileExtension, skip, take);
 
         var result = new PagedModel<AllowedMediaTypeItemResponseModel>
         {
-            Items = _mapper.MapEnumerable<MediaTypeFileExtensionMatchResult, AllowedMediaTypeItemResponseModel>(matchResults.Items),
+            Items = _mapper.MapEnumerable<MediaTypeFileExtensionMatchResult, AllowedMediaTypeItemResponseModel>(
+                matchResults.Items),
             Total = matchResults.Total,
         };
         return Ok(result);

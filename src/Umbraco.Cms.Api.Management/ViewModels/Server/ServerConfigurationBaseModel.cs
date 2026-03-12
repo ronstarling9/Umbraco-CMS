@@ -2,5 +2,6 @@
 
 public class ServerConfigurationBaseModel
 {
-    public IEnumerable<ServerConfigurationItemResponseModel> Items { get; set; } = Enumerable.Empty<ServerConfigurationItemResponseModel>();
+    public IEnumerable<ServerConfigurationItemResponseModel> Items { get; set; }
+        = Enumerable.Empty<ServerConfigurationItemResponseModel>();
 }

@@ -19,7 +19,8 @@ internal sealed class DomainPresentationFactory : IDomainPresentationFactory
             .Where(domain => domain.RootContentId.HasValue)
             .Select(domain =>
             {
-                Attempt<Guid> keyResult = _entityService.GetKey(domain.RootContentId!.Value, UmbracoObjectTypes.Document);
+                Attempt<Guid> keyResult =
+                    _entityService.GetKey(domain.RootContentId!.Value, UmbracoObjectTypes.Document);
                 return keyResult.Success
                     ? new DomainAssignmentModel
                     {
