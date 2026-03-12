@@ -20,6 +20,14 @@ internal sealed class BackOfficeUserManagerAuditer :
     INotificationAsyncHandler<UserPasswordChangedNotification>,
     INotificationAsyncHandler<UserPasswordResetNotification>
 {
+    private const string EventTypeForgotPasswordChange = "umbraco/user/password/forgot/change";
+    private const string EventTypeForgotPasswordRequest = "umbraco/user/password/forgot/request";
+    private const string EventTypeSignInFailed = "umbraco/user/sign-in/failed";
+    private const string EventTypeSignInLogin = "umbraco/user/sign-in/login";
+    private const string EventTypeSignInLogout = "umbraco/user/sign-in/logout";
+    private const string EventTypePasswordChange = "umbraco/user/password/change";
+    private const string EventTypePasswordReset = "umbraco/user/password/reset";
+
     private readonly IAuditEntryService _auditEntryService;
     private readonly IUserService _userService;
 
@@ -42,7 +50,7 @@ internal sealed class BackOfficeUserManagerAuditer :
             notification.PerformingUserId,
             notification.AffectedUserId,
             notification.IpAddress,
-            "umbraco/user/password/forgot/change",
+            EventTypeForgotPasswordChange,
             "password forgot/change");
 
     /// <inheritdoc />
@@ -51,7 +59,7 @@ internal sealed class BackOfficeUserManagerAuditer :
             notification.PerformingUserId,
             notification.AffectedUserId,
             notification.IpAddress,
-            "umbraco/user/password/forgot/request",
+            EventTypeForgotPasswordRequest,
             "password forgot/request");
 
     /// <inheritdoc />
@@ -60,7 +68,7 @@ internal sealed class BackOfficeUserManagerAuditer :
             notification.PerformingUserId,
             null,
             notification.IpAddress,
-            "umbraco/user/sign-in/failed",
+            EventTypeSignInFailed,
             "login failed");
 
     /// <inheritdoc />
@@ -69,7 +77,7 @@ internal sealed class BackOfficeUserManagerAuditer :
             notification.PerformingUserId,
             notification.AffectedUserId,
             notification.IpAddress,
-            "umbraco/user/sign-in/login",
+            EventTypeSignInLogin,
             "login success");
 
     /// <inheritdoc />
@@ -78,7 +86,7 @@ internal sealed class BackOfficeUserManagerAuditer :
             notification.PerformingUserId,
             notification.AffectedUserId,
             notification.IpAddress,
-            "umbraco/user/sign-in/logout",
+            EventTypeSignInLogout,
             "logout success");
 
     /// <inheritdoc />
@@ -87,7 +95,7 @@ internal sealed class BackOfficeUserManagerAuditer :
             notification.PerformingUserId,
             notification.AffectedUserId,
             notification.IpAddress,
-            "umbraco/user/password/change",
+            EventTypePasswordChange,
             "password change");
 
     /// <inheritdoc />
@@ -96,7 +104,7 @@ internal sealed class BackOfficeUserManagerAuditer :
             notification.PerformingUserId,
             notification.AffectedUserId,
             notification.IpAddress,
-            "umbraco/user/password/reset",
+            EventTypePasswordReset,
             "password reset");
 
     private async Task WriteAudit(

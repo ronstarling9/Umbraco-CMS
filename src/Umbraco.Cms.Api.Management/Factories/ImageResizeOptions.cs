@@ -10,7 +10,13 @@ namespace Umbraco.Cms.Api.Management.Factories;
 /// <param name="Mode">The crop mode to use when resizing. Default is null (no specific mode).</param>
 /// <param name="Format">The output format for the image (e.g., "webp", "png", "jpg"). Default is null (original format).</param>
 public record ImageResizeOptions(
-    int Height = 200,
-    int Width = 200,
+    int Height = ImageResizeOptions.DefaultDimension,
+    int Width = ImageResizeOptions.DefaultDimension,
     ImageCropMode? Mode = null,
-    string? Format = null);
+    string? Format = null)
+{
+    /// <summary>
+    /// The default dimension (height and width) in pixels for image thumbnails.
+    /// </summary>
+    public const int DefaultDimension = 200;
+}

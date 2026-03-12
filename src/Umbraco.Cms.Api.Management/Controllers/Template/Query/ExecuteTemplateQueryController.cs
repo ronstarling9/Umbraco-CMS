@@ -26,6 +26,8 @@ public class ExecuteTemplateQueryController : TemplateQueryControllerBase
     private readonly IDocumentNavigationQueryService _documentNavigationQueryService;
     private readonly IPublishedContentStatusFilteringService _publishedContentStatusFilteringService;
 
+    private const int MaxSampleResults = 20;
+
     private static readonly string _indent = $"{Environment.NewLine}    ";
 
     [ActivatorUtilitiesConstructor]
@@ -69,7 +71,7 @@ public class ExecuteTemplateQueryController : TemplateQueryControllerBase
             QueryExpression = queryExpression.ToString(),
             ResultCount = results.Count,
             ExecutionTime = timer.ElapsedMilliseconds,
-            SampleResults = results.Take(20).Select(content => new TemplateQueryResultItemPresentationModel
+            SampleResults = results.Take(MaxSampleResults).Select(content => new TemplateQueryResultItemPresentationModel
             {
                 Icon = contentTypeIconsByKey[content.ContentType.Key] ?? "icon-document",
                 Name = content.Name

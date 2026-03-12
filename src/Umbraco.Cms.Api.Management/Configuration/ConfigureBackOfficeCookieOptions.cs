@@ -21,6 +21,8 @@ namespace Umbraco.Cms.Api.Management.Configuration;
 /// </summary>
 public class ConfigureBackOfficeCookieOptions : IConfigureNamedOptions<CookieAuthenticationOptions>
 {
+    private const string XmlHttpRequestHeaderValue = "XMLHttpRequest";
+
     private readonly IDataProtectionProvider _dataProtection;
     private readonly GlobalSettings _globalSettings;
     private readonly IIpResolver _ipResolver;
@@ -260,8 +262,8 @@ public class ConfigureBackOfficeCookieOptions : IConfigureNamedOptions<CookieAut
     }
 
     private bool IsXhr(HttpRequest request) =>
-        string.Equals(request.Query[HeaderNames.XRequestedWith], "XMLHttpRequest", StringComparison.Ordinal) ||
-        string.Equals(request.Headers.XRequestedWith, "XMLHttpRequest", StringComparison.Ordinal);
+        string.Equals(request.Query[HeaderNames.XRequestedWith], XmlHttpRequestHeaderValue, StringComparison.Ordinal) ||
+        string.Equals(request.Headers.XRequestedWith, XmlHttpRequestHeaderValue, StringComparison.Ordinal);
 
     /// <summary>
     ///     Ensures the ticket is renewed if the <see cref="SecuritySettings.KeepUserLoggedIn" /> is set to true

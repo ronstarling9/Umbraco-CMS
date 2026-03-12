@@ -18,6 +18,8 @@ namespace Umbraco.Cms.Api.Management.Services;
 
 public class BackOfficeExternalLoginService : IBackOfficeExternalLoginService
 {
+    private const int LoginProviderSecretExpirySeconds = 30;
+
     private readonly IBackOfficeExternalLoginProviders _backOfficeExternalLoginProviders;
     private readonly IUserService _userService;
     private readonly IBackOfficeUserManager _backOfficeUserManager;
@@ -173,7 +175,7 @@ public class BackOfficeExternalLoginService : IBackOfficeExternalLoginService
         }
 
         var secret = Guid.NewGuid();
-        _memoryCache.Set(secret, new LoginProviderUserLink { ClaimsPrincipalUserId = userId, LoginProvider = loginProvider }, new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30) });
+        _memoryCache.Set(secret, new LoginProviderUserLink { ClaimsPrincipalUserId = userId, LoginProvider = loginProvider }, new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(LoginProviderSecretExpirySeconds) });
 
         return Attempt<Guid?, ExternalLoginOperationStatus>.Succeed(ExternalLoginOperationStatus.Success, secret);
     }
