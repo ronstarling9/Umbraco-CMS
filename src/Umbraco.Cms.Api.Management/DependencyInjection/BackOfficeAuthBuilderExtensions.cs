@@ -32,8 +32,10 @@ public static class BackOfficeAuthBuilderExtensions
     public static IUmbracoBuilder AddTokenRevocation(this IUmbracoBuilder builder)
     {
         builder.AddNotificationAsyncHandler<UserSavedNotification, RevokeUserAuthenticationTokensNotificationHandler>();
-        builder.AddNotificationAsyncHandler<UserDeletedNotification, RevokeUserAuthenticationTokensNotificationHandler>();
-        builder.AddNotificationAsyncHandler<UserLoginSuccessNotification, RevokeUserAuthenticationTokensNotificationHandler>();
+        builder.AddNotificationAsyncHandler<UserDeletedNotification,
+            RevokeUserAuthenticationTokensNotificationHandler>();
+        builder.AddNotificationAsyncHandler<UserLoginSuccessNotification,
+            RevokeUserAuthenticationTokensNotificationHandler>();
 
         return builder;
     }
@@ -45,7 +47,8 @@ public static class BackOfficeAuthBuilderExtensions
 
         builder.Services.AddTransient<IBackOfficeApplicationManager, BackOfficeApplicationManager>();
         builder.Services.AddSingleton<BackOfficeAuthorizationInitializationMiddleware>();
-        builder.Services.Configure<UmbracoPipelineOptions>(options => options.AddFilter(new BackofficePipelineFilter("Backoffice")));
+        builder.Services.Configure<UmbracoPipelineOptions>(
+            options => options.AddFilter(new BackofficePipelineFilter("Backoffice")));
 
         return builder;
     }
@@ -63,10 +66,12 @@ public static class BackOfficeAuthBuilderExtensions
                 o.ExpireTimeSpan = TimeSpan.FromMinutes(5);
             })
 
-            // Add a cookie scheme that can be used for authenticating backoffice users outside the scope of the backoffice.
+            // Add a cookie scheme that can be used for authenticating backoffice users outside the scope of the
+            // backoffice.
             .AddCookie(Constants.Security.BackOfficeExposedAuthenticationType)
 
-            // Although we don't natively support this, we add it anyways so that if end-users implement the required logic
+            // Although we don't natively support this, we add it anyways so that if end-users implement the
+            // required logic
             // they don't have to worry about manually adding this scheme or modifying the sign in manager
             .AddCookie(Constants.Security.BackOfficeTwoFactorAuthenticationType, options =>
             {
@@ -79,7 +84,8 @@ public static class BackOfficeAuthBuilderExtensions
                 o.ExpireTimeSpan = TimeSpan.FromMinutes(5);
             });
 
-        // Add OpnIddict server event handler to refresh the cookie that exposes the backoffice authentication outside the scope of the backoffice.
+        // Add OpnIddict server event handler to refresh the cookie that exposes the backoffice authentication
+        // outside the scope of the backoffice.
         builder.Services.AddSingleton<ExposeBackOfficeAuthenticationOpenIddictServerEventsHandler>();
         builder.Services.Configure<OpenIddictServerOptions>(options =>
         {

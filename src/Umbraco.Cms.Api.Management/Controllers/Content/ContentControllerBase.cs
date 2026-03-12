@@ -41,7 +41,8 @@ public abstract class ContentControllerBase : ManagementApiControllerBase
             ContentEditingOperationStatus.NotAllowed => BadRequest(problemDetailsBuilder
                 .WithTitle("Operation not permitted")
                 .WithDetail(
-                    "The attempted operation was not permitted, likely due to a permission/configuration mismatch with the operation.")
+                    "The attempted operation was not permitted, likely due to a permission/configuration"
+                    + " mismatch with the operation.")
                 .Build()),
             ContentEditingOperationStatus.TemplateNotFound => NotFound(problemDetailsBuilder
                 .WithTitle("The template could not be found")
@@ -79,11 +80,13 @@ public abstract class ContentControllerBase : ManagementApiControllerBase
                 .Build()),
             ContentEditingOperationStatus.CannotDeleteWhenReferenced => BadRequest(problemDetailsBuilder
                 .WithTitle("Cannot delete a referenced content item")
-                .WithDetail("Cannot delete a referenced content item, while the setting ContentSettings.DisableDeleteWhenReferenced is enabled.")
+                .WithDetail("Cannot delete a referenced content item, while the setting"
+                    + " ContentSettings.DisableDeleteWhenReferenced is enabled.")
                 .Build()),
             ContentEditingOperationStatus.CannotMoveToRecycleBinWhenReferenced => BadRequest(problemDetailsBuilder
                 .WithTitle("Cannot move a referenced content item to the recycle bin")
-                .WithDetail("Cannot move a referenced content item to the recycle bin, while the setting ContentSettings.DisableDeleteWhenReferenced is enabled.")
+                .WithDetail("Cannot move a referenced content item to the recycle bin, while the setting"
+                    + " ContentSettings.DisableDeleteWhenReferenced is enabled.")
                 .Build()),
             ContentEditingOperationStatus.Unknown => StatusCode(
                 StatusCodes.Status500InternalServerError,

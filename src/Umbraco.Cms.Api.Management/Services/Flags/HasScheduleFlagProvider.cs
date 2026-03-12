@@ -38,7 +38,8 @@ internal class HasScheduleFlagProvider : IFlagProvider
         where TItem : IHasFlags
     {
         TItem[] itemsArray = items.ToArray();
-        IDictionary<Guid, IEnumerable<ContentSchedule>> schedules = _contentService.GetContentSchedulesByKeys(itemsArray.Select(x => x.Id).ToArray());
+        IDictionary<Guid, IEnumerable<ContentSchedule>> schedules =
+            _contentService.GetContentSchedulesByKeys(itemsArray.Select(x => x.Id).ToArray());
         foreach (TItem item in itemsArray)
         {
             if (schedules.TryGetValue(item.Id, out IEnumerable<ContentSchedule>? contentSchedules) is false)
@@ -49,15 +50,18 @@ internal class HasScheduleFlagProvider : IFlagProvider
             switch (item)
             {
                 case DocumentTreeItemResponseModel documentTreeItemResponseModel:
-                    documentTreeItemResponseModel.Variants = PopulateVariants(documentTreeItemResponseModel.Variants, contentSchedules);
+                    documentTreeItemResponseModel.Variants =
+                        PopulateVariants(documentTreeItemResponseModel.Variants, contentSchedules);
                     break;
 
                 case DocumentCollectionResponseModel documentCollectionResponseModel:
-                    documentCollectionResponseModel.Variants = PopulateVariants(documentCollectionResponseModel.Variants, contentSchedules);
+                    documentCollectionResponseModel.Variants =
+                        PopulateVariants(documentCollectionResponseModel.Variants, contentSchedules);
                     break;
 
                 case DocumentItemResponseModel documentItemResponseModel:
-                    documentItemResponseModel.Variants = PopulateVariants(documentItemResponseModel.Variants, contentSchedules);
+                    documentItemResponseModel.Variants =
+                        PopulateVariants(documentItemResponseModel.Variants, contentSchedules);
                     break;
             }
         }
@@ -79,7 +83,9 @@ internal class HasScheduleFlagProvider : IFlagProvider
         foreach (DocumentVariantItemResponseModel variant in variantsArray)
         {
             ContentSchedule? schedule = schedules.FirstOrDefault(x => x.Culture == variant.Culture);
-            bool isScheduled = schedule != null && schedule.Date > DateTime.Now && string.Equals(schedule.Culture, variant.Culture);
+            bool isScheduled = schedule != null
+                && schedule.Date > DateTime.Now
+                && string.Equals(schedule.Culture, variant.Culture);
 
             if (isScheduled)
             {
@@ -104,7 +110,9 @@ internal class HasScheduleFlagProvider : IFlagProvider
         foreach (DocumentVariantResponseModel variant in variantsArray)
         {
             ContentSchedule? schedule = schedules.FirstOrDefault(x => x.Culture == variant.Culture);
-            bool isScheduled = schedule != null && schedule.Date > DateTime.Now && string.Equals(schedule.Culture, variant.Culture);
+            bool isScheduled = schedule != null
+                && schedule.Date > DateTime.Now
+                && string.Equals(schedule.Culture, variant.Culture);
 
             if (isScheduled)
             {

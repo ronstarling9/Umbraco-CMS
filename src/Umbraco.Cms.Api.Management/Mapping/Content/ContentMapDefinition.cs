@@ -34,7 +34,8 @@ public abstract class ContentMapDefinition<TContent, TValueViewModel, TVariantVi
 
     protected delegate void ValueViewModelMapping(IDataEditor propertyEditor, TValueViewModel variantViewModel);
 
-    protected delegate void VariantViewModelMapping(string? culture, string? segment, TVariantViewModel variantViewModel);
+    protected delegate void VariantViewModelMapping(
+        string? culture, string? segment, TVariantViewModel variantViewModel);
 
     protected IEnumerable<TValueViewModel> MapValueViewModels(
         IEnumerable<IProperty> properties,
@@ -48,10 +49,13 @@ public abstract class ContentMapDefinition<TContent, TValueViewModel, TVariantVi
                 .Select(propertyValue =>
                 {
                     IDataEditor? propertyEditor = _propertyEditorCollection[property.PropertyType.PropertyEditorAlias];
-                    if (propertyEditor is null && !missingPropertyEditors.TryGetValue(property.PropertyType.PropertyEditorAlias, out propertyEditor))
+                    if (propertyEditor is null
+                        && !missingPropertyEditors.TryGetValue(
+                            property.PropertyType.PropertyEditorAlias, out propertyEditor))
                     {
                         // We cache the missing property editors to avoid creating multiple instances of them
-                        propertyEditor = new MissingPropertyEditor(property.PropertyType.PropertyEditorAlias, _dataValueEditorFactory);
+                        propertyEditor = new MissingPropertyEditor(
+                            property.PropertyType.PropertyEditorAlias, _dataValueEditorFactory);
                         missingPropertyEditors[property.PropertyType.PropertyEditorAlias] = propertyEditor;
                     }
 
@@ -83,11 +87,14 @@ public abstract class ContentMapDefinition<TContent, TValueViewModel, TVariantVi
             .ToArray();
     }
 
-    protected IEnumerable<TVariantViewModel> MapVariantViewModels(TContent source, VariantViewModelMapping? additionalVariantMapping = null)
+    protected IEnumerable<TVariantViewModel> MapVariantViewModels(
+        TContent source, VariantViewModelMapping? additionalVariantMapping = null)
     {
-        IPropertyValue[] propertyValues = source.Properties.SelectMany(propertyCollection => propertyCollection.Values).ToArray();
+        IPropertyValue[] propertyValues =
+            source.Properties.SelectMany(propertyCollection => propertyCollection.Values).ToArray();
         var cultures = source.AvailableCultures.DefaultIfEmpty(null).ToArray();
-        // the default segment (null) must always be included in the view model - both for variant and invariant documents
+        // the default segment (null) must always be included in the view model - both for variant and invariant
+        // documents
         var segments = propertyValues.Select(property => property.Segment).Union([null]).Distinct().ToArray();
 
         return cultures

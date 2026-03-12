@@ -43,7 +43,12 @@ internal sealed class WebhookPresentationFactory : IWebhookPresentationFactory
 
     public IWebhook CreateWebhook(CreateWebhookRequestModel webhookRequestModel)
     {
-        var target = new Webhook(webhookRequestModel.Url, webhookRequestModel.Enabled, webhookRequestModel.ContentTypeKeys, webhookRequestModel.Events, webhookRequestModel.Headers)
+        var target = new Webhook(
+            webhookRequestModel.Url,
+            webhookRequestModel.Enabled,
+            webhookRequestModel.ContentTypeKeys,
+            webhookRequestModel.Events,
+            webhookRequestModel.Headers)
         {
             Key = webhookRequestModel.Id ?? Guid.NewGuid(),
             Name = webhookRequestModel.Name,
@@ -54,7 +59,12 @@ internal sealed class WebhookPresentationFactory : IWebhookPresentationFactory
 
     public IWebhook CreateWebhook(UpdateWebhookRequestModel webhookRequestModel, Guid existingWebhookkey)
     {
-        var target = new Webhook(webhookRequestModel.Url, webhookRequestModel.Enabled, webhookRequestModel.ContentTypeKeys, webhookRequestModel.Events, webhookRequestModel.Headers)
+        var target = new Webhook(
+            webhookRequestModel.Url,
+            webhookRequestModel.Enabled,
+            webhookRequestModel.ContentTypeKeys,
+            webhookRequestModel.Events,
+            webhookRequestModel.Headers)
         {
             Key = existingWebhookkey,
             Name = webhookRequestModel.Name,
@@ -67,7 +77,10 @@ internal sealed class WebhookPresentationFactory : IWebhookPresentationFactory
     {
         var webhookLogResponseModel = new WebhookLogResponseModel
         {
-            Date = webhookLog.Date, EventAlias = webhookLog.EventAlias, Key = webhookLog.Key, RequestBody = webhookLog.RequestBody ?? string.Empty,
+            Date = webhookLog.Date,
+            EventAlias = webhookLog.EventAlias,
+            Key = webhookLog.Key,
+            RequestBody = webhookLog.RequestBody ?? string.Empty,
             RetryCount = webhookLog.RetryCount,
             Url = webhookLog.Url,
             RequestHeaders = webhookLog.RequestHeaders,
@@ -84,8 +97,11 @@ internal sealed class WebhookPresentationFactory : IWebhookPresentationFactory
         }
         else
         {
-            webhookLogResponseModel.ResponseBody = _localizedTextService.Localize("webhooks", "toggleDebug", Thread.CurrentThread.CurrentUICulture);
-            webhookLogResponseModel.StatusCode = webhookLog.StatusCode is "OK (200)" ? webhookLog.StatusCode : _localizedTextService.Localize("webhooks", "statusNotOk", Thread.CurrentThread.CurrentUICulture);
+            webhookLogResponseModel.ResponseBody = _localizedTextService.Localize(
+                "webhooks", "toggleDebug", Thread.CurrentThread.CurrentUICulture);
+            webhookLogResponseModel.StatusCode = webhookLog.StatusCode is "OK (200)"
+                ? webhookLog.StatusCode
+                : _localizedTextService.Localize("webhooks", "statusNotOk", Thread.CurrentThread.CurrentUICulture);
         }
 
         return webhookLogResponseModel;

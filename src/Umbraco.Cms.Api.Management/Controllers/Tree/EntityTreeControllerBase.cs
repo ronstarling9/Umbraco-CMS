@@ -97,7 +97,10 @@ public abstract class EntityTreeControllerBase<TItem> : ManagementApiControllerB
     /// </summary>
     /// <param name="entities">An array of entities to be filtered.</param>
     /// <param name="totalItems">The total number of items before filtering.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a tuple of the filtered entities and the adjusted total items count.</returns>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains a tuple of the filtered
+    /// entities and the adjusted total items count.
+    /// </returns>
     /// <remarks>
     /// Override this method to implement custom filtering logic for tree entities. The default
     /// implementation returns the input array and total items unchanged.
@@ -108,13 +111,17 @@ public abstract class EntityTreeControllerBase<TItem> : ManagementApiControllerB
         => Task.FromResult((entities, totalItems));
 
     /// <summary>
-    /// Filters the specified collection of tree entities for sibling queries and returns the filtered results asynchronously.
+    /// Filters the specified collection of tree entities for sibling queries and returns the filtered results
+    /// asynchronously.
     /// </summary>
     /// <param name="targetKey">The key of the target entity around which siblings are being retrieved.</param>
     /// <param name="entities">An array of entities to be filtered.</param>
     /// <param name="totalBefore">The total number of siblings before the target entity.</param>
     /// <param name="totalAfter">The total number of siblings after the target entity.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a tuple of the filtered entities and the adjusted before/after counts.</returns>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains a tuple of the filtered
+    /// entities and the adjusted before/after counts.
+    /// </returns>
     /// <remarks>
     /// Override this method to implement custom filtering logic for sibling tree entities. The default
     /// implementation returns the input array and totals unchanged.
@@ -165,8 +172,9 @@ public abstract class EntityTreeControllerBase<TItem> : ManagementApiControllerB
             // make widespread changes to support logging in the base controller.
             ILogger logger = StaticApplicationLogging.CreateLogger<EntityTreeControllerBase<TItem>>();
             logger.LogWarning(
-                "Ancestor(s) with ID(s) {MissingAncestorIds} not found in the ancestors collection for descendant {DescendantKey}. "
-                + "This indicates a data integrity issue in the entity path; consider running the database integrity health check "
+                "Ancestor(s) with ID(s) {MissingAncestorIds} not found in the ancestors collection "
+                + "for descendant {DescendantKey}. This indicates a data integrity issue in the entity path; "
+                + "consider running the database integrity health check "
                 + "and/or moving the entity to another location and back to rebuild its path.",
                 missingParentIds,
                 descendantKey);

@@ -28,7 +28,8 @@ public abstract class DocumentControllerBase : ContentControllerBase
         TContentModelBase requestModel,
         ContentValidationResult validationResult)
         where TContentModelBase : ContentModelBase<DocumentValueModel, DocumentVariantRequestModel>
-        => ContentEditingOperationStatusResult<TContentModelBase, DocumentValueModel, DocumentVariantRequestModel>(status, requestModel, validationResult);
+        => ContentEditingOperationStatusResult<TContentModelBase, DocumentValueModel, DocumentVariantRequestModel>(
+            status, requestModel, validationResult);
 
     protected IActionResult DocumentPublishingOperationStatusResult(
         ContentPublishingOperationStatus status,
@@ -104,7 +105,8 @@ public abstract class DocumentControllerBase : ContentControllerBase
             ContentPublishingOperationStatus.UnsavedChanges => BadRequest(problemDetailsBuilder
                 .WithTitle("Unsaved changes")
                 .WithDetail(
-                    "Could not publish the document because it had unsaved changes. Make sure to save all changes before attempting a publish.")
+                    "Could not publish the document because it had unsaved changes. "
+                    + "Make sure to save all changes before attempting a publish.")
                 .Build()),
             ContentPublishingOperationStatus.UnpublishTimeNeedsToBeAfterPublishTime => BadRequest(problemDetailsBuilder
                 .WithTitle("Unpublish time needs to be after the publish time")
@@ -124,12 +126,15 @@ public abstract class DocumentControllerBase : ContentControllerBase
             ContentPublishingOperationStatus.CannotUnpublishWhenReferenced => BadRequest(problemDetailsBuilder
                 .WithTitle("Cannot unpublish document when it's referenced somewhere else.")
                 .WithDetail(
-                    "Cannot unpublish a referenced document, while the setting ContentSettings.DisableUnpublishWhenReferenced is enabled.")
+                    "Cannot unpublish a referenced document, while the setting "
+                    + "ContentSettings.DisableUnpublishWhenReferenced is enabled.")
                 .Build()),
             ContentPublishingOperationStatus.FailedBranch => BadRequest(problemDetailsBuilder
                 .WithTitle("Failed branch operation")
                 .WithDetail("One or more items in the branch could not complete the operation.")
-                .WithExtension("failedBranchItems", failedBranchItems?.Select(item => new DocumentPublishBranchItemResult
+                .WithExtension(
+                    "failedBranchItems",
+                    failedBranchItems?.Select(item => new DocumentPublishBranchItemResult
                     {
                         Id = item.Key,
                         OperationStatus = item.OperationStatus
@@ -138,7 +143,8 @@ public abstract class DocumentControllerBase : ContentControllerBase
             ContentPublishingOperationStatus.Failed => BadRequest(problemDetailsBuilder
                 .WithTitle("Publish or unpublish failed")
                 .WithDetail(
-                    "An unspecified error occurred while (un)publishing. Please check the logs for additional information.")
+                    "An unspecified error occurred while (un)publishing. "
+                    + "Please check the logs for additional information.")
                 .Build()),
             ContentPublishingOperationStatus.TaskResultNotFound => NotFound(problemDetailsBuilder
                 .WithTitle("The result of the submitted task could not be found")
