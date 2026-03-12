@@ -21,7 +21,8 @@ public class StatusModelsBuilderController : ModelsBuilderControllerBase
     [EndpointSummary("Gets models builder status.")]
     [EndpointDescription("Gets the current status and configuration of the models builder.")]
     [MapToApiVersion("1.0")]
-    public Task<ActionResult<OutOfDateStatusResponseModel>> GetModelsOutOfDateStatus(CancellationToken cancellationToken)
+    public Task<ActionResult<OutOfDateStatusResponseModel>> GetModelsOutOfDateStatus(
+        CancellationToken cancellationToken)
     {
         OutOfDateStatusResponseModel status = _outOfDateModelsStatus.IsEnabled
             ? _outOfDateModelsStatus.IsOutOfDate

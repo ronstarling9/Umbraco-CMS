@@ -58,7 +58,8 @@ public class ItemMediaItemController : MediaItemControllerBase
             .GetAll(UmbracoObjectTypes.Media, ids.ToArray())
             .OfType<IMediaEntitySlim>();
 
-        IEnumerable<MediaItemResponseModel> responseModels = media.Select(_mediaPresentationFactory.CreateItemResponseModel);
+        IEnumerable<MediaItemResponseModel> responseModels =
+            media.Select(_mediaPresentationFactory.CreateItemResponseModel);
         await PopulateFlags(responseModels);
 
         return Ok(responseModels);

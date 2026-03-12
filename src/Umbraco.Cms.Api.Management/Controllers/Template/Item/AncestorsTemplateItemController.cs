@@ -29,7 +29,9 @@ public class AncestorsTemplateItemController : TemplateItemControllerBase
 
     [HttpGet("ancestors")]
     [MapToApiVersion("1.0")]
-    [ProducesResponseType(typeof(IEnumerable<ItemAncestorsResponseModel<TemplateItemResponseModel>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(
+        typeof(IEnumerable<ItemAncestorsResponseModel<TemplateItemResponseModel>>),
+        StatusCodes.Status200OK)]
     [EndpointSummary("Gets ancestors for a collection of template items.")]
     [EndpointDescription("Gets the ancestor chains for template items identified by the provided Ids.")]
     public async Task<IActionResult> Ancestors(

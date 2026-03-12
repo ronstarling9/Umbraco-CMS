@@ -56,7 +56,8 @@ public class UpdateDocumentTypeController : DocumentTypeControllerBase
 
         ContentTypeUpdateModel model = _documentTypeEditingPresentationFactory.MapUpdateModel(requestModel);
         Attempt<IContentType?, ContentTypeOperationStatus> result =
-            await _contentTypeEditingService.UpdateAsync(contentType, model, CurrentUserKey(_backOfficeSecurityAccessor));
+            await _contentTypeEditingService.UpdateAsync(
+                contentType, model, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

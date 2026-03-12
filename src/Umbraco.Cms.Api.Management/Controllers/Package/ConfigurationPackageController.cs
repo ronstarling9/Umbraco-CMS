@@ -21,7 +21,8 @@ public class ConfigurationPackageController : PackageControllerBase
     [EndpointDescription("Gets the configuration settings for packages.")]
     public Task<IActionResult> Configuration(CancellationToken cancellationToken)
     {
-        PackageConfigurationResponseModel responseModel = _packagePresentationFactory.CreateConfigurationResponseModel();
+        PackageConfigurationResponseModel responseModel =
+            _packagePresentationFactory.CreateConfigurationResponseModel();
         return Task.FromResult<IActionResult>(Ok(responseModel));
     }
 }

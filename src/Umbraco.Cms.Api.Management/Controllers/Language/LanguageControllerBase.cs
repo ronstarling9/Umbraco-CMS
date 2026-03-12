@@ -49,7 +49,8 @@ public abstract class LanguageControllerBase : ManagementApiControllerBase
     protected IActionResult LanguageNotFound()
         => OperationStatusResult(LanguageOperationStatus.NotFound, LanguageNotFound);
 
-    private IActionResult LanguageNotFound(ProblemDetailsBuilder problemDetailsBuilder) => NotFound(problemDetailsBuilder
-        .WithTitle("The language could not be found")
-        .Build());
+    private IActionResult LanguageNotFound(ProblemDetailsBuilder problemDetailsBuilder)
+        => NotFound(problemDetailsBuilder
+            .WithTitle("The language could not be found")
+            .Build());
 }

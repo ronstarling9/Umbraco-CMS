@@ -32,7 +32,8 @@ public class AnalyzeImportController : ImportControllerBase
     [EndpointDescription("Analyzes the uploaded import file and returns an analysis of the imported entities.")]
     public async Task<IActionResult> Analyze(CancellationToken cancellationToken, Guid temporaryFileId)
     {
-        Attempt<EntityXmlAnalysis?, TemporaryFileXmlImportOperationStatus> analyzeResult = await _temporaryFileToXmlImportService.AnalyzeAsync(temporaryFileId);
+        Attempt<EntityXmlAnalysis?, TemporaryFileXmlImportOperationStatus> analyzeResult =
+            await _temporaryFileToXmlImportService.AnalyzeAsync(temporaryFileId);
 
         return analyzeResult.Success is false
             ? TemporaryFileXmlImportOperationStatusResult(analyzeResult.Status)

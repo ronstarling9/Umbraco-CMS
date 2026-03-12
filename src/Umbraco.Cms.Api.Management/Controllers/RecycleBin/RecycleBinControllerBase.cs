@@ -162,7 +162,8 @@ public abstract class RecycleBinControllerBase<TItem> : ContentControllerBase
         IEnumerable<TItem> treeItemViewModels, long totalBefore, long totalAfter)
         => new() { TotalBefore = totalBefore, TotalAfter = totalAfter, Items = treeItemViewModels };
 
-    protected virtual IEntitySlim[] GetSiblingEntities(Guid target, int before, int after, out long totalBefore, out long totalAfter) =>
+    protected virtual IEntitySlim[] GetSiblingEntities(
+        Guid target, int before, int after, out long totalBefore, out long totalAfter) =>
         _entityService
             .GetTrashedSiblings(
                 target,

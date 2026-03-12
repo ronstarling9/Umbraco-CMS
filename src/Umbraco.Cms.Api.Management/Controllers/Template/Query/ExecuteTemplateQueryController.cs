@@ -166,7 +166,9 @@ public class ExecuteTemplateQueryController : TemplateQueryControllerBase
             };
 
         IEnumerable<QueryCondition> conditions = filters
-            .Where(filter => filter.ConstraintValue.IsNullOrWhiteSpace() == false && propertyTypeByAlias.ContainsKey(filter.PropertyAlias))
+            .Where(filter =>
+                filter.ConstraintValue.IsNullOrWhiteSpace() == false
+                && propertyTypeByAlias.ContainsKey(filter.PropertyAlias))
             .Select(filter => new QueryCondition
             {
                 Property = new PropertyModel
