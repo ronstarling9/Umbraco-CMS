@@ -117,8 +117,8 @@ internal sealed class DictionaryItemImportService : IDictionaryItemImportService
         }
         catch (Exception ex)
         {
-            // Intentionally broad: IPackageDataInstallation.ImportDictionaryItem is a third-party extension point
-            // that may throw any exception type depending on content configuration or database state.
+            // Intentionally broad: ImportDictionaryItem traverses the persistence layer and may throw database-level
+            // exceptions (e.g. SqlException, InvalidOperationException) depending on content configuration.
             _logger.LogError(ex, "Error importing UDT file: {FileName}", temporaryFileModel.FileName);
             return (null, DictionaryImportOperationStatus.InvalidFileContent);
         }
