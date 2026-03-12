@@ -32,7 +32,8 @@ public class ListTwoFactorProvidersCurrentUserController : CurrentUserController
     {
         Guid userKey = CurrentUserKey(_backOfficeSecurityAccessor);
 
-        Attempt<IEnumerable<UserTwoFactorProviderModel>, TwoFactorOperationStatus> result = await _userTwoFactorLoginService.GetProviderNamesAsync(userKey);
+        Attempt<IEnumerable<UserTwoFactorProviderModel>, TwoFactorOperationStatus> result =
+            await _userTwoFactorLoginService.GetProviderNamesAsync(userKey);
 
         return result.Success
             ? Ok(result.Result)

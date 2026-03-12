@@ -67,7 +67,13 @@ public class FilterUserFilterController : UserFilterControllerBase
         };
 
         Attempt<PagedModel<IUser>, UserOperationStatus> filterAttempt =
-            await _userService.FilterAsync(CurrentUserKey(_backOfficeSecurityAccessor), userFilter, skip, take, orderBy, orderDirection);
+            await _userService.FilterAsync(
+                CurrentUserKey(_backOfficeSecurityAccessor),
+                userFilter,
+                skip,
+                take,
+                orderBy,
+                orderDirection);
 
         if (filterAttempt.Success is false)
         {

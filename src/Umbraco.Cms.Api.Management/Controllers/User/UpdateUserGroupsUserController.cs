@@ -42,7 +42,9 @@ public class UpdateUserGroupsUserController : UserGroupControllerBase
     }
 
     [Obsolete("Please use the constructor accepting all parameters. Scheduled for removal in Umbraco 19.")]
-    public UpdateUserGroupsUserController(IAuthorizationService authorizationService, IUserGroupService userGroupService)
+    public UpdateUserGroupsUserController(
+        IAuthorizationService authorizationService,
+        IUserGroupService userGroupService)
         : this(
             authorizationService,
             userGroupService,

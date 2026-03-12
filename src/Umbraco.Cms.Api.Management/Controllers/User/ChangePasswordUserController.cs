@@ -60,7 +60,8 @@ public class ChangePasswordUserController : UserControllerBase
             UserKey = id,
         };
 
-        Attempt<PasswordChangedModel, UserOperationStatus> response = await _userService.ChangePasswordAsync(CurrentUserKey(_backOfficeSecurityAccessor), passwordModel);
+        Attempt<PasswordChangedModel, UserOperationStatus> response =
+            await _userService.ChangePasswordAsync(CurrentUserKey(_backOfficeSecurityAccessor), passwordModel);
 
         return response.Success
             ? Ok()

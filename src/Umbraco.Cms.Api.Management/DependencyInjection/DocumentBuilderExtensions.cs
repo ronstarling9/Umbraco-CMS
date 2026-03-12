@@ -13,10 +13,14 @@ internal static class DocumentBuilderExtensions
     {
         builder.Services.AddScoped<IDocumentPermissionFilterService, DocumentPermissionFilterService>();
         builder.Services.AddTransient<IDocumentPresentationFactory, DocumentPresentationFactory>();
-        builder.Services.AddTransient<IDocumentNotificationPresentationFactory, DocumentNotificationPresentationFactory>();
+        builder.Services.AddTransient<
+            IDocumentNotificationPresentationFactory,
+            DocumentNotificationPresentationFactory>();
         builder.Services.AddTransient<IDocumentUrlFactory, DocumentUrlFactory>();
         builder.Services.AddTransient<IDocumentEditingPresentationFactory, DocumentEditingPresentationFactory>();
-        builder.Services.AddTransient<IDocumentBlueprintEditingPresentationFactory, DocumentBlueprintEditingPresentationFactory>();
+        builder.Services.AddTransient<
+            IDocumentBlueprintEditingPresentationFactory,
+            DocumentBlueprintEditingPresentationFactory>();
         builder.Services.AddTransient<IPublicAccessPresentationFactory, PublicAccessPresentationFactory>();
         builder.Services.AddTransient<IDomainPresentationFactory, DomainPresentationFactory>();
         builder.Services.AddTransient<IDocumentVersionPresentationFactory, DocumentVersionPresentationFactory>();

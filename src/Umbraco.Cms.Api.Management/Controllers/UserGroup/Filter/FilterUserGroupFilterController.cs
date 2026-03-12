@@ -54,7 +54,8 @@ public class FilterUserGroupFilterController : UserGroupFilterControllerBase
             return UserGroupOperationStatusResult(filterAttempt.Status);
         }
 
-        IEnumerable<UserGroupResponseModel> viewModels = await _userGroupPresentationFactory.CreateMultipleAsync(filterAttempt.Result.Items);
+        IEnumerable<UserGroupResponseModel> viewModels =
+            await _userGroupPresentationFactory.CreateMultipleAsync(filterAttempt.Result.Items);
         var responseModel = new PagedViewModel<UserGroupResponseModel>
         {
             Total = filterAttempt.Result.Total,

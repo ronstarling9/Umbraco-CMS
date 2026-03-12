@@ -8,7 +8,8 @@ namespace Umbraco.Cms.Api.Management.Controllers.User.ClientCredentials;
 public abstract class ClientCredentialsUserControllerBase : UserControllerBase
 {
     protected IActionResult BackOfficeUserClientCredentialsOperationStatusResult(
-        BackOfficeUserClientCredentialsOperationStatus status) =>
+        BackOfficeUserClientCredentialsOperationStatus status)
+        =>
         OperationStatusResult(status, problemDetailsBuilder => status switch
         {
             BackOfficeUserClientCredentialsOperationStatus.InvalidUser => BadRequest(problemDetailsBuilder
@@ -23,7 +24,8 @@ public abstract class ClientCredentialsUserControllerBase : UserControllerBase
             BackOfficeUserClientCredentialsOperationStatus.InvalidClientId => BadRequest(problemDetailsBuilder
                 .WithTitle("Invalid client ID")
                 .WithDetail(
-                    "The specified client ID is invalid. A valid client ID can only contain [a-z], [A-Z], [0-9], and [-._~]. Furthermore, including the prefix it cannot be longer than 100 characters.")
+                    "The specified client ID is invalid. A valid client ID can only contain [a-z], [A-Z], [0-9], and" +
+                    " [-._~]. Furthermore, including the prefix it cannot be longer than 100 characters.")
                 .Build()),
             _ => StatusCode(StatusCodes.Status500InternalServerError, problemDetailsBuilder
                 .WithTitle("Unknown client credentials operation status.")

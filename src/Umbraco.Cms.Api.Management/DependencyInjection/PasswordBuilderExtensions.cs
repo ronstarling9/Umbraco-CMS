@@ -8,7 +8,9 @@ public static class PasswordBuilderExtensions
 {
     internal static IUmbracoBuilder AddPasswordConfiguration(this IUmbracoBuilder builder)
     {
-        builder.Services.AddTransient<IPasswordConfigurationPresentationFactory, PasswordConfigurationPresentationFactory>();
+        builder.Services.AddTransient<
+            IPasswordConfigurationPresentationFactory,
+            PasswordConfigurationPresentationFactory>();
         return builder;
     }
 }

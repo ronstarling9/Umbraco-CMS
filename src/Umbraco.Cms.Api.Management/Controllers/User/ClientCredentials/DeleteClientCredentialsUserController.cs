@@ -42,7 +42,8 @@ public class DeleteClientCredentialsUserController : ClientCredentialsUserContro
             return Forbidden();
         }
 
-        Attempt<BackOfficeUserClientCredentialsOperationStatus> result = await _backOfficeUserClientCredentialsManager.DeleteAsync(id, clientId);
+        Attempt<BackOfficeUserClientCredentialsOperationStatus> result =
+            await _backOfficeUserClientCredentialsManager.DeleteAsync(id, clientId);
         return result.Success
             ? Ok()
             : BackOfficeUserClientCredentialsOperationStatusResult(result.Result);

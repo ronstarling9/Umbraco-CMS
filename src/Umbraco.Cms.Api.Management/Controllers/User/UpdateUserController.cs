@@ -59,7 +59,8 @@ public class UpdateUserController : UserControllerBase
         // This is because we need to compare the updated values with what the user already has, for audit purposes.
         UserUpdateModel updateModel = await _userPresentationFactory.CreateUpdateModelAsync(id, model);
 
-        Attempt<IUser?, UserOperationStatus> result = await _userService.UpdateAsync(CurrentUserKey(_backOfficeSecurityAccessor), updateModel);
+        Attempt<IUser?, UserOperationStatus> result =
+            await _userService.UpdateAsync(CurrentUserKey(_backOfficeSecurityAccessor), updateModel);
 
         return result.Success
             ? Ok()

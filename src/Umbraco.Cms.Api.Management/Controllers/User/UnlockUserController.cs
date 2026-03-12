@@ -50,7 +50,9 @@ public class UnlockUserController : UserControllerBase
             return Forbidden();
         }
 
-        Attempt<UserUnlockResult, UserOperationStatus> attempt = await _userService.UnlockAsync(CurrentUserKey(_backOfficeSecurityAccessor), model.UserIds.Select(x => x.Id).ToArray());
+        Attempt<UserUnlockResult, UserOperationStatus> attempt = await _userService.UnlockAsync(
+            CurrentUserKey(_backOfficeSecurityAccessor),
+            model.UserIds.Select(x => x.Id).ToArray());
 
         return attempt.Success
             ? Ok()

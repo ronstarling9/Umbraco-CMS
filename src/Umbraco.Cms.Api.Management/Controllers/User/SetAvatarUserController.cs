@@ -31,7 +31,10 @@ public class SetAvatarUserController : UserControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Sets a user's avatar.")]
     [EndpointDescription("Sets or updates the avatar image for the user identified by the provided Id.")]
-    public async Task<IActionResult> SetAvatar(CancellationToken cancellationToken, Guid id, SetAvatarRequestModel model)
+    public async Task<IActionResult> SetAvatar(
+        CancellationToken cancellationToken,
+        Guid id,
+        SetAvatarRequestModel model)
     {
         AuthorizationResult authorizationResult = await _authorizationService.AuthorizeResourceAsync(
             User,
