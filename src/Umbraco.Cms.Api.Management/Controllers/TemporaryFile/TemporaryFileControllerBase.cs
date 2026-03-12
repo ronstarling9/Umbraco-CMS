@@ -37,7 +37,8 @@ public abstract class TemporaryFileControllerBase : ManagementApiControllerBase
     protected IActionResult TemporaryFileNotFound()
         => OperationStatusResult(TemporaryFileOperationStatus.NotFound, TemporaryFileNotFound);
 
-    private IActionResult TemporaryFileNotFound(ProblemDetailsBuilder problemDetailsBuilder) => NotFound(problemDetailsBuilder
+    private IActionResult TemporaryFileNotFound(ProblemDetailsBuilder problemDetailsBuilder)
+        => NotFound(problemDetailsBuilder
         .WithTitle("The temporary file could not be found")
         .Build());
 }

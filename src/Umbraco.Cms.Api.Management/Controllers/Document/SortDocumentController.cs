@@ -45,7 +45,10 @@ public class SortDocumentController : DocumentControllerBase
             User,
             ContentPermissionResource.WithKeys(
                 ActionSort.ActionLetter,
-                new List<Guid?>(sortingRequestModel.Sorting.Select(x => x.Id).Cast<Guid?>()) { sortingRequestModel.Parent?.Id }),
+                new List<Guid?>(sortingRequestModel.Sorting.Select(x => x.Id).Cast<Guid?>())
+                {
+                    sortingRequestModel.Parent?.Id
+                }),
             AuthorizationPolicies.ContentPermissionByResource);
 
         if (!authorizationResult.Succeeded)

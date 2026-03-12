@@ -36,7 +36,8 @@ public class CreateTemporaryFileController : TemporaryFileControllerBase
         CreateTemporaryFileModel createModel =
             _umbracoMapper.Map<CreateTemporaryFileRequestModel, CreateTemporaryFileModel>(model)!;
 
-        Attempt<TemporaryFileModel?, TemporaryFileOperationStatus> result = await _temporaryFileService.CreateAsync(createModel);
+        Attempt<TemporaryFileModel?, TemporaryFileOperationStatus> result =
+            await _temporaryFileService.CreateAsync(createModel);
 
         return result.Success
             ? CreatedAtId<ByKeyTemporaryFileController>(controller => nameof(controller.ByKey), result.Result!.Key)

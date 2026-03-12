@@ -69,7 +69,8 @@ public class ByKeyMediaCollectionController : MediaCollectionControllerBase
         int skip = 0,
         int take = 100)
     {
-        Attempt<ListViewPagedModel<IMedia>?, ContentCollectionOperationStatus> collectionAttempt = await _mediaListViewService.GetListViewItemsByKeyAsync(
+        Attempt<ListViewPagedModel<IMedia>?, ContentCollectionOperationStatus> collectionAttempt =
+            await _mediaListViewService.GetListViewItemsByKeyAsync(
             CurrentUser(_backOfficeSecurityAccessor),
             id,
             dataTypeId,
@@ -85,7 +86,8 @@ public class ByKeyMediaCollectionController : MediaCollectionControllerBase
             return CollectionOperationStatusResult(collectionAttempt.Status);
         }
 
-        List<MediaCollectionResponseModel> collectionResponseModels = await _mediaCollectionPresentationFactory.CreateCollectionModelAsync(collectionAttempt.Result!);
+        List<MediaCollectionResponseModel> collectionResponseModels =
+            await _mediaCollectionPresentationFactory.CreateCollectionModelAsync(collectionAttempt.Result!);
         return CollectionResult(collectionResponseModels, collectionAttempt.Result!.Items.Total);
     }
 }

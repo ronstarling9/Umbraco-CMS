@@ -26,5 +26,6 @@ public class MediaControllerBase : ContentControllerBase
         TContentModelBase requestModel,
         ContentValidationResult validationResult)
         where TContentModelBase : ContentModelBase<MediaValueModel, MediaVariantRequestModel>
-        => ContentEditingOperationStatusResult<TContentModelBase, MediaValueModel, MediaVariantRequestModel>(status, requestModel, validationResult);
+        => ContentEditingOperationStatusResult<TContentModelBase, MediaValueModel, MediaVariantRequestModel>(
+            status, requestModel, validationResult);
 }

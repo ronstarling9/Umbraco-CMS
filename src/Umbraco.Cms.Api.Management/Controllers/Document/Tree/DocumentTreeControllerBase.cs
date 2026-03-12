@@ -143,6 +143,10 @@ public abstract class DocumentTreeControllerBase : UserStartNodeTreeControllerBa
         => _documentPermissionFilterService.FilterAsync(entities, totalItems);
 
     /// <inheritdoc/>
-    protected override Task<(IEntitySlim[] Entities, long TotalBefore, long TotalAfter)> FilterTreeEntities(Guid targetKey, IEntitySlim[] entities, long totalBefore, long totalAfter)
+    protected override Task<(IEntitySlim[] Entities, long TotalBefore, long TotalAfter)> FilterTreeEntities(
+        Guid targetKey,
+        IEntitySlim[] entities,
+        long totalBefore,
+        long totalAfter)
         => _documentPermissionFilterService.FilterAsync(targetKey, entities, totalBefore, totalAfter);
 }

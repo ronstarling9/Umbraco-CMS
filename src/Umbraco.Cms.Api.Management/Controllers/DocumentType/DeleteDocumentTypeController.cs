@@ -17,7 +17,9 @@ public class DeleteDocumentTypeController : DocumentTypeControllerBase
     private readonly IContentTypeService _contentTypeService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public DeleteDocumentTypeController(IContentTypeService contentTypeService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public DeleteDocumentTypeController(
+        IContentTypeService contentTypeService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _contentTypeService = contentTypeService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -31,7 +33,8 @@ public class DeleteDocumentTypeController : DocumentTypeControllerBase
     [EndpointDescription("Deletes a document type identified by the provided Id.")]
     public async Task<IActionResult> Delete(CancellationToken cancellationToken, Guid id)
     {
-        ContentTypeOperationStatus status = await _contentTypeService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        ContentTypeOperationStatus status =
+            await _contentTypeService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
         return OperationStatusResult(status);
     }
 }

@@ -35,8 +35,10 @@ public class MoveDocumentBlueprintController : DocumentBlueprintControllerBase
     public async Task<IActionResult> Move(
         CancellationToken cancellationToken, Guid id, MoveDocumentBlueprintRequestModel requestModel)
     {
-        Attempt<ContentEditingOperationStatus> result =
-            await _contentBlueprintEditingService.MoveAsync(id, requestModel.Target?.Id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<ContentEditingOperationStatus> result = await _contentBlueprintEditingService.MoveAsync(
+            id,
+            requestModel.Target?.Id,
+            CurrentUserKey(_backOfficeSecurityAccessor));
         return result.Success
             ? Ok()
             : ContentEditingOperationStatusResult(result.Result);

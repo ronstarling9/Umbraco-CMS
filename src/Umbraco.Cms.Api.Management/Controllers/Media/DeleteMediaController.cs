@@ -50,7 +50,8 @@ public class DeleteMediaController : MediaControllerBase
             return Forbidden();
         }
 
-        Attempt<IMedia?, ContentEditingOperationStatus> result = await _mediaEditingService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IMedia?, ContentEditingOperationStatus> result =
+            await _mediaEditingService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

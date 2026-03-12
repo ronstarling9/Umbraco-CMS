@@ -100,7 +100,8 @@ public class SearchMediaItemController : MediaItemControllerBase
             ignoreUserStartNodes);
         var result = new PagedModel<MediaItemResponseModel>
         {
-            Items = searchResult.Items.OfType<IMediaEntitySlim>().Select(_mediaPresentationFactory.CreateItemResponseModel),
+            Items = searchResult.Items.OfType<IMediaEntitySlim>()
+                .Select(_mediaPresentationFactory.CreateItemResponseModel),
             Total = searchResult.Total,
         };
 

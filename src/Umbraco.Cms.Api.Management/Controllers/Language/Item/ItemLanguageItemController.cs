@@ -35,7 +35,8 @@ public class ItemLanguageItemController : LanguageItemControllerBase
         }
 
         IEnumerable<ILanguage> languages = await _languageService.GetMultipleAsync(isoCodes);
-        List<LanguageItemResponseModel> entityResponseModels = _mapper.MapEnumerable<ILanguage, LanguageItemResponseModel>(languages);
+        List<LanguageItemResponseModel> entityResponseModels =
+            _mapper.MapEnumerable<ILanguage, LanguageItemResponseModel>(languages);
         return Ok(entityResponseModels);
     }
 }

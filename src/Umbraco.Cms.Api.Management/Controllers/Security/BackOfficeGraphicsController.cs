@@ -22,7 +22,8 @@ public class BackOfficeGraphicsController : Controller
     public const string LogoAlternativeRouteName = nameof(BackOfficeGraphicsController) + "." + nameof(LogoAlternative);
     public const string LoginBackGroundRouteName = nameof(BackOfficeGraphicsController) + "." + nameof(LoginBackground);
     public const string LoginLogoRouteName = nameof(BackOfficeGraphicsController) + "." + nameof(LoginLogo);
-    public const string LoginLogoAlternativeRouteName = nameof(BackOfficeGraphicsController) + "." + nameof(LoginLogoAlternative);
+    public const string LoginLogoAlternativeRouteName =
+        nameof(BackOfficeGraphicsController) + "." + nameof(LoginLogoAlternative);
 
     private readonly IOptions<ContentSettings> _contentSettings;
     private readonly IContentTypeProvider _contentTypeProvider;

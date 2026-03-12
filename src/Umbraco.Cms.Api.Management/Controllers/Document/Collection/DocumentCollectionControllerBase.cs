@@ -17,7 +17,11 @@ namespace Umbraco.Cms.Api.Management.Controllers.Document.Collection;
 [ApiExplorerSettings(GroupName = nameof(Constants.UdiEntityType.Document))]
 [Authorize(Policy = AuthorizationPolicies.TreeAccessDocuments)]
 public abstract class DocumentCollectionControllerBase
-    : ContentCollectionControllerBase<IContent, DocumentCollectionResponseModel, DocumentValueResponseModel, DocumentVariantResponseModel>
+    : ContentCollectionControllerBase<
+        IContent,
+        DocumentCollectionResponseModel,
+        DocumentValueResponseModel,
+        DocumentVariantResponseModel>
 {
     protected DocumentCollectionControllerBase(IUmbracoMapper mapper, FlagProviderCollection flagProviders)
         : base(mapper, flagProviders)

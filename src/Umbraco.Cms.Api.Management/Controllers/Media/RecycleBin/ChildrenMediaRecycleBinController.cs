@@ -11,7 +11,9 @@ namespace Umbraco.Cms.Api.Management.Controllers.Media.RecycleBin;
 [ApiVersion("1.0")]
 public class ChildrenMediaRecycleBinController : MediaRecycleBinControllerBase
 {
-    public ChildrenMediaRecycleBinController(IEntityService entityService, IMediaPresentationFactory mediaPresentationFactory)
+    public ChildrenMediaRecycleBinController(
+        IEntityService entityService,
+        IMediaPresentationFactory mediaPresentationFactory)
         : base(entityService, mediaPresentationFactory)
     {
     }

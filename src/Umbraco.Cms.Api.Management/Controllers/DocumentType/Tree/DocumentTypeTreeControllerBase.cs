@@ -57,7 +57,9 @@ public class DocumentTypeTreeControllerBase : FolderTreeControllerBase<DocumentT
 
     protected override UmbracoObjectTypes FolderObjectType => UmbracoObjectTypes.DocumentTypeContainer;
 
-    protected override DocumentTypeTreeItemResponseModel[] MapTreeItemViewModels(Guid? parentKey, IEntitySlim[] entities)
+    protected override DocumentTypeTreeItemResponseModel[] MapTreeItemViewModels(
+        Guid? parentKey,
+        IEntitySlim[] entities)
     {
         var contentTypes = _contentTypeService
             .GetMany(entities.Select(entity => entity.Id).ToArray())

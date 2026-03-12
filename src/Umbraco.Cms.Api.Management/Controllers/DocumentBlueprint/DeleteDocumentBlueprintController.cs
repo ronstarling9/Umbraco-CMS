@@ -18,7 +18,9 @@ public class DeleteDocumentBlueprintController : DocumentBlueprintControllerBase
     private readonly IContentBlueprintEditingService _contentBlueprintEditingService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public DeleteDocumentBlueprintController(IContentBlueprintEditingService contentBlueprintEditingService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public DeleteDocumentBlueprintController(
+        IContentBlueprintEditingService contentBlueprintEditingService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _contentBlueprintEditingService = contentBlueprintEditingService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -33,7 +35,8 @@ public class DeleteDocumentBlueprintController : DocumentBlueprintControllerBase
     [EndpointDescription("Deletes a document blueprint identified by the provided Id.")]
     public async Task<IActionResult> Delete(CancellationToken cancellationToken, Guid id)
     {
-        Attempt<IContent?, ContentEditingOperationStatus> result = await _contentBlueprintEditingService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IContent?, ContentEditingOperationStatus> result =
+            await _contentBlueprintEditingService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

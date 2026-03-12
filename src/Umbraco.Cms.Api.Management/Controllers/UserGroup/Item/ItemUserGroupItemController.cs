@@ -35,7 +35,8 @@ public class ItemUserGroupItemController : UserGroupItemControllerBase
         }
 
         IEnumerable<IUserGroup> userGroups = await _userGroupService.GetAsync(ids);
-        List<UserGroupItemResponseModel> responseModels = _mapper.MapEnumerable<IUserGroup, UserGroupItemResponseModel>(userGroups);
+        List<UserGroupItemResponseModel> responseModels =
+            _mapper.MapEnumerable<IUserGroup, UserGroupItemResponseModel>(userGroups);
         return Ok(responseModels);
     }
 }
