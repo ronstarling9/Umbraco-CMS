@@ -15,19 +15,25 @@ public class DenyLocalLoginHandler : MustSatisfyRequirementAuthorizationHandler<
     /// <summary>
     ///     Initializes a new instance of the <see cref="DenyLocalLoginHandler" /> class.
     /// </summary>
-    /// <param name="externalLogins">Provides access to <see cref="BackOfficeExternalLoginProvider" /> instances.</param>
+    /// <param name="externalLogins">
+    /// Provides access to <see cref="BackOfficeExternalLoginProvider" /> instances.
+    /// </param>
     public DenyLocalLoginHandler(IBackOfficeExternalLoginProviders externalLogins)
         => _externalLogins = externalLogins;
 
-    protected override Task<bool> IsAuthorized(AuthorizationHandlerContext context, DenyLocalLoginRequirement requirement)
+    protected override Task<bool> IsAuthorized(
+        AuthorizationHandlerContext context, DenyLocalLoginRequirement requirement)
     {
         var isDenied = _externalLogins.HasDenyLocalLogin();
 
         if (isDenied is false)
         {
-            // AuthorizationPolicies.BackOfficeAccess policy adds this requirement by policy.Requirements.Add(new BackOfficeRequirement());
-            // Since we want to "allow anonymous" for some endpoints (i.e. BackOfficeController.Login()), it is necessary to succeed this requirement
-            IEnumerable<BackOfficeRequirement> backOfficeRequirements = context.PendingRequirements.OfType<BackOfficeRequirement>();
+            // AuthorizationPolicies.BackOfficeAccess policy adds this requirement via
+            // policy.Requirements.Add(new BackOfficeRequirement());
+            // Since we want to "allow anonymous" for some endpoints (i.e. BackOfficeController.Login()),
+            // it is necessary to succeed this requirement
+            IEnumerable<BackOfficeRequirement> backOfficeRequirements =
+                context.PendingRequirements.OfType<BackOfficeRequirement>();
             foreach (BackOfficeRequirement backOfficeRequirement in backOfficeRequirements)
             {
                 context.Succeed(backOfficeRequirement);

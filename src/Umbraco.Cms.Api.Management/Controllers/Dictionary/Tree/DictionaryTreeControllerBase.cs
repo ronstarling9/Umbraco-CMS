@@ -17,8 +17,8 @@ namespace Umbraco.Cms.Api.Management.Controllers.Dictionary.Tree;
 [VersionedApiBackOfficeRoute($"{Constants.Web.RoutePath.Tree}/dictionary")]
 [ApiExplorerSettings(GroupName = "Dictionary")]
 [Authorize(Policy = AuthorizationPolicies.TreeAccessDictionaryOrTemplates)]
-// NOTE: at the moment dictionary items (renamed to dictionary tree) aren't supported by EntityService, so we have little use of the
-// tree controller base. We'll keep it though, in the hope that we can mend EntityService.
+// NOTE: at the moment dictionary items (renamed to dictionary tree) aren't supported by EntityService, so we have
+// little use of the tree controller base. We'll keep it though, in the hope that we can mend EntityService.
 public class DictionaryTreeControllerBase : NamedEntityTreeControllerBase<NamedEntityTreeItemResponseModel>
 {
     [Obsolete("Please use the constructor taking all parameters. Scheduled for removal in Umbraco 18.")]
@@ -42,15 +42,18 @@ public class DictionaryTreeControllerBase : NamedEntityTreeControllerBase<NamedE
 
     protected IDictionaryItemService DictionaryItemService { get; }
 
-    protected async Task<IEnumerable<NamedEntityTreeItemResponseModel>> MapTreeItemViewModels(IEnumerable<IDictionaryItem> dictionaryItems)
+    protected async Task<IEnumerable<NamedEntityTreeItemResponseModel>> MapTreeItemViewModels(
+        IEnumerable<IDictionaryItem> dictionaryItems)
         => await MapTreeItemViewModelsAsync(dictionaryItems).ToArrayAsync();
 
-    protected override async Task<ActionResult<IEnumerable<NamedEntityTreeItemResponseModel>>> GetAncestors(Guid descendantKey, bool includeSelf = true)
+    protected override async Task<ActionResult<IEnumerable<NamedEntityTreeItemResponseModel>>> GetAncestors(
+        Guid descendantKey, bool includeSelf = true)
     {
         IDictionaryItem? dictionaryItem = await DictionaryItemService.GetAsync(descendantKey);
         if (dictionaryItem is null)
         {
-            // this looks weird - but we actually mimic how the rest of the ancestor (and children) endpoints actually work
+            // this looks weird - but we actually mimic how the rest of the ancestor (and children) endpoints
+            // actually work
             return Ok(Enumerable.Empty<NamedEntityTreeItemResponseModel>());
         }
 
@@ -74,7 +77,8 @@ public class DictionaryTreeControllerBase : NamedEntityTreeControllerBase<NamedE
         return Ok(viewModels.Reverse());
     }
 
-    private async IAsyncEnumerable<NamedEntityTreeItemResponseModel> MapTreeItemViewModelsAsync(IEnumerable<IDictionaryItem> dictionaryItems)
+    private async IAsyncEnumerable<NamedEntityTreeItemResponseModel> MapTreeItemViewModelsAsync(
+        IEnumerable<IDictionaryItem> dictionaryItems)
     {
         foreach (IDictionaryItem dictionaryItem in dictionaryItems)
         {
@@ -82,7 +86,8 @@ public class DictionaryTreeControllerBase : NamedEntityTreeControllerBase<NamedE
         }
     }
 
-    private async Task<NamedEntityTreeItemResponseModel> CreateEntityTreeItemViewModelAsync(IDictionaryItem dictionaryItem)
+    private async Task<NamedEntityTreeItemResponseModel> CreateEntityTreeItemViewModelAsync(
+        IDictionaryItem dictionaryItem)
     {
         var hasChildren = await DictionaryItemService.CountChildrenAsync(dictionaryItem.Key) > 0;
         return new NamedEntityTreeItemResponseModel

@@ -60,7 +60,9 @@ public abstract class DocumentTypeControllerBase : ManagementApiControllerBase
                     .Build()),
                 ContentTypeOperationStatus.MissingContainer => new BadRequestObjectResult(problemDetailsBuilder
                     .WithTitle("Missing container")
-                    .WithDetail("One or more containers or properties are listed as parents to containers that are not defined.")
+                    .WithDetail(
+                        "One or more containers or properties are listed as parents to containers "
+                        + "that are not defined.")
                     .Build()),
                 ContentTypeOperationStatus.DuplicateContainer => new BadRequestObjectResult(problemDetailsBuilder
                     .WithTitle("Duplicate container")
@@ -81,17 +83,23 @@ public abstract class DocumentTypeControllerBase : ManagementApiControllerBase
                 ContentTypeOperationStatus.InvalidParent => new BadRequestObjectResult(
                     problemDetailsBuilder
                         .WithTitle("Invalid parent")
-                        .WithDetail("The specified parent is invalid, or cannot be used in combination with the specified composition/inheritance")
+                        .WithDetail(
+                            "The specified parent is invalid, or cannot be used in combination "
+                            + "with the specified composition/inheritance")
                         .Build()),
                 ContentTypeOperationStatus.DuplicatePropertyTypeAlias => new BadRequestObjectResult(
                     problemDetailsBuilder
                         .WithTitle("Duplicate property type alias")
-                        .WithDetail("One or more property type aliases are already in use, all property type aliases must be unique.")
+                        .WithDetail(
+                            "One or more property type aliases are already in use, "
+                            + "all property type aliases must be unique.")
                         .Build()),
                 ContentTypeOperationStatus.NotAllowed => new BadRequestObjectResult(
                     problemDetailsBuilder
                         .WithTitle("Operation not permitted")
-                        .WithDetail("The attempted operation was not permitted, likely due to a permission/configuration mismatch with the operation.")
+                        .WithDetail(
+                            "The attempted operation was not permitted, likely due to a "
+                            + "permission/configuration mismatch with the operation.")
                         .Build()),
                 ContentTypeOperationStatus.CancelledByNotification => new BadRequestObjectResult(
                     problemDetailsBuilder
@@ -109,17 +117,24 @@ public abstract class DocumentTypeControllerBase : ManagementApiControllerBase
                 ContentTypeOperationStatus.InvalidElementFlagDocumentHasContent => new BadRequestObjectResult(
                     problemDetailsBuilder
                         .WithTitle("Invalid IsElement flag")
-                        .WithDetail("Cannot change to element type because content has already been created with this document type.")
+                        .WithDetail(
+                            "Cannot change to element type because content has already been created "
+                            + "with this document type.")
                         .Build()),
-                ContentTypeOperationStatus.InvalidElementFlagElementIsUsedInPropertyEditorConfiguration => new BadRequestObjectResult(
+                ContentTypeOperationStatus.InvalidElementFlagElementIsUsedInPropertyEditorConfiguration =>
+                    new BadRequestObjectResult(
                     problemDetailsBuilder
                         .WithTitle("Invalid IsElement flag")
-                        .WithDetail("Cannot change to document type because this element type is used in the configuration of a data type.")
+                        .WithDetail(
+                            "Cannot change to document type because this element type is used in "
+                            + "the configuration of a data type.")
                         .Build()),
                 ContentTypeOperationStatus.InvalidElementFlagComparedToParent => new BadRequestObjectResult(
                     problemDetailsBuilder
                         .WithTitle("Invalid IsElement flag")
-                        .WithDetail("Can not create a documentType with inheritance composition where the parent and the new type's IsElement flag are different.")
+                        .WithDetail(
+                            "Can not create a documentType with inheritance composition where the parent "
+                            + "and the new type's IsElement flag are different.")
                         .Build()),
                 ContentTypeOperationStatus.InvalidSegmentVariationForElementType => new BadRequestObjectResult(
                     problemDetailsBuilder
@@ -151,7 +166,9 @@ public abstract class DocumentTypeControllerBase : ManagementApiControllerBase
                 ContentTypeStructureOperationStatus.NotAllowedByPath => new BadRequestObjectResult(
                     problemDetailsBuilder
                         .WithTitle("Not allowed by path")
-                        .WithDetail($"The {type} type operation cannot be performed due to not allowed path (i.e. a child of itself)")
+                        .WithDetail(
+                            $"The {type} type operation cannot be performed due to not allowed path "
+                            + "(i.e. a child of itself)")
                         .Build()),
                 ContentTypeStructureOperationStatus.NotFound => new NotFoundObjectResult(
                     problemDetailsBuilder
@@ -184,7 +201,9 @@ public abstract class DocumentTypeControllerBase : ManagementApiControllerBase
                 .Build()),
             ContentTypeImportOperationStatus.IdMismatch => BadRequest(problemDetailsBuilder
                 .WithTitle("Invalid Id")
-                .WithDetail("The import failed because the id of the document type you are trying to update did not match the id in the file.")
+                .WithDetail(
+                    "The import failed because the id of the document type you are trying to update "
+                    + "did not match the id in the file.")
                 .Build()),
             _ => StatusCode(StatusCodes.Status500InternalServerError, "Unknown document type import operation status.")
         });
