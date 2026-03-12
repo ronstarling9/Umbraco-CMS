@@ -21,7 +21,8 @@ public class ContentPermissionHandler
     /// <param name="contentPermissionAuthorizer">Authorizer for content access.</param>
     /// <param name="authorizationHelper">The authorization helper.</param>
     public ContentPermissionHandler(
-        IContentPermissionAuthorizer contentPermissionAuthorizer, IAuthorizationHelper authorizationHelper)
+        IContentPermissionAuthorizer contentPermissionAuthorizer,
+        IAuthorizationHelper authorizationHelper)
     {
         _contentPermissionAuthorizer = contentPermissionAuthorizer;
         _authorizationHelper = authorizationHelper;

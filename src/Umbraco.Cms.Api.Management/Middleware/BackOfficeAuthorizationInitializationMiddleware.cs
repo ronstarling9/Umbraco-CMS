@@ -82,7 +82,8 @@ public class BackOfficeAuthorizationInitializationMiddleware : IMiddleware
             .ToArray();
 
         using IServiceScope scope = _serviceProvider.CreateScope();
-        IBackOfficeApplicationManager backOfficeApplicationManager = scope.ServiceProvider.GetRequiredService<IBackOfficeApplicationManager>();
+        IBackOfficeApplicationManager backOfficeApplicationManager =
+            scope.ServiceProvider.GetRequiredService<IBackOfficeApplicationManager>();
         await backOfficeApplicationManager.EnsureBackOfficeApplicationAsync(backOfficeHosts);
 
         _firstBackOfficeRequestLocker.Release();

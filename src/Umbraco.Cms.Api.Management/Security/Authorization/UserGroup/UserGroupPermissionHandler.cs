@@ -7,7 +7,8 @@ namespace Umbraco.Cms.Api.Management.Security.Authorization.UserGroup;
 /// <summary>
 ///     Authorizes that the current user has access to the user group(s) specified in the request.
 /// </summary>
-public class UserGroupPermissionHandler : MustSatisfyRequirementAuthorizationHandler<UserGroupPermissionRequirement, UserGroupPermissionResource>
+public class UserGroupPermissionHandler
+    : MustSatisfyRequirementAuthorizationHandler<UserGroupPermissionRequirement, UserGroupPermissionResource>
 {
     private readonly IAuthorizationHelper _authorizationHelper;
     private readonly IUserGroupPermissionAuthorizer _userGroupPermissionAuthorizer;
@@ -17,7 +18,9 @@ public class UserGroupPermissionHandler : MustSatisfyRequirementAuthorizationHan
     /// </summary>
     /// <param name="userGroupPermissionAuthorizer">Authorizer for user group access.</param>
     /// <param name="authorizationHelper">The authorization helper.</param>
-    public UserGroupPermissionHandler(IUserGroupPermissionAuthorizer userGroupPermissionAuthorizer, IAuthorizationHelper authorizationHelper)
+    public UserGroupPermissionHandler(
+        IUserGroupPermissionAuthorizer userGroupPermissionAuthorizer,
+        IAuthorizationHelper authorizationHelper)
     {
         _userGroupPermissionAuthorizer = userGroupPermissionAuthorizer;
         _authorizationHelper = authorizationHelper;

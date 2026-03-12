@@ -27,7 +27,8 @@ public class InviteUriProvider : IInviteUriProvider
 
     public async Task<Attempt<Uri, UserOperationStatus>> CreateInviteUriAsync(IUser invitee)
     {
-        Attempt<string, UserOperationStatus> tokenAttempt = await _userManager.GenerateEmailConfirmationTokenAsync(invitee);
+        Attempt<string, UserOperationStatus> tokenAttempt =
+            await _userManager.GenerateEmailConfirmationTokenAsync(invitee);
 
         if (tokenAttempt.Success is false)
         {

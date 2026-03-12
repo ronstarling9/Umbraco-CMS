@@ -46,7 +46,9 @@ internal sealed class BackOfficeUserManagerAuditer :
             "password forgot/change");
 
     /// <inheritdoc />
-    public Task HandleAsync(UserForgotPasswordRequestedNotification notification, CancellationToken cancellationToken) =>
+    public Task HandleAsync(
+        UserForgotPasswordRequestedNotification notification,
+        CancellationToken cancellationToken) =>
         WriteAudit(
             notification.PerformingUserId,
             notification.AffectedUserId,
