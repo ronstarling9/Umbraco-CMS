@@ -320,9 +320,8 @@ public class BackOfficeController : SecurityControllerBase
             if (Uri.TryCreate(signOutResult.SignOutRedirectUrl, UriKind.Absolute, out Uri? redirectUri) is false
                 || redirectUri.Scheme != Uri.UriSchemeHttps)
             {
-                var redirectUrlValue = signOutResult.SignOutRedirectUrl;
                 throw new InvalidOperationException(
-                    $"SignOutRedirectUrl must be an absolute HTTPS URL, but found: {redirectUrlValue}");
+                    $"SignOutRedirectUrl must be an absolute HTTPS URL, but found: {signOutResult.SignOutRedirectUrl}");
             }
 
             return Redirect(redirectUri.ToString());

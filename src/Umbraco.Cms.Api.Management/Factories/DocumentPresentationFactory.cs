@@ -168,7 +168,7 @@ internal sealed class DocumentPresentationFactory : IDocumentPresentationFactory
 
     public Attempt<List<CulturePublishScheduleModel>, ContentPublishingOperationStatus>
         CreateCulturePublishScheduleModels(
-        PublishDocumentRequestModel requestModel)
+            PublishDocumentRequestModel requestModel)
     {
         var model = new List<CulturePublishScheduleModel>();
 
