@@ -44,13 +44,7 @@ public class SetStatusRedirectUrlManagementController : RedirectUrlManagementCon
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> SetStatus(CancellationToken cancellationToken, [FromQuery] RedirectStatus status)
     {
-        // TODO: uncomment this when auth is implemented.
-        // var userIsAdmin = _backOfficeSecurityAccessor.BackOfficeSecurity?.CurrentUser?.IsAdmin();
-        // if (userIsAdmin is null or false)
-        // {
-        //     return Unauthorized();
-        // }
-
+        // TODO: add admin-only authorization check when auth implementation is finalized.
         var enable = status switch
         {
             RedirectStatus.Enabled => true,

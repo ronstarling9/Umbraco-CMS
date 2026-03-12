@@ -22,7 +22,8 @@ public class DictionaryPresentationFactory : IDictionaryPresentationFactory
 
     public async Task<DictionaryItemResponseModel> CreateDictionaryItemViewModelAsync(IDictionaryItem dictionaryItem)
     {
-        DictionaryItemResponseModel dictionaryResponseModel = _umbracoMapper.Map<DictionaryItemResponseModel>(dictionaryItem)!;
+        DictionaryItemResponseModel dictionaryResponseModel =
+            _umbracoMapper.Map<DictionaryItemResponseModel>(dictionaryItem)!;
 
         var validLanguageIsoCodes = (await _languageService.GetAllIsoCodesAsync())
             .ToArray();
@@ -37,7 +38,8 @@ public class DictionaryPresentationFactory : IDictionaryPresentationFactory
         return dictionaryResponseModel;
     }
 
-    public async Task<IDictionaryItem> MapUpdateModelToDictionaryItemAsync(IDictionaryItem current, UpdateDictionaryItemRequestModel updateDictionaryItemRequestModel)
+    public async Task<IDictionaryItem> MapUpdateModelToDictionaryItemAsync(
+        IDictionaryItem current, UpdateDictionaryItemRequestModel updateDictionaryItemRequestModel)
     {
         IDictionaryItem updated = _umbracoMapper.Map(updateDictionaryItemRequestModel, current);
 
@@ -46,7 +48,8 @@ public class DictionaryPresentationFactory : IDictionaryPresentationFactory
         return updated;
     }
 
-    public async Task<IDictionaryItem> MapCreateModelToDictionaryItemAsync(CreateDictionaryItemRequestModel createDictionaryItemUpdateModel)
+    public async Task<IDictionaryItem> MapCreateModelToDictionaryItemAsync(
+        CreateDictionaryItemRequestModel createDictionaryItemUpdateModel)
     {
         IDictionaryItem updated = _umbracoMapper.Map<IDictionaryItem>(createDictionaryItemUpdateModel)!;
 
@@ -64,7 +67,8 @@ public class DictionaryPresentationFactory : IDictionaryPresentationFactory
                 .Descendants("DictionaryItem")
                 .Select(dictionaryItem =>
                 {
-                    if (Guid.TryParse(dictionaryItem.Attributes("Key").FirstOrDefault()?.Value, out Guid itemKey) == false)
+                    if (Guid.TryParse(
+                            dictionaryItem.Attributes("Key").FirstOrDefault()?.Value, out Guid itemKey) == false)
                     {
                         return null;
                     }
@@ -75,7 +79,8 @@ public class DictionaryPresentationFactory : IDictionaryPresentationFactory
                         return null;
                     }
 
-                    Guid? parentKey = Guid.TryParse(dictionaryItem.Parent?.Attributes("Key").FirstOrDefault()?.Value, out Guid key)
+                    Guid? parentKey = Guid.TryParse(
+                            dictionaryItem.Parent?.Attributes("Key").FirstOrDefault()?.Value, out Guid key)
                         ? key
                         : null;
 
@@ -90,7 +95,8 @@ public class DictionaryPresentationFactory : IDictionaryPresentationFactory
                 .ToArray(),
         };
 
-    private async Task MapTranslations(IDictionaryItem dictionaryItem, IEnumerable<DictionaryItemTranslationModel> translationModels)
+    private async Task MapTranslations(
+        IDictionaryItem dictionaryItem, IEnumerable<DictionaryItemTranslationModel> translationModels)
     {
         var languagesByIsoCode = (await _languageService.GetAllAsync()).ToDictionary(l => l.IsoCode);
         DictionaryItemTranslationModel[] validTranslations = translationModels
@@ -99,7 +105,8 @@ public class DictionaryPresentationFactory : IDictionaryPresentationFactory
 
         foreach (DictionaryItemTranslationModel translationModel in validTranslations)
         {
-            dictionaryItem.AddOrUpdateDictionaryValue(languagesByIsoCode[translationModel.IsoCode], translationModel.Translation);
+            dictionaryItem.AddOrUpdateDictionaryValue(
+                languagesByIsoCode[translationModel.IsoCode], translationModel.Translation);
         }
     }
 }

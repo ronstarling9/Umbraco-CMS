@@ -45,10 +45,11 @@ public abstract class DocumentTypeControllerBase : ManagementApiControllerBase
                     .WithTitle("Invalid template alias")
                     .WithDetail("The specified template alias is invalid")
                     .Build()),
-                ContentTypeOperationStatus.PropertyTypeAliasCannotEqualContentTypeAlias => new BadRequestObjectResult(problemDetailsBuilder
-                    .WithTitle("Invalid property type alias")
-                    .WithDetail("The property type alias cannot be the same as the content type alias")
-                    .Build()),
+                ContentTypeOperationStatus.PropertyTypeAliasCannotEqualContentTypeAlias => new BadRequestObjectResult(
+                    problemDetailsBuilder
+                        .WithTitle("Invalid property type alias")
+                        .WithDetail("The property type alias cannot be the same as the content type alias")
+                        .Build()),
                 ContentTypeOperationStatus.InvalidContainerName => new BadRequestObjectResult(problemDetailsBuilder
                     .WithTitle("Invalid container name")
                     .WithDetail("One or more container names are invalid")
@@ -77,23 +78,26 @@ public abstract class DocumentTypeControllerBase : ManagementApiControllerBase
                     .WithTitle("Invalid composition")
                     .WithDetail($"The specified {type} type composition is invalid")
                     .Build()),
-                ContentTypeOperationStatus.InvalidParent => new BadRequestObjectResult(problemDetailsBuilder
-                    .WithTitle("Invalid parent")
-                    .WithDetail("The specified parent is invalid, or cannot be used in combination with the specified composition/inheritance")
-                    .Build()),
+                ContentTypeOperationStatus.InvalidParent => new BadRequestObjectResult(
+                    problemDetailsBuilder
+                        .WithTitle("Invalid parent")
+                        .WithDetail("The specified parent is invalid, or cannot be used in combination with the specified composition/inheritance")
+                        .Build()),
                 ContentTypeOperationStatus.DuplicatePropertyTypeAlias => new BadRequestObjectResult(
                     problemDetailsBuilder
                         .WithTitle("Duplicate property type alias")
                         .WithDetail("One or more property type aliases are already in use, all property type aliases must be unique.")
                         .Build()),
-                ContentTypeOperationStatus.NotAllowed => new BadRequestObjectResult(problemDetailsBuilder
-                    .WithTitle("Operation not permitted")
-                    .WithDetail("The attempted operation was not permitted, likely due to a permission/configuration mismatch with the operation.")
-                    .Build()),
-                ContentTypeOperationStatus.CancelledByNotification => new BadRequestObjectResult(problemDetailsBuilder
-                    .WithTitle("Cancelled by notification")
-                    .WithDetail("The attempted operation was cancelled by a notification.")
-                    .Build()),
+                ContentTypeOperationStatus.NotAllowed => new BadRequestObjectResult(
+                    problemDetailsBuilder
+                        .WithTitle("Operation not permitted")
+                        .WithDetail("The attempted operation was not permitted, likely due to a permission/configuration mismatch with the operation.")
+                        .Build()),
+                ContentTypeOperationStatus.CancelledByNotification => new BadRequestObjectResult(
+                    problemDetailsBuilder
+                        .WithTitle("Cancelled by notification")
+                        .WithDetail("The attempted operation was cancelled by a notification.")
+                        .Build()),
                 ContentTypeOperationStatus.NameCannotBeEmpty => new BadRequestObjectResult(problemDetailsBuilder
                     .WithTitle("Name cannot be empty")
                     .WithDetail("The name of the content type cannot be empty")
@@ -102,47 +106,62 @@ public abstract class DocumentTypeControllerBase : ManagementApiControllerBase
                     .WithTitle("Name was too long")
                     .WithDetail("Name cannot be more than 255 characters in length.")
                     .Build()),
-                ContentTypeOperationStatus.InvalidElementFlagDocumentHasContent => new BadRequestObjectResult(problemDetailsBuilder
-                    .WithTitle("Invalid IsElement flag")
-                    .WithDetail("Cannot change to element type because content has already been created with this document type.")
-                    .Build()),
-                ContentTypeOperationStatus.InvalidElementFlagElementIsUsedInPropertyEditorConfiguration => new BadRequestObjectResult(problemDetailsBuilder
-                    .WithTitle("Invalid IsElement flag")
-                    .WithDetail("Cannot change to document type because this element type is used in the configuration of a data type.")
-                    .Build()),
-                ContentTypeOperationStatus.InvalidElementFlagComparedToParent => new BadRequestObjectResult(problemDetailsBuilder
-                    .WithTitle("Invalid IsElement flag")
-                    .WithDetail("Can not create a documentType with inheritance composition where the parent and the new type's IsElement flag are different.")
-                    .Build()),
-                ContentTypeOperationStatus.InvalidSegmentVariationForElementType => new BadRequestObjectResult(problemDetailsBuilder
-                    .WithTitle("Invalid segment variation")
-                    .WithDetail("Element types cannot vary by segment.")
-                    .Build()),
-                _ => new ObjectResult("Unknown content type operation status") { StatusCode = StatusCodes.Status500InternalServerError },
+                ContentTypeOperationStatus.InvalidElementFlagDocumentHasContent => new BadRequestObjectResult(
+                    problemDetailsBuilder
+                        .WithTitle("Invalid IsElement flag")
+                        .WithDetail("Cannot change to element type because content has already been created with this document type.")
+                        .Build()),
+                ContentTypeOperationStatus.InvalidElementFlagElementIsUsedInPropertyEditorConfiguration => new BadRequestObjectResult(
+                    problemDetailsBuilder
+                        .WithTitle("Invalid IsElement flag")
+                        .WithDetail("Cannot change to document type because this element type is used in the configuration of a data type.")
+                        .Build()),
+                ContentTypeOperationStatus.InvalidElementFlagComparedToParent => new BadRequestObjectResult(
+                    problemDetailsBuilder
+                        .WithTitle("Invalid IsElement flag")
+                        .WithDetail("Can not create a documentType with inheritance composition where the parent and the new type's IsElement flag are different.")
+                        .Build()),
+                ContentTypeOperationStatus.InvalidSegmentVariationForElementType => new BadRequestObjectResult(
+                    problemDetailsBuilder
+                        .WithTitle("Invalid segment variation")
+                        .WithDetail("Element types cannot vary by segment.")
+                        .Build()),
+                _ => new ObjectResult("Unknown content type operation status")
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                },
             });
 
-    public static IActionResult ContentTypeStructureOperationStatusResult(ContentTypeStructureOperationStatus status, string type) =>
+    public static IActionResult ContentTypeStructureOperationStatusResult(
+        ContentTypeStructureOperationStatus status, string type) =>
         status is ContentTypeStructureOperationStatus.Success
             ? new OkResult()
             : OperationStatusResult(status, problemDetailsBuilder => status switch
             {
-                ContentTypeStructureOperationStatus.CancelledByNotification => new BadRequestObjectResult(problemDetailsBuilder
-                    .WithTitle("Cancelled by notification")
-                    .WithDetail($"A notification handler prevented the {type} type operation")
-                    .Build()),
-                ContentTypeStructureOperationStatus.ContainerNotFound => new NotFoundObjectResult(problemDetailsBuilder
-                    .WithTitle("Container not found")
-                    .WithDetail("The specified container was not found")
-                    .Build()),
-                ContentTypeStructureOperationStatus.NotAllowedByPath => new BadRequestObjectResult(problemDetailsBuilder
-                    .WithTitle("Not allowed by path")
-                    .WithDetail($"The {type} type operation cannot be performed due to not allowed path (i.e. a child of itself)")
-                    .Build()),
-                ContentTypeStructureOperationStatus.NotFound => new NotFoundObjectResult(problemDetailsBuilder
-                    .WithTitle("Not Found")
-                    .WithDetail($"The specified {type} type was not found")
-                    .Build()),
-                _ => new ObjectResult("Unknown content type structure operation status") { StatusCode = StatusCodes.Status500InternalServerError }
+                ContentTypeStructureOperationStatus.CancelledByNotification => new BadRequestObjectResult(
+                    problemDetailsBuilder
+                        .WithTitle("Cancelled by notification")
+                        .WithDetail($"A notification handler prevented the {type} type operation")
+                        .Build()),
+                ContentTypeStructureOperationStatus.ContainerNotFound => new NotFoundObjectResult(
+                    problemDetailsBuilder
+                        .WithTitle("Container not found")
+                        .WithDetail("The specified container was not found")
+                        .Build()),
+                ContentTypeStructureOperationStatus.NotAllowedByPath => new BadRequestObjectResult(
+                    problemDetailsBuilder
+                        .WithTitle("Not allowed by path")
+                        .WithDetail($"The {type} type operation cannot be performed due to not allowed path (i.e. a child of itself)")
+                        .Build()),
+                ContentTypeStructureOperationStatus.NotFound => new NotFoundObjectResult(
+                    problemDetailsBuilder
+                        .WithTitle("Not Found")
+                        .WithDetail($"The specified {type} type was not found")
+                        .Build()),
+                _ => new ObjectResult("Unknown content type structure operation status")
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                }
             });
 
     protected IActionResult ContentTypeImportOperationStatusResult(ContentTypeImportOperationStatus operationStatus) =>

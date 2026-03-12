@@ -138,7 +138,8 @@ internal sealed class ServerEventSender :
 
     /// <inheritdoc/>
     public async Task HandleAsync(ContentSavedBlueprintNotification notification, CancellationToken cancellationToken) =>
-        await RouteCreatedOrUpdatedEvent(Constants.ServerEvents.EventSource.DocumentBlueprint, notification.SavedBlueprint);
+        await RouteCreatedOrUpdatedEvent(
+            Constants.ServerEvents.EventSource.DocumentBlueprint, notification.SavedBlueprint);
 
     /// <inheritdoc/>
     public async Task HandleAsync(ContentTypeSavedNotification notification, CancellationToken cancellationToken) =>
@@ -322,8 +323,8 @@ internal sealed class ServerEventSender :
         await NotifyDeletedAsync(notification, Constants.ServerEvents.EventSource.Template);
 
     /// <inheritdoc/>
-    public async Task HandleAsync(DictionaryItemDeletedNotification notification, CancellationToken cancellationToken) =>
-        await NotifyDeletedAsync(notification, Constants.ServerEvents.EventSource.DictionaryItem);
+    public async Task HandleAsync(DictionaryItemDeletedNotification notification, CancellationToken cancellationToken)
+        => await NotifyDeletedAsync(notification, Constants.ServerEvents.EventSource.DictionaryItem);
 
     /// <inheritdoc/>
     public async Task HandleAsync(DomainDeletedNotification notification, CancellationToken cancellationToken) =>
@@ -334,7 +335,8 @@ internal sealed class ServerEventSender :
         await NotifyDeletedAsync(notification, Constants.ServerEvents.EventSource.PartialView);
 
     /// <inheritdoc/>
-    public async Task HandleAsync(PublicAccessEntryDeletedNotification notification, CancellationToken cancellationToken)
+    public async Task HandleAsync(
+        PublicAccessEntryDeletedNotification notification, CancellationToken cancellationToken)
     {
         await NotifyDeletedAsync(notification, Constants.ServerEvents.EventSource.PublicAccessEntry);
 
@@ -364,12 +366,12 @@ internal sealed class ServerEventSender :
         await NotifyDeletedAsync(notification, Constants.ServerEvents.EventSource.Webhook);
 
     /// <inheritdoc/>
-    public async Task HandleAsync(ContentMovedToRecycleBinNotification notification, CancellationToken cancellationToken) =>
-        await NotifyTrashedAsync(notification, Constants.ServerEvents.EventSource.Document);
+    public async Task HandleAsync(ContentMovedToRecycleBinNotification notification, CancellationToken cancellationToken)
+        => await NotifyTrashedAsync(notification, Constants.ServerEvents.EventSource.Document);
 
     /// <inheritdoc/>
-    public async Task HandleAsync(MediaMovedToRecycleBinNotification notification, CancellationToken cancellationToken) =>
-        await NotifyTrashedAsync(notification, Constants.ServerEvents.EventSource.Media);
+    public async Task HandleAsync(MediaMovedToRecycleBinNotification notification, CancellationToken cancellationToken)
+        => await NotifyTrashedAsync(notification, Constants.ServerEvents.EventSource.Media);
 
     /// <inheritdoc/>
     public async Task HandleAsync(ContentTypeChangedNotification notification, CancellationToken cancellationToken) =>
@@ -383,7 +385,8 @@ internal sealed class ServerEventSender :
     public async Task HandleAsync(MemberTypeChangedNotification notification, CancellationToken cancellationToken) =>
         await RouteContentTypeChangedEventsAsync(notification, Constants.ServerEvents.EventSource.MemberType);
 
-    private async Task RouteContentTypeChangedEventsAsync<T>(ContentTypeChangeNotification<T> notification, string source)
+    private async Task RouteContentTypeChangedEventsAsync<T>(
+        ContentTypeChangeNotification<T> notification, string source)
         where T : class, IContentTypeComposition
     {
         foreach (ContentTypeChange<T> change in notification.Changes)

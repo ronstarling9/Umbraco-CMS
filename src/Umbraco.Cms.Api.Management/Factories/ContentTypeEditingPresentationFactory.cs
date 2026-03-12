@@ -93,9 +93,9 @@ internal abstract class ContentTypeEditingPresentationFactory<TContentType>
             .ToDictionary(c => c.Key, c => c.Alias);
 
         return allowedContentTypesAndSortOrder
-            .Select(a =>
-                contentTypeAliasesByKey.TryGetValue(a.Key, out var alias)
-                    ? new ContentTypeSort(a.Key, a.Value, alias)
+            .Select(sortOrderEntry =>
+                contentTypeAliasesByKey.TryGetValue(sortOrderEntry.Key, out var alias)
+                    ? new ContentTypeSort(sortOrderEntry.Key, sortOrderEntry.Value, alias)
                     : null)
             .WhereNotNull()
             .ToArray();

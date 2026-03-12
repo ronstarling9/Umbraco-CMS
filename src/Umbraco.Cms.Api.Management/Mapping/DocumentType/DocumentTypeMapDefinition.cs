@@ -8,18 +8,26 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Api.Management.Mapping.DocumentType;
 
-public class DocumentTypeMapDefinition : ContentTypeMapDefinition<IContentType, DocumentTypePropertyTypeResponseModel, DocumentTypePropertyTypeContainerResponseModel>, IMapDefinition
+public class DocumentTypeMapDefinition
+    : ContentTypeMapDefinition<IContentType, DocumentTypePropertyTypeResponseModel, DocumentTypePropertyTypeContainerResponseModel>,
+        IMapDefinition
 {
     public void DefineMaps(IUmbracoMapper mapper)
     {
         mapper.Define<IContentType, DocumentTypeResponseModel>((_, _) => new DocumentTypeResponseModel(), Map);
-        mapper.Define<IContentType, DocumentTypeReferenceResponseModel>((_, _) => new DocumentTypeReferenceResponseModel(), Map);
-        mapper.Define<ISimpleContentType, DocumentTypeReferenceResponseModel>((_, _) => new DocumentTypeReferenceResponseModel(), Map);
+        mapper.Define<IContentType, DocumentTypeReferenceResponseModel>(
+            (_, _) => new DocumentTypeReferenceResponseModel(), Map);
+        mapper.Define<ISimpleContentType, DocumentTypeReferenceResponseModel>(
+            (_, _) => new DocumentTypeReferenceResponseModel(), Map);
         mapper.Define<IContentType, AllowedDocumentType>((_, _) => new AllowedDocumentType(), Map);
-        mapper.Define<ISimpleContentType, DocumentTypeCollectionReferenceResponseModel>((_, _) => new DocumentTypeCollectionReferenceResponseModel(), Map);
-        mapper.Define<IContentEntitySlim, DocumentTypeReferenceResponseModel>((_, _) => new DocumentTypeReferenceResponseModel(), Map);
-        mapper.Define<IDocumentEntitySlim, DocumentTypeReferenceResponseModel>((_, _) => new DocumentTypeReferenceResponseModel(), Map);
-        mapper.Define<IContent, DocumentTypeBlueprintItemResponseModel>((_, _) => new DocumentTypeBlueprintItemResponseModel(), Map);
+        mapper.Define<ISimpleContentType, DocumentTypeCollectionReferenceResponseModel>(
+            (_, _) => new DocumentTypeCollectionReferenceResponseModel(), Map);
+        mapper.Define<IContentEntitySlim, DocumentTypeReferenceResponseModel>(
+            (_, _) => new DocumentTypeReferenceResponseModel(), Map);
+        mapper.Define<IDocumentEntitySlim, DocumentTypeReferenceResponseModel>(
+            (_, _) => new DocumentTypeReferenceResponseModel(), Map);
+        mapper.Define<IContent, DocumentTypeBlueprintItemResponseModel>(
+            (_, _) => new DocumentTypeBlueprintItemResponseModel(), Map);
     }
 
     // Umbraco.Code.MapAll
@@ -110,7 +118,8 @@ public class DocumentTypeMapDefinition : ContentTypeMapDefinition<IContentType, 
     }
 
     // Umbraco.Code.MapAll
-    private void Map(ISimpleContentType source, DocumentTypeCollectionReferenceResponseModel target, MapperContext context)
+    private void Map(
+        ISimpleContentType source, DocumentTypeCollectionReferenceResponseModel target, MapperContext context)
     {
         target.Id = source.Key;
         target.Alias = source.Alias;

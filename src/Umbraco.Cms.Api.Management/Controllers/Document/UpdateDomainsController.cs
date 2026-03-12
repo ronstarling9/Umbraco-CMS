@@ -27,7 +27,11 @@ public class UpdateDomainsController : DocumentControllerBase
     private readonly IDomainPresentationFactory _domainPresentationFactory;
 
     [ActivatorUtilitiesConstructor]
-    public UpdateDomainsController(IAuthorizationService authorizationService, IDomainService domainService, IUmbracoMapper umbracoMapper, IDomainPresentationFactory domainPresentationFactory)
+    public UpdateDomainsController(
+        IAuthorizationService authorizationService,
+        IDomainService domainService,
+        IUmbracoMapper umbracoMapper,
+        IDomainPresentationFactory domainPresentationFactory)
     {
         _authorizationService = authorizationService;
         _domainService = domainService;
@@ -36,7 +40,10 @@ public class UpdateDomainsController : DocumentControllerBase
     }
 
     [Obsolete("Please use the constructor taking all parameters. Scheduled for removal in Umbraco 18.")]
-    public UpdateDomainsController(IDomainService domainService, IUmbracoMapper umbracoMapper, IDomainPresentationFactory domainPresentationFactory)
+    public UpdateDomainsController(
+        IDomainService domainService,
+        IUmbracoMapper umbracoMapper,
+        IDomainPresentationFactory domainPresentationFactory)
         : this(
             StaticServiceProvider.Instance.GetRequiredService<IAuthorizationService>(),
             domainService,
@@ -52,7 +59,8 @@ public class UpdateDomainsController : DocumentControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)]
     [EndpointSummary("Updates the domains for a document.")]
-    [EndpointDescription("Updates the domains for the document identified by the provided Id with the details from the request model.")]
+    [EndpointDescription(
+        "Updates the domains for the document identified by the provided Id with the details from the request model.")]
     public async Task<IActionResult> Update(
         CancellationToken cancellationToken,
         Guid id,
@@ -70,7 +78,8 @@ public class UpdateDomainsController : DocumentControllerBase
 
         DomainsUpdateModel domainsUpdateModel = _umbracoMapper.Map<DomainsUpdateModel>(updateModel)!;
 
-        Attempt<DomainUpdateResult, DomainOperationStatus> result = await _domainService.UpdateDomainsAsync(id, domainsUpdateModel);
+        Attempt<DomainUpdateResult, DomainOperationStatus> result =
+            await _domainService.UpdateDomainsAsync(id, domainsUpdateModel);
 
         return result.Success
             ? Ok()
@@ -90,12 +99,17 @@ public class UpdateDomainsController : DocumentControllerBase
                     .Build()),
                 DomainOperationStatus.DuplicateDomainName => Conflict(problemDetailsBuilder
                     .WithTitle("Duplicate domain name detected")
-                    .WithDetail("One or more of the specified domain names were duplicates, possibly of assignments to other content items.")
+                    .WithDetail("One or more of the specified domain names were duplicates,"
+                        + " possibly of assignments to other content items.")
                     .Build()),
                 DomainOperationStatus.ConflictingDomainName => Conflict(problemDetailsBuilder
                     .WithTitle("Conflicting domain name detected")
-                    .WithDetail("One or more of the specified domain names were conflicting with domain assignments to other content items.")
-                    .WithExtension("conflictingDomainNames", _domainPresentationFactory.CreateDomainAssignmentModels(result.Result.ConflictingDomains.EmptyNull()))
+                    .WithDetail("One or more of the specified domain names were conflicting"
+                        + " with domain assignments to other content items.")
+                    .WithExtension(
+                        "conflictingDomainNames",
+                        _domainPresentationFactory.CreateDomainAssignmentModels(
+                            result.Result.ConflictingDomains.EmptyNull()))
                     .Build()),
                 DomainOperationStatus.InvalidDomainName => BadRequest(problemDetailsBuilder
                     .WithTitle("Invalid domain name detected")

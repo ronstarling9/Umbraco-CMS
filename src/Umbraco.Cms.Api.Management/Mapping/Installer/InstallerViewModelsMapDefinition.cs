@@ -12,15 +12,22 @@ public class InstallerViewModelsMapDefinition : IMapDefinition
     {
         mapper.Define<InstallRequestModel, InstallData>((source, context) => new InstallData(), Map);
         mapper.Define<UserInstallRequestModel, UserInstallData>((source, context) => new UserInstallData(), Map);
-        mapper.Define<DatabaseInstallRequestModel, DatabaseInstallData>((source, context) => new DatabaseInstallData(), Map);
+        mapper.Define<DatabaseInstallRequestModel, DatabaseInstallData>(
+            (source, context) => new DatabaseInstallData(), Map);
         mapper.Define<DatabaseInstallRequestModel, DatabaseModel>((source, context) => new DatabaseModel(), Map);
         mapper.Define<DatabaseInstallData, DatabaseModel>((source, context) => new DatabaseModel(), Map);
-        mapper.Define<InstallSettingsModel, InstallSettingsResponseModel>((source, context) => new InstallSettingsResponseModel(), Map);
-        mapper.Define<UserSettingsModel, UserSettingsPresentationModel>((source, context) => new UserSettingsPresentationModel(), Map);
-        mapper.Define<IDatabaseProviderMetadata, DatabaseSettingsModel>((source, context) => new DatabaseSettingsModel(), Map);
-        mapper.Define<DatabaseSettingsModel, DatabaseSettingsPresentationModel>((source, context) => new DatabaseSettingsPresentationModel(), Map);
-        mapper.Define<ConsentLevelModel, ConsentLevelPresentationModel>((source, context) => new ConsentLevelPresentationModel(), Map);
-        mapper.Define<UpgradeSettingsModel, UpgradeSettingsResponseModel>((source, context) => new UpgradeSettingsResponseModel(), Map);
+        mapper.Define<InstallSettingsModel, InstallSettingsResponseModel>(
+            (source, context) => new InstallSettingsResponseModel(), Map);
+        mapper.Define<UserSettingsModel, UserSettingsPresentationModel>(
+            (source, context) => new UserSettingsPresentationModel(), Map);
+        mapper.Define<IDatabaseProviderMetadata, DatabaseSettingsModel>(
+            (source, context) => new DatabaseSettingsModel(), Map);
+        mapper.Define<DatabaseSettingsModel, DatabaseSettingsPresentationModel>(
+            (source, context) => new DatabaseSettingsPresentationModel(), Map);
+        mapper.Define<ConsentLevelModel, ConsentLevelPresentationModel>(
+            (source, context) => new ConsentLevelPresentationModel(), Map);
+        mapper.Define<UpgradeSettingsModel, UpgradeSettingsResponseModel>(
+            (source, context) => new UpgradeSettingsResponseModel(), Map);
     }
 
     // Umbraco.Code.MapAll
@@ -95,7 +102,8 @@ public class InstallerViewModelsMapDefinition : IMapDefinition
     private static void Map(InstallSettingsModel source, InstallSettingsResponseModel target, MapperContext context)
     {
         target.User = context.Map<UserSettingsPresentationModel>(source.UserSettings)!;
-        target.Databases = context.MapEnumerable<DatabaseSettingsModel, DatabaseSettingsPresentationModel>(source.DatabaseSettings);
+        target.Databases = context.MapEnumerable<DatabaseSettingsModel, DatabaseSettingsPresentationModel>(
+            source.DatabaseSettings);
     }
 
     // Umbraco.Code.MapAll
@@ -103,7 +111,8 @@ public class InstallerViewModelsMapDefinition : IMapDefinition
     {
         target.MinCharLength = source.PasswordSettings.MinCharLength;
         target.MinNonAlphaNumericLength = source.PasswordSettings.MinNonAlphaNumericLength;
-        target.ConsentLevels = context.MapEnumerable<ConsentLevelModel, ConsentLevelPresentationModel>(source.ConsentLevels);
+        target.ConsentLevels = context.MapEnumerable<ConsentLevelModel, ConsentLevelPresentationModel>(
+            source.ConsentLevels);
     }
 
     // Umbraco.Code.MapAll
@@ -124,7 +133,8 @@ public class InstallerViewModelsMapDefinition : IMapDefinition
     }
 
     // Umbraco.Code.MapAll
-    private static void Map(DatabaseSettingsModel source, DatabaseSettingsPresentationModel target, MapperContext context)
+    private static void Map(
+        DatabaseSettingsModel source, DatabaseSettingsPresentationModel target, MapperContext context)
     {
         target.DefaultDatabaseName = source.DefaultDatabaseName;
         target.DisplayName = source.DisplayName;

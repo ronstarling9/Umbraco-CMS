@@ -14,7 +14,9 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Api.Management.Controllers.Content;
 
-public abstract class ContentCollectionControllerBase<TContent, TCollectionResponseModel, TValueResponseModelBase, TVariantResponseModel> : ManagementApiControllerBase
+public abstract class ContentCollectionControllerBase<
+    TContent, TCollectionResponseModel, TValueResponseModelBase, TVariantResponseModel>
+    : ManagementApiControllerBase
     where TContent : class, IContentBase
     where TCollectionResponseModel : ContentResponseModelBase<TValueResponseModelBase, TVariantResponseModel>
     where TValueResponseModelBase : ValueResponseModelBase
@@ -32,7 +34,8 @@ public abstract class ContentCollectionControllerBase<TContent, TCollectionRespo
     /// <summary>
     /// Creates a collection result from the provided collection response models and total number of items.
     /// </summary>
-    protected IActionResult CollectionResult(List<TCollectionResponseModel> collectionResponseModels, long totalNumberOfItems)
+    protected IActionResult CollectionResult(
+        List<TCollectionResponseModel> collectionResponseModels, long totalNumberOfItems)
     {
         var pageViewModel = new PagedViewModel<TCollectionResponseModel>
         {
@@ -43,12 +46,14 @@ public abstract class ContentCollectionControllerBase<TContent, TCollectionRespo
         return Ok(pageViewModel);
     }
 
-    protected IActionResult ContentCollectionOperationStatusResult(ContentCollectionOperationStatus status, string type) =>
+    protected IActionResult ContentCollectionOperationStatusResult(
+        ContentCollectionOperationStatus status, string type) =>
         OperationStatusResult(status, problemDetailsBuilder => status switch
         {
             ContentCollectionOperationStatus.CollectionNotFound => new NotFoundObjectResult(problemDetailsBuilder
                 .WithTitle("Collection data type could not be found")
-                .WithDetail($"No collection data type was found for the corresponding {type} type. Ensure that the default and/or a custom collection data types exists")
+                .WithDetail($"No collection data type was found for the corresponding {type} type."
+                    + " Ensure that the default and/or a custom collection data types exists")
                 .Build()),
             ContentCollectionOperationStatus.ContentNotCollection => new BadRequestObjectResult(problemDetailsBuilder
                 .WithTitle($"The {type} item is not configured as a collection")
@@ -64,22 +69,26 @@ public abstract class ContentCollectionControllerBase<TContent, TCollectionRespo
                 .WithTitle("Data type id does not belong to a collection")
                 .WithDetail("The specified data type does not represent a collection")
                 .Build()),
-            ContentCollectionOperationStatus.DataTypeNotContentProperty => new BadRequestObjectResult(problemDetailsBuilder
+            ContentCollectionOperationStatus.DataTypeNotContentProperty => new BadRequestObjectResult(
+                problemDetailsBuilder
                 .WithTitle($"Data type id is not a {type} property")
                 .WithDetail($"The specified data type is not part of the {type} properties")
                 .Build()),
             ContentCollectionOperationStatus.DataTypeNotFound => new NotFoundObjectResult(problemDetailsBuilder
                 .WithTitle("The specified collection data type could not be found")
                 .Build()),
-            ContentCollectionOperationStatus.DataTypeWithoutContentType => new BadRequestObjectResult(problemDetailsBuilder
+            ContentCollectionOperationStatus.DataTypeWithoutContentType => new BadRequestObjectResult(
+                problemDetailsBuilder
                 .WithTitle($"Missing {type} when specifying a collection data type")
                 .WithDetail($"The specified collection data type needs to be used in conjunction with a {type} item.")
                 .Build()),
-            ContentCollectionOperationStatus.MissingPropertiesInCollectionConfiguration => new BadRequestObjectResult(problemDetailsBuilder
+            ContentCollectionOperationStatus.MissingPropertiesInCollectionConfiguration => new BadRequestObjectResult(
+                problemDetailsBuilder
                 .WithTitle("Missing properties in collection configuration")
                 .WithDetail("No properties are configured to display in the collection configuration")
                 .Build()),
-            ContentCollectionOperationStatus.OrderByNotPartOfCollectionConfiguration => new BadRequestObjectResult(problemDetailsBuilder
+            ContentCollectionOperationStatus.OrderByNotPartOfCollectionConfiguration => new BadRequestObjectResult(
+                problemDetailsBuilder
                 .WithTitle("Order by value is not a property on the configured collection")
                 .WithDetail("The specified orderBy property is not part of the collection configuration")
                 .Build()),
