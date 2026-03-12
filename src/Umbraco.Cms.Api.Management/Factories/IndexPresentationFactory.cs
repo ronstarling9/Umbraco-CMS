@@ -111,6 +111,8 @@ public class IndexPresentationFactory : IIndexPresentationFactory
         }
         catch (Exception e)
         {
+            // Intentionally broad: IIndex.Searcher.Name is implemented by Examine/Lucene plug-ins that may throw
+            // any exception type (e.g. IOException, ObjectDisposedException) depending on the index state.
             _logger.LogError(e, "An error occured trying to get the searcher name of index {IndexName}", index.Name);
             name = "Could not determine searcher name because of error.";
             return false;
@@ -126,6 +128,8 @@ public class IndexPresentationFactory : IIndexPresentationFactory
         }
         catch (Exception e)
         {
+            // Intentionally broad: IIndexDiagnostics.GetDocumentCount() is implemented by Examine/Lucene plug-ins
+            // that may throw any exception type (e.g. IOException, ObjectDisposedException) depending on the index state.
             _logger.LogError(e, "An error occured trying to get the document count of index {IndexName}", index.Name);
             documentCount = 0;
             return false;
@@ -141,6 +145,8 @@ public class IndexPresentationFactory : IIndexPresentationFactory
         }
         catch (Exception e)
         {
+            // Intentionally broad: IIndexDiagnostics.GetFieldNames() is implemented by Examine/Lucene plug-ins
+            // that may throw any exception type (e.g. IOException, ObjectDisposedException) depending on the index state.
             _logger.LogError(e, "An error occured trying to get the field name count of index {IndexName}", index.Name);
             fieldNameCount = 0;
             return false;

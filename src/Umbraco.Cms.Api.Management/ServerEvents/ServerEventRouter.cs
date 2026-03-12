@@ -55,6 +55,8 @@ internal sealed class ServerEventRouter : IServerEventRouter
         }
         catch (Exception ex)
         {
+            // Intentionally broad: SignalR hub delivery can fail with HubException, IOException, or other
+            // transport-layer exceptions. Server event routing must not propagate failures to callers.
             _logger.LogWarning(ex, "Failed to route server event {EventType} for {EventSource}", serverEvent.EventType, serverEvent.EventSource);
         }
     }
@@ -80,6 +82,8 @@ internal sealed class ServerEventRouter : IServerEventRouter
         }
         catch (Exception ex)
         {
+            // Intentionally broad: SignalR hub delivery can fail with HubException, IOException, or other
+            // transport-layer exceptions. Server event routing must not propagate failures to callers.
             _logger.LogWarning(ex, "Failed to notify user {UserKey} of server event {EventType}", userKey, serverEvent.EventType);
         }
     }
@@ -98,6 +102,8 @@ internal sealed class ServerEventRouter : IServerEventRouter
         }
         catch (Exception ex)
         {
+            // Intentionally broad: SignalR hub delivery can fail with HubException, IOException, or other
+            // transport-layer exceptions. Server event routing must not propagate failures to callers.
             _logger.LogWarning(ex, "Failed to broadcast server event {EventType}", serverEvent.EventType);
         }
     }

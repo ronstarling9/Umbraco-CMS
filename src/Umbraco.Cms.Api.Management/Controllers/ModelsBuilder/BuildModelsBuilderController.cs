@@ -55,6 +55,8 @@ public class BuildModelsBuilderController : ModelsBuilderControllerBase
         }
         catch (Exception e)
         {
+            // Intentionally broad: IModelsGenerator.GenerateModels may throw IOException, InvalidOperationException,
+            // or compiler errors depending on the content type configuration. All failures are reported to _mbErrors.
             _mbErrors.Report("Failed to build models.", e);
         }
 

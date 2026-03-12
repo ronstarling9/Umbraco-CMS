@@ -60,6 +60,9 @@ internal sealed class BackOfficeSecureDataFormat : ISecureDataFormat<Authenticat
         }
         catch (Exception)
         {
+            // Intentionally broad: ISecureDataFormat.Unprotect is a security boundary that may throw
+            // CryptographicException, FormatException, or other exception types for tampered or expired tokens.
+            // Any failure is treated as an invalid ticket, returning null.
             return null;
         }
 

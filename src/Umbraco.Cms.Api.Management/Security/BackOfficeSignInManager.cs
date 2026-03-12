@@ -196,6 +196,7 @@ public class BackOfficeSignInManager : UmbracoSignInManager<BackOfficeIdentityUs
             }
             catch (Exception ex)
             {
+                // Intentionally broad: OnAutoLinking is a user-supplied callback delegate that may throw any exception type.
                 Logger.LogError(ex, "Could not link login provider {LoginProvider}.", loginInfo.LoginProvider);
                 return AutoLinkSignInResult.FailedException(ex.Message);
             }
@@ -231,6 +232,7 @@ public class BackOfficeSignInManager : UmbracoSignInManager<BackOfficeIdentityUs
         }
         catch (Exception ex)
         {
+            // Intentionally broad: OnAutoLinking is a user-supplied callback delegate that may throw any exception type.
             Logger.LogError(ex, "Could not link login provider {LoginProvider}.", loginInfo.LoginProvider);
             return AutoLinkSignInResult.FailedException(ex.Message);
         }
