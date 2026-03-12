@@ -13,7 +13,8 @@ public class DeleteMemberGroupController : MemberGroupControllerBase
 {
     private readonly IMemberGroupService _memberGroupService;
 
-    public DeleteMemberGroupController(IMemberGroupService memberGroupService) => _memberGroupService = memberGroupService;
+    public DeleteMemberGroupController(IMemberGroupService memberGroupService)
+        => _memberGroupService = memberGroupService;
 
     [HttpDelete("{id:guid}")]
     [MapToApiVersion("1.0")]

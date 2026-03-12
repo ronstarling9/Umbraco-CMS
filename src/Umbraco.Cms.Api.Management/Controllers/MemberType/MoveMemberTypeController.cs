@@ -32,7 +32,8 @@ public class MoveMemberTypeController : MemberTypeControllerBase
         Guid id,
         MoveMemberTypeRequestModel moveMemberTypeRequestModel)
     {
-        Attempt<IMemberType?, ContentTypeStructureOperationStatus> result = await _memberTypeService.MoveAsync(id, moveMemberTypeRequestModel.Target?.Id);
+        Attempt<IMemberType?, ContentTypeStructureOperationStatus> result =
+            await _memberTypeService.MoveAsync(id, moveMemberTypeRequestModel.Target?.Id);
 
         return result.Success
             ? Ok()

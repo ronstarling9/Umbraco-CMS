@@ -44,7 +44,8 @@ public class CreateMemberTypeController : MemberTypeControllerBase
         CreateMemberTypeRequestModel requestModel)
     {
         MemberTypeCreateModel model = _memberTypeEditingPresentationFactory.MapCreateModel(requestModel);
-        Attempt<IMemberType?, ContentTypeOperationStatus> result = await _memberTypeEditingService.CreateAsync(model, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IMemberType?, ContentTypeOperationStatus> result =
+            await _memberTypeEditingService.CreateAsync(model, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? CreatedAtId<ByKeyMemberTypeController>(controller => nameof(controller.ByKey), result.Result!.Key)

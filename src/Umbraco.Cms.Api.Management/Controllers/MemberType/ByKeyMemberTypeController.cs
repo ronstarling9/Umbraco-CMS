@@ -15,7 +15,9 @@ public class ByKeyMemberTypeController : MemberTypeControllerBase
     private readonly IMemberTypeService _memberTypeService;
     private readonly IMemberTypePresentationFactory _memberTypePresentationFactory;
 
-    public ByKeyMemberTypeController(IMemberTypeService memberTypeService, IMemberTypePresentationFactory memberTypePresentationFactory)
+    public ByKeyMemberTypeController(
+        IMemberTypeService memberTypeService,
+        IMemberTypePresentationFactory memberTypePresentationFactory)
     {
         _memberTypeService = memberTypeService;
         _memberTypePresentationFactory = memberTypePresentationFactory;

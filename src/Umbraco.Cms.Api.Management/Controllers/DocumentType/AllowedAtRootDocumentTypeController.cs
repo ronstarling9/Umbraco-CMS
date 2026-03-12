@@ -32,7 +32,8 @@ public class AllowedAtRootDocumentTypeController : DocumentTypeControllerBase
     {
         PagedModel<IContentType> result = await _contentTypeService.GetAllAllowedAsRootAsync(skip, take);
 
-        List<AllowedDocumentType> viewModels = _umbracoMapper.MapEnumerable<IContentType, AllowedDocumentType>(result.Items);
+        List<AllowedDocumentType> viewModels =
+            _umbracoMapper.MapEnumerable<IContentType, AllowedDocumentType>(result.Items);
 
         var pagedViewModel = new PagedViewModel<AllowedDocumentType>
         {

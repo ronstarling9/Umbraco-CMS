@@ -54,7 +54,8 @@ public class ByKeyPublishedDocumentController : DocumentControllerBase
             return DocumentNotFound();
         }
 
-        PublishedDocumentResponseModel model = await _documentPresentationFactory.CreatePublishedResponseModelAsync(content);
+        PublishedDocumentResponseModel model =
+            await _documentPresentationFactory.CreatePublishedResponseModelAsync(content);
 
         return Ok(model);
     }

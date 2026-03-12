@@ -31,7 +31,10 @@ public class DocumentTypeTreeControllerBase : FolderTreeControllerBase<DocumentT
     }
 
     [Obsolete("Please use the constructor taking all parameters. Scheduled for removal in Umbraco 19.")]
-    public DocumentTypeTreeControllerBase(IEntityService entityService, FlagProviderCollection flagProviders, IContentTypeService contentTypeService)
+    public DocumentTypeTreeControllerBase(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IContentTypeService contentTypeService)
         : this(
             entityService,
             flagProviders,

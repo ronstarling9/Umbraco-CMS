@@ -40,7 +40,8 @@ public class ValidateCreateDocumentController : CreateDocumentControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Validates creating a document.")]
     [EndpointDescription("Validates the request model for creating a new document without actually creating it.")]
-    public async Task<IActionResult> Validate(CancellationToken cancellationToken, CreateDocumentRequestModel requestModel)
+    public async Task<IActionResult> Validate(
+        CancellationToken cancellationToken, CreateDocumentRequestModel requestModel)
         => await HandleRequest(requestModel, async () =>
         {
             ContentCreateModel model = _documentEditingPresentationFactory.MapCreateModel(requestModel);

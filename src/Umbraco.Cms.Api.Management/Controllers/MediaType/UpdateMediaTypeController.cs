@@ -55,7 +55,8 @@ public class UpdateMediaTypeController : MediaTypeControllerBase
         }
 
         MediaTypeUpdateModel model = _mediaTypeEditingPresentationFactory.MapUpdateModel(requestModel);
-        Attempt<IMediaType?, ContentTypeOperationStatus> result = await _mediaTypeEditingService.UpdateAsync(mediaType, model, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IMediaType?, ContentTypeOperationStatus> result =
+            await _mediaTypeEditingService.UpdateAsync(mediaType, model, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

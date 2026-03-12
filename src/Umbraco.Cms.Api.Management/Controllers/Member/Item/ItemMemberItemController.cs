@@ -40,7 +40,8 @@ public class ItemMemberItemController : MemberItemControllerBase
             .GetAll(UmbracoObjectTypes.Member, ids.ToArray())
             .OfType<IMemberEntitySlim>();
 
-        IEnumerable<MemberItemResponseModel> responseModels = members.Select(_memberPresentationFactory.CreateItemResponseModel);
+        IEnumerable<MemberItemResponseModel> responseModels =
+            members.Select(_memberPresentationFactory.CreateItemResponseModel);
         return Task.FromResult<IActionResult>(Ok(responseModels));
     }
 }

@@ -22,7 +22,8 @@ public class ConfigurationMemberController : MemberControllerBase
     [EndpointDescription("Gets the configuration settings for members.")]
     public Task<IActionResult> Configuration(CancellationToken cancellationToken)
     {
-        MemberConfigurationResponseModel responseModel = _configurationPresentationFactory.CreateMemberConfigurationResponseModel();
+        MemberConfigurationResponseModel responseModel =
+            _configurationPresentationFactory.CreateMemberConfigurationResponseModel();
         return Task.FromResult<IActionResult>(Ok(responseModel));
     }
 }

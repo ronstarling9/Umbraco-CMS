@@ -40,7 +40,8 @@ public class ByKeyMemberController : MemberControllerBase
             return MemberNotFound();
         }
 
-        MemberResponseModel model = await _memberPresentationFactory.CreateResponseModelAsync(member, CurrentUser(_backOfficeSecurityAccessor));
+        MemberResponseModel model =
+            await _memberPresentationFactory.CreateResponseModelAsync(member, CurrentUser(_backOfficeSecurityAccessor));
         return Ok(model);
     }
 }

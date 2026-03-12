@@ -39,7 +39,8 @@ public class SearchMemberItemController : MemberItemControllerBase
             UmbracoObjectTypes.Member, query, null, allowedMemberTypes, false, "*", skip, take);
         var result = new PagedModel<MemberItemResponseModel>
         {
-            Items = searchResult.Items.OfType<IMemberEntitySlim>().Select(_memberPresentationFactory.CreateItemResponseModel),
+            Items = searchResult.Items.OfType<IMemberEntitySlim>()
+                .Select(_memberPresentationFactory.CreateItemResponseModel),
             Total = searchResult.Total,
         };
 

@@ -24,7 +24,8 @@ public class ConfigurationDocumentTypeController : DocumentTypeControllerBase
     [EndpointDescription("Gets the configuration settings for document types.")]
     public Task<IActionResult> Configuration(CancellationToken cancellationToken)
     {
-        DocumentTypeConfigurationResponseModel responseModel = _configurationPresentationFactory.CreateDocumentTypeConfigurationResponseModel();
+        DocumentTypeConfigurationResponseModel responseModel =
+            _configurationPresentationFactory.CreateDocumentTypeConfigurationResponseModel();
 
         return Task.FromResult<IActionResult>(Ok(responseModel));
     }

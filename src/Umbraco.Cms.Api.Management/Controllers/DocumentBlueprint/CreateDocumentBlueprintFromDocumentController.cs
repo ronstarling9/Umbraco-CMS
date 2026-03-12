@@ -65,7 +65,8 @@ public class CreateDocumentBlueprintFromDocumentController : DocumentBlueprintCo
                 CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
-            ? CreatedAtId<ByKeyDocumentBlueprintController>(controller => nameof(controller.ByKey), result.Result.Content!.Key)
+            ? CreatedAtId<ByKeyDocumentBlueprintController>(
+                controller => nameof(controller.ByKey), result.Result.Content!.Key)
             : ContentEditingOperationStatusResult(result.Status);
     }
 }

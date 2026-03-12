@@ -37,7 +37,8 @@ public class ValidateUpdateMemberController : MemberControllerBase
         UpdateMemberRequestModel requestModel)
     {
         MemberUpdateModel model = _memberEditingPresentationFactory.MapUpdateModel(requestModel);
-        Attempt<ContentValidationResult, ContentEditingOperationStatus> result = await _memberEditingService.ValidateUpdateAsync(id, model);
+        Attempt<ContentValidationResult, ContentEditingOperationStatus> result =
+            await _memberEditingService.ValidateUpdateAsync(id, model);
 
         return result.Success
             ? Ok()

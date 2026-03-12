@@ -39,7 +39,8 @@ public class ImportExistingMemberTypeController : MemberTypeControllerBase
         Guid id,
         ImportMemberTypeRequestModel model)
     {
-        Attempt<IMemberType?, MemberTypeImportOperationStatus> importAttempt = await _memberTypeImportService.Import(model.File.Id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IMemberType?, MemberTypeImportOperationStatus> importAttempt =
+            await _memberTypeImportService.Import(model.File.Id, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return importAttempt.Success is false
             ? MemberTypeImportOperationStatusResult(importAttempt.Status)

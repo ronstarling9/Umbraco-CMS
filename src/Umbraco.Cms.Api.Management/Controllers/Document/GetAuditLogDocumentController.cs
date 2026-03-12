@@ -56,7 +56,8 @@ public class GetAuditLogDocumentController : DocumentControllerBase
         }
 
         PagedModel<IAuditItem> result =
-            await _auditService.GetItemsByKeyAsync(id, UmbracoObjectTypes.Document, skip, take, orderDirection, sinceDate);
+            await _auditService.GetItemsByKeyAsync(
+                id, UmbracoObjectTypes.Document, skip, take, orderDirection, sinceDate);
         IEnumerable<AuditLogResponseModel> mapped = _auditLogPresentationFactory.CreateAuditLogViewModel(result.Items);
         var viewModel = new PagedViewModel<AuditLogResponseModel>
         {

@@ -48,7 +48,8 @@ public class AreReferencedMemberController : MemberControllerBase
         var pagedViewModel = new PagedViewModel<ReferenceByIdModel>
         {
             Total = distinctByKeyItemsWithReferencedRelations.Total,
-            Items = _umbracoMapper.MapEnumerable<Guid, ReferenceByIdModel>(distinctByKeyItemsWithReferencedRelations.Items),
+            Items = _umbracoMapper.MapEnumerable<Guid, ReferenceByIdModel>(
+                distinctByKeyItemsWithReferencedRelations.Items),
         };
 
         return pagedViewModel;
