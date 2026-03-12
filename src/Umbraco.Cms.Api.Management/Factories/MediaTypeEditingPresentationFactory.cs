@@ -5,7 +5,8 @@ using Umbraco.Cms.Core.Services;
 
 namespace Umbraco.Cms.Api.Management.Factories;
 
-internal sealed class MediaTypeEditingPresentationFactory : ContentTypeEditingPresentationFactory<IMediaType>, IMediaTypeEditingPresentationFactory
+internal sealed class MediaTypeEditingPresentationFactory
+    : ContentTypeEditingPresentationFactory<IMediaType>, IMediaTypeEditingPresentationFactory
 {
     public MediaTypeEditingPresentationFactory(IMediaTypeService mediaTypeService)
         : base(mediaTypeService)
@@ -26,7 +27,8 @@ internal sealed class MediaTypeEditingPresentationFactory : ContentTypeEditingPr
         createModel.AllowedContentTypes = MapAllowedContentTypes(requestModel.AllowedMediaTypes);
         createModel.ListView = requestModel.Collection?.Id;
 
-        IDictionary<Guid, ViewModels.ContentType.CompositionType> compositionTypesByKey = CompositionTypesByKey(requestModel.Compositions);
+        IDictionary<Guid, ViewModels.ContentType.CompositionType> compositionTypesByKey =
+            CompositionTypesByKey(requestModel.Compositions);
         createModel.Compositions = MapCompositions(compositionTypesByKey);
         createModel.ContainerKey = CalculateCreateContainerKey(requestModel.Parent, compositionTypesByKey);
 
@@ -51,7 +53,8 @@ internal sealed class MediaTypeEditingPresentationFactory : ContentTypeEditingPr
         return updateModel;
     }
 
-    public IEnumerable<AvailableMediaTypeCompositionResponseModel> MapCompositionModels(IEnumerable<ContentTypeAvailableCompositionsResult> compositionResults)
+    public IEnumerable<AvailableMediaTypeCompositionResponseModel> MapCompositionModels(
+        IEnumerable<ContentTypeAvailableCompositionsResult> compositionResults)
         => compositionResults.Select(MapCompositionModel<AvailableMediaTypeCompositionResponseModel>);
 
     private IEnumerable<ContentTypeSort> MapAllowedContentTypes(IEnumerable<MediaTypeSort> allowedMediaTypes)
@@ -59,7 +62,8 @@ internal sealed class MediaTypeEditingPresentationFactory : ContentTypeEditingPr
             .DistinctBy(t => t.MediaType.Id)
             .ToDictionary(t => t.MediaType.Id, t => t.SortOrder));
 
-    private IDictionary<Guid, ViewModels.ContentType.CompositionType> CompositionTypesByKey(IEnumerable<MediaTypeComposition> documentTypeCompositions)
+    private IDictionary<Guid, ViewModels.ContentType.CompositionType> CompositionTypesByKey(
+        IEnumerable<MediaTypeComposition> documentTypeCompositions)
         => documentTypeCompositions
             .DistinctBy(c => c.MediaType.Id)
             .ToDictionary(c => c.MediaType.Id, c => c.CompositionType);

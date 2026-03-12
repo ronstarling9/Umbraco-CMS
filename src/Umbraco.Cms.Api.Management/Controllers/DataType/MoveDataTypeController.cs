@@ -19,7 +19,8 @@ public class MoveDataTypeController : DataTypeControllerBase
     private readonly IDataTypeService _dataTypeService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public MoveDataTypeController(IDataTypeService dataTypeService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public MoveDataTypeController(
+        IDataTypeService dataTypeService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _dataTypeService = dataTypeService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -31,7 +32,8 @@ public class MoveDataTypeController : DataTypeControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Moves a data type.")]
     [EndpointDescription("Moves an existing data type identified by Id to a different container. The target container Id must be provided in the request model.")]
-    public async Task<IActionResult> Move(CancellationToken cancellationToken, Guid id, MoveDataTypeRequestModel moveDataTypeRequestModel)
+    public async Task<IActionResult> Move(
+        CancellationToken cancellationToken, Guid id, MoveDataTypeRequestModel moveDataTypeRequestModel)
     {
         IDataType? source = await _dataTypeService.GetAsync(id);
         if (source is null)
@@ -39,7 +41,9 @@ public class MoveDataTypeController : DataTypeControllerBase
             return DataTypeNotFound();
         }
 
-        Attempt<IDataType, DataTypeOperationStatus> result = await _dataTypeService.MoveAsync(source, moveDataTypeRequestModel.Target?.Id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IDataType, DataTypeOperationStatus> result =
+            await _dataTypeService.MoveAsync(
+                source, moveDataTypeRequestModel.Target?.Id, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

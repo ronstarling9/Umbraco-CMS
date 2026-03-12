@@ -36,7 +36,8 @@ public abstract class ManagementApiControllerBase : Controller, IUmbracoFeature
     protected IActionResult CreatedAtPath<T>(Expression<Func<T, string>> action, string path)
         => CreatedAtAction(action, new { path = path }, path);
 
-    protected IActionResult CreatedAtAction<T>(Expression<Func<T, string>> action, object routeValues, string resourceIdentifier)
+    protected IActionResult CreatedAtAction<T>(
+        Expression<Func<T, string>> action, object routeValues, string resourceIdentifier)
     {
         if (action.Body is not ConstantExpression constantExpression)
         {
@@ -44,7 +45,8 @@ public abstract class ManagementApiControllerBase : Controller, IUmbracoFeature
         }
 
         var controllerName = ManagementApiRegexes.ControllerTypeToNameRegex().Replace(typeof(T).Name, string.Empty);
-        var actionName = constantExpression.Value?.ToString() ?? throw new ArgumentException("Expression does not have a value.");
+        var actionName = constantExpression.Value?.ToString()
+                         ?? throw new ArgumentException("Expression does not have a value.");
 
         return new EmptyCreatedAtActionResult(actionName, controllerName, routeValues, resourceIdentifier);
     }
@@ -53,7 +55,8 @@ public abstract class ManagementApiControllerBase : Controller, IUmbracoFeature
         => CurrentUser(backOfficeSecurityAccessor).Key;
 
     protected static IUser CurrentUser(IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
-        => backOfficeSecurityAccessor.BackOfficeSecurity?.CurrentUser ?? throw new InvalidOperationException("No backoffice user found");
+        => backOfficeSecurityAccessor.BackOfficeSecurity?.CurrentUser
+           ?? throw new InvalidOperationException("No backoffice user found");
 
     /// <summary>
     ///     Creates a 403 Forbidden result.

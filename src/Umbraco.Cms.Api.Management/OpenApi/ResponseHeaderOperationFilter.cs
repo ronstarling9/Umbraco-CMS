@@ -11,7 +11,8 @@ internal sealed class ResponseHeaderOperationFilter : IOperationFilter
 {
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
-        if (context.MethodInfo.HasMapToApiAttribute(ManagementApiConfiguration.ApiName) is false || operation.Responses is null)
+        if (context.MethodInfo.HasMapToApiAttribute(ManagementApiConfiguration.ApiName) is false
+            || operation.Responses is null)
         {
             return;
         }
@@ -27,14 +28,24 @@ internal sealed class ResponseHeaderOperationFilter : IOperationFilter
             {
                 case StatusCodes.Status201Created:
                     // NOTE: The header order matters to the back-office client. Do not change.
-                    SetHeader(openApiResponse, Constants.Headers.GeneratedResource, "Identifier of the newly created resource", JsonSchemaType.String);
-                    SetHeader(openApiResponse, Constants.Headers.Location, "Location of the newly created resource", JsonSchemaType.String, "uri");
+                    SetHeader(
+                        openApiResponse,
+                        Constants.Headers.GeneratedResource,
+                        "Identifier of the newly created resource",
+                        JsonSchemaType.String);
+                    SetHeader(
+                        openApiResponse,
+                        Constants.Headers.Location,
+                        "Location of the newly created resource",
+                        JsonSchemaType.String,
+                        "uri");
                     break;
             }
         }
     }
 
-    private static void SetHeader(OpenApiResponse value, string headerName, string description, JsonSchemaType type, string? format = null)
+    private static void SetHeader(
+        OpenApiResponse value, string headerName, string description, JsonSchemaType type, string? format = null)
     {
         value.Headers ??= new Dictionary<string, IOpenApiHeader>();
         value.Headers[headerName] = new OpenApiHeader

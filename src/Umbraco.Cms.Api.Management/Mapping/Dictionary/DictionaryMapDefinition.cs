@@ -11,10 +11,14 @@ public class DictionaryMapDefinition : IMapDefinition
     public void DefineMaps(IUmbracoMapper mapper)
     {
         mapper.Define<IDictionaryItem, DictionaryItemResponseModel>((_, _) => new DictionaryItemResponseModel(), Map);
-        mapper.Define<IDictionaryTranslation, DictionaryItemTranslationModel>((_, _) => new DictionaryItemTranslationModel(), Map);
-        mapper.Define<UpdateDictionaryItemRequestModel, IDictionaryItem>((_, _) => new DictionaryItem(string.Empty), Map);
-        mapper.Define<CreateDictionaryItemRequestModel, IDictionaryItem>((_, _) => new DictionaryItem(string.Empty), Map);
-        mapper.Define<IDictionaryItem, DictionaryOverviewResponseModel>((_, _) => new DictionaryOverviewResponseModel(), Map);
+        mapper.Define<IDictionaryTranslation, DictionaryItemTranslationModel>(
+            (_, _) => new DictionaryItemTranslationModel(), Map);
+        mapper.Define<UpdateDictionaryItemRequestModel, IDictionaryItem>(
+            (_, _) => new DictionaryItem(string.Empty), Map);
+        mapper.Define<CreateDictionaryItemRequestModel, IDictionaryItem>(
+            (_, _) => new DictionaryItem(string.Empty), Map);
+        mapper.Define<IDictionaryItem, DictionaryOverviewResponseModel>(
+            (_, _) => new DictionaryOverviewResponseModel(), Map);
     }
 
     // Umbraco.Code.MapAll -Translations

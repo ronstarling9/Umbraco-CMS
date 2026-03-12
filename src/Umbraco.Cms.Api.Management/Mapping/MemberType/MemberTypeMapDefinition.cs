@@ -7,15 +7,21 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Api.Management.Mapping.MemberType;
 
-public class MemberTypeMapDefinition : ContentTypeMapDefinition<IMemberType, MemberTypePropertyTypeResponseModel, MemberTypePropertyTypeContainerResponseModel>, IMapDefinition
+public class MemberTypeMapDefinition
+    : ContentTypeMapDefinition<IMemberType, MemberTypePropertyTypeResponseModel, MemberTypePropertyTypeContainerResponseModel>,
+        IMapDefinition
 {
     public void DefineMaps(IUmbracoMapper mapper)
     {
         mapper.Define<IMemberType, MemberTypeResponseModel>((_, _) => new MemberTypeResponseModel(), Map);
-        mapper.Define<IMemberType, MemberTypeReferenceResponseModel>((_, _) => new MemberTypeReferenceResponseModel(), Map);
-        mapper.Define<IMemberEntitySlim, MemberTypeReferenceResponseModel>((_, _) => new MemberTypeReferenceResponseModel(), Map);
-        mapper.Define<IMember, MemberTypeReferenceResponseModel>((_, _) => new MemberTypeReferenceResponseModel(), Map);
-        mapper.Define<ISimpleContentType, MemberTypeReferenceResponseModel>((_, _) => new MemberTypeReferenceResponseModel(), Map);
+        mapper.Define<IMemberType, MemberTypeReferenceResponseModel>(
+            (_, _) => new MemberTypeReferenceResponseModel(), Map);
+        mapper.Define<IMemberEntitySlim, MemberTypeReferenceResponseModel>(
+            (_, _) => new MemberTypeReferenceResponseModel(), Map);
+        mapper.Define<IMember, MemberTypeReferenceResponseModel>(
+            (_, _) => new MemberTypeReferenceResponseModel(), Map);
+        mapper.Define<ISimpleContentType, MemberTypeReferenceResponseModel>(
+            (_, _) => new MemberTypeReferenceResponseModel(), Map);
     }
 
     // Umbraco.Code.MapAll -Collection

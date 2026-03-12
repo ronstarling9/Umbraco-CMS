@@ -17,7 +17,9 @@ public abstract class FolderManagementControllerBase<TTreeEntity> : ManagementAp
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
     private readonly IEntityTypeContainerService<TTreeEntity> _treeEntityTypeContainerService;
 
-    protected FolderManagementControllerBase(IBackOfficeSecurityAccessor backOfficeSecurityAccessor, IEntityTypeContainerService<TTreeEntity> treeEntityTypeContainerService)
+    protected FolderManagementControllerBase(
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
+        IEntityTypeContainerService<TTreeEntity> treeEntityTypeContainerService)
     {
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
         _treeEntityTypeContainerService = treeEntityTypeContainerService;
@@ -47,11 +49,12 @@ public abstract class FolderManagementControllerBase<TTreeEntity> : ManagementAp
         CreateFolderRequestModel createFolderRequestModel,
         Expression<Func<TCreatedActionController, string>> createdAction)
     {
-        Attempt<EntityContainer?, EntityContainerOperationStatus> result = await _treeEntityTypeContainerService.CreateAsync(
-            createFolderRequestModel.Id,
-            createFolderRequestModel.Name,
-            createFolderRequestModel.Parent?.Id,
-            CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<EntityContainer?, EntityContainerOperationStatus> result =
+            await _treeEntityTypeContainerService.CreateAsync(
+                createFolderRequestModel.Id,
+                createFolderRequestModel.Name,
+                createFolderRequestModel.Parent?.Id,
+                CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? CreatedAtId(createdAction, result.Result!.Key)
@@ -60,10 +63,11 @@ public abstract class FolderManagementControllerBase<TTreeEntity> : ManagementAp
 
     protected async Task<IActionResult> UpdateFolderAsync(Guid key, UpdateFolderResponseModel updateFolderResponseModel)
     {
-        Attempt<EntityContainer?, EntityContainerOperationStatus> result = await _treeEntityTypeContainerService.UpdateAsync(
-            key,
-            updateFolderResponseModel.Name,
-            CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<EntityContainer?, EntityContainerOperationStatus> result =
+            await _treeEntityTypeContainerService.UpdateAsync(
+                key,
+                updateFolderResponseModel.Name,
+                CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

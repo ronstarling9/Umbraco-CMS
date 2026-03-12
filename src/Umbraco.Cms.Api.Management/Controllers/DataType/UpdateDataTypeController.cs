@@ -21,7 +21,10 @@ public class UpdateDataTypeController : DataTypeControllerBase
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
     private IDataTypePresentationFactory _dataTypePresentationFactory;
 
-    public UpdateDataTypeController(IDataTypeService dataTypeService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor, IDataTypePresentationFactory dataTypePresentationFactory)
+    public UpdateDataTypeController(
+        IDataTypeService dataTypeService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
+        IDataTypePresentationFactory dataTypePresentationFactory)
     {
         _dataTypeService = dataTypeService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -35,7 +38,8 @@ public class UpdateDataTypeController : DataTypeControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Updates a data type.")]
     [EndpointDescription("Updates a data type identified by the provided Id with the details from the request model.")]
-    public async Task<IActionResult> Update(CancellationToken cancellationToken, Guid id, UpdateDataTypeRequestModel updateDataTypeViewModel)
+    public async Task<IActionResult> Update(
+        CancellationToken cancellationToken, Guid id, UpdateDataTypeRequestModel updateDataTypeViewModel)
     {
         IDataType? current = await _dataTypeService.GetAsync(id);
         if (current == null)
@@ -43,13 +47,15 @@ public class UpdateDataTypeController : DataTypeControllerBase
             return DataTypeNotFound();
         }
 
-        Attempt<IDataType, DataTypeOperationStatus> attempt = await _dataTypePresentationFactory.CreateAsync(updateDataTypeViewModel, current);
+        Attempt<IDataType, DataTypeOperationStatus> attempt =
+            await _dataTypePresentationFactory.CreateAsync(updateDataTypeViewModel, current);
         if (!attempt.Success)
         {
             return DataTypeOperationStatusResult(attempt.Status);
         }
 
-        Attempt<IDataType, DataTypeOperationStatus> result = await _dataTypeService.UpdateAsync(attempt.Result, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IDataType, DataTypeOperationStatus> result =
+            await _dataTypeService.UpdateAsync(attempt.Result, CurrentUserKey(_backOfficeSecurityAccessor));
         return result.Success
             ? Ok()
             : DataTypeOperationStatusResult(result.Status);

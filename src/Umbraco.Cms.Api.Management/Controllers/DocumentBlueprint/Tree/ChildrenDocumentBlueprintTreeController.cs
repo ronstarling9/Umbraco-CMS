@@ -14,13 +14,17 @@ namespace Umbraco.Cms.Api.Management.Controllers.DocumentBlueprint.Tree;
 public class ChildrenDocumentBlueprintTreeController : DocumentBlueprintTreeControllerBase
 {
     [Obsolete("Please use the constructor taking all parameters. Scheduled for removal in Umbraco 18.")]
-    public ChildrenDocumentBlueprintTreeController(IEntityService entityService, IDocumentPresentationFactory documentPresentationFactory)
+    public ChildrenDocumentBlueprintTreeController(
+        IEntityService entityService, IDocumentPresentationFactory documentPresentationFactory)
         : base(entityService, documentPresentationFactory)
     {
     }
 
     [ActivatorUtilitiesConstructor]
-    public ChildrenDocumentBlueprintTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IDocumentPresentationFactory documentPresentationFactory)
+    public ChildrenDocumentBlueprintTreeController(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IDocumentPresentationFactory documentPresentationFactory)
         : base(entityService, flagProviders, documentPresentationFactory)
     {
     }
@@ -30,7 +34,8 @@ public class ChildrenDocumentBlueprintTreeController : DocumentBlueprintTreeCont
     [ProducesResponseType(typeof(PagedViewModel<DocumentBlueprintTreeItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets a collection of document blueprint tree child items.")]
     [EndpointDescription("Gets a paginated collection of document blueprint tree items that are children of the provided parent Id.")]
-    public async Task<ActionResult<PagedViewModel<DocumentBlueprintTreeItemResponseModel>>> Children(CancellationToken cancellationToken, Guid parentId, int skip = 0, int take = 100, bool foldersOnly = false)
+    public async Task<ActionResult<PagedViewModel<DocumentBlueprintTreeItemResponseModel>>> Children(
+        CancellationToken cancellationToken, Guid parentId, int skip = 0, int take = 100, bool foldersOnly = false)
     {
         RenderFoldersOnly(foldersOnly);
         return await GetChildren(parentId, skip, take);

@@ -107,11 +107,13 @@ public abstract class RecycleBinControllerBase<TItem> : ContentControllerBase
                 .Build()),
             RecycleBinQueryResultType.NotTrashed => BadRequest(problemDetailsBuilder
                 .WithTitle($"The {contentType} is not trashed")
-                .WithDetail($"The {contentType} needs to be trashed for the parent-before-recycled relation to be created.")
+                .WithDetail(
+                    $"The {contentType} needs to be trashed for the parent-before-recycled relation to be created.")
                 .Build()),
             RecycleBinQueryResultType.NoParentRecycleRelation => NotFound(problemDetailsBuilder
                 .WithTitle("The parent relation could not be found")
-                .WithDetail($"The relation between the parent and the {contentType} that should have been created when the {contentType} was deleted could not be found.")
+                .WithDetail(
+                    $"The relation between the parent and the {contentType} that should have been created when the {contentType} was deleted could not be found.")
                 .Build()),
             RecycleBinQueryResultType.ParentNotFound => NotFound(problemDetailsBuilder
                 .WithTitle($"The original {contentType} parent could not be found")
@@ -156,7 +158,8 @@ public abstract class RecycleBinControllerBase<TItem> : ContentControllerBase
     private PagedViewModel<TItem> PagedViewModel(IEnumerable<TItem> treeItemViewModels, long totalItems)
         => new() { Total = totalItems, Items = treeItemViewModels };
 
-    protected SubsetViewModel<TItem> SubsetViewModel(IEnumerable<TItem> treeItemViewModels, long totalBefore, long totalAfter)
+    protected SubsetViewModel<TItem> SubsetViewModel(
+        IEnumerable<TItem> treeItemViewModels, long totalBefore, long totalAfter)
         => new() { TotalBefore = totalBefore, TotalAfter = totalAfter, Items = treeItemViewModels };
 
     protected virtual IEntitySlim[] GetSiblingEntities(Guid target, int before, int after, out long totalBefore, out long totalAfter) =>

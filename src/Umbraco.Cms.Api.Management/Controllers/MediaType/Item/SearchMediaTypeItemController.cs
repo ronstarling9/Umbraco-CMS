@@ -17,7 +17,8 @@ public class SearchMediaTypeItemController : MediaTypeItemControllerBase
     private readonly IMediaTypeService _mediaTypeService;
     private readonly IUmbracoMapper _mapper;
 
-    public SearchMediaTypeItemController(IEntitySearchService entitySearchService, IMediaTypeService mediaTypeService, IUmbracoMapper mapper)
+    public SearchMediaTypeItemController(
+        IEntitySearchService entitySearchService, IMediaTypeService mediaTypeService, IUmbracoMapper mapper)
     {
         _entitySearchService = entitySearchService;
         _mediaTypeService = mediaTypeService;
@@ -34,7 +35,8 @@ public class SearchMediaTypeItemController : MediaTypeItemControllerBase
         PagedModel<IEntitySlim> searchResult = _entitySearchService.Search(UmbracoObjectTypes.MediaType, query, skip, take);
         if (searchResult.Items.Any() is false)
         {
-            return Task.FromResult<IActionResult>(Ok(new PagedModel<MediaTypeItemResponseModel> { Total = searchResult.Total }));
+            return Task.FromResult<IActionResult>(
+                Ok(new PagedModel<MediaTypeItemResponseModel> { Total = searchResult.Total }));
         }
 
         IEnumerable<IMediaType> mediaTypes = _mediaTypeService.GetMany(searchResult.Items.Select(item => item.Key).ToArray().EmptyNull());
