@@ -8,12 +8,14 @@ namespace Umbraco.Cms.Api.Management.Configuration;
 /// <summary>
 ///     Configures the back office security stamp options.
 /// </summary>
-public class ConfigureBackOfficeSecurityStampValidatorOptions : IConfigureOptions<BackOfficeSecurityStampValidatorOptions>
+public class ConfigureBackOfficeSecurityStampValidatorOptions
+    : IConfigureOptions<BackOfficeSecurityStampValidatorOptions>
 {
     private readonly SecuritySettings _securitySettings;
     private readonly TimeProvider _timeProvider;
 
-    public ConfigureBackOfficeSecurityStampValidatorOptions(IOptions<SecuritySettings> securitySettings, TimeProvider timeProvider)
+    public ConfigureBackOfficeSecurityStampValidatorOptions(
+        IOptions<SecuritySettings> securitySettings, TimeProvider timeProvider)
     {
         _timeProvider = timeProvider;
         _securitySettings = securitySettings.Value;

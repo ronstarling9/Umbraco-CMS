@@ -32,7 +32,8 @@ public class DataTypeTreeControllerBase : FolderTreeControllerBase<DataTypeTreeI
     }
 
     [Obsolete("Please use the constructor taking all parameters. Scheduled for removal in Umbraco 19.")]
-    public DataTypeTreeControllerBase(IEntityService entityService, FlagProviderCollection flagProviders, IDataTypeService dataTypeService)
+    public DataTypeTreeControllerBase(
+        IEntityService entityService, FlagProviderCollection flagProviders, IDataTypeService dataTypeService)
         : this(
             entityService,
             flagProviders,
@@ -59,7 +60,9 @@ public class DataTypeTreeControllerBase : FolderTreeControllerBase<DataTypeTreeI
     {
         get
         {
-            var ordering = Ordering.By(Infrastructure.Persistence.Dtos.NodeDto.NodeObjectTypeColumnName, Direction.Descending); // We need to override to change direction
+            // We need to override to change direction
+            var ordering = Ordering.By(
+                Infrastructure.Persistence.Dtos.NodeDto.NodeObjectTypeColumnName, Direction.Descending);
             ordering.Next = Ordering.By(Infrastructure.Persistence.Dtos.NodeDto.TextColumnName);
 
             return ordering;

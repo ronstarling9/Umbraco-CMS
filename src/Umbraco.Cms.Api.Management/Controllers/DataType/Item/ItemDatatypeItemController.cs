@@ -44,7 +44,8 @@ public class ItemDatatypeItemController : DatatypeItemControllerBase
             }
         }
 
-        List<DataTypeItemResponseModel> responseModels = _mapper.MapEnumerable<IDataType, DataTypeItemResponseModel>(dataTypes);
+        List<DataTypeItemResponseModel> responseModels =
+            _mapper.MapEnumerable<IDataType, DataTypeItemResponseModel>(dataTypes);
         return Ok(responseModels);
     }
 }

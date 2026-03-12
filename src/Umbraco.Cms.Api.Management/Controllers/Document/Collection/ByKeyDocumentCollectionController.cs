@@ -86,7 +86,8 @@ public class ByKeyDocumentCollectionController : DocumentCollectionControllerBas
             return CollectionOperationStatusResult(collectionAttempt.Status);
         }
 
-        List<DocumentCollectionResponseModel> collectionResponseModels = await _documentCollectionPresentationFactory.CreateCollectionModelAsync(collectionAttempt.Result!);
+        List<DocumentCollectionResponseModel> collectionResponseModels =
+            await _documentCollectionPresentationFactory.CreateCollectionModelAsync(collectionAttempt.Result!);
         return CollectionResult(collectionResponseModels, collectionAttempt.Result!.Items.Total);
     }
 }

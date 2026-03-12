@@ -34,11 +34,13 @@ public class AllDictionaryController : DictionaryControllerBase
         int take = 100)
     {
         // unfortunately we can't paginate here...we'll have to get all and paginate in memory
-        IDictionaryItem[] items = (await _dictionaryItemService.GetDescendantsAsync(Constants.System.RootKey, filter)).ToArray();
+        IDictionaryItem[] items =
+            (await _dictionaryItemService.GetDescendantsAsync(Constants.System.RootKey, filter)).ToArray();
         var model = new PagedViewModel<DictionaryOverviewResponseModel>
         {
             Total = items.Length,
-            Items = _umbracoMapper.MapEnumerable<IDictionaryItem, DictionaryOverviewResponseModel>(items.Skip(skip).Take(take))
+            Items = _umbracoMapper.MapEnumerable<IDictionaryItem, DictionaryOverviewResponseModel>(
+                items.Skip(skip).Take(take))
         };
         return model;
     }

@@ -11,7 +11,9 @@ namespace Umbraco.Cms.Api.Management.Controllers.Document.RecycleBin;
 [ApiVersion("1.0")]
 public class ChildrenDocumentRecycleBinController : DocumentRecycleBinControllerBase
 {
-    public ChildrenDocumentRecycleBinController(IEntityService entityService, IDocumentPresentationFactory documentPresentationFactory)
+    public ChildrenDocumentRecycleBinController(
+        IEntityService entityService,
+        IDocumentPresentationFactory documentPresentationFactory)
         : base(entityService, documentPresentationFactory)
     {
     }

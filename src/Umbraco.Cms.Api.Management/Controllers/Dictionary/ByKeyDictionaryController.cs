@@ -14,7 +14,9 @@ public class ByKeyDictionaryController : DictionaryControllerBase
     private readonly IDictionaryItemService _dictionaryItemService;
     private readonly IDictionaryPresentationFactory _dictionaryPresentationFactory;
 
-    public ByKeyDictionaryController(IDictionaryItemService dictionaryItemService, IDictionaryPresentationFactory dictionaryPresentationFactory)
+    public ByKeyDictionaryController(
+        IDictionaryItemService dictionaryItemService,
+        IDictionaryPresentationFactory dictionaryPresentationFactory)
     {
         _dictionaryItemService = dictionaryItemService;
         _dictionaryPresentationFactory = dictionaryPresentationFactory;

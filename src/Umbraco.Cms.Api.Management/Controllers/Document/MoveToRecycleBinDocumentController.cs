@@ -51,7 +51,8 @@ public class MoveToRecycleBinDocumentController : DocumentControllerBase
             return Forbidden();
         }
 
-        Attempt<IContent?, ContentEditingOperationStatus> result = await _contentEditingService.MoveToRecycleBinAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IContent?, ContentEditingOperationStatus> result =
+            await _contentEditingService.MoveToRecycleBinAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
         return result.Success
             ? Ok()
             : ContentEditingOperationStatusResult(result.Status);

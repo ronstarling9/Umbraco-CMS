@@ -39,7 +39,8 @@ public class SearchDataTypeItemController : DatatypeItemControllerBase
             return Ok(new PagedModel<DataTypeItemResponseModel> { Total = searchResult.Total });
         }
 
-        IEnumerable<IDataType> dataTypes = await _dataTypeService.GetAllAsync(searchResult.Items.Select(item => item.Key).ToArray());
+        IEnumerable<IDataType> dataTypes =
+            await _dataTypeService.GetAllAsync(searchResult.Items.Select(item => item.Key).ToArray());
         var result = new PagedModel<DataTypeItemResponseModel>
         {
             Items = _mapper.MapEnumerable<IDataType, DataTypeItemResponseModel>(dataTypes),

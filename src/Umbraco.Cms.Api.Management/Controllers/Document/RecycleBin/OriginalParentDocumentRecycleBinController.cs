@@ -55,7 +55,8 @@ public class OriginalParentDocumentRecycleBinController : DocumentRecycleBinCont
             return Forbidden();
         }
 
-        Attempt<IDocumentEntitySlim?, RecycleBinQueryResultType> getParentAttempt = await _documentRecycleBinQueryService.GetOriginalParentAsync(id);
+        Attempt<IDocumentEntitySlim?, RecycleBinQueryResultType> getParentAttempt =
+            await _documentRecycleBinQueryService.GetOriginalParentAsync(id);
         return getParentAttempt.Success switch
         {
             true when getParentAttempt.Status == RecycleBinQueryResultType.Success

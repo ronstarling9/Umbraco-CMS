@@ -18,7 +18,8 @@ public class DeleteDataTypeController : DataTypeControllerBase
     private readonly IDataTypeService _dataTypeService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public DeleteDataTypeController(IDataTypeService dataTypeService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public DeleteDataTypeController(
+        IDataTypeService dataTypeService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _dataTypeService = dataTypeService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -33,7 +34,8 @@ public class DeleteDataTypeController : DataTypeControllerBase
     [EndpointDescription("Deletes a data type identified by the provided Id.")]
     public async Task<IActionResult> Delete(CancellationToken cancellationToken, Guid id)
     {
-        Attempt<IDataType?, DataTypeOperationStatus> result = await _dataTypeService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IDataType?, DataTypeOperationStatus> result =
+            await _dataTypeService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

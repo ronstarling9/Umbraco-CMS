@@ -47,7 +47,8 @@ public class CreateDictionaryController : DictionaryControllerBase
         CancellationToken cancellationToken,
         CreateDictionaryItemRequestModel createDictionaryItemRequestModel)
     {
-        IDictionaryItem created = await _dictionaryPresentationFactory.MapCreateModelToDictionaryItemAsync(createDictionaryItemRequestModel);
+        IDictionaryItem created =
+            await _dictionaryPresentationFactory.MapCreateModelToDictionaryItemAsync(createDictionaryItemRequestModel);
 
         AuthorizationResult authorizationResult = await _authorizationService.AuthorizeResourceAsync(
             User,

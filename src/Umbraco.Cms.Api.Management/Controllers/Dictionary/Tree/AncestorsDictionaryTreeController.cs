@@ -18,7 +18,10 @@ public class AncestorsDictionaryTreeController : DictionaryTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public AncestorsDictionaryTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IDictionaryItemService dictionaryItemService)
+    public AncestorsDictionaryTreeController(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IDictionaryItemService dictionaryItemService)
         : base(entityService, flagProviders, dictionaryItemService)
     {
     }
@@ -28,6 +31,7 @@ public class AncestorsDictionaryTreeController : DictionaryTreeControllerBase
     [ProducesResponseType(typeof(IEnumerable<NamedEntityTreeItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets a collection of ancestor dictionary items.")]
     [EndpointDescription("Gets a collection of dictionary items that are ancestors to the provided Id.")]
-    public async Task<ActionResult<IEnumerable<NamedEntityTreeItemResponseModel>>> Ancestors(CancellationToken cancellationToken, Guid descendantId)
+    public async Task<ActionResult<IEnumerable<NamedEntityTreeItemResponseModel>>> Ancestors(
+        CancellationToken cancellationToken, Guid descendantId)
         => await GetAncestors(descendantId);
 }

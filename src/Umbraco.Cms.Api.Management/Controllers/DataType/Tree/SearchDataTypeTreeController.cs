@@ -25,6 +25,8 @@ public class SearchDataTypeTreeController : DataTypeTreeControllerBase
     [HttpGet("search")]
     [MapToApiVersion("1.0")]
     [ProducesResponseType(typeof(PagedViewModel<DataTypeTreeItemResponseModel>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<PagedViewModel<DataTypeTreeItemResponseModel>>> Search(CancellationToken cancellationToken, string? query, int skip = 0, int take = 100, TreeItemKind itemKind = TreeItemKind.All)
+    public async Task<ActionResult<PagedViewModel<DataTypeTreeItemResponseModel>>> Search(
+        CancellationToken cancellationToken, string? query, int skip = 0, int take = 100,
+        TreeItemKind itemKind = TreeItemKind.All)
         => await SearchTreeEntities(query, skip, take, itemKind);
 }
