@@ -3,7 +3,9 @@
 namespace Umbraco.Cms.Api.Management.ViewModels.MemberType;
 
 public class UpdateMemberTypeRequestModel
-    : UpdateContentTypeRequestModelBase<UpdateMemberTypePropertyTypeRequestModel, UpdateMemberTypePropertyTypeContainerRequestModel>
+    : UpdateContentTypeRequestModelBase<
+        UpdateMemberTypePropertyTypeRequestModel,
+        UpdateMemberTypePropertyTypeContainerRequestModel>
 {
     public IEnumerable<MemberTypeComposition> Compositions { get; set; } = Enumerable.Empty<MemberTypeComposition>();
 }

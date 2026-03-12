@@ -38,7 +38,8 @@ public class CompositionReferenceMediaTypeController : MediaTypeControllerBase
         }
 
         IEnumerable<IMediaType> composedOf = _mediaTypeService.GetComposedOf(mediaType.Id);
-        List<MediaTypeCompositionResponseModel> responseModels = _umbracoMapper.MapEnumerable<IMediaType, MediaTypeCompositionResponseModel>(composedOf);
+        List<MediaTypeCompositionResponseModel> responseModels =
+            _umbracoMapper.MapEnumerable<IMediaType, MediaTypeCompositionResponseModel>(composedOf);
 
         return Ok(responseModels);
     }

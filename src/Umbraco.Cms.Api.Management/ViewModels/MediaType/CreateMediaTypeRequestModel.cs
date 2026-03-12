@@ -6,7 +6,9 @@ namespace Umbraco.Cms.Api.Management.ViewModels.MediaType;
 ///     Represents a request model for creating a media type.
 /// </summary>
 public class CreateMediaTypeRequestModel
-    : CreateContentTypeWithParentRequestModelBase<CreateMediaTypePropertyTypeRequestModel, CreateMediaTypePropertyTypeContainerRequestModel>
+    : CreateContentTypeWithParentRequestModelBase<
+        CreateMediaTypePropertyTypeRequestModel,
+        CreateMediaTypePropertyTypeContainerRequestModel>
 {
     /// <summary>
     ///     Gets or sets the allowed media types that can be created under this media type.

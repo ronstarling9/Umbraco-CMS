@@ -11,5 +11,6 @@ public class DocumentTreeItemResponseModel : ContentTreeItemResponseModel, IIsPr
 
     public DocumentTypeReferenceResponseModel DocumentType { get; set; } = new();
 
-    public IEnumerable<DocumentVariantItemResponseModel> Variants { get; set; } = Enumerable.Empty<DocumentVariantItemResponseModel>();
+    public IEnumerable<DocumentVariantItemResponseModel> Variants { get; set; }
+        = Enumerable.Empty<DocumentVariantItemResponseModel>();
 }

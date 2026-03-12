@@ -16,7 +16,9 @@ public class DeleteMediaTypeController : MediaTypeControllerBase
     private readonly IMediaTypeService _mediaTypeService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public DeleteMediaTypeController(IMediaTypeService mediaTypeService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public DeleteMediaTypeController(
+        IMediaTypeService mediaTypeService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _mediaTypeService = mediaTypeService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -30,7 +32,8 @@ public class DeleteMediaTypeController : MediaTypeControllerBase
     [EndpointDescription("Deletes a media type identified by the provided Id.")]
     public async Task<IActionResult> Delete(CancellationToken cancellationToken, Guid id)
     {
-        ContentTypeOperationStatus status = await _mediaTypeService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        ContentTypeOperationStatus status =
+            await _mediaTypeService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
         return OperationStatusResult(status);
     }
 }

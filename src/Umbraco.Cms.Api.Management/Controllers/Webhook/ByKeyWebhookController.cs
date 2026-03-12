@@ -15,7 +15,9 @@ public class ByKeyWebhookController : WebhookControllerBase
     private readonly IWebhookService _webhookService;
     private readonly IWebhookPresentationFactory _webhookPresentationFactory;
 
-    public ByKeyWebhookController(IWebhookService webhookService, IWebhookPresentationFactory webhookPresentationFactory)
+    public ByKeyWebhookController(
+        IWebhookService webhookService,
+        IWebhookPresentationFactory webhookPresentationFactory)
     {
         _webhookService = webhookService;
         _webhookPresentationFactory = webhookPresentationFactory;

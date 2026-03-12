@@ -3,7 +3,9 @@ using Umbraco.Cms.Api.Management.ViewModels.ContentType;
 namespace Umbraco.Cms.Api.Management.ViewModels.DocumentType;
 
 public class UpdateDocumentTypeRequestModel
-    : UpdateContentTypeRequestModelBase<UpdateDocumentTypePropertyTypeRequestModel, UpdateDocumentTypePropertyTypeContainerRequestModel>
+    : UpdateContentTypeRequestModelBase<
+        UpdateDocumentTypePropertyTypeRequestModel,
+        UpdateDocumentTypePropertyTypeContainerRequestModel>
 {
     public IEnumerable<ReferenceByIdModel> AllowedTemplates { get; set; } = Enumerable.Empty<ReferenceByIdModel>();
 
@@ -13,5 +15,6 @@ public class UpdateDocumentTypeRequestModel
 
     public IEnumerable<DocumentTypeSort> AllowedDocumentTypes { get; set; } = Enumerable.Empty<DocumentTypeSort>();
 
-    public IEnumerable<DocumentTypeComposition> Compositions { get; set; } = Enumerable.Empty<DocumentTypeComposition>();
+    public IEnumerable<DocumentTypeComposition> Compositions { get; set; }
+        = Enumerable.Empty<DocumentTypeComposition>();
 }

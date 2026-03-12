@@ -76,7 +76,8 @@ public abstract class FolderManagementControllerBase<TTreeEntity> : ManagementAp
 
     protected async Task<IActionResult> DeleteFolderAsync(Guid key)
     {
-        Attempt<EntityContainer?, EntityContainerOperationStatus> result = await _treeEntityTypeContainerService.DeleteAsync(key, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<EntityContainer?, EntityContainerOperationStatus> result =
+            await _treeEntityTypeContainerService.DeleteAsync(key, CurrentUserKey(_backOfficeSecurityAccessor));
         return result.Success
             ? Ok()
             : OperationStatusResult(result.Status);

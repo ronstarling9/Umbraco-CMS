@@ -2,7 +2,8 @@
 
 namespace Umbraco.Cms.Api.Management.ViewModels.MemberType;
 
-public class MemberTypeResponseModel : ContentTypeResponseModelBase<MemberTypePropertyTypeResponseModel, MemberTypePropertyTypeContainerResponseModel>
+public class MemberTypeResponseModel
+    : ContentTypeResponseModelBase<MemberTypePropertyTypeResponseModel, MemberTypePropertyTypeContainerResponseModel>
 {
     public IEnumerable<MemberTypeComposition> Compositions { get; set; } = Enumerable.Empty<MemberTypeComposition>();
 }

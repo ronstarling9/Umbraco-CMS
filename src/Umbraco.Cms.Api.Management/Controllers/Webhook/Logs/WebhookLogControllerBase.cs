@@ -15,9 +15,13 @@ namespace Umbraco.Cms.Api.Management.Controllers.Webhook.Logs;
 [Authorize(Policy = AuthorizationPolicies.TreeAccessWebhooks)]
 public class WebhookLogControllerBase : ManagementApiControllerBase
 {
-    protected PagedViewModel<WebhookLogResponseModel> CreatePagedWebhookLogResponseModel(PagedModel<WebhookLog> logs, IWebhookPresentationFactory webhookPresentationFactory)
+    protected PagedViewModel<WebhookLogResponseModel> CreatePagedWebhookLogResponseModel(
+        PagedModel<WebhookLog> logs,
+        IWebhookPresentationFactory webhookPresentationFactory)
     {
-        WebhookLogResponseModel[] logResponseModels = logs.Items.Select(webhookPresentationFactory.CreateResponseModel).ToArray();
+        WebhookLogResponseModel[] logResponseModels = logs.Items
+            .Select(webhookPresentationFactory.CreateResponseModel)
+            .ToArray();
 
         return new PagedViewModel<WebhookLogResponseModel>
         {

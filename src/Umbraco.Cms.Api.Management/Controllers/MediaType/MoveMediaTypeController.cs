@@ -32,7 +32,8 @@ public class MoveMediaTypeController : MediaTypeControllerBase
         Guid id,
         MoveMediaTypeRequestModel moveMediaTypeRequestModel)
     {
-        Attempt<IMediaType?, ContentTypeStructureOperationStatus> result = await _mediaTypeService.MoveAsync(id, moveMediaTypeRequestModel.Target?.Id);
+        Attempt<IMediaType?, ContentTypeStructureOperationStatus> result =
+            await _mediaTypeService.MoveAsync(id, moveMediaTypeRequestModel.Target?.Id);
 
         return result.Success
             ? Ok()

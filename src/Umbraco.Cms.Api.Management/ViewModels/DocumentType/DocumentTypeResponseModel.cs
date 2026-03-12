@@ -2,7 +2,8 @@
 
 namespace Umbraco.Cms.Api.Management.ViewModels.DocumentType;
 
-public class DocumentTypeResponseModel : ContentTypeResponseModelBase<DocumentTypePropertyTypeResponseModel, DocumentTypePropertyTypeContainerResponseModel>
+public class DocumentTypeResponseModel
+    : ContentTypeResponseModelBase<DocumentTypePropertyTypeResponseModel, DocumentTypePropertyTypeContainerResponseModel>
 {
     public IEnumerable<ReferenceByIdModel> AllowedTemplates { get; set; } = Enumerable.Empty<ReferenceByIdModel>();
 
@@ -12,5 +13,6 @@ public class DocumentTypeResponseModel : ContentTypeResponseModelBase<DocumentTy
 
     public IEnumerable<DocumentTypeSort> AllowedDocumentTypes { get; set; } = Enumerable.Empty<DocumentTypeSort>();
 
-    public IEnumerable<DocumentTypeComposition> Compositions { get; set; } = Enumerable.Empty<DocumentTypeComposition>();
+    public IEnumerable<DocumentTypeComposition> Compositions { get; set; }
+        = Enumerable.Empty<DocumentTypeComposition>();
 }

@@ -7,5 +7,6 @@ public class DictionaryItemModelBase
     [Required]
     public string Name { get; set; } = string.Empty;
 
-    public IEnumerable<DictionaryItemTranslationModel> Translations { get; set; } = Enumerable.Empty<DictionaryItemTranslationModel>();
+    public IEnumerable<DictionaryItemTranslationModel> Translations { get; set; }
+        = Enumerable.Empty<DictionaryItemTranslationModel>();
 }

@@ -9,7 +9,10 @@ using Umbraco.Extensions;
 namespace Umbraco.Cms.Api.Management.Mapping.MediaType;
 
 public class MediaTypeMapDefinition
-    : ContentTypeMapDefinition<IMediaType, MediaTypePropertyTypeResponseModel, MediaTypePropertyTypeContainerResponseModel>,
+    : ContentTypeMapDefinition<
+        IMediaType,
+        MediaTypePropertyTypeResponseModel,
+        MediaTypePropertyTypeContainerResponseModel>,
         IMapDefinition
 {
     public void DefineMaps(IUmbracoMapper mapper)

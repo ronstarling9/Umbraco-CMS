@@ -12,5 +12,6 @@ public abstract class DataTypeModelBase
 
     public string EditorUiAlias { get; set; } = string.Empty;
 
-    public IEnumerable<DataTypePropertyPresentationModel> Values { get; set; } = Enumerable.Empty<DataTypePropertyPresentationModel>();
+    public IEnumerable<DataTypePropertyPresentationModel> Values { get; set; }
+        = Enumerable.Empty<DataTypePropertyPresentationModel>();
 }

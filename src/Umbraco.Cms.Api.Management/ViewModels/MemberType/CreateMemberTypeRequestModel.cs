@@ -3,7 +3,9 @@ using Umbraco.Cms.Api.Management.ViewModels.ContentType;
 namespace Umbraco.Cms.Api.Management.ViewModels.MemberType;
 
 public class CreateMemberTypeRequestModel
-    : CreateContentTypeWithParentRequestModelBase<CreateMemberTypePropertyTypeRequestModel, CreateMemberTypePropertyTypeContainerRequestModel>
+    : CreateContentTypeWithParentRequestModelBase<
+        CreateMemberTypePropertyTypeRequestModel,
+        CreateMemberTypePropertyTypeContainerRequestModel>
 {
     public IEnumerable<MemberTypeComposition> Compositions { get; set; } = Enumerable.Empty<MemberTypeComposition>();
 }

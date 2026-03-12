@@ -15,5 +15,6 @@ public class DocumentItemResponseModel : ItemResponseModelBase, IIsProtected
 
     public DocumentTypeReferenceResponseModel DocumentType { get; set; } = new();
 
-    public IEnumerable<DocumentVariantItemResponseModel> Variants { get; set; } = Enumerable.Empty<DocumentVariantItemResponseModel>();
+    public IEnumerable<DocumentVariantItemResponseModel> Variants { get; set; }
+        = Enumerable.Empty<DocumentVariantItemResponseModel>();
 }

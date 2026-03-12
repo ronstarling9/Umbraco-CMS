@@ -5,7 +5,10 @@ namespace Umbraco.Cms.Api.Management.ViewModels.Relation;
 
 public class RelationResponseModel
 {
-    public RelationResponseModel(ReferenceByIdModel relationType, RelationReferenceModel parent, RelationReferenceModel child)
+    public RelationResponseModel(
+        ReferenceByIdModel relationType,
+        RelationReferenceModel parent,
+        RelationReferenceModel child)
     {
         RelationType = relationType;
         Parent = parent;
