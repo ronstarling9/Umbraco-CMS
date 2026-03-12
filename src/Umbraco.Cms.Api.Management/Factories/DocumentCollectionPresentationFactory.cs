@@ -11,7 +11,11 @@ using Umbraco.Extensions;
 namespace Umbraco.Cms.Api.Management.Factories;
 
 public class DocumentCollectionPresentationFactory
-    : ContentCollectionPresentationFactory<IContent, DocumentCollectionResponseModel, DocumentValueResponseModel, DocumentVariantResponseModel>,
+    : ContentCollectionPresentationFactory<
+        IContent,
+        DocumentCollectionResponseModel,
+        DocumentValueResponseModel,
+        DocumentVariantResponseModel>,
         IDocumentCollectionPresentationFactory
 {
     private readonly IPublicAccessService _publicAccessService;

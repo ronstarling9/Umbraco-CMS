@@ -8,7 +8,11 @@ using Umbraco.Cms.Core.Services;
 namespace Umbraco.Cms.Api.Management.Factories;
 
 public class MediaCollectionPresentationFactory
-    : ContentCollectionPresentationFactory<IMedia, MediaCollectionResponseModel, MediaValueResponseModel, MediaVariantResponseModel>,
+    : ContentCollectionPresentationFactory<
+        IMedia,
+        MediaCollectionResponseModel,
+        MediaValueResponseModel,
+        MediaVariantResponseModel>,
         IMediaCollectionPresentationFactory
 {
     public MediaCollectionPresentationFactory(

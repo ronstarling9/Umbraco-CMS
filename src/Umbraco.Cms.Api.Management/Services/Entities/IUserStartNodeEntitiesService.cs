@@ -62,7 +62,8 @@ public interface IUserStartNodeEntitiesService
     /// for browsing to the actual user start nodes. These entities will be marked as "no access" entities.
     /// Some candidate entities may be filtered out if they are not applicable for the user scope.
     /// </remarks>
-    IEnumerable<UserAccessEntity> ChildUserAccessEntities(IEnumerable<IEntitySlim> candidateChildren, string[] userStartNodePaths);
+    IEnumerable<UserAccessEntity> ChildUserAccessEntities(
+        IEnumerable<IEntitySlim> candidateChildren, string[] userStartNodePaths);
 
     /// <summary>
     /// Calculates the applicable sibling entities for a given object type for users without root access.

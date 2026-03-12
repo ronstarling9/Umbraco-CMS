@@ -23,5 +23,6 @@ public interface IDocumentPermissionFilterService
     /// <param name="totalBefore">The total number of siblings before the target entity.</param>
     /// <param name="totalAfter">The total number of siblings after the target entity.</param>
     /// <returns>A tuple containing the filtered entities and the adjusted before/after counts.</returns>
-    Task<(IEntitySlim[] Entities, long TotalBefore, long TotalAfter)> FilterAsync(Guid targetKey, IEntitySlim[] entities, long totalBefore, long totalAfter);
+    Task<(IEntitySlim[] Entities, long TotalBefore, long TotalAfter)> FilterAsync(
+        Guid targetKey, IEntitySlim[] entities, long totalBefore, long totalAfter);
 }

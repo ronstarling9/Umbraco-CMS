@@ -171,7 +171,8 @@ public class BackOfficeExternalLoginService : IBackOfficeExternalLoginService
 
         IEnumerable<BackOfficeExternaLoginProviderScheme> configuredLoginProviders =
             await _backOfficeExternalLoginProviders.GetBackOfficeProvidersAsync();
-        if (configuredLoginProviders.Any(provider => provider.ExternalLoginProvider.AuthenticationType.Equals(loginProvider))
+        if (configuredLoginProviders.Any(
+                provider => provider.ExternalLoginProvider.AuthenticationType.Equals(loginProvider))
             is false)
         {
             return Attempt.FailWithStatus<Guid?, ExternalLoginOperationStatus>(
@@ -195,7 +196,8 @@ public class BackOfficeExternalLoginService : IBackOfficeExternalLoginService
             ExternalLoginOperationStatus.Success, secret);
     }
 
-    public async Task<Attempt<ClaimsPrincipal?, ExternalLoginOperationStatus>> ClaimsPrincipleFromLoginProviderLinkKeyAsync(
+    public async Task<Attempt<ClaimsPrincipal?, ExternalLoginOperationStatus>>
+        ClaimsPrincipleFromLoginProviderLinkKeyAsync(
         string loginProvider,
         Guid linkKey)
     {

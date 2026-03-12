@@ -137,7 +137,8 @@ internal sealed class ServerEventSender :
         await NotifySavedAsync(notification, Constants.ServerEvents.EventSource.Document);
 
     /// <inheritdoc/>
-    public async Task HandleAsync(ContentSavedBlueprintNotification notification, CancellationToken cancellationToken) =>
+    public async Task HandleAsync(
+        ContentSavedBlueprintNotification notification, CancellationToken cancellationToken) =>
         await RouteCreatedOrUpdatedEvent(
             Constants.ServerEvents.EventSource.DocumentBlueprint, notification.SavedBlueprint);
 
@@ -366,7 +367,8 @@ internal sealed class ServerEventSender :
         await NotifyDeletedAsync(notification, Constants.ServerEvents.EventSource.Webhook);
 
     /// <inheritdoc/>
-    public async Task HandleAsync(ContentMovedToRecycleBinNotification notification, CancellationToken cancellationToken)
+    public async Task HandleAsync(
+        ContentMovedToRecycleBinNotification notification, CancellationToken cancellationToken)
         => await NotifyTrashedAsync(notification, Constants.ServerEvents.EventSource.Document);
 
     /// <inheritdoc/>

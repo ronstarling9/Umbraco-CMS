@@ -11,7 +11,8 @@ public class DocumentBlueprintEventAuthorizer : EventSourcePolicyAuthorizer
     {
     }
 
-    public override IEnumerable<string> AuthorizableEventSources => [Constants.ServerEvents.EventSource.DocumentBlueprint];
+    public override IEnumerable<string> AuthorizableEventSources
+        => [Constants.ServerEvents.EventSource.DocumentBlueprint];
 
     protected override string Policy => AuthorizationPolicies.TreeAccessDocumentsOrDocumentTypes;
 }

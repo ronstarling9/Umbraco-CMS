@@ -14,7 +14,8 @@ public abstract class FileSystemTreeServiceBase : IFileSystemTreeService
     {
         var directories = path.Split(Path.DirectorySeparatorChar).Take(Range.EndAt(Index.FromEnd(1))).ToArray();
         var result = directories
-            .Select((directory, index) => MapViewModel(string.Join(Path.DirectorySeparatorChar, directories.Take(index + 1)), directory, true))
+            .Select((directory, index) => MapViewModel(
+                string.Join(Path.DirectorySeparatorChar, directories.Take(index + 1)), directory, true))
             .ToList();
 
         if (includeSelf)
@@ -49,17 +50,21 @@ public abstract class FileSystemTreeServiceBase : IFileSystemTreeService
             .ToArray();
     }
 
-    public FileSystemTreeItemPresentationModel[] GetSiblingsViewModels(string path, int before, int after, out long totalBefore, out long totalAfter)
+    public FileSystemTreeItemPresentationModel[] GetSiblingsViewModels(
+        string path, int before, int after, out long totalBefore, out long totalAfter)
     {
         var filePath = Path.GetDirectoryName(path);
         var fileName = Path.GetFileName(path);
 
-        FileSystemTreeItemPresentationModel[] viewModels = GetPathViewModels(filePath!, 0, int.MaxValue, out totalBefore);
+        FileSystemTreeItemPresentationModel[] viewModels =
+            GetPathViewModels(filePath!, 0, int.MaxValue, out totalBefore);
         FileSystemTreeItemPresentationModel? target = viewModels.FirstOrDefault(item => item.Name == fileName);
         var position = Array.IndexOf(viewModels, target);
 
         totalBefore = position - before < 0 ? 0 : position - before;
-        totalAfter = (viewModels.Length - 1) - (position + after) < 0 ? 0 : (viewModels.Length - 1) - (position + after);
+        totalAfter = (viewModels.Length - 1) - (position + after) < 0
+            ? 0
+            : (viewModels.Length - 1) - (position + after);
 
         return viewModels
             .Select((item, index) => new { item, index })

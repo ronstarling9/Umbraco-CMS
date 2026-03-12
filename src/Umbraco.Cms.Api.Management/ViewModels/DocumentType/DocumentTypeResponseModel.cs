@@ -3,7 +3,9 @@
 namespace Umbraco.Cms.Api.Management.ViewModels.DocumentType;
 
 public class DocumentTypeResponseModel
-    : ContentTypeResponseModelBase<DocumentTypePropertyTypeResponseModel, DocumentTypePropertyTypeContainerResponseModel>
+    : ContentTypeResponseModelBase<
+        DocumentTypePropertyTypeResponseModel,
+        DocumentTypePropertyTypeContainerResponseModel>
 {
     public IEnumerable<ReferenceByIdModel> AllowedTemplates { get; set; } = Enumerable.Empty<ReferenceByIdModel>();
 
