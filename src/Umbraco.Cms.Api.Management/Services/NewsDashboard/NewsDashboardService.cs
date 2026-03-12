@@ -98,7 +98,7 @@ public class NewsDashboardService : INewsDashboardService
                 content = model;
             }
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is HttpRequestException or OperationCanceledException)
         {
             _logger.LogError(ex.InnerException ?? ex, "Error getting dashboard content from {Url}", url);
         }
