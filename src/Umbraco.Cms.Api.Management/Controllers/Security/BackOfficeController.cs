@@ -111,14 +111,16 @@ public class BackOfficeController : SecurityControllerBase
                 {
                     return StatusCode(StatusCodes.Status403Forbidden, new ProblemDetailsBuilder()
                         .WithTitle("User is locked")
-                        .WithDetail("The user is locked, and need to be unlocked before more login attempts can be executed.")
+                        .WithDetail(
+                            "The user is locked, and need to be unlocked before more login attempts can be executed.")
                         .Build());
                 }
 
                 if (result.RequiresTwoFactor)
                 {
                     string? twofactorView = _backOfficeTwoFactorOptions.GetTwoFactorView(model.Username);
-                    IEnumerable<string> enabledProviders = (await _userTwoFactorLoginService.GetProviderNamesAsync(user.Key))
+                    IEnumerable<string> enabledProviders =
+                        (await _userTwoFactorLoginService.GetProviderNamesAsync(user.Key))
                         .Result
                         .Where(x => x.IsEnabledOnUser)
                         .Select(x => x.ProviderName);

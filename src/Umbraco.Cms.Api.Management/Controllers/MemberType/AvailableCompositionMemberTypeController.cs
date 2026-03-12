@@ -17,7 +17,9 @@ public class AvailableCompositionMemberTypeController : MemberTypeControllerBase
     private readonly IMemberTypeEditingService _memberTypeEditingService;
     private readonly IMemberTypeEditingPresentationFactory _presentationFactory;
 
-    public AvailableCompositionMemberTypeController(IMemberTypeEditingService memberTypeEditingService, IMemberTypeEditingPresentationFactory presentationFactory)
+    public AvailableCompositionMemberTypeController(
+        IMemberTypeEditingService memberTypeEditingService,
+        IMemberTypeEditingPresentationFactory presentationFactory)
     {
         _memberTypeEditingService = memberTypeEditingService;
         _presentationFactory = presentationFactory;
@@ -32,12 +34,14 @@ public class AvailableCompositionMemberTypeController : MemberTypeControllerBase
         CancellationToken cancellationToken,
         MemberTypeCompositionRequestModel compositionModel)
     {
-        IEnumerable<ContentTypeAvailableCompositionsResult> availableCompositions = await _memberTypeEditingService.GetAvailableCompositionsAsync(
-            compositionModel.Id,
-            compositionModel.CurrentCompositeIds,
-            compositionModel.CurrentPropertyAliases);
+        IEnumerable<ContentTypeAvailableCompositionsResult> availableCompositions =
+            await _memberTypeEditingService.GetAvailableCompositionsAsync(
+                compositionModel.Id,
+                compositionModel.CurrentCompositeIds,
+                compositionModel.CurrentPropertyAliases);
 
-        IEnumerable<AvailableMemberTypeCompositionResponseModel> responseModels = _presentationFactory.MapCompositionModels(availableCompositions);
+        IEnumerable<AvailableMemberTypeCompositionResponseModel> responseModels =
+            _presentationFactory.MapCompositionModels(availableCompositions);
 
         return Ok(responseModels);
     }

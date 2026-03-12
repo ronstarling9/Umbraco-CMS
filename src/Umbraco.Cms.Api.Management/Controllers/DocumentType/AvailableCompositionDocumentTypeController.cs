@@ -17,7 +17,9 @@ public class AvailableCompositionDocumentTypeController : DocumentTypeController
     private readonly IContentTypeEditingService _contentTypeEditingService;
     private readonly IDocumentTypeEditingPresentationFactory _presentationFactory;
 
-    public AvailableCompositionDocumentTypeController(IContentTypeEditingService contentTypeEditingService, IDocumentTypeEditingPresentationFactory presentationFactory)
+    public AvailableCompositionDocumentTypeController(
+        IContentTypeEditingService contentTypeEditingService,
+        IDocumentTypeEditingPresentationFactory presentationFactory)
     {
         _contentTypeEditingService = contentTypeEditingService;
         _presentationFactory = presentationFactory;
@@ -32,13 +34,15 @@ public class AvailableCompositionDocumentTypeController : DocumentTypeController
         CancellationToken cancellationToken,
         DocumentTypeCompositionRequestModel compositionModel)
     {
-        IEnumerable<ContentTypeAvailableCompositionsResult> availableCompositions = await _contentTypeEditingService.GetAvailableCompositionsAsync(
-            compositionModel.Id,
-            compositionModel.CurrentCompositeIds,
-            compositionModel.CurrentPropertyAliases,
-            compositionModel.IsElement);
+        IEnumerable<ContentTypeAvailableCompositionsResult> availableCompositions =
+            await _contentTypeEditingService.GetAvailableCompositionsAsync(
+                compositionModel.Id,
+                compositionModel.CurrentCompositeIds,
+                compositionModel.CurrentPropertyAliases,
+                compositionModel.IsElement);
 
-        IEnumerable<AvailableDocumentTypeCompositionResponseModel> responseModels = _presentationFactory.MapCompositionModels(availableCompositions);
+        IEnumerable<AvailableDocumentTypeCompositionResponseModel> responseModels =
+            _presentationFactory.MapCompositionModels(availableCompositions);
 
         return Ok(responseModels);
     }
