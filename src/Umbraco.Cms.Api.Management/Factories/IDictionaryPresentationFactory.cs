@@ -6,9 +6,12 @@ namespace Umbraco.Cms.Api.Management.Factories;
 
 public interface IDictionaryPresentationFactory
 {
-    Task<IDictionaryItem> MapUpdateModelToDictionaryItemAsync(IDictionaryItem current, UpdateDictionaryItemRequestModel updateDictionaryItemRequestModel);
+    Task<IDictionaryItem> MapUpdateModelToDictionaryItemAsync(
+        IDictionaryItem current,
+        UpdateDictionaryItemRequestModel updateDictionaryItemRequestModel);
 
-    Task<IDictionaryItem> MapCreateModelToDictionaryItemAsync(CreateDictionaryItemRequestModel createDictionaryItemUpdateModel);
+    Task<IDictionaryItem> MapCreateModelToDictionaryItemAsync(
+        CreateDictionaryItemRequestModel createDictionaryItemUpdateModel);
 
     Task<DictionaryItemResponseModel> CreateDictionaryItemViewModelAsync(IDictionaryItem dictionaryItem);
 

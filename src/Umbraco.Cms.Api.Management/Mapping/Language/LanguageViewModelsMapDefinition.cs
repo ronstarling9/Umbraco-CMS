@@ -8,8 +8,12 @@ public class LanguageViewModelsMapDefinition : IMapDefinition
 {
     public void DefineMaps(IUmbracoMapper mapper)
     {
-        mapper.Define<CreateLanguageRequestModel, ILanguage>((_, _) => new Core.Models.Language(string.Empty, string.Empty), Map);
-        mapper.Define<UpdateLanguageRequestModel, ILanguage>((_, _) => new Core.Models.Language(string.Empty, string.Empty), Map);
+        mapper.Define<CreateLanguageRequestModel, ILanguage>(
+            (_, _) => new Core.Models.Language(string.Empty, string.Empty),
+            Map);
+        mapper.Define<UpdateLanguageRequestModel, ILanguage>(
+            (_, _) => new Core.Models.Language(string.Empty, string.Empty),
+            Map);
         mapper.Define<ILanguage, LanguageResponseModel>((_, _) => new LanguageResponseModel(), Map);
     }
 

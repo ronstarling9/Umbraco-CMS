@@ -9,7 +9,10 @@ using Umbraco.Extensions;
 namespace Umbraco.Cms.Api.Management.Mapping.DocumentType;
 
 public class DocumentTypeMapDefinition
-    : ContentTypeMapDefinition<IContentType, DocumentTypePropertyTypeResponseModel, DocumentTypePropertyTypeContainerResponseModel>,
+    : ContentTypeMapDefinition<
+        IContentType,
+        DocumentTypePropertyTypeResponseModel,
+        DocumentTypePropertyTypeContainerResponseModel>,
         IMapDefinition
 {
     public void DefineMaps(IUmbracoMapper mapper)

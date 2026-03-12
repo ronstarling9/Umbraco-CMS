@@ -3,7 +3,9 @@ using Umbraco.Cms.Core.Models.ContentEditing;
 
 namespace Umbraco.Cms.Api.Management.Factories;
 
-internal sealed class MemberEditingPresentationFactory : ContentEditingPresentationFactory<MemberValueModel, MemberVariantRequestModel>, IMemberEditingPresentationFactory
+internal sealed class MemberEditingPresentationFactory
+    : ContentEditingPresentationFactory<MemberValueModel, MemberVariantRequestModel>,
+        IMemberEditingPresentationFactory
 {
     public MemberCreateModel MapCreateModel(CreateMemberRequestModel createRequestModel)
     {

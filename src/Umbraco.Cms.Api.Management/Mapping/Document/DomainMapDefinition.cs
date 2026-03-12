@@ -10,8 +10,12 @@ public class DomainMapDefinition : IMapDefinition
 {
     public void DefineMaps(IUmbracoMapper mapper)
     {
-        mapper.Define<IEnumerable<IDomain>, DomainsResponseModel>((_, _) => new DomainsResponseModel { Domains = Enumerable.Empty<DomainPresentationModel>() }, Map);
-        mapper.Define<UpdateDomainsRequestModel, DomainsUpdateModel>((_, _) => new DomainsUpdateModel { Domains = Enumerable.Empty<CoreDomainModel>() }, Map);
+        mapper.Define<IEnumerable<IDomain>, DomainsResponseModel>(
+            (_, _) => new DomainsResponseModel { Domains = Enumerable.Empty<DomainPresentationModel>() },
+            Map);
+        mapper.Define<UpdateDomainsRequestModel, DomainsUpdateModel>(
+            (_, _) => new DomainsUpdateModel { Domains = Enumerable.Empty<CoreDomainModel>() },
+            Map);
     }
 
     // Umbraco.Code.MapAll

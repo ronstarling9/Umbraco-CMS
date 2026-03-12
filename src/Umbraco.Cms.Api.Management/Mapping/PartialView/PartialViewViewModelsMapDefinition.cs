@@ -27,7 +27,12 @@ public class PartialViewViewModelsMapDefinition : IMapDefinition
             (_, _) => new PartialViewRenameModel { Name = string.Empty }, Map);
 
         mapper.Define<PartialViewSnippet, PartialViewSnippetResponseModel>(
-            (_, _) => new PartialViewSnippetResponseModel { Id = string.Empty, Name = string.Empty, Content = string.Empty },
+            (_, _) => new PartialViewSnippetResponseModel
+            {
+                Id = string.Empty,
+                Name = string.Empty,
+                Content = string.Empty
+            },
             Map);
         mapper.Define<PartialViewSnippetSlim, PartialViewSnippetItemResponseModel>(
             (_, _) => new PartialViewSnippetItemResponseModel { Id = string.Empty, Name = string.Empty }, Map);

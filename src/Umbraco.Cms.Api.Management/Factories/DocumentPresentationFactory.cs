@@ -166,7 +166,8 @@ internal sealed class DocumentPresentationFactory : IDocumentPresentationFactory
     public DocumentTypeReferenceResponseModel CreateDocumentTypeReferenceResponseModel(IDocumentEntitySlim entity)
         => _umbracoMapper.Map<DocumentTypeReferenceResponseModel>(entity)!;
 
-    public Attempt<List<CulturePublishScheduleModel>, ContentPublishingOperationStatus> CreateCulturePublishScheduleModels(
+    public Attempt<List<CulturePublishScheduleModel>, ContentPublishingOperationStatus>
+        CreateCulturePublishScheduleModels(
         PublishDocumentRequestModel requestModel)
     {
         var model = new List<CulturePublishScheduleModel>();

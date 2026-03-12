@@ -8,8 +8,12 @@ public class TemporaryFileViewModelsMapDefinition : IMapDefinition
 {
     public void DefineMaps(IUmbracoMapper mapper)
     {
-        mapper.Define<CreateTemporaryFileRequestModel, CreateTemporaryFileModel>((source, context) => new CreateTemporaryFileModel { FileName = string.Empty }, Map);
-        mapper.Define<TemporaryFileModel, TemporaryFileResponseModel>((source, context) => new TemporaryFileResponseModel(), Map);
+        mapper.Define<CreateTemporaryFileRequestModel, CreateTemporaryFileModel>(
+            (source, context) => new CreateTemporaryFileModel { FileName = string.Empty },
+            Map);
+        mapper.Define<TemporaryFileModel, TemporaryFileResponseModel>(
+            (source, context) => new TemporaryFileResponseModel(),
+            Map);
     }
 
     // Umbraco.Code.MapAll

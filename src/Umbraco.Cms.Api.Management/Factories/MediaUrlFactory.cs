@@ -45,7 +45,8 @@ public class MediaUrlFactory : IMediaUrlFactory
             : url;
     }
 
-    private static string AddProtectedSuffixToMediaUrl(string url) => Path.ChangeExtension(url, Constants.Conventions.Media.TrashedMediaSuffix + Path.GetExtension(url));
+    private static string AddProtectedSuffixToMediaUrl(string url) =>
+        Path.ChangeExtension(url, Constants.Conventions.Media.TrashedMediaSuffix + Path.GetExtension(url));
 
     public IEnumerable<MediaUrlInfoResponseModel> CreateUrlSets(IEnumerable<IMedia> mediaItems) =>
         mediaItems.Select(media => new MediaUrlInfoResponseModel(media.Key, CreateUrls(media))).ToArray();

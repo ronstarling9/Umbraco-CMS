@@ -11,5 +11,6 @@ public interface IPackagePresentationFactory
 
     PackageConfigurationResponseModel CreateConfigurationResponseModel();
 
-    PagedViewModel<PackageMigrationStatusResponseModel> CreatePackageMigrationStatusResponseModel(PagedModel<InstalledPackage> installedPackages) => new();
+    PagedViewModel<PackageMigrationStatusResponseModel> CreatePackageMigrationStatusResponseModel(
+        PagedModel<InstalledPackage> installedPackages) => new();
 }

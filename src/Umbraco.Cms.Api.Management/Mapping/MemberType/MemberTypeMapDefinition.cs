@@ -8,7 +8,10 @@ using Umbraco.Extensions;
 namespace Umbraco.Cms.Api.Management.Mapping.MemberType;
 
 public class MemberTypeMapDefinition
-    : ContentTypeMapDefinition<IMemberType, MemberTypePropertyTypeResponseModel, MemberTypePropertyTypeContainerResponseModel>,
+    : ContentTypeMapDefinition<
+        IMemberType,
+        MemberTypePropertyTypeResponseModel,
+        MemberTypePropertyTypeContainerResponseModel>,
         IMapDefinition
 {
     public void DefineMaps(IUmbracoMapper mapper)

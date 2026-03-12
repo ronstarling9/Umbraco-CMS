@@ -42,5 +42,6 @@ public class RelationPresentationFactory : IRelationPresentationFactory
         return relationResponseModel;
     }
 
-    public IEnumerable<RelationResponseModel> CreateMultiple(IEnumerable<IRelation> relations) => relations.Select(Create);
+    public IEnumerable<RelationResponseModel> CreateMultiple(IEnumerable<IRelation> relations) =>
+        relations.Select(Create);
 }

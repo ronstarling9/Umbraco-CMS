@@ -23,7 +23,9 @@ internal abstract class ContentTypeEditingPresentationFactory<TContentType>
         TPropertyTypeContainerViewModel
     >(ContentTypeViewModels.ContentTypeModelBase<TPropertyTypeViewModel, TPropertyTypeContainerViewModel> viewModel)
             where TContentTypeEditingModel
-                : ContentTypeEditingModels.ContentTypeEditingModelBase<TPropertyTypeEditingModel, TPropertyTypeContainerEditingModel>, new()
+                : ContentTypeEditingModels.ContentTypeEditingModelBase<
+                    TPropertyTypeEditingModel,
+                    TPropertyTypeContainerEditingModel>, new()
             where TPropertyTypeEditingModel : ContentTypeEditingModels.PropertyTypeModelBase, new()
             where TPropertyTypeContainerEditingModel : ContentTypeEditingModels.PropertyTypeContainerModelBase, new()
             where TPropertyTypeViewModel : ContentTypeViewModels.PropertyTypeModelBase

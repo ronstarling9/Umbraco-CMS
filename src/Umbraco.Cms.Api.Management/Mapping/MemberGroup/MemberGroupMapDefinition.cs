@@ -10,7 +10,9 @@ public class MemberGroupMapDefinition : IMapDefinition
     {
         mapper.Define<CreateMemberGroupRequestModel, IMemberGroup>((_, _) => new Core.Models.MemberGroup(), Map);
         mapper.Define<UpdateMemberGroupRequestModel, IMemberGroup>((_, _) => new Core.Models.MemberGroup(), Map);
-        mapper.Define<IMemberGroup, MemberGroupResponseModel>((_, _) => new MemberGroupResponseModel { Name = string.Empty }, Map);
+        mapper.Define<IMemberGroup, MemberGroupResponseModel>(
+            (_, _) => new MemberGroupResponseModel { Name = string.Empty },
+            Map);
     }
 
     // Umbraco.Code.MapAll -Id -CreateDate -CreatorId -DeleteDate -UpdateDate
@@ -21,7 +23,8 @@ public class MemberGroupMapDefinition : IMapDefinition
     }
 
     // Umbraco.Code.MapAll -Id -CreateDate -CreatorId -DeleteDate -UpdateDate -Key
-    private static void Map(UpdateMemberGroupRequestModel source, IMemberGroup target, MapperContext context) => target.Name = source.Name;
+    private static void Map(UpdateMemberGroupRequestModel source, IMemberGroup target, MapperContext context) =>
+        target.Name = source.Name;
 
     // Umbraco.Code.MapAll
     private static void Map(IMemberGroup source, MemberGroupResponseModel target, MapperContext context)

@@ -8,7 +8,9 @@ public class EntityImportAnalysisViewModelsMapDefinition : IMapDefinition
 {
     public void DefineMaps(IUmbracoMapper mapper)
     {
-        mapper.Define<EntityXmlAnalysis, EntityImportAnalysisResponseModel>((_, _) => new EntityImportAnalysisResponseModel(), Map);
+        mapper.Define<EntityXmlAnalysis, EntityImportAnalysisResponseModel>(
+            (_, _) => new EntityImportAnalysisResponseModel(),
+            Map);
     }
 
     private void Map(EntityXmlAnalysis source, EntityImportAnalysisResponseModel target, MapperContext context)

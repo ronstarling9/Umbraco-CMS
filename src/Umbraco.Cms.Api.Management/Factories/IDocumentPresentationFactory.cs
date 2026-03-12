@@ -60,7 +60,9 @@ public interface IDocumentPresentationFactory
             if (cultureAndScheduleRequestModel.Schedule.UnpublishTime
                 <= cultureAndScheduleRequestModel.Schedule.PublishTime)
             {
-                return Attempt.FailWithStatus(ContentPublishingOperationStatus.UnpublishTimeNeedsToBeAfterPublishTime, model);
+                return Attempt.FailWithStatus(
+                    ContentPublishingOperationStatus.UnpublishTimeNeedsToBeAfterPublishTime,
+                    model);
             }
 
             model.Add(new CulturePublishScheduleModel

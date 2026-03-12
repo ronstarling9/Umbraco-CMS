@@ -70,7 +70,9 @@ public class DocumentPermissionMapper : IPermissionPresentationMapper, IPermissi
             yield break;
         }
 
-        if (documentPermissionPresentationModel.Verbs.Any() is false || (documentPermissionPresentationModel.Verbs.Count == 1 && documentPermissionPresentationModel.Verbs.Contains(string.Empty)))
+        if (documentPermissionPresentationModel.Verbs.Any() is false
+            || (documentPermissionPresentationModel.Verbs.Count == 1
+                && documentPermissionPresentationModel.Verbs.Contains(string.Empty)))
         {
             yield return new DocumentGranularPermission
             {
@@ -96,7 +98,9 @@ public class DocumentPermissionMapper : IPermissionPresentationMapper, IPermissi
     }
 
     /// <inheritdoc/>
-    public IEnumerable<IPermissionPresentationModel> AggregatePresentationModels(IUser user, IEnumerable<IPermissionPresentationModel> models)
+    public IEnumerable<IPermissionPresentationModel> AggregatePresentationModels(
+        IUser user,
+        IEnumerable<IPermissionPresentationModel> models)
     {
         // Get the unique document keys that have granular permissions.
         Guid[] documentKeysWithGranularPermissions = models

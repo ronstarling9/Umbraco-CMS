@@ -51,11 +51,17 @@ public class ReziseImageUrlFactory : IReziseImageUrlFactory
 
     /// <inheritdoc />
     [Obsolete("Use the overload that accepts ImageResizeOptions instead. Scheduled for removal in Umbraco 19.")]
-    public IEnumerable<MediaUrlInfoResponseModel> CreateUrlSets(IEnumerable<IMedia> mediaItems, int height, int width, ImageCropMode? mode)
+    public IEnumerable<MediaUrlInfoResponseModel> CreateUrlSets(
+        IEnumerable<IMedia> mediaItems,
+        int height,
+        int width,
+        ImageCropMode? mode)
         => CreateUrlSets(mediaItems, new ImageResizeOptions(height, width, mode));
 
     /// <inheritdoc />
-    public IEnumerable<MediaUrlInfoResponseModel> CreateUrlSets(IEnumerable<IMedia> mediaItems, ImageResizeOptions options)
+    public IEnumerable<MediaUrlInfoResponseModel> CreateUrlSets(
+        IEnumerable<IMedia> mediaItems,
+        ImageResizeOptions options)
         => mediaItems.Select(media => new MediaUrlInfoResponseModel(media.Key, CreateUrls(media, options))).ToArray();
 
     private IEnumerable<MediaUrlInfo> CreateUrls(IMedia media, ImageResizeOptions options)

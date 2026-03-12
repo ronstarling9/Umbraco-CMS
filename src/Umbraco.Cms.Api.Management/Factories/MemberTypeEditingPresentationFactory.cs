@@ -69,7 +69,8 @@ internal sealed class MemberTypeEditingPresentationFactory
             if (requestModelPropertiesByAlias.TryGetValue(
                     propertyType.Alias, out TRequestPropertyTypeModel? requestPropertyType) is false)
             {
-                throw new InvalidOperationException($"Could not find the property type model {propertyType.Alias} in the request");
+                throw new InvalidOperationException(
+                    $"Could not find the property type model {propertyType.Alias} in the request");
             }
 
             propertyType.IsSensitive = requestPropertyType.IsSensitive;

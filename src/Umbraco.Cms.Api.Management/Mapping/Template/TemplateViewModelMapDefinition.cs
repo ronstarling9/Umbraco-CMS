@@ -14,7 +14,9 @@ public class TemplateViewModelMapDefinition : IMapDefinition
 
     public void DefineMaps(IUmbracoMapper mapper)
     {
-        mapper.Define<UpdateTemplateRequestModel, ITemplate>((source, _) => new Core.Models.Template(_shortStringHelper, source.Name, source.Alias), Map);
+        mapper.Define<UpdateTemplateRequestModel, ITemplate>(
+            (source, _) => new Core.Models.Template(_shortStringHelper, source.Name, source.Alias),
+            Map);
     }
 
     // Umbraco.Code.MapAll -Id -Key -CreateDate -UpdateDate -DeleteDate

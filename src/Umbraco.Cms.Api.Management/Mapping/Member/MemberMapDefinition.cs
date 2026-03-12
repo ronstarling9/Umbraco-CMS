@@ -9,7 +9,9 @@ using Umbraco.Cms.Core.PropertyEditors;
 
 namespace Umbraco.Cms.Api.Management.Mapping.Member;
 
-public class MemberMapDefinition : ContentMapDefinition<IMember, MemberValueResponseModel, MemberVariantResponseModel>, IMapDefinition
+public class MemberMapDefinition
+    : ContentMapDefinition<IMember, MemberValueResponseModel, MemberVariantResponseModel>,
+        IMapDefinition
 {
     public MemberMapDefinition(
         PropertyEditorCollection propertyEditorCollection,
