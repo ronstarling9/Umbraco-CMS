@@ -13,6 +13,11 @@ namespace Umbraco.Cms.Api.Management.Controllers.RedirectUrlManagement;
 [ApiVersion("1.0")]
 public class SetStatusRedirectUrlManagementController : RedirectUrlManagementControllerBase
 {
+    /// <summary>
+    /// Matches JsonConfigurationSource.ReloadDelay (250 ms) to allow configuration to reload before the response ends.
+    /// </summary>
+    private const int ConfigurationReloadDelayMilliseconds = 250;
+
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
     private readonly IConfigManipulator _configManipulator;
 
@@ -67,7 +72,7 @@ public class SetStatusRedirectUrlManagementController : RedirectUrlManagementCon
         // TODO this is ridiculous, but we need to ensure the configuration is reloaded, before this request is ended.
         // otherwise we can read the old value in GetEnableState.
         // The value is equal to JsonConfigurationSource.ReloadDelay
-        Thread.Sleep(250);
+        Thread.Sleep(ConfigurationReloadDelayMilliseconds);
 
         return Ok();
     }
