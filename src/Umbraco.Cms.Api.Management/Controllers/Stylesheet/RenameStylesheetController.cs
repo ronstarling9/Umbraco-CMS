@@ -22,7 +22,10 @@ public class RenameStylesheetController : StylesheetControllerBase
     private readonly IUmbracoMapper _umbracoMapper;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public RenameStylesheetController(IStylesheetService stylesheetService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor, IUmbracoMapper umbracoMapper)
+    public RenameStylesheetController(
+        IStylesheetService stylesheetService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
+        IUmbracoMapper umbracoMapper)
     {
         _stylesheetService = stylesheetService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -44,10 +47,12 @@ public class RenameStylesheetController : StylesheetControllerBase
         StylesheetRenameModel renameModel = _umbracoMapper.Map<StylesheetRenameModel>(requestModel)!;
 
         path = DecodePath(path).VirtualPathToSystemPath();
-        Attempt<IStylesheet?, StylesheetOperationStatus> renameAttempt = await _stylesheetService.RenameAsync(path, renameModel, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IStylesheet?, StylesheetOperationStatus> renameAttempt =
+            await _stylesheetService.RenameAsync(path, renameModel, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return renameAttempt.Success
-            ? CreatedAtPath<ByPathStylesheetController>(controller => nameof(controller.ByPath), renameAttempt.Result!.Path.SystemPathToVirtualPath())
+            ? CreatedAtPath<ByPathStylesheetController>(
+                controller => nameof(controller.ByPath), renameAttempt.Result!.Path.SystemPathToVirtualPath())
             : StylesheetOperationStatusResult(renameAttempt.Status);
     }
 }

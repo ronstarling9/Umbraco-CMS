@@ -18,7 +18,8 @@ public class CompositionReferenceDocumentTypeController : DocumentTypeController
     private readonly IContentTypeService _contentTypeService;
     private readonly IUmbracoMapper _umbracoMapper;
 
-    public CompositionReferenceDocumentTypeController(IContentTypeService contentTypeService, IUmbracoMapper umbracoMapper)
+    public CompositionReferenceDocumentTypeController(
+        IContentTypeService contentTypeService, IUmbracoMapper umbracoMapper)
     {
         _contentTypeService = contentTypeService;
         _umbracoMapper = umbracoMapper;
@@ -41,7 +42,8 @@ public class CompositionReferenceDocumentTypeController : DocumentTypeController
         }
 
         IEnumerable<IContentType> composedOf = _contentTypeService.GetComposedOf(contentType.Id);
-        List<DocumentTypeCompositionResponseModel> responseModels = _umbracoMapper.MapEnumerable<IContentType, DocumentTypeCompositionResponseModel>(composedOf);
+        List<DocumentTypeCompositionResponseModel> responseModels =
+            _umbracoMapper.MapEnumerable<IContentType, DocumentTypeCompositionResponseModel>(composedOf);
 
         return Ok(responseModels);
     }

@@ -22,7 +22,9 @@ public class SiblingsMediaTreeController : MediaTreeControllerBase
         AppCaches appCaches,
         IBackOfficeSecurityAccessor backofficeSecurityAccessor,
         IMediaPresentationFactory mediaPresentationFactory)
-        : base(entityService, userStartNodeEntitiesService, dataTypeService, appCaches, backofficeSecurityAccessor, mediaPresentationFactory)
+        : base(
+            entityService, userStartNodeEntitiesService, dataTypeService,
+            appCaches, backofficeSecurityAccessor, mediaPresentationFactory)
     {
     }
 
@@ -35,7 +37,9 @@ public class SiblingsMediaTreeController : MediaTreeControllerBase
         AppCaches appCaches,
         IBackOfficeSecurityAccessor backofficeSecurityAccessor,
         IMediaPresentationFactory mediaPresentationFactory)
-        : base(entityService, flagProviders, userStartNodeEntitiesService, dataTypeService, appCaches, backofficeSecurityAccessor, mediaPresentationFactory)
+        : base(
+            entityService, flagProviders, userStartNodeEntitiesService, dataTypeService,
+            appCaches, backofficeSecurityAccessor, mediaPresentationFactory)
     {
     }
 
@@ -43,7 +47,8 @@ public class SiblingsMediaTreeController : MediaTreeControllerBase
     [ProducesResponseType(typeof(SubsetViewModel<MediaTreeItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets a collection of media tree sibling items.")]
     [EndpointDescription("Gets a collection of media tree items that are siblings of the provided Id.")]
-    public async Task<ActionResult<SubsetViewModel<MediaTreeItemResponseModel>>> Siblings(CancellationToken cancellationToken, Guid target, int before, int after, Guid? dataTypeId = null)
+    public async Task<ActionResult<SubsetViewModel<MediaTreeItemResponseModel>>> Siblings(
+        CancellationToken cancellationToken, Guid target, int before, int after, Guid? dataTypeId = null)
     {
         IgnoreUserStartNodesForDataType(dataTypeId);
         return await GetSiblings(target, before, after);

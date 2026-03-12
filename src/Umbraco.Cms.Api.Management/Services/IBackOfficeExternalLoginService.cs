@@ -9,11 +9,14 @@ namespace Umbraco.Cms.Api.Management.Services;
 
 public interface IBackOfficeExternalLoginService
 {
-    Task<Attempt<IEnumerable<UserExternalLoginProviderModel>, ExternalLoginOperationStatus>> ExternalLoginStatusForUserAsync(Guid userKey);
+    Task<Attempt<IEnumerable<UserExternalLoginProviderModel>, ExternalLoginOperationStatus>> ExternalLoginStatusForUserAsync(
+        Guid userKey);
 
-    Task<Attempt<ExternalLoginOperationStatus>> UnLinkLoginAsync(ClaimsPrincipal claimsPrincipal, string loginProvider, string providerKey);
+    Task<Attempt<ExternalLoginOperationStatus>> UnLinkLoginAsync(
+        ClaimsPrincipal claimsPrincipal, string loginProvider, string providerKey);
 
-    Task<Attempt<IEnumerable<IdentityError>, ExternalLoginOperationStatus>> HandleLoginCallbackAsync(HttpContext httpContext);
+    Task<Attempt<IEnumerable<IdentityError>, ExternalLoginOperationStatus>> HandleLoginCallbackAsync(
+        HttpContext httpContext);
 
     Task<Attempt<Guid?, ExternalLoginOperationStatus>> GenerateLoginProviderSecretAsync(
         ClaimsPrincipal claimsPrincipal,

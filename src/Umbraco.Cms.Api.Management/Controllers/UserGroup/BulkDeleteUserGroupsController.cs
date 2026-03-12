@@ -19,7 +19,9 @@ public class BulkDeleteUserGroupsController : UserGroupControllerBase
     private readonly IAuthorizationService _authorizationService;
     private readonly IUserGroupService _userGroupService;
 
-    public BulkDeleteUserGroupsController(IAuthorizationService authorizationService, IUserGroupService userGroupService)
+    public BulkDeleteUserGroupsController(
+        IAuthorizationService authorizationService,
+        IUserGroupService userGroupService)
     {
         _authorizationService = authorizationService;
         _userGroupService = userGroupService;
@@ -43,7 +45,8 @@ public class BulkDeleteUserGroupsController : UserGroupControllerBase
             return Forbidden();
         }
 
-        Attempt<UserGroupOperationStatus> result = await _userGroupService.DeleteAsync(model.UserGroupIds.Select(x => x.Id).ToHashSet());
+        Attempt<UserGroupOperationStatus> result =
+            await _userGroupService.DeleteAsync(model.UserGroupIds.Select(x => x.Id).ToHashSet());
 
         return result.Success
             ? Ok()

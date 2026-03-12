@@ -22,7 +22,8 @@ public class DataTypeReferencePresentationFactory : IDataTypeReferencePresentati
         _memberTypeService = memberTypeService;
     }
 
-    public IEnumerable<DataTypeReferenceResponseModel> CreateDataTypeReferenceViewModels(IReadOnlyDictionary<Udi, IEnumerable<string>> dataTypeUsages)
+    public IEnumerable<DataTypeReferenceResponseModel> CreateDataTypeReferenceViewModels(
+        IReadOnlyDictionary<Udi, IEnumerable<string>> dataTypeUsages)
     {
         var getContentTypesByObjectType = new Dictionary<string, Func<IEnumerable<Guid>, IEnumerable<IContentTypeBase>>>
         {
@@ -31,9 +32,12 @@ public class DataTypeReferencePresentationFactory : IDataTypeReferencePresentati
             { UmbracoObjectTypes.MemberType.GetUdiType(), keys => _memberTypeService.GetMany(keys) }
         };
 
-        foreach (IGrouping<string, KeyValuePair<Udi, IEnumerable<string>>> usagesByEntityType in dataTypeUsages.GroupBy(u => u.Key.EntityType))
+        foreach (IGrouping<string, KeyValuePair<Udi, IEnumerable<string>>> usagesByEntityType in
+            dataTypeUsages.GroupBy(u => u.Key.EntityType))
         {
-            if (getContentTypesByObjectType.TryGetValue(usagesByEntityType.Key, out Func<IEnumerable<Guid>, IEnumerable<IContentTypeBase>>? getContentTypes) == false)
+            if (getContentTypesByObjectType.TryGetValue(
+                    usagesByEntityType.Key,
+                    out Func<IEnumerable<Guid>, IEnumerable<IContentTypeBase>>? getContentTypes) == false)
             {
                 continue;
             }

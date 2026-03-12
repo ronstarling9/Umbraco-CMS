@@ -15,7 +15,11 @@ namespace Umbraco.Cms.Api.Management.Controllers.StaticFile.Tree;
 public class StaticFileTreeControllerBase : FileSystemTreeControllerBase
 {
     private readonly IFileSystemTreeService _fileSystemTreeService;
-    private static readonly string[] _allowedRootFolders = { $"{Path.DirectorySeparatorChar}App_Plugins", $"{Path.DirectorySeparatorChar}wwwroot" };
+    private static readonly string[] _allowedRootFolders =
+    {
+        $"{Path.DirectorySeparatorChar}App_Plugins",
+        $"{Path.DirectorySeparatorChar}wwwroot",
+    };
 
     [Obsolete("Please use the constructor taking all parameters. Scheduled for removal in Umbraco 18.")]
     public StaticFileTreeControllerBase(IPhysicalFileSystem physicalFileSystem)
@@ -25,7 +29,9 @@ public class StaticFileTreeControllerBase : FileSystemTreeControllerBase
         _fileSystemTreeService = StaticServiceProvider.Instance.GetRequiredService<IPhysicalFileSystemTreeService>();
     }
 
-    public StaticFileTreeControllerBase(IPhysicalFileSystem physicalFileSystem, IPhysicalFileSystemTreeService fileSystemTreeService)
+    public StaticFileTreeControllerBase(
+        IPhysicalFileSystem physicalFileSystem,
+        IPhysicalFileSystemTreeService fileSystemTreeService)
         : base (fileSystemTreeService)
     {
         FileSystem = physicalFileSystem;
@@ -53,5 +59,7 @@ public class StaticFileTreeControllerBase : FileSystemTreeControllerBase
 
     private bool IsTreeRootPath(string path) => path == Path.DirectorySeparatorChar.ToString();
 
-    private bool IsAllowedPath(string path) => _allowedRootFolders.Contains(path) || _allowedRootFolders.Any(folder => path.StartsWith($"{folder}{Path.DirectorySeparatorChar}"));
+    private bool IsAllowedPath(string path)
+        => _allowedRootFolders.Contains(path)
+           || _allowedRootFolders.Any(folder => path.StartsWith($"{folder}{Path.DirectorySeparatorChar}"));
 }

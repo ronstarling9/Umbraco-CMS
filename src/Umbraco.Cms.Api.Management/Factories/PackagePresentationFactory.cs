@@ -19,7 +19,10 @@ internal sealed class PackagePresentationFactory : IPackagePresentationFactory
     private readonly IRuntimeState _runtimeState;
     private readonly MarketplaceSettings _marketplaceSettings;
 
-    public PackagePresentationFactory(IUmbracoMapper umbracoMapper, IRuntimeState runtimeState, IOptionsSnapshot<MarketplaceSettings> marketplaceSettings)
+    public PackagePresentationFactory(
+        IUmbracoMapper umbracoMapper,
+        IRuntimeState runtimeState,
+        IOptionsSnapshot<MarketplaceSettings> marketplaceSettings)
     {
         _umbracoMapper = umbracoMapper;
         _runtimeState = runtimeState;
@@ -44,9 +47,11 @@ internal sealed class PackagePresentationFactory : IPackagePresentationFactory
             MarketplaceUrl = GetMarketplaceUrl(),
         };
 
-    public PagedViewModel<PackageMigrationStatusResponseModel> CreatePackageMigrationStatusResponseModel(PagedModel<InstalledPackage> installedPackages)
+    public PagedViewModel<PackageMigrationStatusResponseModel> CreatePackageMigrationStatusResponseModel(
+        PagedModel<InstalledPackage> installedPackages)
     {
-        InstalledPackage[] installedPackagesAsArray = installedPackages.Items as InstalledPackage[] ?? installedPackages.Items.ToArray();
+        InstalledPackage[] installedPackagesAsArray =
+            installedPackages.Items as InstalledPackage[] ?? installedPackages.Items.ToArray();
 
         return new PagedViewModel<PackageMigrationStatusResponseModel>
         {

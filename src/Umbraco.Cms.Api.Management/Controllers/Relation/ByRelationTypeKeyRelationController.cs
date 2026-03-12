@@ -17,7 +17,9 @@ public class ByRelationTypeKeyRelationController : RelationControllerBase
     private readonly IRelationService _relationService;
     private readonly IRelationPresentationFactory _relationPresentationFactory;
 
-    public ByRelationTypeKeyRelationController(IRelationService relationService, IRelationPresentationFactory relationPresentationFactory)
+    public ByRelationTypeKeyRelationController(
+        IRelationService relationService,
+        IRelationPresentationFactory relationPresentationFactory)
     {
         _relationService = relationService;
         _relationPresentationFactory = relationPresentationFactory;
@@ -41,14 +43,16 @@ public class ByRelationTypeKeyRelationController : RelationControllerBase
         int skip = 0,
         int take = 100)
     {
-        Attempt<PagedModel<IRelation>, RelationOperationStatus> relationsAttempt = await _relationService.GetPagedByRelationTypeKeyAsync(id, skip, take);
+        Attempt<PagedModel<IRelation>, RelationOperationStatus> relationsAttempt =
+            await _relationService.GetPagedByRelationTypeKeyAsync(id, skip, take);
 
         if (relationsAttempt.Success is false)
         {
             return RelationOperationStatusResult(relationsAttempt.Status);
         }
 
-        IEnumerable<RelationResponseModel> mappedRelations = relationsAttempt.Result.Items.Select(_relationPresentationFactory.Create);
+        IEnumerable<RelationResponseModel> mappedRelations =
+            relationsAttempt.Result.Items.Select(_relationPresentationFactory.Create);
 
         return Ok(new PagedViewModel<RelationResponseModel>
         {

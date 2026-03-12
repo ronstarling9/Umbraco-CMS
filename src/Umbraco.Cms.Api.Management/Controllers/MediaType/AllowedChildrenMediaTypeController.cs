@@ -36,13 +36,15 @@ public class AllowedChildrenMediaTypeController : MediaTypeControllerBase
         int skip = 0,
         int take = 100)
     {
-        Attempt<PagedModel<IMediaType>?, ContentTypeOperationStatus> attempt = await _mediaTypeService.GetAllowedChildrenAsync(id, parentContentKey, skip, take);
+        Attempt<PagedModel<IMediaType>?, ContentTypeOperationStatus> attempt =
+            await _mediaTypeService.GetAllowedChildrenAsync(id, parentContentKey, skip, take);
         if (attempt.Success is false)
         {
             return OperationStatusResult(attempt.Status);
         }
 
-        List<AllowedMediaType> viewModels = _umbracoMapper.MapEnumerable<IMediaType, AllowedMediaType>(attempt.Result!.Items);
+        List<AllowedMediaType> viewModels =
+            _umbracoMapper.MapEnumerable<IMediaType, AllowedMediaType>(attempt.Result!.Items);
 
         var pagedViewModel = new PagedViewModel<AllowedMediaType>
         {

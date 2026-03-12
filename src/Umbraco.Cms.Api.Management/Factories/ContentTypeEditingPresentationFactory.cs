@@ -22,7 +22,8 @@ internal abstract class ContentTypeEditingPresentationFactory<TContentType>
         TPropertyTypeViewModel,
         TPropertyTypeContainerViewModel
     >(ContentTypeViewModels.ContentTypeModelBase<TPropertyTypeViewModel, TPropertyTypeContainerViewModel> viewModel)
-            where TContentTypeEditingModel : ContentTypeEditingModels.ContentTypeEditingModelBase<TPropertyTypeEditingModel, TPropertyTypeContainerEditingModel>, new()
+            where TContentTypeEditingModel
+                : ContentTypeEditingModels.ContentTypeEditingModelBase<TPropertyTypeEditingModel, TPropertyTypeContainerEditingModel>, new()
             where TPropertyTypeEditingModel : ContentTypeEditingModels.PropertyTypeModelBase, new()
             where TPropertyTypeContainerEditingModel : ContentTypeEditingModels.PropertyTypeContainerModelBase, new()
             where TPropertyTypeViewModel : ContentTypeViewModels.PropertyTypeModelBase
@@ -45,7 +46,9 @@ internal abstract class ContentTypeEditingPresentationFactory<TContentType>
         return editingModel;
     }
 
-    protected Guid? CalculateCreateContainerKey(ReferenceByIdModel? parent, IDictionary<Guid, ContentTypeViewModels.CompositionType> compositions)
+    protected Guid? CalculateCreateContainerKey(
+        ReferenceByIdModel? parent,
+        IDictionary<Guid, ContentTypeViewModels.CompositionType> compositions)
     {
         // special case:
         // the API is somewhat confusing when it comes to inheritance. the parent denotes a container (folder), but it
@@ -101,7 +104,8 @@ internal abstract class ContentTypeEditingPresentationFactory<TContentType>
             .ToArray();
     }
 
-    protected ContentTypeEditingModels.Composition[] MapCompositions(IDictionary<Guid, ContentTypeViewModels.CompositionType> compositions)
+    protected ContentTypeEditingModels.Composition[] MapCompositions(
+        IDictionary<Guid, ContentTypeViewModels.CompositionType> compositions)
         => compositions.Select(composition => new ContentTypeEditingModels.Composition
         {
             Key = composition.Key,
