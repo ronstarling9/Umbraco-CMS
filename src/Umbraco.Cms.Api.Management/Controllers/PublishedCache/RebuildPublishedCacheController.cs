@@ -12,7 +12,8 @@ public class RebuildPublishedCacheController : PublishedCacheControllerBase
 {
     private readonly IDatabaseCacheRebuilder _databaseCacheRebuilder;
 
-    public RebuildPublishedCacheController(IDatabaseCacheRebuilder databaseCacheRebuilder) => _databaseCacheRebuilder = databaseCacheRebuilder;
+    public RebuildPublishedCacheController(IDatabaseCacheRebuilder databaseCacheRebuilder)
+        => _databaseCacheRebuilder = databaseCacheRebuilder;
 
     [HttpPost("rebuild")]
     [MapToApiVersion("1.0")]

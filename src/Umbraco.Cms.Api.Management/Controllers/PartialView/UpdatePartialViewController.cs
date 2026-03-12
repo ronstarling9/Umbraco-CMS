@@ -44,7 +44,8 @@ public class UpdatePartialViewController : PartialViewControllerBase
         path = DecodePath(path).VirtualPathToSystemPath();
         PartialViewUpdateModel updateModel = _mapper.Map<PartialViewUpdateModel>(updateViewModel)!;
 
-        Attempt<IPartialView?, PartialViewOperationStatus> updateAttempt = await _partialViewService.UpdateAsync(path, updateModel, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IPartialView?, PartialViewOperationStatus> updateAttempt =
+            await _partialViewService.UpdateAsync(path, updateModel, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return updateAttempt.Success
             ? Ok()

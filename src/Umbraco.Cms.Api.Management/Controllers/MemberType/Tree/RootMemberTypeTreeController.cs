@@ -19,7 +19,8 @@ public class RootMemberTypeTreeController : MemberTypeTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public RootMemberTypeTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IMemberTypeService memberTypeService)
+    public RootMemberTypeTreeController(
+        IEntityService entityService, FlagProviderCollection flagProviders, IMemberTypeService memberTypeService)
         : base(entityService, flagProviders, memberTypeService)
     {
     }

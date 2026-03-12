@@ -30,7 +30,8 @@ public class RunMigrationPackageController : PackageControllerBase
     [EndpointDescription("Executes all pending package migrations to update the database schema.")]
     public async Task<IActionResult> RunMigrations(CancellationToken cancellationToken, string name)
     {
-        Attempt<bool, PackageMigrationOperationStatus> result = await _packageMigrationRunner.RunPendingPackageMigrations(name);
+        Attempt<bool, PackageMigrationOperationStatus> result =
+            await _packageMigrationRunner.RunPendingPackageMigrations(name);
 
         return result.Success
             ? Ok()

@@ -11,7 +11,8 @@ public class ConfigurationPackageController : PackageControllerBase
 {
     private readonly IPackagePresentationFactory _packagePresentationFactory;
 
-    public ConfigurationPackageController(IPackagePresentationFactory packagePresentationFactory) => _packagePresentationFactory = packagePresentationFactory;
+    public ConfigurationPackageController(IPackagePresentationFactory packagePresentationFactory)
+        => _packagePresentationFactory = packagePresentationFactory;
 
     [HttpGet("configuration")]
     [MapToApiVersion("1.0")]

@@ -13,7 +13,8 @@ public class StatusModelsBuilderController : ModelsBuilderControllerBase
 {
     private readonly OutOfDateModelsStatus _outOfDateModelsStatus;
 
-    public StatusModelsBuilderController(OutOfDateModelsStatus outOfDateModelsStatus) => _outOfDateModelsStatus = outOfDateModelsStatus;
+    public StatusModelsBuilderController(OutOfDateModelsStatus outOfDateModelsStatus)
+        => _outOfDateModelsStatus = outOfDateModelsStatus;
 
     [HttpGet("status")]
     [ProducesResponseType(typeof(OutOfDateStatusResponseModel), StatusCodes.Status200OK)]

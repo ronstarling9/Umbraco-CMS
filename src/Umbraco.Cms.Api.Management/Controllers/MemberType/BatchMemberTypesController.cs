@@ -23,7 +23,8 @@ public class BatchMemberTypesController : MemberTypeControllerBase
     /// </summary>
     /// <param name="memberTypeService">The member type service.</param>
     /// <param name="memberTypePresentationFactory">The member type presentation factory.</param>
-    public BatchMemberTypesController(IMemberTypeService memberTypeService, IMemberTypePresentationFactory memberTypePresentationFactory)
+    public BatchMemberTypesController(
+        IMemberTypeService memberTypeService, IMemberTypePresentationFactory memberTypePresentationFactory)
     {
         _memberTypeService = memberTypeService;
         _memberTypePresentationFactory = memberTypePresentationFactory;
@@ -50,7 +51,8 @@ public class BatchMemberTypesController : MemberTypeControllerBase
         List<IMemberType> ordered = OrderByRequestedIds(memberTypes, requestedIds);
 
         // Member type mapping is async via factory.
-        IEnumerable<Task<MemberTypeResponseModel>> mappingTasks = ordered.Select(mt => _memberTypePresentationFactory.CreateResponseModelAsync(mt));
+        IEnumerable<Task<MemberTypeResponseModel>> mappingTasks =
+            ordered.Select(mt => _memberTypePresentationFactory.CreateResponseModelAsync(mt));
         MemberTypeResponseModel[] responseModels = await Task.WhenAll(mappingTasks);
 
         return Ok(new BatchResponseModel<MemberTypeResponseModel>

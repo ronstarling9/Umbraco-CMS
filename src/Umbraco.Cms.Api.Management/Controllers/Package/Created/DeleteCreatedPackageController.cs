@@ -15,7 +15,8 @@ public class DeleteCreatedPackageController : CreatedPackageControllerBase
     private readonly IPackagingService _packagingService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public DeleteCreatedPackageController(IPackagingService packagingService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public DeleteCreatedPackageController(
+        IPackagingService packagingService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _packagingService = packagingService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;

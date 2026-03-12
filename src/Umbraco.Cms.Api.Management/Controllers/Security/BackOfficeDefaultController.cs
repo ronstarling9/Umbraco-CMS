@@ -27,7 +27,8 @@ public class BackOfficeDefaultController : Controller
         // force authentication to occur since this is not an authorized endpoint
         // a user can not be authenticated if no users have been created yet, or the user repository is unavailable
         AuthenticateResult result = _umbracoRuntime.State.Level < RuntimeLevel.Upgrade
-            ? AuthenticateResult.Fail("RuntimeLevel " + _umbracoRuntime.State.Level + " does not support authentication")
+            ? AuthenticateResult.Fail(
+                "RuntimeLevel " + _umbracoRuntime.State.Level + " does not support authentication")
             : await this.AuthenticateBackOfficeAsync();
 
         // if we are not authenticated then we need to redirect to the login page
@@ -47,7 +48,8 @@ public class BackOfficeDefaultController : Controller
     /// <returns>The default view currently /umbraco/UmbracoBackOffice/Default.cshtml</returns>
     public ViewResult DefaultView()
     {
-        var viewPath = Path.Combine(Constants.SystemDirectories.Umbraco, Constants.Web.Mvc.BackOfficeArea, nameof(Index) + ".cshtml")
+        var viewPath = Path.Combine(
+            Constants.SystemDirectories.Umbraco, Constants.Web.Mvc.BackOfficeArea, nameof(Index) + ".cshtml")
             .Replace("\\", "/"); // convert to forward slashes since it's a virtual path
         return View(viewPath);
     }

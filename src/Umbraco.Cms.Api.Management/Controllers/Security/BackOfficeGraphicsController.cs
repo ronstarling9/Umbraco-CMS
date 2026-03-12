@@ -28,11 +28,15 @@ public class BackOfficeGraphicsController : Controller
     private readonly IContentTypeProvider _contentTypeProvider;
     private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public BackOfficeGraphicsController(IOptions<ContentSettings> contentSettings, IOptions<StaticFileOptions> staticFileOptions, IWebHostEnvironment webHostEnvironment)
+    public BackOfficeGraphicsController(
+        IOptions<ContentSettings> contentSettings,
+        IOptions<StaticFileOptions> staticFileOptions,
+        IWebHostEnvironment webHostEnvironment)
     {
         _contentSettings = contentSettings;
         _webHostEnvironment = webHostEnvironment;
-        _contentTypeProvider = staticFileOptions.Value.ContentTypeProvider ?? new FileExtensionContentTypeProvider();
+        _contentTypeProvider =
+            staticFileOptions.Value.ContentTypeProvider ?? new FileExtensionContentTypeProvider();
     }
 
     [HttpGet("login-background", Name = LoginBackGroundRouteName)]

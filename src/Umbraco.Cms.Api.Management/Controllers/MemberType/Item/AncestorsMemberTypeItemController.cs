@@ -29,7 +29,8 @@ public class AncestorsMemberTypeItemController : MemberTypeItemControllerBase
             return Ok(Enumerable.Empty<ItemAncestorsResponseModel<NamedItemResponseModel>>());
         }
 
-        IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>> result = await _itemAncestorService.GetAncestorsAsync(
+        IEnumerable<ItemAncestorsResponseModel<NamedItemResponseModel>> result =
+            await _itemAncestorService.GetAncestorsAsync(
             UmbracoObjectTypes.MemberType,
             UmbracoObjectTypes.MemberTypeContainer,
             ids);

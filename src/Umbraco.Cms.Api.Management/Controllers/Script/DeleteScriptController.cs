@@ -32,7 +32,8 @@ public class DeleteScriptController : ScriptControllerBase
     public async Task<IActionResult> Delete(CancellationToken cancellationToken, string path)
     {
         path = DecodePath(path).VirtualPathToSystemPath();
-        ScriptOperationStatus operationStatus = await _scriptService.DeleteAsync(path, CurrentUserKey(_backOfficeSecurityAccessor));
+        ScriptOperationStatus operationStatus =
+            await _scriptService.DeleteAsync(path, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return operationStatus is ScriptOperationStatus.Success
             ? Ok()

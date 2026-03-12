@@ -44,7 +44,8 @@ public class AllCreatedPackageController : CreatedPackageControllerBase
         var viewModel = new PagedViewModel<PackageDefinitionResponseModel>
         {
             Total = createdPackages.Total,
-            Items = _umbracoMapper.MapEnumerable<PackageDefinition, PackageDefinitionResponseModel>(createdPackages.Items)
+            Items = _umbracoMapper.MapEnumerable<PackageDefinition, PackageDefinitionResponseModel>(
+                createdPackages.Items)
         };
 
         return Ok(viewModel);

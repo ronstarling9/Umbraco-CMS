@@ -34,7 +34,8 @@ public class GetAllController : PartialViewControllerBase
         var pageViewModel = new PagedViewModel<PartialViewSnippetItemResponseModel>
         {
             Total = snippets.Total,
-            Items = _umbracoMapper.MapEnumerable<PartialViewSnippetSlim, PartialViewSnippetItemResponseModel>(snippets.Items)
+            Items = _umbracoMapper.MapEnumerable<PartialViewSnippetSlim, PartialViewSnippetItemResponseModel>(
+                snippets.Items)
         };
 
         return Ok(pageViewModel);

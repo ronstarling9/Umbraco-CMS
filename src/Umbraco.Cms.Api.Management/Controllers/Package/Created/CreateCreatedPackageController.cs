@@ -49,7 +49,8 @@ public class CreateCreatedPackageController : CreatedPackageControllerBase
             _packagePresentationFactory.CreatePackageDefinition(createPackageRequestModel);
 
         Attempt<PackageDefinition, PackageOperationStatus> result =
-            await _packagingService.CreateCreatedPackageAsync(packageDefinition, CurrentUserKey(_backOfficeSecurityAccessor));
+            await _packagingService.CreateCreatedPackageAsync(
+                packageDefinition, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? CreatedAtId<ByKeyCreatedPackageController>(

@@ -10,7 +10,9 @@ namespace Umbraco.Cms.Api.Management.Controllers.Security;
 [ApiExplorerSettings(GroupName = "Security")]
 public abstract class SecurityControllerBase : ManagementApiControllerBase
 {
-    protected IActionResult UserOperationStatusResult(UserOperationStatus status, ErrorMessageResult? errorMessageResult = null) =>
+    protected IActionResult UserOperationStatusResult(
+        UserOperationStatus status, ErrorMessageResult? errorMessageResult = null)
+        =>
         OperationStatusResult(status, problemDetailsBuilder => status switch
         {
             UserOperationStatus.UserNotFound => NotFound(problemDetailsBuilder

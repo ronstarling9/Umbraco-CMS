@@ -32,7 +32,8 @@ public class DeletePartialViewController : PartialViewControllerBase
     public async Task<IActionResult> Delete(CancellationToken cancellationToken, string path)
     {
         path = DecodePath(path).VirtualPathToSystemPath();
-        PartialViewOperationStatus operationStatus = await _partialViewService.DeleteAsync(path, CurrentUserKey(_backOfficeSecurityAccessor));
+        PartialViewOperationStatus operationStatus =
+            await _partialViewService.DeleteAsync(path, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return operationStatus is PartialViewOperationStatus.Success
             ? Ok()

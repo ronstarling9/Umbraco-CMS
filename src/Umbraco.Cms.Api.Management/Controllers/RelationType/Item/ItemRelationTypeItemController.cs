@@ -40,7 +40,8 @@ public class ItemRelationTypeItemController : RelationTypeItemControllerBase
             .GetAllRelationTypes()
             .Where(relationType => ids.Contains(relationType.Key)).ToArray();
 
-        List<RelationTypeItemResponseModel> responseModels = _mapper.MapEnumerable<IRelationType, RelationTypeItemResponseModel>(relationTypes);
+        List<RelationTypeItemResponseModel> responseModels =
+            _mapper.MapEnumerable<IRelationType, RelationTypeItemResponseModel>(relationTypes);
 
         return Task.FromResult<IActionResult>(Ok(responseModels));
     }

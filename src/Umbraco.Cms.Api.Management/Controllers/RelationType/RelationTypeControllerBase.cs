@@ -43,7 +43,8 @@ public class RelationTypeControllerBase : ManagementApiControllerBase
                 .Build()),
         });
 
-    protected IActionResult RelationTypeNotFound() => OperationStatusResult(RelationTypeOperationStatus.NotFound, RelationTypeNotFound);
+    protected IActionResult RelationTypeNotFound()
+        => OperationStatusResult(RelationTypeOperationStatus.NotFound, RelationTypeNotFound);
 
     private IActionResult RelationTypeNotFound(ProblemDetailsBuilder problemDetailsBuilder) => NotFound(problemDetailsBuilder
         .WithTitle("Relation type not found")

@@ -9,7 +9,8 @@ public class NewsDashboardController : NewsDashboardControllerBase
 {
     private readonly INewsDashboardService _newsDashboardService;
 
-    public NewsDashboardController(INewsDashboardService newsDashboardService) => _newsDashboardService = newsDashboardService;
+    public NewsDashboardController(INewsDashboardService newsDashboardService)
+        => _newsDashboardService = newsDashboardService;
 
     [HttpGet]
     [ProducesResponseType(typeof(NewsDashboardResponseModel), StatusCodes.Status200OK)]
