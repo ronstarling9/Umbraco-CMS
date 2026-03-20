@@ -21,7 +21,9 @@ public class MediaRecycleBinControllerBase : RecycleBinControllerBase<MediaRecyc
 {
     private readonly IMediaPresentationFactory _mediaPresentationFactory;
 
-    public MediaRecycleBinControllerBase(IEntityService entityService, IMediaPresentationFactory mediaPresentationFactory)
+    public MediaRecycleBinControllerBase(
+        IEntityService entityService,
+        IMediaPresentationFactory mediaPresentationFactory)
         : base(entityService)
         => _mediaPresentationFactory = mediaPresentationFactory;
 

@@ -34,11 +34,15 @@ public class ValidateUpdateMediaController : UpdateMediaControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Validates updating a media item.")]
     [EndpointDescription("Validates the request model for updating a media item without actually updating it.")]
-    public async Task<IActionResult> Validate(CancellationToken cancellationToken, Guid id, UpdateMediaRequestModel requestModel)
+    public async Task<IActionResult> Validate(
+        CancellationToken cancellationToken,
+        Guid id,
+        UpdateMediaRequestModel requestModel)
         => await HandleRequest(id, async () =>
         {
             MediaUpdateModel model = _mediaEditingPresentationFactory.MapUpdateModel(requestModel);
-            Attempt<ContentValidationResult, ContentEditingOperationStatus> result = await _mediaEditingService.ValidateUpdateAsync(id, model);
+            Attempt<ContentValidationResult, ContentEditingOperationStatus> result =
+                await _mediaEditingService.ValidateUpdateAsync(id, model);
 
             return result.Success
                 ? Ok()

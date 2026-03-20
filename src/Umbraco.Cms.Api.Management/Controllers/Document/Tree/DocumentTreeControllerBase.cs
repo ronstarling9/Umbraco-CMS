@@ -97,7 +97,8 @@ public abstract class DocumentTreeControllerBase : UserStartNodeTreeControllerBa
 
     protected override UmbracoObjectTypes ItemObjectType => UmbracoObjectTypes.Document;
 
-    protected override Ordering ItemOrdering => Ordering.By(Infrastructure.Persistence.Dtos.NodeDto.SortOrderColumnName);
+    protected override Ordering ItemOrdering
+        => Ordering.By(Infrastructure.Persistence.Dtos.NodeDto.SortOrderColumnName);
 
     protected override DocumentTreeItemResponseModel MapTreeItemViewModel(Guid? parentId, IEntitySlim entity)
     {
@@ -113,7 +114,8 @@ public abstract class DocumentTreeControllerBase : UserStartNodeTreeControllerBa
             responseModel.CreateDate = entity.CreateDate;
 
             responseModel.Variants = _documentPresentationFactory.CreateVariantsItemResponseModels(documentEntitySlim);
-            responseModel.DocumentType = _documentPresentationFactory.CreateDocumentTypeReferenceResponseModel(documentEntitySlim);
+            responseModel.DocumentType =
+                _documentPresentationFactory.CreateDocumentTypeReferenceResponseModel(documentEntitySlim);
         }
 
         return responseModel;
@@ -136,10 +138,15 @@ public abstract class DocumentTreeControllerBase : UserStartNodeTreeControllerBa
            ?? Array.Empty<string>();
 
     /// <inheritdoc/>
-    protected override Task<(IEntitySlim[] Entities, long TotalItems)> FilterTreeEntities(IEntitySlim[] entities, long totalItems)
+    protected override Task<(IEntitySlim[] Entities, long TotalItems)> FilterTreeEntities(
+        IEntitySlim[] entities, long totalItems)
         => _documentPermissionFilterService.FilterAsync(entities, totalItems);
 
     /// <inheritdoc/>
-    protected override Task<(IEntitySlim[] Entities, long TotalBefore, long TotalAfter)> FilterTreeEntities(Guid targetKey, IEntitySlim[] entities, long totalBefore, long totalAfter)
+    protected override Task<(IEntitySlim[] Entities, long TotalBefore, long TotalAfter)> FilterTreeEntities(
+        Guid targetKey,
+        IEntitySlim[] entities,
+        long totalBefore,
+        long totalAfter)
         => _documentPermissionFilterService.FilterAsync(targetKey, entities, totalBefore, totalAfter);
 }

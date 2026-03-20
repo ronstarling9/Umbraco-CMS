@@ -34,9 +34,12 @@ public class CreateUserGroupController : UserGroupControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     [EndpointSummary("Creates a new user group.")]
     [EndpointDescription("Creates a new user group with the configuration specified in the request model.")]
-    public async Task<IActionResult> Create(CancellationToken cancellationToken, CreateUserGroupRequestModel createUserGroupRequestModel)
+    public async Task<IActionResult> Create(
+        CancellationToken cancellationToken,
+        CreateUserGroupRequestModel createUserGroupRequestModel)
     {
-        Attempt<IUserGroup, UserGroupOperationStatus> userGroupCreationAttempt = await _userGroupPresentationFactory.CreateAsync(createUserGroupRequestModel);
+        Attempt<IUserGroup, UserGroupOperationStatus> userGroupCreationAttempt =
+            await _userGroupPresentationFactory.CreateAsync(createUserGroupRequestModel);
         if (userGroupCreationAttempt.Success is false)
         {
             return UserGroupOperationStatusResult(userGroupCreationAttempt.Status);
@@ -44,7 +47,8 @@ public class CreateUserGroupController : UserGroupControllerBase
 
         IUserGroup group = userGroupCreationAttempt.Result;
 
-        Attempt<IUserGroup, UserGroupOperationStatus> result = await _userGroupService.CreateAsync(group, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IUserGroup, UserGroupOperationStatus> result =
+            await _userGroupService.CreateAsync(group, CurrentUserKey(_backOfficeSecurityAccessor));
         return result.Success
             ? CreatedAtId<ByKeyUserGroupController>(controller => nameof(controller.ByKey), group.Key)
             : UserGroupOperationStatusResult(result.Status);

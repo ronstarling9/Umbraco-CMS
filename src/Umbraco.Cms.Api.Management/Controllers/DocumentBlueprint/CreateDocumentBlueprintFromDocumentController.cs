@@ -42,11 +42,14 @@ public class CreateDocumentBlueprintFromDocumentController : DocumentBlueprintCo
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Creates a document blueprint from an existing document.")]
     [EndpointDescription("Creates a new document blueprint based on an existing document identified by the provided Id.")]
-    public async Task<IActionResult> CreateFromDocument(CancellationToken cancellationToken, CreateDocumentBlueprintFromDocumentRequestModel fromDocumentRequestModel)
+    public async Task<IActionResult> CreateFromDocument(
+        CancellationToken cancellationToken,
+        CreateDocumentBlueprintFromDocumentRequestModel fromDocumentRequestModel)
     {
         AuthorizationResult authorizationResult = await _authorizationService.AuthorizeResourceAsync(
             User,
-            ContentPermissionResource.WithKeys(ActionCreateBlueprintFromContent.ActionLetter, fromDocumentRequestModel.Document.Id),
+            ContentPermissionResource.WithKeys(
+                ActionCreateBlueprintFromContent.ActionLetter, fromDocumentRequestModel.Document.Id),
             AuthorizationPolicies.ContentPermissionByResource);
 
         if (!authorizationResult.Succeeded)
@@ -62,7 +65,8 @@ public class CreateDocumentBlueprintFromDocumentController : DocumentBlueprintCo
                 CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
-            ? CreatedAtId<ByKeyDocumentBlueprintController>(controller => nameof(controller.ByKey), result.Result.Content!.Key)
+            ? CreatedAtId<ByKeyDocumentBlueprintController>(
+                controller => nameof(controller.ByKey), result.Result.Content!.Key)
             : ContentEditingOperationStatusResult(result.Status);
     }
 }

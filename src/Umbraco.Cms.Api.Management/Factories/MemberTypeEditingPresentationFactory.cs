@@ -5,7 +5,8 @@ using Umbraco.Cms.Core.Services;
 
 namespace Umbraco.Cms.Api.Management.Factories;
 
-internal sealed class MemberTypeEditingPresentationFactory : ContentTypeEditingPresentationFactory<IMemberType>, IMemberTypeEditingPresentationFactory
+internal sealed class MemberTypeEditingPresentationFactory
+    : ContentTypeEditingPresentationFactory<IMemberType>, IMemberTypeEditingPresentationFactory
 {
     public MemberTypeEditingPresentationFactory(IMemberTypeService memberTypeService)
         : base(memberTypeService)
@@ -48,7 +49,8 @@ internal sealed class MemberTypeEditingPresentationFactory : ContentTypeEditingP
         return updateModel;
     }
 
-    public IEnumerable<AvailableMemberTypeCompositionResponseModel> MapCompositionModels(IEnumerable<ContentTypeAvailableCompositionsResult> compositionResults)
+    public IEnumerable<AvailableMemberTypeCompositionResponseModel> MapCompositionModels(
+        IEnumerable<ContentTypeAvailableCompositionsResult> compositionResults)
         => compositionResults.Select(MapCompositionModel<AvailableMemberTypeCompositionResponseModel>);
 
     private IEnumerable<Composition> MapCompositions(IEnumerable<MemberTypeComposition> documentTypeCompositions)
@@ -64,9 +66,11 @@ internal sealed class MemberTypeEditingPresentationFactory : ContentTypeEditingP
         var requestModelPropertiesByAlias = requestPropertyTypes.ToDictionary(p => p.Alias);
         foreach (MemberTypePropertyTypeModel propertyType in propertyTypes)
         {
-            if (requestModelPropertiesByAlias.TryGetValue(propertyType.Alias, out TRequestPropertyTypeModel? requestPropertyType) is false)
+            if (requestModelPropertiesByAlias.TryGetValue(
+                    propertyType.Alias, out TRequestPropertyTypeModel? requestPropertyType) is false)
             {
-                throw new InvalidOperationException($"Could not find the property type model {propertyType.Alias} in the request");
+                throw new InvalidOperationException(
+                    $"Could not find the property type model {propertyType.Alias} in the request");
             }
 
             propertyType.IsSensitive = requestPropertyType.IsSensitive;

@@ -13,7 +13,8 @@ public class LogViewerViewModelMapDefinition : IMapDefinition
         mapper.Define<LogLevelCounts, LogLevelCountsReponseModel>((_, _) => new LogLevelCountsReponseModel(), Map);
         mapper.Define<KeyValuePair<string, string?>, LogMessagePropertyPresentationModel>(
             (_, _) => new LogMessagePropertyPresentationModel { Name = string.Empty }, Map);
-        mapper.Define<KeyValuePair<string, LogLevel>, LoggerResponseModel>((_, _) => new LoggerResponseModel { Name = string.Empty }, Map);
+        mapper.Define<KeyValuePair<string, LogLevel>, LoggerResponseModel>(
+            (_, _) => new LoggerResponseModel { Name = string.Empty }, Map);
         mapper.Define<ILogViewerQuery, SavedLogSearchResponseModel>(
             (_, _) => new SavedLogSearchResponseModel
             {
@@ -36,7 +37,8 @@ public class LogViewerViewModelMapDefinition : IMapDefinition
     }
 
     // Umbraco.Code.MapAll
-    private static void Map(KeyValuePair<string, string?> source, LogMessagePropertyPresentationModel target, MapperContext context)
+    private static void Map(
+        KeyValuePair<string, string?> source, LogMessagePropertyPresentationModel target, MapperContext context)
     {
         target.Name = source.Key;
         target.Value = source.Value;
@@ -71,7 +73,8 @@ public class LogViewerViewModelMapDefinition : IMapDefinition
         target.Level = source.Level;
         target.MessageTemplate = source.MessageTemplateText;
         target.RenderedMessage = source.RenderedMessage;
-        target.Properties = context.MapEnumerable<KeyValuePair<string, string?>, LogMessagePropertyPresentationModel>(source.Properties);
+        target.Properties = context.MapEnumerable<KeyValuePair<string, string?>, LogMessagePropertyPresentationModel>(
+            source.Properties);
         target.Exception = source.Exception;
     }
 }

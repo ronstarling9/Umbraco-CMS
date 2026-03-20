@@ -31,7 +31,10 @@ public class DocumentTypeTreeControllerBase : FolderTreeControllerBase<DocumentT
     }
 
     [Obsolete("Please use the constructor taking all parameters. Scheduled for removal in Umbraco 19.")]
-    public DocumentTypeTreeControllerBase(IEntityService entityService, FlagProviderCollection flagProviders, IContentTypeService contentTypeService)
+    public DocumentTypeTreeControllerBase(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IContentTypeService contentTypeService)
         : this(
             entityService,
             flagProviders,
@@ -54,7 +57,9 @@ public class DocumentTypeTreeControllerBase : FolderTreeControllerBase<DocumentT
 
     protected override UmbracoObjectTypes FolderObjectType => UmbracoObjectTypes.DocumentTypeContainer;
 
-    protected override DocumentTypeTreeItemResponseModel[] MapTreeItemViewModels(Guid? parentKey, IEntitySlim[] entities)
+    protected override DocumentTypeTreeItemResponseModel[] MapTreeItemViewModels(
+        Guid? parentKey,
+        IEntitySlim[] entities)
     {
         var contentTypes = _contentTypeService
             .GetMany(entities.Select(entity => entity.Id).ToArray())

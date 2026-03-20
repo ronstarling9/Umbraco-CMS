@@ -15,7 +15,8 @@ public abstract class UpdateDocumentControllerBase : DocumentControllerBase
     protected UpdateDocumentControllerBase(IAuthorizationService authorizationService)
         => _authorizationService = authorizationService;
 
-    protected async Task<IActionResult> HandleRequest(Guid id, UpdateDocumentRequestModel requestModel, Func<Task<IActionResult>> authorizedHandler)
+    protected async Task<IActionResult> HandleRequest(
+        Guid id, UpdateDocumentRequestModel requestModel, Func<Task<IActionResult>> authorizedHandler)
     {
         // We intentionally don't pass in cultures here.
         // This is to support the client sending values for all cultures even if the user doesn't have access to the language.

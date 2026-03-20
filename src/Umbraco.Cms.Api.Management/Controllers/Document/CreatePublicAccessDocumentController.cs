@@ -54,9 +54,11 @@ public class CreatePublicAccessDocumentController : DocumentControllerBase
             return Forbidden();
         }
 
-        PublicAccessEntrySlim publicAccessEntrySlim = _publicAccessPresentationFactory.CreatePublicAccessEntrySlim(publicAccessRequestModel, id);
+        PublicAccessEntrySlim publicAccessEntrySlim =
+            _publicAccessPresentationFactory.CreatePublicAccessEntrySlim(publicAccessRequestModel, id);
 
-        Attempt<PublicAccessEntry?, PublicAccessOperationStatus> saveAttempt = await _publicAccessService.CreateAsync(publicAccessEntrySlim);
+        Attempt<PublicAccessEntry?, PublicAccessOperationStatus> saveAttempt =
+            await _publicAccessService.CreateAsync(publicAccessEntrySlim);
 
         return saveAttempt.Success
             ? CreatedAtId<GetPublicAccessDocumentController>(controller => nameof(controller.GetPublicAccess), id)

@@ -70,7 +70,10 @@ internal sealed class BackOfficeSecureDataFormat : ISecureDataFormat<Authenticat
         }
 
         //return the ticket with a UmbracoBackOfficeIdentity
-        var ticket = new AuthenticationTicket(new ClaimsPrincipal(verifiedIdentity), decrypt.Properties, decrypt.AuthenticationScheme);
+        var ticket = new AuthenticationTicket(
+            new ClaimsPrincipal(verifiedIdentity),
+            decrypt.Properties,
+            decrypt.AuthenticationScheme);
 
         return ticket;
     }

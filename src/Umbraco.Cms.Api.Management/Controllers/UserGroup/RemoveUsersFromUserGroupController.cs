@@ -50,7 +50,8 @@ public class RemoveUsersFromUserGroupController : UserGroupControllerBase
         }
 
         Attempt<UserGroupOperationStatus> result = await _userGroupService.RemoveUsersFromUserGroupAsync(
-            new UsersToUserGroupManipulationModel(id, userIds.Select(x => x.Id).ToArray()), CurrentUserKey(_backOfficeSecurityAccessor));
+            new UsersToUserGroupManipulationModel(id, userIds.Select(x => x.Id).ToArray()),
+            CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

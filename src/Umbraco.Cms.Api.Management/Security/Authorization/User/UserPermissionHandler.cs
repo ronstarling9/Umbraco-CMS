@@ -7,7 +7,8 @@ namespace Umbraco.Cms.Api.Management.Security.Authorization.User;
 /// <summary>
 ///     Authorizes that the current user has the correct permission access to perform actions on the user account(s) specified in the request.
 /// </summary>
-public class UserPermissionHandler : MustSatisfyRequirementAuthorizationHandler<UserPermissionRequirement, UserPermissionResource>
+public class UserPermissionHandler
+    : MustSatisfyRequirementAuthorizationHandler<UserPermissionRequirement, UserPermissionResource>
 {
     private readonly IAuthorizationHelper _authorizationHelper;
     private readonly IUserPermissionAuthorizer _userPermissionAuthorizer;
@@ -17,7 +18,9 @@ public class UserPermissionHandler : MustSatisfyRequirementAuthorizationHandler<
     /// </summary>
     /// <param name="userPermissionAuthorizer">Authorizer for user access.</param>
     /// <param name="authorizationHelper">The authorization helper.</param>
-    public UserPermissionHandler(IUserPermissionAuthorizer userPermissionAuthorizer, IAuthorizationHelper authorizationHelper)
+    public UserPermissionHandler(
+        IUserPermissionAuthorizer userPermissionAuthorizer,
+        IAuthorizationHelper authorizationHelper)
     {
         _userPermissionAuthorizer = userPermissionAuthorizer;
         _authorizationHelper = authorizationHelper;

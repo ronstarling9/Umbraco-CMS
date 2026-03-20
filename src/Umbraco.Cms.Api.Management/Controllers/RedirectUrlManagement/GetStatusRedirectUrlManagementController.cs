@@ -20,6 +20,7 @@ public class GetStatusRedirectUrlManagementController : RedirectUrlManagementCon
     [ProducesResponseType(typeof(RedirectUrlStatusResponseModel), 200)]
     [EndpointSummary("Gets the current redirect URL management status.")]
     [EndpointDescription("Retrieves the current status and configuration for redirect URL management.")]
-    public Task<ActionResult<RedirectUrlStatusResponseModel>> GetStatus(CancellationToken cancellationToken) =>
-        Task.FromResult<ActionResult<RedirectUrlStatusResponseModel>>(_redirectUrlStatusPresentationFactory.CreateViewModel());
+    public Task<ActionResult<RedirectUrlStatusResponseModel>> GetStatus(CancellationToken cancellationToken)
+        => Task.FromResult<ActionResult<RedirectUrlStatusResponseModel>>(
+            _redirectUrlStatusPresentationFactory.CreateViewModel());
 }

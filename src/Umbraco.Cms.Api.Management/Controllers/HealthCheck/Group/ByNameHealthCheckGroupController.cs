@@ -41,7 +41,8 @@ public class ByNameHealthCheckGroupController : HealthCheckGroupControllerBase
         IEnumerable<IGrouping<string?, Core.HealthChecks.HealthCheck>> groups = _healthCheckGroupPresentationFactory
             .CreateGroupingFromHealthCheckCollection();
 
-        IGrouping<string?, Core.HealthChecks.HealthCheck>? group = groups.FirstOrDefault(x => x.Key.InvariantEquals(name.Trim()));
+        IGrouping<string?, Core.HealthChecks.HealthCheck>? group =
+            groups.FirstOrDefault(x => x.Key.InvariantEquals(name.Trim()));
 
         if (group is null)
         {

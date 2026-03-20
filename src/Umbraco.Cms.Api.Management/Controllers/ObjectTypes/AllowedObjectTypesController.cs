@@ -12,7 +12,8 @@ public class AllowedObjectTypesController : ObjectTypesControllerBase
 {
     private readonly IObjectTypePresentationFactory _objectTypePresentationFactory;
 
-    public AllowedObjectTypesController(IObjectTypePresentationFactory objectTypePresentationFactory) => _objectTypePresentationFactory = objectTypePresentationFactory;
+    public AllowedObjectTypesController(IObjectTypePresentationFactory objectTypePresentationFactory)
+        => _objectTypePresentationFactory = objectTypePresentationFactory;
 
     [HttpGet]
     [MapToApiVersion("1.0")]

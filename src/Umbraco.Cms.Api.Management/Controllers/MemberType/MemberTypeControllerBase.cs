@@ -20,7 +20,8 @@ public abstract class MemberTypeControllerBase : ManagementApiControllerBase
     protected IActionResult StructureOperationStatusResult(ContentTypeStructureOperationStatus status)
         => DocumentTypeControllerBase.ContentTypeStructureOperationStatusResult(status, "member");
 
-    protected IActionResult MemberTypeImportOperationStatusResult(MemberTypeImportOperationStatus operationStatus) =>
+    protected IActionResult MemberTypeImportOperationStatusResult(MemberTypeImportOperationStatus operationStatus)
+        =>
         OperationStatusResult(operationStatus, problemDetailsBuilder => operationStatus switch
         {
             MemberTypeImportOperationStatus.TemporaryFileNotFound => NotFound(problemDetailsBuilder

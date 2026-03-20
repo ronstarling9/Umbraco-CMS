@@ -11,7 +11,8 @@ public class GetModelsBuilderController : ModelsBuilderControllerBase
 {
     private readonly IModelsBuilderPresentationFactory _modelsBuilderPresentationFactory;
 
-    public GetModelsBuilderController(IModelsBuilderPresentationFactory modelsBuilderPresentationFactory) => _modelsBuilderPresentationFactory = modelsBuilderPresentationFactory;
+    public GetModelsBuilderController(IModelsBuilderPresentationFactory modelsBuilderPresentationFactory)
+        => _modelsBuilderPresentationFactory = modelsBuilderPresentationFactory;
 
     [HttpGet("dashboard")]
     [ProducesResponseType(typeof(ModelsBuilderResponseModel), StatusCodes.Status200OK)]

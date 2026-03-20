@@ -20,7 +20,10 @@ public class ChildrenDictionaryTreeController : DictionaryTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public ChildrenDictionaryTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IDictionaryItemService dictionaryItemService)
+    public ChildrenDictionaryTreeController(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IDictionaryItemService dictionaryItemService)
         : base(entityService, flagProviders, dictionaryItemService)
     {
     }
@@ -30,7 +33,8 @@ public class ChildrenDictionaryTreeController : DictionaryTreeControllerBase
     [ProducesResponseType(typeof(PagedViewModel<NamedEntityTreeItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets a collection of dictionary tree child items.")]
     [EndpointDescription("Gets a paginated collection of dictionary tree items that are children of the provided parent Id.")]
-    public async Task<ActionResult<PagedViewModel<NamedEntityTreeItemResponseModel>>> Children(CancellationToken cancellationToken, Guid parentId, int skip = 0, int take = 100)
+    public async Task<ActionResult<PagedViewModel<NamedEntityTreeItemResponseModel>>> Children(
+        CancellationToken cancellationToken, Guid parentId, int skip = 0, int take = 100)
     {
         PagedModel<IDictionaryItem> paginatedItems = await DictionaryItemService.GetPagedAsync(parentId, skip, take);
 

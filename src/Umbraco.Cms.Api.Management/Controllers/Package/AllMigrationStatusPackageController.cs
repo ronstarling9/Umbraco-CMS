@@ -26,13 +26,17 @@ public class AllMigrationStatusPackageController : PackageControllerBase
     }
 
     [Obsolete("Please use the non-obsolete constructor. Scheduled for removal in Umbraco 18.")]
-    public AllMigrationStatusPackageController(IPackagingService packagingService, IUmbracoMapper umbracoMapper, IPackagePresentationFactory packagePresentationFactory)
+    public AllMigrationStatusPackageController(
+        IPackagingService packagingService,
+        IUmbracoMapper umbracoMapper,
+        IPackagePresentationFactory packagePresentationFactory)
         : this(packagingService, packagePresentationFactory)
     {
     }
 
     [ActivatorUtilitiesConstructor]
-    public AllMigrationStatusPackageController(IPackagingService packagingService, IPackagePresentationFactory packagePresentationFactory)
+    public AllMigrationStatusPackageController(
+        IPackagingService packagingService, IPackagePresentationFactory packagePresentationFactory)
     {
         _packagingService = packagingService;
         _packagePresentationFactory = packagePresentationFactory;
@@ -55,9 +59,11 @@ public class AllMigrationStatusPackageController : PackageControllerBase
         int skip = 0,
         int take = 100)
     {
-        PagedModel<InstalledPackage> migrationPlans = await _packagingService.GetInstalledPackagesFromMigrationPlansAsync(skip, take);
+        PagedModel<InstalledPackage> migrationPlans =
+            await _packagingService.GetInstalledPackagesFromMigrationPlansAsync(skip, take);
 
-        PagedViewModel<PackageMigrationStatusResponseModel> viewModel = _packagePresentationFactory.CreatePackageMigrationStatusResponseModel(migrationPlans);
+        PagedViewModel<PackageMigrationStatusResponseModel> viewModel =
+            _packagePresentationFactory.CreatePackageMigrationStatusResponseModel(migrationPlans);
 
         return Ok(viewModel);
     }

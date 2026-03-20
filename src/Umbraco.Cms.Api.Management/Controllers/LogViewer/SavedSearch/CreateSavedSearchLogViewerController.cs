@@ -14,7 +14,8 @@ public class CreateSavedSearchLogViewerController : SavedSearchLogViewerControll
 {
     private readonly ILogViewerService _logViewerService;
 
-    public CreateSavedSearchLogViewerController(ILogViewerService logViewerService) => _logViewerService = logViewerService;
+    public CreateSavedSearchLogViewerController(ILogViewerService logViewerService)
+        => _logViewerService = logViewerService;
 
     /// <summary>
     ///     Creates a saved log search.

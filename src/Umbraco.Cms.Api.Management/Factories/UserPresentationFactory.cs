@@ -66,7 +66,8 @@ public class UserPresentationFactory : IUserPresentationFactory
         _externalLoginProviders = externalLoginProviders;
         _securitySettings = securitySettings.Value;
         _absoluteUrlBuilder = absoluteUrlBuilder;
-        _permissionPresentationMappersByType = permissionPresentationMappers.ToDictionary(x => x.PresentationModelToHandle);
+        _permissionPresentationMappersByType =
+            permissionPresentationMappers.ToDictionary(x => x.PresentationModelToHandle);
     }
 
     /// <inheritdoc/>
@@ -160,7 +161,8 @@ public class UserPresentationFactory : IUserPresentationFactory
         var model = new CurrentUserConfigurationResponseModel
         {
             KeepUserLoggedIn = _securitySettings.KeepUserLoggedIn,
-            PasswordConfiguration = _passwordConfigurationPresentationFactory.CreatePasswordConfigurationResponseModel(),
+            PasswordConfiguration =
+                _passwordConfigurationPresentationFactory.CreatePasswordConfigurationResponseModel(),
 
             // You should not be able to change any password or set 2fa if any providers has deny local login set.
             AllowChangePassword = _externalLoginProviders.HasDenyLocalLogin() is false,
@@ -175,9 +177,11 @@ public class UserPresentationFactory : IUserPresentationFactory
         Task.FromResult(new UserConfigurationResponseModel
         {
             // You should not be able to invite users if any providers has deny local login set.
-            CanInviteUsers = _emailSender.CanSendRequiredEmail() && _externalLoginProviders.HasDenyLocalLogin() is false,
+            CanInviteUsers =
+                _emailSender.CanSendRequiredEmail() && _externalLoginProviders.HasDenyLocalLogin() is false,
             UsernameIsEmail = _securitySettings.UsernameIsEmail,
-            PasswordConfiguration = _passwordConfigurationPresentationFactory.CreatePasswordConfigurationResponseModel(),
+            PasswordConfiguration =
+                _passwordConfigurationPresentationFactory.CreatePasswordConfigurationResponseModel(),
 
             // You should not be able to change any password or set 2fa if any providers has deny local login set.
             AllowChangePassword = _externalLoginProviders.HasDenyLocalLogin() is false,
@@ -208,12 +212,14 @@ public class UserPresentationFactory : IUserPresentationFactory
     public async Task<CurrentUserResponseModel> CreateCurrentUserResponseModelAsync(IUser user)
     {
         UserResponseModel presentationUser = CreateResponseModel(user);
-        IEnumerable<UserGroupResponseModel> presentationGroups = await _userGroupPresentationFactory.CreateMultipleAsync(user.Groups);
+        IEnumerable<UserGroupResponseModel> presentationGroups =
+            await _userGroupPresentationFactory.CreateMultipleAsync(user.Groups);
         var languages = presentationGroups.SelectMany(x => x.Languages).Distinct().ToArray();
         var mediaStartNodeIds = user.CalculateMediaStartNodeIds(_entityService, _appCaches);
         ISet<ReferenceByIdModel> mediaStartNodeKeys = GetKeysFromIds(mediaStartNodeIds, UmbracoObjectTypes.Media);
         var contentStartNodeIds = user.CalculateContentStartNodeIds(_entityService, _appCaches);
-        ISet<ReferenceByIdModel> documentStartNodeKeys = GetKeysFromIds(contentStartNodeIds, UmbracoObjectTypes.Document);
+        ISet<ReferenceByIdModel> documentStartNodeKeys =
+            GetKeysFromIds(contentStartNodeIds, UmbracoObjectTypes.Document);
 
         HashSet<IPermissionPresentationModel> permissions = GetAggregatedGranularPermissions(user, presentationGroups);
         var fallbackPermissions = presentationGroups.SelectMany(x => x.FallbackPermissions).ToHashSet();
@@ -245,30 +251,35 @@ public class UserPresentationFactory : IUserPresentationFactory
         };
     }
 
-    private HashSet<IPermissionPresentationModel> GetAggregatedGranularPermissions(IUser user, IEnumerable<UserGroupResponseModel> presentationGroups)
+    private HashSet<IPermissionPresentationModel> GetAggregatedGranularPermissions(
+        IUser user, IEnumerable<UserGroupResponseModel> presentationGroups)
     {
         var permissions = presentationGroups.SelectMany(x => x.Permissions).ToHashSet();
         return GetAggregatedGranularPermissions(user, permissions);
     }
 
-    private HashSet<IPermissionPresentationModel> GetAggregatedGranularPermissions(IUser user, HashSet<IPermissionPresentationModel> permissions)
+    private HashSet<IPermissionPresentationModel> GetAggregatedGranularPermissions(
+        IUser user, HashSet<IPermissionPresentationModel> permissions)
     {
-        // The raw permission data consists of several permissions for each entity (e.g. document), as permissions are assigned to user groups
-        // and a user may be part of multiple groups.  We want to aggregate this server-side so we return one set of aggregate permissions per
-        // entity that the client will use.
-        // We need to handle here not just permissions known to core (e.g. document and document property value permissions), but also custom
-        // permissions defined by packages or implemetors.
+        // The raw permission data consists of several permissions for each entity (e.g. document), as permissions
+        // are assigned to user groups and a user may be part of multiple groups. We want to aggregate this
+        // server-side so we return one set of aggregate permissions per entity that the client will use.
+        // We need to handle here not just permissions known to core (e.g. document and document property value
+        // permissions), but also custom permissions defined by packages or implementors.
         IEnumerable<(Type, IEnumerable<IPermissionPresentationModel>)> permissionModelsByType = permissions
             .GroupBy(x => x.GetType())
             .Select(x => (x.Key, x.Select(y => y)));
 
         var aggregatedPermissions = new HashSet<IPermissionPresentationModel>();
-        foreach ((Type Type, IEnumerable<IPermissionPresentationModel> Models) permissionModelByType in permissionModelsByType)
+        foreach ((Type Type, IEnumerable<IPermissionPresentationModel> Models) permissionModelByType
+            in permissionModelsByType)
         {
-            if (_permissionPresentationMappersByType.TryGetValue(permissionModelByType.Type, out IPermissionPresentationMapper? mapper))
+            if (_permissionPresentationMappersByType.TryGetValue(
+                    permissionModelByType.Type, out IPermissionPresentationMapper? mapper))
             {
 
-                IEnumerable<IPermissionPresentationModel> aggregatedModels = mapper.AggregatePresentationModels(user, permissionModelByType.Models);
+                IEnumerable<IPermissionPresentationModel> aggregatedModels =
+                    mapper.AggregatePresentationModels(user, permissionModelByType.Models);
                 foreach (IPermissionPresentationModel aggregatedModel in aggregatedModels)
                 {
                     aggregatedPermissions.Add(aggregatedModel);
@@ -302,7 +313,8 @@ public class UserPresentationFactory : IUserPresentationFactory
         var mediaStartNodeIds = user.CalculateMediaStartNodeIds(_entityService, _appCaches);
         ISet<ReferenceByIdModel> mediaStartNodeKeys = GetKeysFromIds(mediaStartNodeIds, UmbracoObjectTypes.Media);
         var contentStartNodeIds = user.CalculateContentStartNodeIds(_entityService, _appCaches);
-        ISet<ReferenceByIdModel> documentStartNodeKeys = GetKeysFromIds(contentStartNodeIds, UmbracoObjectTypes.Document);
+        ISet<ReferenceByIdModel> documentStartNodeKeys =
+            GetKeysFromIds(contentStartNodeIds, UmbracoObjectTypes.Document);
 
         return Task.FromResult<CalculatedUserStartNodesResponseModel>(new CalculatedUserStartNodesResponseModel()
         {

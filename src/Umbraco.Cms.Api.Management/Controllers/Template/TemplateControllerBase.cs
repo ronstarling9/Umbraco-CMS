@@ -14,7 +14,8 @@ namespace Umbraco.Cms.Api.Management.Controllers.Template;
 [Authorize(Policy = AuthorizationPolicies.TreeAccessTemplates)]
 public class TemplateControllerBase : ManagementApiControllerBase
 {
-    protected IActionResult TemplateOperationStatusResult(TemplateOperationStatus status) =>
+    protected IActionResult TemplateOperationStatusResult(TemplateOperationStatus status)
+        =>
         OperationStatusResult(status, problemDetailsBuilder => status switch
         {
             TemplateOperationStatus.TemplateNotFound => TemplateNotFound(),
@@ -40,7 +41,8 @@ public class TemplateControllerBase : ManagementApiControllerBase
                 .Build()),
             TemplateOperationStatus.MasterTemplateCannotBeDeleted => BadRequest(problemDetailsBuilder
                 .WithTitle("Master template cannot be deleted")
-                .WithDetail("The master templates cannot be deleted. Please ensure the template is not a master template before you delete.")
+                .WithDetail(
+                    "The master templates cannot be deleted. Please ensure the template is not a master template before you delete.")
                 .Build()),
             TemplateOperationStatus.NotAllowedInProductionMode => BadRequest(problemDetailsBuilder
                 .WithTitle("Not allowed in production mode")
@@ -48,7 +50,8 @@ public class TemplateControllerBase : ManagementApiControllerBase
                 .Build()),
             TemplateOperationStatus.ContentChangeNotAllowedInProductionMode => BadRequest(problemDetailsBuilder
                 .WithTitle("Content change not allowed in production mode")
-                .WithDetail("Template content changes are not allowed when running in production mode. Metadata updates are permitted.")
+                .WithDetail(
+                    "Template content changes are not allowed when running in production mode. Metadata updates are permitted.")
                 .Build()),
             _ => StatusCode(StatusCodes.Status500InternalServerError, problemDetailsBuilder
                 .WithTitle("Unknown template operation status.")
@@ -58,7 +61,8 @@ public class TemplateControllerBase : ManagementApiControllerBase
     protected IActionResult TemplateNotFound()
         => OperationStatusResult(TemplateOperationStatus.TemplateNotFound, TemplateNotFound);
 
-    protected IActionResult TemplateNotFound(ProblemDetailsBuilder problemDetailsBuilder) => NotFound(problemDetailsBuilder
-        .WithTitle("The template could not be found")
+    protected IActionResult TemplateNotFound(ProblemDetailsBuilder problemDetailsBuilder)
+        => NotFound(problemDetailsBuilder
+            .WithTitle("The template could not be found")
         .Build());
 }

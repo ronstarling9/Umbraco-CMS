@@ -39,7 +39,8 @@ public class MoveDocumentController : DocumentControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Moves a document.")]
     [EndpointDescription("Moves a document identified by the provided Id to a different location.")]
-    public async Task<IActionResult> Move(CancellationToken cancellationToken, Guid id, MoveDocumentRequestModel moveDocumentRequestModel)
+    public async Task<IActionResult> Move(
+        CancellationToken cancellationToken, Guid id, MoveDocumentRequestModel moveDocumentRequestModel)
     {
         AuthorizationResult sourceAuthorizationResult = await _authorizationService.AuthorizeResourceAsync(
             User,

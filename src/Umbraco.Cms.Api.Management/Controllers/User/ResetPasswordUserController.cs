@@ -54,7 +54,8 @@ public class ResetPasswordUserController : UserControllerBase
             return Forbidden();
         }
 
-        Attempt<PasswordChangedModel, UserOperationStatus> response = await _userService.ResetPasswordAsync(CurrentUserKey(_backOfficeSecurityAccessor), id);
+        Attempt<PasswordChangedModel, UserOperationStatus> response =
+            await _userService.ResetPasswordAsync(CurrentUserKey(_backOfficeSecurityAccessor), id);
 
         return response.Success
             ? Ok(_mapper.Map<ResetPasswordUserResponseModel>(response.Result))

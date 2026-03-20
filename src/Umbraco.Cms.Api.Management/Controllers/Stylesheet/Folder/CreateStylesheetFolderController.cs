@@ -36,10 +36,12 @@ public class CreateStylesheetFolderController : StylesheetFolderControllerBase
         CreateStylesheetFolderRequestModel requestModel)
     {
         StylesheetFolderCreateModel createModel = _mapper.Map<StylesheetFolderCreateModel>(requestModel)!;
-        Attempt<StylesheetFolderModel?, StylesheetFolderOperationStatus> result = await _stylesheetFolderService.CreateAsync(createModel);
+        Attempt<StylesheetFolderModel?, StylesheetFolderOperationStatus> result =
+            await _stylesheetFolderService.CreateAsync(createModel);
 
         return result.Success
-            ? CreatedAtPath<ByPathStylesheetFolderController>(controller => nameof(controller.ByPath), result.Result!.Path.SystemPathToVirtualPath())
+            ? CreatedAtPath<ByPathStylesheetFolderController>(
+                controller => nameof(controller.ByPath), result.Result!.Path.SystemPathToVirtualPath())
             : OperationStatusResult(result.Status);
     }
 }

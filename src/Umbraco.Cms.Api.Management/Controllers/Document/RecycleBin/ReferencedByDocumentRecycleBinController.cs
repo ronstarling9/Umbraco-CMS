@@ -39,7 +39,9 @@ public class ReferencedByDocumentRecycleBinController : DocumentRecycleBinContro
         int skip = 0,
         int take = 20)
     {
-        PagedModel<RelationItemModel> relationItems = await _trackedReferencesService.GetPagedRelationsForRecycleBinAsync(UmbracoObjectTypes.Document, skip, take, true);
+        PagedModel<RelationItemModel> relationItems =
+            await _trackedReferencesService.GetPagedRelationsForRecycleBinAsync(
+                UmbracoObjectTypes.Document, skip, take, true);
 
         var pagedViewModel = new PagedViewModel<IReferenceResponseModel>
         {

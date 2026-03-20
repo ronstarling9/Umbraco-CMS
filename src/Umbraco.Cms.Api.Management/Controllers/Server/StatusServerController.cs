@@ -28,5 +28,6 @@ public class StatusServerController : ServerControllerBase
     [EndpointSummary("Gets server status.")]
     [EndpointDescription("Gets the current operational status of the Umbraco server.")]
     public Task<ActionResult<ServerStatusResponseModel>> Get(CancellationToken cancellationToken)
-        => Task.FromResult<ActionResult<ServerStatusResponseModel>>(new ServerStatusResponseModel { ServerStatus = _runtimeState.Level });
+        => Task.FromResult<ActionResult<ServerStatusResponseModel>>(
+            new ServerStatusResponseModel { ServerStatus = _runtimeState.Level });
 }

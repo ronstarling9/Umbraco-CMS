@@ -44,10 +44,12 @@ public class CreateStylesheetController : StylesheetControllerBase
         CreateStylesheetRequestModel requestModel)
     {
         StylesheetCreateModel createModel = _umbracoMapper.Map<StylesheetCreateModel>(requestModel)!;
-        Attempt<IStylesheet?, StylesheetOperationStatus> createAttempt = await _stylesheetService.CreateAsync(createModel, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IStylesheet?, StylesheetOperationStatus> createAttempt =
+            await _stylesheetService.CreateAsync(createModel, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return createAttempt.Success
-            ? CreatedAtPath<ByPathStylesheetController>(controller => nameof(controller.ByPath), createAttempt.Result!.Path.SystemPathToVirtualPath())
+            ? CreatedAtPath<ByPathStylesheetController>(
+                controller => nameof(controller.ByPath), createAttempt.Result!.Path.SystemPathToVirtualPath())
             : StylesheetOperationStatusResult(createAttempt.Status);
     }
 }

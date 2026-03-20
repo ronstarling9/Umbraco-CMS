@@ -13,7 +13,8 @@ public class DeleteSavedSearchLogViewerController : SavedSearchLogViewerControll
 {
     private readonly ILogViewerService _logViewerService;
 
-    public DeleteSavedSearchLogViewerController(ILogViewerService logViewerService) => _logViewerService = logViewerService;
+    public DeleteSavedSearchLogViewerController(ILogViewerService logViewerService)
+        => _logViewerService = logViewerService;
 
     /// <summary>
     ///     Deletes a saved log search with a given name.
@@ -29,7 +30,8 @@ public class DeleteSavedSearchLogViewerController : SavedSearchLogViewerControll
     [EndpointDescription("Deletes a saved log search identified by the provided name.")]
     public async Task<IActionResult> Delete(CancellationToken cancellationToken, string name)
     {
-        Attempt<ILogViewerQuery?, LogViewerOperationStatus> result = await _logViewerService.DeleteSavedLogQueryAsync(name);
+        Attempt<ILogViewerQuery?, LogViewerOperationStatus> result =
+            await _logViewerService.DeleteSavedLogQueryAsync(name);
 
         if (result.Success)
         {

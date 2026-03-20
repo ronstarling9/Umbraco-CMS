@@ -54,7 +54,8 @@ public class DeleteMediaRecycleBinController : MediaRecycleBinControllerBase
             return Forbidden();
         }
 
-        Attempt<IMedia?, ContentEditingOperationStatus> result = await _mediaEditingService.DeleteFromRecycleBinAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IMedia?, ContentEditingOperationStatus> result =
+            await _mediaEditingService.DeleteFromRecycleBinAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

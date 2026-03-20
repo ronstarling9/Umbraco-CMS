@@ -2,7 +2,8 @@
 
 public class UploadDictionaryResponseModel
 {
-    public IEnumerable<ImportDictionaryItemsPresentationModel> DictionaryItems { get; set; } = Enumerable.Empty<ImportDictionaryItemsPresentationModel>();
+    public IEnumerable<ImportDictionaryItemsPresentationModel> DictionaryItems { get; set; }
+        = Enumerable.Empty<ImportDictionaryItemsPresentationModel>();
 
     public string? FileName { get; set; }
 }

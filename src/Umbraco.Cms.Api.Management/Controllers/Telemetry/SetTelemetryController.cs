@@ -11,7 +11,8 @@ public class SetTelemetryController : TelemetryControllerBase
 {
     private readonly IMetricsConsentService _metricsConsentService;
 
-    public SetTelemetryController(IMetricsConsentService metricsConsentService) => _metricsConsentService = metricsConsentService;
+    public SetTelemetryController(IMetricsConsentService metricsConsentService)
+        => _metricsConsentService = metricsConsentService;
 
     [HttpPost("level")]
     [MapToApiVersion("1.0")]

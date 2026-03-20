@@ -30,7 +30,8 @@ public class ItemScriptItemController : ScriptItemControllerBase
         }
 
         paths = paths.Select(path => path.VirtualPathToSystemPath()).ToHashSet();
-        IEnumerable<ScriptItemResponseModel> responseModels = _fileItemPresentationFactory.CreateScriptItemResponseModels(paths);
+        IEnumerable<ScriptItemResponseModel> responseModels =
+            _fileItemPresentationFactory.CreateScriptItemResponseModels(paths);
         return Task.FromResult<IActionResult>(Ok(responseModels));
     }
 }

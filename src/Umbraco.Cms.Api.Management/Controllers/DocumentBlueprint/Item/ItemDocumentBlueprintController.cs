@@ -16,7 +16,9 @@ public class ItemDocumentBlueprintController : DocumentBlueprintItemControllerBa
     private readonly IEntityService _entityService;
     private readonly IDocumentPresentationFactory _documentPresentationFactory;
 
-    public ItemDocumentBlueprintController(IEntityService entityService, IDocumentPresentationFactory documentPresentationFactory)
+    public ItemDocumentBlueprintController(
+        IEntityService entityService,
+        IDocumentPresentationFactory documentPresentationFactory)
     {
         _entityService = entityService;
         _documentPresentationFactory = documentPresentationFactory;
@@ -40,7 +42,8 @@ public class ItemDocumentBlueprintController : DocumentBlueprintItemControllerBa
             .GetAll(UmbracoObjectTypes.DocumentBlueprint, ids.ToArray())
             .Select(x => x as IDocumentEntitySlim)
             .WhereNotNull();
-        IEnumerable<DocumentBlueprintItemResponseModel> responseModels = documents.Select(x => _documentPresentationFactory.CreateBlueprintItemResponseModel(x));
+        IEnumerable<DocumentBlueprintItemResponseModel> responseModels = documents
+            .Select(x => _documentPresentationFactory.CreateBlueprintItemResponseModel(x));
         return Task.FromResult<IActionResult>(Ok(responseModels));
     }
 }

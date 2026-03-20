@@ -38,7 +38,8 @@ public class ValidateCreateMediaController : CreateMediaControllerBase
         => await HandleRequest(requestModel.Parent?.Id, async () =>
         {
             MediaCreateModel model = _mediaEditingPresentationFactory.MapCreateModel(requestModel);
-            Attempt<ContentValidationResult, ContentEditingOperationStatus> result = await _mediaEditingService.ValidateCreateAsync(model);
+            Attempt<ContentValidationResult, ContentEditingOperationStatus> result =
+                await _mediaEditingService.ValidateCreateAsync(model);
 
             return result.Success
                 ? Ok()

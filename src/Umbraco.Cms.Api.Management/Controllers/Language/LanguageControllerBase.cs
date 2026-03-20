@@ -16,12 +16,14 @@ public abstract class LanguageControllerBase : ManagementApiControllerBase
         {
             LanguageOperationStatus.InvalidFallback => BadRequest(problemDetailsBuilder
                 .WithTitle("Invalid fallback language")
-                .WithDetail("The fallback language could not be applied. This may be caused if the fallback language causes cyclic fallbacks.")
+                .WithDetail(
+                    "The fallback language could not be applied. This may be caused if the fallback language causes cyclic fallbacks.")
                 .Build()),
             LanguageOperationStatus.NotFound => LanguageNotFound(problemDetailsBuilder),
             LanguageOperationStatus.MissingDefault => BadRequest(problemDetailsBuilder
                 .WithTitle("No default language")
-                .WithDetail("The attempted operation would result in having no default language defined. This is not allowed.")
+                .WithDetail(
+                    "The attempted operation would result in having no default language defined. This is not allowed.")
                 .Build()),
             LanguageOperationStatus.DuplicateIsoCode => BadRequest(problemDetailsBuilder
                 .WithTitle("Duplicate ISO code")
@@ -44,9 +46,11 @@ public abstract class LanguageControllerBase : ManagementApiControllerBase
                 .Build()),
         });
 
-    protected IActionResult LanguageNotFound() => OperationStatusResult(LanguageOperationStatus.NotFound, LanguageNotFound);
+    protected IActionResult LanguageNotFound()
+        => OperationStatusResult(LanguageOperationStatus.NotFound, LanguageNotFound);
 
-    private IActionResult LanguageNotFound(ProblemDetailsBuilder problemDetailsBuilder) => NotFound(problemDetailsBuilder
-        .WithTitle("The language could not be found")
-        .Build());
+    private IActionResult LanguageNotFound(ProblemDetailsBuilder problemDetailsBuilder)
+        => NotFound(problemDetailsBuilder
+            .WithTitle("The language could not be found")
+            .Build());
 }

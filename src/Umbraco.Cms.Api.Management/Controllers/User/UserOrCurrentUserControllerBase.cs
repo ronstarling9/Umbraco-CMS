@@ -8,7 +8,9 @@ namespace Umbraco.Cms.Api.Management.Controllers.User;
 [ApiExplorerSettings(GroupName = "User")]
 public abstract class UserOrCurrentUserControllerBase : ManagementApiControllerBase
 {
-    protected IActionResult UserOperationStatusResult(UserOperationStatus status, ErrorMessageResult? errorMessageResult = null) =>
+    protected IActionResult UserOperationStatusResult(
+        UserOperationStatus status,
+        ErrorMessageResult? errorMessageResult = null) =>
         OperationStatusResult(status, problemDetailsBuilder => status switch
         {
             UserOperationStatus.MissingUser =>

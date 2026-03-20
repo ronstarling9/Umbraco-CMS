@@ -18,7 +18,10 @@ public class GetRootsController : DynamicRootControllerBase
     private readonly IUmbracoMapper _umbracoMapper;
     private readonly IBackOfficeVariationContextAccessor _backOfficeVariationContextAccessor;
 
-    public GetRootsController(IDynamicRootService dynamicRootService, IUmbracoMapper umbracoMapper, IBackOfficeVariationContextAccessor backOfficeVariationContextAccessor)
+    public GetRootsController(
+        IDynamicRootService dynamicRootService,
+        IUmbracoMapper umbracoMapper,
+        IBackOfficeVariationContextAccessor backOfficeVariationContextAccessor)
     {
         _dynamicRootService = dynamicRootService;
         _umbracoMapper = umbracoMapper;
@@ -32,7 +35,8 @@ public class GetRootsController : DynamicRootControllerBase
     [EndpointDescription("Gets a collection of dynamic root items based on the provided query configuration.")]
     public async Task<IActionResult> GetRoots(CancellationToken cancellationToken, DynamicRootRequestModel model)
     {
-        _backOfficeVariationContextAccessor.VariationContext = new BackOfficeVariationContext(model.Context.Culture, model.Context.Segment);
+        _backOfficeVariationContextAccessor.VariationContext =
+            new BackOfficeVariationContext(model.Context.Culture, model.Context.Segment);
 
         DynamicRootNodeQuery dynamicRootNodeQuery = _umbracoMapper.Map<DynamicRootNodeQuery>(model)!;
 

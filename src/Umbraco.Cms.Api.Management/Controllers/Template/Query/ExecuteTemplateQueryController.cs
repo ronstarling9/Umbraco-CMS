@@ -110,7 +110,8 @@ public class ExecuteTemplateQueryController : TemplateQueryControllerBase
         return rootContent;
     }
 
-    private IEnumerable<IPublishedContent> GetRootContentQuery(TemplateQueryExecuteModel model, IPublishedContent? rootContent, StringBuilder queryExpression)
+    private IEnumerable<IPublishedContent> GetRootContentQuery(
+        TemplateQueryExecuteModel model, IPublishedContent? rootContent, StringBuilder queryExpression)
     {
         queryExpression.Append(_indent);
 
@@ -119,7 +120,10 @@ public class ExecuteTemplateQueryController : TemplateQueryControllerBase
             queryExpression.Append(".ChildrenOfType(\"").Append(model.DocumentTypeAlias).Append("\")");
             return rootContent == null
                 ? Enumerable.Empty<IPublishedContent>()
-                : rootContent.ChildrenOfType(_documentNavigationQueryService, _publishedContentStatusFilteringService, model.DocumentTypeAlias);
+                : rootContent.ChildrenOfType(
+                    _documentNavigationQueryService,
+                    _publishedContentStatusFilteringService,
+                    model.DocumentTypeAlias);
         }
 
         queryExpression.Append(".Children()");
@@ -128,7 +132,10 @@ public class ExecuteTemplateQueryController : TemplateQueryControllerBase
             : rootContent.Children(_documentNavigationQueryService, _publishedContentStatusFilteringService);
     }
 
-    private IEnumerable<IPublishedContent> ApplyFiltering(IEnumerable<TemplateQueryExecuteFilterPresentationModel>? filters, IEnumerable<IPublishedContent> contentQuery, StringBuilder queryExpression)
+    private IEnumerable<IPublishedContent> ApplyFiltering(
+        IEnumerable<TemplateQueryExecuteFilterPresentationModel>? filters,
+        IEnumerable<IPublishedContent> contentQuery,
+        StringBuilder queryExpression)
     {
         if (filters is not null)
         {
@@ -142,9 +149,12 @@ public class ExecuteTemplateQueryController : TemplateQueryControllerBase
         return contentQuery;
     }
 
-    private IEnumerable<IPublishedContent> ApplyFilters(IEnumerable<TemplateQueryExecuteFilterPresentationModel> filters, IEnumerable<IPublishedContent> contentQuery, StringBuilder queryExpression)
+    private IEnumerable<IPublishedContent> ApplyFilters(
+        IEnumerable<TemplateQueryExecuteFilterPresentationModel> filters,
+        IEnumerable<IPublishedContent> contentQuery,
+        StringBuilder queryExpression)
     {
-        var propertyTypeByAlias = GetProperties().ToDictionary(p => p.Alias, p => p.Type);
+        var propertyTypeByAlias = GetProperties().ToDictionary(prop => prop.Alias, prop => prop.Type);
 
         string PropertyModelType(TemplateQueryPropertyType templateQueryPropertyType)
             => templateQueryPropertyType switch
@@ -156,16 +166,18 @@ public class ExecuteTemplateQueryController : TemplateQueryControllerBase
             };
 
         IEnumerable<QueryCondition> conditions = filters
-            .Where(f => f.ConstraintValue.IsNullOrWhiteSpace() == false && propertyTypeByAlias.ContainsKey(f.PropertyAlias))
-            .Select(f => new QueryCondition
+            .Where(filter =>
+                filter.ConstraintValue.IsNullOrWhiteSpace() == false
+                && propertyTypeByAlias.ContainsKey(filter.PropertyAlias))
+            .Select(filter => new QueryCondition
             {
                 Property = new PropertyModel
                 {
-                    Alias = f.PropertyAlias,
-                    Type = PropertyModelType(propertyTypeByAlias[f.PropertyAlias])
+                    Alias = filter.PropertyAlias,
+                    Type = PropertyModelType(propertyTypeByAlias[filter.PropertyAlias])
                 },
-                ConstraintValue = f.ConstraintValue,
-                Term = new OperatorTerm { Operator = f.Operator }
+                ConstraintValue = filter.ConstraintValue,
+                Term = new OperatorTerm { Operator = filter.Operator }
             });
 
         // apply filters
@@ -183,7 +195,10 @@ public class ExecuteTemplateQueryController : TemplateQueryControllerBase
         return contentQuery;
     }
 
-    private IEnumerable<IPublishedContent> ApplySorting(TemplateQueryExecuteSortModel? sorting, IEnumerable<IPublishedContent> contentQuery, StringBuilder queryExpression)
+    private IEnumerable<IPublishedContent> ApplySorting(
+        TemplateQueryExecuteSortModel? sorting,
+        IEnumerable<IPublishedContent> contentQuery,
+        StringBuilder queryExpression)
     {
         if (string.IsNullOrWhiteSpace(sorting?.PropertyAlias))
         {
@@ -221,7 +236,8 @@ public class ExecuteTemplateQueryController : TemplateQueryControllerBase
         return contentQuery;
     }
 
-    private static IEnumerable<IPublishedContent> ApplyPaging(int take, IEnumerable<IPublishedContent> contentQuery, StringBuilder queryExpression)
+    private static IEnumerable<IPublishedContent> ApplyPaging(
+        int take, IEnumerable<IPublishedContent> contentQuery, StringBuilder queryExpression)
     {
         if (take <= 0)
         {

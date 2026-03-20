@@ -10,5 +10,6 @@ public interface IDocumentTypeEditingPresentationFactory
 
     ContentTypeUpdateModel MapUpdateModel(UpdateDocumentTypeRequestModel requestModel);
 
-    IEnumerable<AvailableDocumentTypeCompositionResponseModel> MapCompositionModels(IEnumerable<ContentTypeAvailableCompositionsResult> compositionResults);
+    IEnumerable<AvailableDocumentTypeCompositionResponseModel> MapCompositionModels(
+        IEnumerable<ContentTypeAvailableCompositionsResult> compositionResults);
 }

@@ -26,7 +26,8 @@ public class UserStartNodeEntitiesService : IUserStartNodeEntitiesService
     /// <param name="entityService">The entity service.</param>
     /// <param name="scopeProvider">The core scope provider.</param>
     /// <param name="idKeyMap">The ID to key mapping service.</param>
-    public UserStartNodeEntitiesService(IEntityService entityService, ICoreScopeProvider scopeProvider, IIdKeyMap idKeyMap)
+    public UserStartNodeEntitiesService(
+        IEntityService entityService, ICoreScopeProvider scopeProvider, IIdKeyMap idKeyMap)
     {
         _entityService = entityService;
         _scopeProvider = scopeProvider;
@@ -34,7 +35,8 @@ public class UserStartNodeEntitiesService : IUserStartNodeEntitiesService
     }
 
     /// <inheritdoc />
-    public IEnumerable<UserAccessEntity> RootUserAccessEntities(UmbracoObjectTypes umbracoObjectType, int[] userStartNodeIds)
+    public IEnumerable<UserAccessEntity> RootUserAccessEntities(
+        UmbracoObjectTypes umbracoObjectType, int[] userStartNodeIds)
     {
         // Root entities for users without root access should include:
         // - the start nodes that are actual root entities (level == 1)
@@ -44,12 +46,18 @@ public class UserStartNodeEntitiesService : IUserStartNodeEntitiesService
             : Array.Empty<IEntitySlim>();
 
         // Find the start nodes that are at root level (level == 1).
-        IEntitySlim[] allowedTopmostEntities = userStartEntities.Where(entity => entity.Level == 1).ToArray();
+        IEntitySlim[] allowedTopmostEntities = userStartEntities
+            .Where(entity => entity.Level == 1)
+            .ToArray();
 
         // Find the root level ancestors of the rest of the start nodes, and add those as well.
-        var nonAllowedTopmostEntityIds = userStartEntities.Except(allowedTopmostEntities)
-            .Select(entity => int.TryParse(entity.Path.Split(Constants.CharArrays.Comma).Skip(1).FirstOrDefault(), out var id) ? id : 0)
-            .Where(id => id > 0)
+        var nonAllowedTopmostEntityIds = userStartEntities
+            .Except(allowedTopmostEntities)
+            .Select(entity => int.TryParse(
+                entity.Path.Split(Constants.CharArrays.Comma).Skip(1).FirstOrDefault(), out var parsedId)
+                ? parsedId
+                : 0)
+            .Where(nodeId => nodeId > 0)
             .ToArray();
         IEntitySlim[] nonAllowedTopmostEntities = nonAllowedTopmostEntityIds.Any()
             ? _entityService.GetAll(umbracoObjectType, nonAllowedTopmostEntityIds).ToArray()
@@ -91,8 +99,10 @@ public class UserStartNodeEntitiesService : IUserStartNodeEntitiesService
         IEntitySlim[] children;
         if (userStartNodePaths.Any(path => $"{parent.Path},".StartsWith($"{path},")))
         {
-            // The requested parent is one of the user start nodes (or a descendant of one), all children are by definition allowed.
-            children = _entityService.GetPagedChildren(parentKey, umbracoObjectType, skip, take, out totalItems, ordering: ordering).ToArray();
+            // The requested parent is one of the user start nodes (or a descendant of one), all children are allowed.
+            children = _entityService
+                .GetPagedChildren(parentKey, umbracoObjectType, skip, take, out totalItems, ordering: ordering)
+                .ToArray();
             return ChildUserAccessEntities(children, userStartNodePaths);
         }
 
@@ -107,27 +117,35 @@ public class UserStartNodeEntitiesService : IUserStartNodeEntitiesService
             return [];
         }
 
-        // Even though we know the IDs of the allowed child entities to fetch, we still use a Query to yield correctly sorted children.
-        IQuery<IUmbracoEntity> query = _scopeProvider.CreateQuery<IUmbracoEntity>().Where(x => allowedChildIds.Contains(x.Id));
-        children = _entityService.GetPagedChildren(parentKey, umbracoObjectType, skip, take, out totalItems, query, ordering).ToArray();
+        // Even though we know the IDs of the allowed child entities to fetch, we use a Query to yield correctly sorted children.
+        IQuery<IUmbracoEntity> query = _scopeProvider
+            .CreateQuery<IUmbracoEntity>()
+            .Where(x => allowedChildIds.Contains(x.Id));
+        children = _entityService
+            .GetPagedChildren(parentKey, umbracoObjectType, skip, take, out totalItems, query, ordering)
+            .ToArray();
         return ChildUserAccessEntities(children, userStartNodePaths);
     }
 
     private static List<int> GetAllowedIds(string[] userStartNodePaths, int parentId)
     {
-        // If one or more of the user start nodes are descendants of the requested parent, find the "next child IDs" in those user start node paths
-        // that are the final entries in the path.
+        // If one or more of the user start nodes are descendants of the requested parent, find the "next child IDs"
+        // in those user start node paths that are the final entries in the path.
         // E.g. given the user start node path "-1,2,3,4,5", if the requested parent ID is 3, the "next child ID" is 4.
-        var userStartNodePathIds = userStartNodePaths.Select(path => path.Split(Constants.CharArrays.Comma).Select(int.Parse).ToArray()).ToArray();
+        var userStartNodePathIds = userStartNodePaths
+            .Select(path => path.Split(Constants.CharArrays.Comma).Select(int.Parse).ToArray())
+            .ToArray();
         return userStartNodePathIds
             .Where(ids => ids.Contains(parentId))
-            .Select(ids => ids[ids.IndexOf(parentId) + 1]) // Given the previous checks, the parent ID can never be the last in the user start node path, so this is safe
+            // Given the previous checks, the parent ID can never be the last in the path, so this is safe:
+            .Select(ids => ids[ids.IndexOf(parentId) + 1])
             .Distinct()
             .ToList();
     }
 
     /// <inheritdoc />
-    public IEnumerable<UserAccessEntity> ChildUserAccessEntities(IEnumerable<IEntitySlim> candidateChildren, string[] userStartNodePaths)
+    public IEnumerable<UserAccessEntity> ChildUserAccessEntities(
+        IEnumerable<IEntitySlim> candidateChildren, string[] userStartNodePaths)
 
         // Child or sibling entities for users without root access should include:
         // - children that are descendant-or-self of a user start node
@@ -191,8 +209,11 @@ public class UserStartNodeEntitiesService : IUserStartNodeEntitiesService
 
         if (userStartNodePaths.Any(path => $"{targetParent?.Path},".StartsWith($"{path},")))
         {
-            // The requested parent of the target is one of the user start nodes (or a descendant of one), all siblings are by definition allowed.
-            siblings = _entityService.GetSiblings(targetKey, [umbracoObjectType], before, after, out totalBefore, out totalAfter, ordering: ordering).ToArray();
+            // The requested parent of the target is one of the user start nodes (or a descendant), all siblings are allowed.
+            siblings = _entityService
+                .GetSiblings(
+                    targetKey, [umbracoObjectType], before, after, out totalBefore, out totalAfter, ordering: ordering)
+                .ToArray();
             return ChildUserAccessEntities(siblings, userStartNodePaths);
         }
 
@@ -206,19 +227,27 @@ public class UserStartNodeEntitiesService : IUserStartNodeEntitiesService
             return [];
         }
 
-        // Even though we know the IDs of the allowed sibling entities to fetch, we still use a Query to yield correctly sorted children.
-        IQuery<IUmbracoEntity> query = _scopeProvider.CreateQuery<IUmbracoEntity>().Where(x => allowedSiblingIds.Contains(x.Id));
-        siblings = _entityService.GetSiblings(targetKey, [umbracoObjectType], before, after, out totalBefore, out totalAfter, query, ordering).ToArray();
+        // Even though we know the IDs of the allowed sibling entities to fetch, we use a Query to yield correctly sorted children.
+        IQuery<IUmbracoEntity> query = _scopeProvider
+            .CreateQuery<IUmbracoEntity>()
+            .Where(x => allowedSiblingIds.Contains(x.Id));
+        siblings = _entityService
+            .GetSiblings(
+                targetKey, [umbracoObjectType], before, after, out totalBefore, out totalAfter, query, ordering)
+            .ToArray();
         return ChildUserAccessEntities(siblings, userStartNodePaths);
     }
 
     /// <inheritdoc />
-    public IEnumerable<UserAccessEntity> UserAccessEntities(IEnumerable<IEntitySlim> entities, string[] userStartNodePaths)
+    public IEnumerable<UserAccessEntity> UserAccessEntities(
+        IEnumerable<IEntitySlim> entities, string[] userStartNodePaths)
 
         // Entities for users without root access should include:
         // - entities that are descendant-or-self of a user start node as regular entities
         // - all other entities as "no access" entities
-        => entities.Select(entity => new UserAccessEntity(entity, IsDescendantOrSelf(entity, userStartNodePaths))).ToArray();
+        => entities
+            .Select(entity => new UserAccessEntity(entity, IsDescendantOrSelf(entity, userStartNodePaths)))
+            .ToArray();
 
     private static bool IsDescendantOrSelf(IEntitySlim child, string[] userStartNodePaths)
         // Note: Add trailing commas to both paths to prevent false matches (e.g., path "-1,100" should not match "-1,1001")

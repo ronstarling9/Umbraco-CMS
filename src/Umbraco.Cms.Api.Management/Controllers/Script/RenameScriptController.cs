@@ -19,7 +19,10 @@ public class RenameScriptController : ScriptControllerBase
     private readonly IUmbracoMapper _umbracoMapper;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public RenameScriptController(IScriptService scriptService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor, IUmbracoMapper umbracoMapper)
+    public RenameScriptController(
+        IScriptService scriptService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
+        IUmbracoMapper umbracoMapper)
     {
         _scriptService = scriptService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -41,10 +44,12 @@ public class RenameScriptController : ScriptControllerBase
         ScriptRenameModel renameModel = _umbracoMapper.Map<ScriptRenameModel>(requestModel)!;
 
         path = DecodePath(path).VirtualPathToSystemPath();
-        Attempt<IScript?, ScriptOperationStatus> renameAttempt = await _scriptService.RenameAsync(path, renameModel, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IScript?, ScriptOperationStatus> renameAttempt =
+            await _scriptService.RenameAsync(path, renameModel, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return renameAttempt.Success
-            ? CreatedAtPath<ByPathScriptController>(controller => nameof(controller.ByPath), renameAttempt.Result!.Path.SystemPathToVirtualPath())
+            ? CreatedAtPath<ByPathScriptController>(
+                controller => nameof(controller.ByPath), renameAttempt.Result!.Path.SystemPathToVirtualPath())
             : ScriptOperationStatusResult(renameAttempt.Status);
     }
 }

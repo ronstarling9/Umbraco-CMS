@@ -49,19 +49,23 @@ public class PublicAccessPresentationFactory : IPublicAccessPresentationFactory
     }
 
     /// <inheritdoc/>
-    public Attempt<PublicAccessResponseModel?, PublicAccessOperationStatus> CreatePublicAccessResponseModel(PublicAccessEntry entry, Guid contentKey)
+    public Attempt<PublicAccessResponseModel?, PublicAccessOperationStatus> CreatePublicAccessResponseModel(
+        PublicAccessEntry entry, Guid contentKey)
     {
-        Attempt<Guid> protectedNodeKeyAttempt = _entityService.GetKey(entry.ProtectedNodeId, UmbracoObjectTypes.Document);
+        Attempt<Guid> protectedNodeKeyAttempt =
+            _entityService.GetKey(entry.ProtectedNodeId, UmbracoObjectTypes.Document);
 
         if (protectedNodeKeyAttempt.Success is false)
         {
-            return Attempt.FailWithStatus<PublicAccessResponseModel?, PublicAccessOperationStatus>(PublicAccessOperationStatus.ContentNotFound, null);
+            return Attempt.FailWithStatus<PublicAccessResponseModel?, PublicAccessOperationStatus>(
+                PublicAccessOperationStatus.ContentNotFound, null);
         }
 
         // While the obsolete overload is still supported, let's use it.
         // TODO (V18): Remove the obsolete overload and move its logic here.
 #pragma warning disable CS0618 // Type or member is obsolete
-        Attempt<PublicAccessResponseModel?, PublicAccessOperationStatus> baseResponseAttempt = CreatePublicAccessResponseModel(entry);
+        Attempt<PublicAccessResponseModel?, PublicAccessOperationStatus> baseResponseAttempt =
+            CreatePublicAccessResponseModel(entry);
 #pragma warning restore CS0618 // Type or member is obsolete
 
         if (baseResponseAttempt.Success is false)
@@ -74,24 +78,28 @@ public class PublicAccessPresentationFactory : IPublicAccessPresentationFactory
             baseResponseAttempt.Result.IsProtectedByAncestor = true;
         }
 
-        return Attempt.SucceedWithStatus<PublicAccessResponseModel?, PublicAccessOperationStatus>(PublicAccessOperationStatus.Success, baseResponseAttempt.Result);
+        return Attempt.SucceedWithStatus<PublicAccessResponseModel?, PublicAccessOperationStatus>(
+            PublicAccessOperationStatus.Success, baseResponseAttempt.Result);
     }
 
     /// <inheritdoc/>
     [Obsolete("Plase use the overload taking all parameters. Scheduled for removal in Umbraco 19.")]
-    public Attempt<PublicAccessResponseModel?, PublicAccessOperationStatus> CreatePublicAccessResponseModel(PublicAccessEntry entry)
+    public Attempt<PublicAccessResponseModel?, PublicAccessOperationStatus> CreatePublicAccessResponseModel(
+        PublicAccessEntry entry)
     {
         Attempt<Guid> loginNodeKeyAttempt = _entityService.GetKey(entry.LoginNodeId, UmbracoObjectTypes.Document);
         Attempt<Guid> noAccessNodeKeyAttempt = _entityService.GetKey(entry.NoAccessNodeId, UmbracoObjectTypes.Document);
 
         if (loginNodeKeyAttempt.Success is false)
         {
-            return Attempt.FailWithStatus<PublicAccessResponseModel?, PublicAccessOperationStatus>(PublicAccessOperationStatus.LoginNodeNotFound, null);
+            return Attempt.FailWithStatus<PublicAccessResponseModel?, PublicAccessOperationStatus>(
+                PublicAccessOperationStatus.LoginNodeNotFound, null);
         }
 
         if (noAccessNodeKeyAttempt.Success is false)
         {
-            return Attempt.FailWithStatus<PublicAccessResponseModel?, PublicAccessOperationStatus>(PublicAccessOperationStatus.ErrorNodeNotFound, null);
+            return Attempt.FailWithStatus<PublicAccessResponseModel?, PublicAccessOperationStatus>(
+                PublicAccessOperationStatus.ErrorNodeNotFound, null);
         }
 
         // unwrap the current public access setup for the client
@@ -118,9 +126,12 @@ public class PublicAccessPresentationFactory : IPublicAccessPresentationFactory
             .ToArray();
 
         IEnumerable<IEntitySlim> groupsEntities = identityRoles.Any()
-            ? _entityService.GetAll(UmbracoObjectTypes.MemberGroup, identityRoles.Select(x => Convert.ToInt32(x.Id)).ToArray())
+            ? _entityService.GetAll(
+                UmbracoObjectTypes.MemberGroup, identityRoles.Select(x => Convert.ToInt32(x.Id)).ToArray())
             : Enumerable.Empty<IEntitySlim>();
-        MemberGroupItemResponseModel[] memberGroups = groupsEntities.Select(x => _mapper.Map<MemberGroupItemResponseModel>(x)!).ToArray();
+        MemberGroupItemResponseModel[] memberGroups = groupsEntities
+            .Select(x => _mapper.Map<MemberGroupItemResponseModel>(x)!)
+            .ToArray();
 
         var responseModel = new PublicAccessResponseModel
         {
@@ -130,7 +141,8 @@ public class PublicAccessPresentationFactory : IPublicAccessPresentationFactory
             ErrorDocument = new ReferenceByIdModel(noAccessNodeKeyAttempt.Result),
         };
 
-        return Attempt.SucceedWithStatus<PublicAccessResponseModel?, PublicAccessOperationStatus>(PublicAccessOperationStatus.Success, responseModel);
+        return Attempt.SucceedWithStatus<PublicAccessResponseModel?, PublicAccessOperationStatus>(
+            PublicAccessOperationStatus.Success, responseModel);
     }
 
     /// <inheritdoc/>

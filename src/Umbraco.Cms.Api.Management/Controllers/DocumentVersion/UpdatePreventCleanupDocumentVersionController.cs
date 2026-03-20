@@ -31,8 +31,10 @@ public class UpdatePreventCleanupDocumentVersionController : DocumentVersionCont
     [EndpointDescription("Sets the prevent clean up boolean status for a document version to the provided value. This controls whether the version will be a candidate for removal in content history clean up.")]
     public async Task<IActionResult> Set(CancellationToken cancellationToken, Guid id, bool preventCleanup)
     {
-        Attempt<ContentVersionOperationStatus> attempt =
-            await _contentVersionService.SetPreventCleanupAsync(id, preventCleanup, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<ContentVersionOperationStatus> attempt = await _contentVersionService.SetPreventCleanupAsync(
+            id,
+            preventCleanup,
+            CurrentUserKey(_backOfficeSecurityAccessor));
 
         return attempt.Success
             ? Ok()

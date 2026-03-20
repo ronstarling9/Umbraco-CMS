@@ -28,20 +28,23 @@ public abstract class FileSystemTreeControllerBase : ManagementApiControllerBase
     protected abstract IFileSystem FileSystem { get; }
 
     [ActivatorUtilitiesConstructor]
-    protected FileSystemTreeControllerBase(IFileSystemTreeService fileSystemTreeService) => _fileSystemTreeService = fileSystemTreeService;
+    protected FileSystemTreeControllerBase(IFileSystemTreeService fileSystemTreeService)
+        => _fileSystemTreeService = fileSystemTreeService;
 
     [Obsolete("Please use the constructor taking all parameters. Scheduled for removal in Umbraco 19.")]
     protected FileSystemTreeControllerBase() => _useFileSystemTreeService = false;
 
     protected Task<ActionResult<PagedViewModel<FileSystemTreeItemPresentationModel>>> GetRoot(int skip, int take)
     {
-        FileSystemTreeItemPresentationModel[] viewModels = GetPathViewModels(string.Empty, skip, take, out var totalItems);
+        FileSystemTreeItemPresentationModel[] viewModels =
+            GetPathViewModels(string.Empty, skip, take, out var totalItems);
 
         PagedViewModel<FileSystemTreeItemPresentationModel> result = PagedViewModel(viewModels, totalItems);
         return Task.FromResult<ActionResult<PagedViewModel<FileSystemTreeItemPresentationModel>>>(Ok(result));
     }
 
-    protected Task<ActionResult<PagedViewModel<FileSystemTreeItemPresentationModel>>> GetChildren(string path, int skip, int take)
+    protected Task<ActionResult<PagedViewModel<FileSystemTreeItemPresentationModel>>> GetChildren(
+        string path, int skip, int take)
     {
         FileSystemTreeItemPresentationModel[] viewModels = GetPathViewModels(path, skip, take, out var totalItems);
 
@@ -56,15 +59,19 @@ public abstract class FileSystemTreeControllerBase : ManagementApiControllerBase
     /// <param name="before">The amount of siblings you want to fetch from before the items position in the array.</param>
     /// <param name="after">The amount of siblings you want to fetch after the items position in the array.</param>
     /// <returns>A SubsetViewModel of the siblings of the item and the item itself.</returns>
-    protected Task<ActionResult<SubsetViewModel<FileSystemTreeItemPresentationModel>>> GetSiblings(string path, int before, int after)
+    protected Task<ActionResult<SubsetViewModel<FileSystemTreeItemPresentationModel>>> GetSiblings(
+        string path, int before, int after)
     {
-        FileSystemTreeItemPresentationModel[] viewModels = _fileSystemTreeService.GetSiblingsViewModels(path, before, after, out var totalBefore, out var totalAfter);
+        FileSystemTreeItemPresentationModel[] viewModels =
+            _fileSystemTreeService.GetSiblingsViewModels(path, before, after, out var totalBefore, out var totalAfter);
 
-        SubsetViewModel<FileSystemTreeItemPresentationModel> result = new() { TotalBefore = totalBefore, TotalAfter = totalAfter, Items = viewModels };
+        SubsetViewModel<FileSystemTreeItemPresentationModel> result =
+            new() { TotalBefore = totalBefore, TotalAfter = totalAfter, Items = viewModels };
         return Task.FromResult<ActionResult<SubsetViewModel<FileSystemTreeItemPresentationModel>>>(Ok(result));
     }
 
-    protected virtual Task<ActionResult<IEnumerable<FileSystemTreeItemPresentationModel>>> GetAncestors(string path, bool includeSelf = true)
+    protected virtual Task<ActionResult<IEnumerable<FileSystemTreeItemPresentationModel>>> GetAncestors(
+        string path, bool includeSelf = true)
     {
         path = path.VirtualPathToSystemPath();
         FileSystemTreeItemPresentationModel[] models = GetAncestorModels(path, includeSelf);
@@ -82,7 +89,8 @@ public abstract class FileSystemTreeControllerBase : ManagementApiControllerBase
 
         var directories = path.Split(Path.DirectorySeparatorChar).Take(Range.EndAt(Index.FromEnd(1))).ToArray();
         var result = directories
-            .Select((directory, index) => MapViewModel(string.Join(Path.DirectorySeparatorChar, directories.Take(index + 1)), directory, true))
+            .Select((directory, index) => MapViewModel(
+                string.Join(Path.DirectorySeparatorChar, directories.Take(index + 1)), directory, true))
             .ToList();
 
         if (includeSelf)
@@ -115,7 +123,8 @@ public abstract class FileSystemTreeControllerBase : ManagementApiControllerBase
         ? Path.GetFileName(itemPath)
         : FileSystem.GetFileName(itemPath);
 
-    private FileSystemTreeItemPresentationModel[] GetPathViewModels(string path, int skip, int take, out long totalItems)
+    private FileSystemTreeItemPresentationModel[] GetPathViewModels(
+        string path, int skip, int take, out long totalItems)
     {
         if (_useFileSystemTreeService)
         {
@@ -143,7 +152,8 @@ public abstract class FileSystemTreeControllerBase : ManagementApiControllerBase
             .ToArray();
     }
 
-    private PagedViewModel<FileSystemTreeItemPresentationModel> PagedViewModel(IEnumerable<FileSystemTreeItemPresentationModel> viewModels, long totalItems)
+    private PagedViewModel<FileSystemTreeItemPresentationModel> PagedViewModel(
+        IEnumerable<FileSystemTreeItemPresentationModel> viewModels, long totalItems)
         => new() { Total = totalItems, Items = viewModels };
 
     [Obsolete("Has been moved to FileSystemTreeServiceBase. Scheduled for removal in Umbraco 19.")]

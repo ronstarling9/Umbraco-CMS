@@ -38,7 +38,8 @@ public class CreateInitialPasswordUserController : UserControllerBase
         CancellationToken cancellationToken,
         CreateInitialPasswordUserRequestModel model)
     {
-        Attempt<PasswordChangedModel, UserOperationStatus> response = await _userService.CreateInitialPasswordAsync(model.User.Id, model.Token, model.Password);
+        Attempt<PasswordChangedModel, UserOperationStatus> response =
+            await _userService.CreateInitialPasswordAsync(model.User.Id, model.Token, model.Password);
 
         if (response.Success is false)
         {

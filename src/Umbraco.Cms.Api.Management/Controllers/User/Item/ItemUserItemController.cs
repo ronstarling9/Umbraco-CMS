@@ -26,7 +26,9 @@ public class ItemUserItemController : UserItemControllerBase
     [ProducesResponseType(typeof(IEnumerable<UserItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets a collection of user items.")]
     [EndpointDescription("Gets a collection of user items identified by the provided Ids.")]
-    public async Task<IActionResult> Item(CancellationToken cancellationToken, [FromQuery(Name = "id")] HashSet<Guid> ids)
+    public async Task<IActionResult> Item(
+        CancellationToken cancellationToken,
+        [FromQuery(Name = "id")] HashSet<Guid> ids)
     {
         if (ids.Count is 0)
         {

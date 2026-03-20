@@ -68,7 +68,9 @@ public class IndexPresentationFactory : IIndexPresentationFactory
             else
             {
                 Type propertyType = property.Value.GetType();
-                properties[property.Key] = propertyType.IsClass && !propertyType.IsArray ? property.Value?.ToString() : property.Value;
+                properties[property.Key] = propertyType.IsClass && !propertyType.IsArray
+                    ? property.Value?.ToString()
+                    : property.Value;
             }
         }
 

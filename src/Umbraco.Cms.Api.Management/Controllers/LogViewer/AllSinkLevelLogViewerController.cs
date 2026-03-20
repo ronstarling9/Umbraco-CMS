@@ -45,7 +45,8 @@ public class AllSinkLevelLogViewerController : LogViewerControllerBase
         var viewModel = new PagedViewModel<LoggerResponseModel>
         {
             Total = logLevels.Length,
-            Items = _umbracoMapper.MapEnumerable<KeyValuePair<string, LogLevel>, LoggerResponseModel>(logLevels.Skip(skip).Take(take))
+            Items = _umbracoMapper.MapEnumerable<KeyValuePair<string, LogLevel>, LoggerResponseModel>(
+                logLevels.Skip(skip).Take(take))
         };
 
         return Task.FromResult<ActionResult<PagedViewModel<LoggerResponseModel>>>(Ok(viewModel));

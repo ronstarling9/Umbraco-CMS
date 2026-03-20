@@ -23,5 +23,6 @@ public class DeleteMemberTypeFolderController : MemberTypeFolderControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Deletes a member type folder.")]
     [EndpointDescription("Deletes a member type folder identified by the provided Id.")]
-    public async Task<IActionResult> Delete(CancellationToken cancellationToken, Guid id) => await DeleteFolderAsync(id);
+    public async Task<IActionResult> Delete(CancellationToken cancellationToken, Guid id)
+        => await DeleteFolderAsync(id);
 }

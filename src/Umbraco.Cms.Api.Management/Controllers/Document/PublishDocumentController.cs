@@ -44,11 +44,15 @@ public class PublishDocumentController : DocumentControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Publishes a document.")]
     [EndpointDescription("Publishes a document identified by the provided Id.")]
-    public async Task<IActionResult> Publish(CancellationToken cancellationToken, Guid id, PublishDocumentRequestModel requestModel)
+    public async Task<IActionResult> Publish(
+        CancellationToken cancellationToken, Guid id, PublishDocumentRequestModel requestModel)
     {
         AuthorizationResult authorizationResult = await _authorizationService.AuthorizeResourceAsync(
             User,
-            ContentPermissionResource.WithKeys(ActionPublish.ActionLetter, id, requestModel.PublishSchedules.Where(x => x.Culture is not null).Select(x=>x.Culture!)),
+            ContentPermissionResource.WithKeys(
+                ActionPublish.ActionLetter,
+                id,
+                requestModel.PublishSchedules.Where(x => x.Culture is not null).Select(x => x.Culture!)),
             AuthorizationPolicies.ContentPermissionByResource);
 
         if (!authorizationResult.Succeeded)
@@ -56,19 +60,22 @@ public class PublishDocumentController : DocumentControllerBase
             return Forbidden();
         }
 
-        Attempt<List<CulturePublishScheduleModel>, ContentPublishingOperationStatus> modelResult = _documentPresentationFactory.CreateCulturePublishScheduleModels(requestModel);
+        Attempt<List<CulturePublishScheduleModel>, ContentPublishingOperationStatus> modelResult =
+            _documentPresentationFactory.CreateCulturePublishScheduleModels(requestModel);
 
         if (modelResult.Success is false)
         {
             return DocumentPublishingOperationStatusResult(modelResult.Status);
         }
 
-        Attempt<ContentPublishingResult, ContentPublishingOperationStatus> attempt = await _contentPublishingService.PublishAsync(
+        Attempt<ContentPublishingResult, ContentPublishingOperationStatus> attempt =
+            await _contentPublishingService.PublishAsync(
             id,
             modelResult.Result,
             CurrentUserKey(_backOfficeSecurityAccessor));
         return attempt.Success
             ? Ok()
-            : DocumentPublishingOperationStatusResult(attempt.Status, invalidPropertyAliases: attempt.Result.InvalidPropertyAliases);
+            : DocumentPublishingOperationStatusResult(
+                attempt.Status, invalidPropertyAliases: attempt.Result.InvalidPropertyAliases);
     }
 }

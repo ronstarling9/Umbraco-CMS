@@ -4,7 +4,11 @@ namespace Umbraco.Cms.Api.Management.Services.FileSystem;
 
 public class PhysicalFileSystemTreeService : FileSystemTreeServiceBase, IPhysicalFileSystemTreeService
 {
-    private static readonly string[] _allowedRootFolders = { $"{Path.DirectorySeparatorChar}App_Plugins", $"{Path.DirectorySeparatorChar}wwwroot" };
+    private static readonly string[] _allowedRootFolders =
+    {
+        $"{Path.DirectorySeparatorChar}App_Plugins",
+        $"{Path.DirectorySeparatorChar}wwwroot"
+    };
 
     private readonly IFileSystem _physicalFileSystem;
 
@@ -29,6 +33,8 @@ public class PhysicalFileSystemTreeService : FileSystemTreeServiceBase, IPhysica
 
     private static bool IsTreeRootPath(string path) => path == Path.DirectorySeparatorChar.ToString();
 
-    private static bool IsAllowedPath(string path) => _allowedRootFolders.Contains(path) || _allowedRootFolders.Any(folder => path.StartsWith($"{folder}{Path.DirectorySeparatorChar}"));
+    private static bool IsAllowedPath(string path) =>
+        _allowedRootFolders.Contains(path)
+        || _allowedRootFolders.Any(folder => path.StartsWith($"{folder}{Path.DirectorySeparatorChar}"));
 
 }

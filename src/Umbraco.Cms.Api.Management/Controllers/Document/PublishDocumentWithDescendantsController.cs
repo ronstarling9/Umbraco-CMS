@@ -40,7 +40,10 @@ public class PublishDocumentWithDescendantsController : DocumentControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Publishes a document with its descendants.")]
     [EndpointDescription("Publishes a document and its descendants identified by the provided Id.")]
-    public async Task<IActionResult> PublishWithDescendants(CancellationToken cancellationToken, Guid id, PublishDocumentWithDescendantsRequestModel requestModel)
+    public async Task<IActionResult> PublishWithDescendants(
+        CancellationToken cancellationToken,
+        Guid id,
+        PublishDocumentWithDescendantsRequestModel requestModel)
     {
         AuthorizationResult authorizationResult = await _authorizationService.AuthorizeResourceAsync(
             User,
@@ -52,7 +55,8 @@ public class PublishDocumentWithDescendantsController : DocumentControllerBase
             return Forbidden();
         }
 
-        Attempt<ContentPublishingBranchResult, ContentPublishingOperationStatus> attempt = await _contentPublishingService.PublishBranchAsync(
+        Attempt<ContentPublishingBranchResult, ContentPublishingOperationStatus> attempt =
+            await _contentPublishingService.PublishBranchAsync(
             id,
             requestModel.Cultures,
             BuildPublishBranchFilter(requestModel),

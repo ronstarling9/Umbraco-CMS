@@ -36,9 +36,11 @@ public class ResetPasswordTokenController : SecurityControllerBase
     [EndpointSummary("Initiates password reset.")]
     [EndpointDescription("Initiates a password reset process for the user with the provided email.")]
     [UserPasswordEnsureMinimumResponseTime]
-    public async Task<IActionResult> ResetPasswordToken(CancellationToken cancellationToken, ResetPasswordTokenRequestModel model)
+    public async Task<IActionResult> ResetPasswordToken(
+        CancellationToken cancellationToken, ResetPasswordTokenRequestModel model)
     {
-        Attempt<PasswordChangedModel, UserOperationStatus> result = await _userService.ResetPasswordAsync(model.User.Id, model.ResetCode, model.Password);
+        Attempt<PasswordChangedModel, UserOperationStatus> result =
+            await _userService.ResetPasswordAsync(model.User.Id, model.ResetCode, model.Password);
 
         if (result.Success is false)
         {

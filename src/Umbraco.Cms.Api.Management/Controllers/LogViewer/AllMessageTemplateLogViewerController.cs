@@ -46,14 +46,16 @@ public class AllMessageTemplateLogViewerController : LogViewerControllerBase
         DateTimeOffset? startDate = null,
         DateTimeOffset? endDate = null)
     {
-        Attempt<PagedModel<LogTemplate>, LogViewerOperationStatus> messageTemplatesAttempt = await _logViewerService.GetMessageTemplatesAsync(startDate, endDate, skip, take);
+        Attempt<PagedModel<LogTemplate>, LogViewerOperationStatus> messageTemplatesAttempt =
+            await _logViewerService.GetMessageTemplatesAsync(startDate, endDate, skip, take);
 
         if (messageTemplatesAttempt.Success)
         {
             var viewModel = new PagedViewModel<LogTemplateResponseModel>
             {
                 Total = messageTemplatesAttempt.Result.Total,
-                Items = _umbracoMapper.MapEnumerable<LogTemplate, LogTemplateResponseModel>(messageTemplatesAttempt.Result.Items)
+                Items = _umbracoMapper.MapEnumerable<LogTemplate, LogTemplateResponseModel>(
+                    messageTemplatesAttempt.Result.Items)
             };
 
             return Ok(viewModel);

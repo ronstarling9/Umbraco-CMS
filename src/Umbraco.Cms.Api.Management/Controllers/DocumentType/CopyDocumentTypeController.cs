@@ -32,7 +32,8 @@ public class CopyDocumentTypeController : DocumentTypeControllerBase
         Guid id,
         CopyDocumentTypeRequestModel copyDocumentTypeRequestModel)
     {
-        Attempt<IContentType?, ContentTypeStructureOperationStatus> result = await _contentTypeService.CopyAsync(id, copyDocumentTypeRequestModel.Target?.Id);
+        Attempt<IContentType?, ContentTypeStructureOperationStatus> result =
+            await _contentTypeService.CopyAsync(id, copyDocumentTypeRequestModel.Target?.Id);
 
         return result.Success
             ? CreatedAtId<ByKeyDocumentTypeController>(controller => nameof(controller.ByKey), result.Result!.Key)

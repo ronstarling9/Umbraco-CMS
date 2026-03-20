@@ -55,7 +55,9 @@ public abstract class UserStartNodeTreeControllerBase<TItem> : EntityTreeControl
     protected override IEntitySlim[] GetPagedRootEntities(int skip, int take, out long totalItems)
         => UserHasRootAccess() || IgnoreUserStartNodes()
             ? base.GetPagedRootEntities(skip, take, out totalItems)
-            : CalculateAccessMap(() => _userStartNodeEntitiesService.RootUserAccessEntities(ItemObjectType, UserStartNodeIds), out totalItems);
+            : CalculateAccessMap(
+                () => _userStartNodeEntitiesService.RootUserAccessEntities(ItemObjectType, UserStartNodeIds),
+                out totalItems);
 
     protected override IEntitySlim[] GetPagedChildEntities(Guid parentKey, int skip, int take, out long totalItems)
     {
@@ -76,7 +78,8 @@ public abstract class UserStartNodeTreeControllerBase<TItem> : EntityTreeControl
         return CalculateAccessMap(() => userAccessEntities, out _);
     }
 
-    protected override IEntitySlim[] GetSiblingEntities(Guid target, int before, int after, out long totalBefore, out long totalAfter)
+    protected override IEntitySlim[] GetSiblingEntities(
+        Guid target, int before, int after, out long totalBefore, out long totalAfter)
     {
         if (UserHasRootAccess() || IgnoreUserStartNodes())
         {
@@ -136,7 +139,8 @@ public abstract class UserStartNodeTreeControllerBase<TItem> : EntityTreeControl
         => _dataTypeKey.HasValue
            && _dataTypeService.IsDataTypeIgnoringUserStartNodes(_dataTypeKey.Value);
 
-    private IEntitySlim[] CalculateAccessMap(Func<IEnumerable<UserAccessEntity>> getUserAccessEntities, out long totalItems)
+    private IEntitySlim[] CalculateAccessMap(
+        Func<IEnumerable<UserAccessEntity>> getUserAccessEntities, out long totalItems)
     {
         UserAccessEntity[] userAccessEntities = getUserAccessEntities().ToArray();
 

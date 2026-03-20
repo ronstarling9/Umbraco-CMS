@@ -16,7 +16,9 @@ public class MoveDictionaryController : DictionaryControllerBase
     private readonly IDictionaryItemService _dictionaryItemService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public MoveDictionaryController(IDictionaryItemService dictionaryItemService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public MoveDictionaryController(
+        IDictionaryItemService dictionaryItemService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _dictionaryItemService = dictionaryItemService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;

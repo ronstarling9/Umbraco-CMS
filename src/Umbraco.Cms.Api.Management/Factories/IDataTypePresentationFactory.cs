@@ -9,5 +9,7 @@ public interface IDataTypePresentationFactory
 {
 
     Task<Attempt<IDataType, DataTypeOperationStatus>> CreateAsync(CreateDataTypeRequestModel requestModel);
-    Task<Attempt<IDataType, DataTypeOperationStatus>> CreateAsync(UpdateDataTypeRequestModel requestModel, IDataType current);
+    Task<Attempt<IDataType, DataTypeOperationStatus>> CreateAsync(
+        UpdateDataTypeRequestModel requestModel,
+        IDataType current);
 }

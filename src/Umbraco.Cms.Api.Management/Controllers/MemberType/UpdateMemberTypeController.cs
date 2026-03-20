@@ -55,7 +55,8 @@ public class UpdateMemberTypeController : MemberTypeControllerBase
         }
 
         MemberTypeUpdateModel model = _memberTypeEditingPresentationFactory.MapUpdateModel(requestModel);
-        Attempt<IMemberType?, ContentTypeOperationStatus> result = await _memberTypeEditingService.UpdateAsync(memberType, model, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IMemberType?, ContentTypeOperationStatus> result =
+            await _memberTypeEditingService.UpdateAsync(memberType, model, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

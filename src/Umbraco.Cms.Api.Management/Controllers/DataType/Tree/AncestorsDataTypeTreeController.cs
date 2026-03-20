@@ -18,8 +18,9 @@ public class AncestorsDataTypeTreeController : DataTypeTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public AncestorsDataTypeTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IDataTypeService dataTypeService)
-    : base(entityService, flagProviders, dataTypeService)
+    public AncestorsDataTypeTreeController(
+        IEntityService entityService, FlagProviderCollection flagProviders, IDataTypeService dataTypeService)
+        : base(entityService, flagProviders, dataTypeService)
     {
     }
 
@@ -28,6 +29,7 @@ public class AncestorsDataTypeTreeController : DataTypeTreeControllerBase
     [ProducesResponseType(typeof(IEnumerable<DataTypeTreeItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets a collection of ancestor data type folders.")]
     [EndpointDescription("Gets a collection of data type folders that are ancestors to the provided Id.")]
-    public async Task<ActionResult<IEnumerable<DataTypeTreeItemResponseModel>>> Ancestors(CancellationToken cancellationToken, Guid descendantId)
+    public async Task<ActionResult<IEnumerable<DataTypeTreeItemResponseModel>>> Ancestors(
+        CancellationToken cancellationToken, Guid descendantId)
         => await GetAncestors(descendantId);
 }

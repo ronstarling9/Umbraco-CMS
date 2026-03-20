@@ -39,7 +39,8 @@ public class GetAllUserController : UserControllerBase
     [EndpointDescription("Gets a paginated collection of all users.")]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken, int skip = 0, int take = 100)
     {
-        Attempt<PagedModel<IUser>?, UserOperationStatus> attempt = await _userService.GetAllAsync(CurrentUserKey(_backOfficeSecurityAccessor), skip, take);
+        Attempt<PagedModel<IUser>?, UserOperationStatus> attempt =
+            await _userService.GetAllAsync(CurrentUserKey(_backOfficeSecurityAccessor), skip, take);
 
         if (attempt.Success is false)
         {

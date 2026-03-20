@@ -39,7 +39,8 @@ public sealed class ConfigureBackOfficeIdentityOptions : IConfigureOptions<BackO
         options.ClaimsIdentity.SecurityStampClaimType = Constants.Security.SecurityStampClaimType;
 
         options.Lockout.AllowedForNewUsers = true;
-        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(_securitySettings.UserDefaultLockoutTimeInMinutes);
+        options.Lockout.DefaultLockoutTimeSpan =
+            TimeSpan.FromMinutes(_securitySettings.UserDefaultLockoutTimeInMinutes);
 
         options.Password.ConfigurePasswordOptions(_userPasswordConfiguration);
 

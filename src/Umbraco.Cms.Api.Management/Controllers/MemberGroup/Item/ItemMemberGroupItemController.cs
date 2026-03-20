@@ -37,7 +37,8 @@ public class ItemMemberGroupItemController : MemberGroupItemControllerBase
         }
 
         IEnumerable<IEntitySlim> memberGroups = _entityService.GetAll(UmbracoObjectTypes.MemberGroup, ids.ToArray());
-        List<MemberGroupItemResponseModel> responseModel = _mapper.MapEnumerable<IEntitySlim, MemberGroupItemResponseModel>(memberGroups);
+        List<MemberGroupItemResponseModel> responseModel =
+            _mapper.MapEnumerable<IEntitySlim, MemberGroupItemResponseModel>(memberGroups);
         return Task.FromResult<IActionResult>(Ok(responseModel));
     }
 }

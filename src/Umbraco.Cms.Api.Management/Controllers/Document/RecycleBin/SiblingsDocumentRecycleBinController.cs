@@ -11,7 +11,9 @@ namespace Umbraco.Cms.Api.Management.Controllers.Document.RecycleBin;
 [ApiVersion("1.0")]
 public class SiblingsDocumentRecycleBinController : DocumentRecycleBinControllerBase
 {
-    public SiblingsDocumentRecycleBinController(IEntityService entityService, IDocumentPresentationFactory documentPresentationFactory)
+    public SiblingsDocumentRecycleBinController(
+        IEntityService entityService,
+        IDocumentPresentationFactory documentPresentationFactory)
         : base(entityService, documentPresentationFactory)
     {
     }
@@ -21,6 +23,7 @@ public class SiblingsDocumentRecycleBinController : DocumentRecycleBinController
     [ProducesResponseType(typeof(SubsetViewModel<DocumentRecycleBinItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Gets sibling documents in the recycle bin.")]
     [EndpointDescription("Gets a collection of sibling documents in the recycle bin at the same level as the provided Id.")]
-    public async Task<ActionResult<SubsetViewModel<DocumentRecycleBinItemResponseModel>>> Siblings(CancellationToken cancellationToken, Guid target, int before, int after, Guid? dataTypeId = null)
+    public async Task<ActionResult<SubsetViewModel<DocumentRecycleBinItemResponseModel>>> Siblings(
+        CancellationToken cancellationToken, Guid target, int before, int after, Guid? dataTypeId = null)
         => await GetSiblings(target, before, after);
 }

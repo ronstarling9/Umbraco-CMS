@@ -15,7 +15,9 @@ public class DeleteDictionaryController : DictionaryControllerBase
     private readonly IDictionaryItemService _dictionaryItemService;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
-    public DeleteDictionaryController(IDictionaryItemService dictionaryItemService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public DeleteDictionaryController(
+        IDictionaryItemService dictionaryItemService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _dictionaryItemService = dictionaryItemService;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
@@ -30,7 +32,8 @@ public class DeleteDictionaryController : DictionaryControllerBase
     [EndpointDescription("Deletes a dictionary identified by the provided Id.")]
     public async Task<IActionResult> Delete(CancellationToken cancellationToken, Guid id)
     {
-        Attempt<IDictionaryItem?, DictionaryItemOperationStatus> result = await _dictionaryItemService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IDictionaryItem?, DictionaryItemOperationStatus> result =
+            await _dictionaryItemService.DeleteAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? Ok()

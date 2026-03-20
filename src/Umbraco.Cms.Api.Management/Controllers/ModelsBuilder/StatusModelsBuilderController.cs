@@ -13,14 +13,16 @@ public class StatusModelsBuilderController : ModelsBuilderControllerBase
 {
     private readonly OutOfDateModelsStatus _outOfDateModelsStatus;
 
-    public StatusModelsBuilderController(OutOfDateModelsStatus outOfDateModelsStatus) => _outOfDateModelsStatus = outOfDateModelsStatus;
+    public StatusModelsBuilderController(OutOfDateModelsStatus outOfDateModelsStatus)
+        => _outOfDateModelsStatus = outOfDateModelsStatus;
 
     [HttpGet("status")]
     [ProducesResponseType(typeof(OutOfDateStatusResponseModel), StatusCodes.Status200OK)]
     [EndpointSummary("Gets models builder status.")]
     [EndpointDescription("Gets the current status and configuration of the models builder.")]
     [MapToApiVersion("1.0")]
-    public Task<ActionResult<OutOfDateStatusResponseModel>> GetModelsOutOfDateStatus(CancellationToken cancellationToken)
+    public Task<ActionResult<OutOfDateStatusResponseModel>> GetModelsOutOfDateStatus(
+        CancellationToken cancellationToken)
     {
         OutOfDateStatusResponseModel status = _outOfDateModelsStatus.IsEnabled
             ? _outOfDateModelsStatus.IsOutOfDate

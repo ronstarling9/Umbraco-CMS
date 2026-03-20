@@ -30,7 +30,8 @@ public class ItemPartialViewItemController : PartialViewItemControllerBase
         }
 
         paths = paths.Select(path => path.VirtualPathToSystemPath()).ToHashSet();
-        IEnumerable<PartialViewItemResponseModel> responseModels = _fileItemPresentationFactory.CreatePartialViewItemResponseModels(paths);
+        IEnumerable<PartialViewItemResponseModel> responseModels =
+            _fileItemPresentationFactory.CreatePartialViewItemResponseModels(paths);
         return Task.FromResult<IActionResult>(Ok(responseModels));
     }
 }

@@ -61,7 +61,8 @@ public class DocumentPropertyValuePermissionMapper : IPermissionPresentationMapp
     /// <inheritdoc/>
     public IEnumerable<IGranularPermission> MapToGranularPermissions(IPermissionPresentationModel permissionViewModel)
     {
-        if (permissionViewModel is not DocumentPropertyValuePermissionPresentationModel documentTypePermissionPresentationModel)
+        if (permissionViewModel
+            is not DocumentPropertyValuePermissionPresentationModel documentTypePermissionPresentationModel)
         {
             yield break;
         }
@@ -77,7 +78,9 @@ public class DocumentPropertyValuePermissionMapper : IPermissionPresentationMapp
     }
 
     /// <inheritdoc/>
-    public IEnumerable<IPermissionPresentationModel> AggregatePresentationModels(IUser user, IEnumerable<IPermissionPresentationModel> models)
+    public IEnumerable<IPermissionPresentationModel> AggregatePresentationModels(
+        IUser user,
+        IEnumerable<IPermissionPresentationModel> models)
     {
         IEnumerable<((Guid DocumentTypeId, Guid PropertyTypeId) Key, ISet<string> Verbs)> groupedModels = models
             .Cast<DocumentPropertyValuePermissionPresentationModel>()

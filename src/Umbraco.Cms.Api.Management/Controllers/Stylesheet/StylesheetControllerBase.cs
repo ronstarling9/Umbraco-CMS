@@ -47,9 +47,11 @@ public class StylesheetControllerBase : FileSystemManagementControllerBase
                 .Build()),
         });
 
-    protected IActionResult StylesheetNotFound() => OperationStatusResult(StylesheetOperationStatus.NotFound, StylesheetNotFound);
+    protected IActionResult StylesheetNotFound()
+        => OperationStatusResult(StylesheetOperationStatus.NotFound, StylesheetNotFound);
 
-    protected IActionResult StylesheetNotFound(ProblemDetailsBuilder problemDetailsBuilder) => NotFound(problemDetailsBuilder
+    protected IActionResult StylesheetNotFound(ProblemDetailsBuilder problemDetailsBuilder)
+        => NotFound(problemDetailsBuilder
         .WithTitle("Stylesheet not found")
         .WithDetail("The stylesheet was not found.")
         .Build());

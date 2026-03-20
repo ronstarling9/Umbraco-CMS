@@ -19,7 +19,9 @@ public class DeletePublicAccessDocumentController : DocumentControllerBase
     private readonly IAuthorizationService _authorizationService;
     private readonly IPublicAccessService _publicAccessService;
 
-    public DeletePublicAccessDocumentController(IAuthorizationService authorizationService, IPublicAccessService publicAccessService)
+    public DeletePublicAccessDocumentController(
+        IAuthorizationService authorizationService,
+        IPublicAccessService publicAccessService)
     {
         _authorizationService = authorizationService;
         _publicAccessService = publicAccessService;

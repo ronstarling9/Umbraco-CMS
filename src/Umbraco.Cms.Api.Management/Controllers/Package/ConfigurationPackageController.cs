@@ -11,7 +11,8 @@ public class ConfigurationPackageController : PackageControllerBase
 {
     private readonly IPackagePresentationFactory _packagePresentationFactory;
 
-    public ConfigurationPackageController(IPackagePresentationFactory packagePresentationFactory) => _packagePresentationFactory = packagePresentationFactory;
+    public ConfigurationPackageController(IPackagePresentationFactory packagePresentationFactory)
+        => _packagePresentationFactory = packagePresentationFactory;
 
     [HttpGet("configuration")]
     [MapToApiVersion("1.0")]
@@ -20,7 +21,8 @@ public class ConfigurationPackageController : PackageControllerBase
     [EndpointDescription("Gets the configuration settings for packages.")]
     public Task<IActionResult> Configuration(CancellationToken cancellationToken)
     {
-        PackageConfigurationResponseModel responseModel = _packagePresentationFactory.CreateConfigurationResponseModel();
+        PackageConfigurationResponseModel responseModel =
+            _packagePresentationFactory.CreateConfigurationResponseModel();
         return Task.FromResult<IActionResult>(Ok(responseModel));
     }
 }

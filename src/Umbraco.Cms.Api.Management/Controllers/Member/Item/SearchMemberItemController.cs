@@ -15,7 +15,9 @@ public class SearchMemberItemController : MemberItemControllerBase
     private readonly IIndexedEntitySearchService _indexedEntitySearchService;
     private readonly IMemberPresentationFactory _memberPresentationFactory;
 
-    public SearchMemberItemController(IIndexedEntitySearchService indexedEntitySearchService, IMemberPresentationFactory memberPresentationFactory)
+    public SearchMemberItemController(
+        IIndexedEntitySearchService indexedEntitySearchService,
+        IMemberPresentationFactory memberPresentationFactory)
     {
         _indexedEntitySearchService = indexedEntitySearchService;
         _memberPresentationFactory = memberPresentationFactory;
@@ -26,12 +28,19 @@ public class SearchMemberItemController : MemberItemControllerBase
     [ProducesResponseType(typeof(PagedModel<MemberItemResponseModel>), StatusCodes.Status200OK)]
     [EndpointSummary("Searches member items.")]
     [EndpointDescription("Searches member items by the provided query with pagination support.")]
-    public async Task<IActionResult> SearchWithAllowedTypes(CancellationToken cancellationToken, string query, int skip = 0, int take = 100, [FromQuery]IEnumerable<Guid>? allowedMemberTypes = null)
+    public async Task<IActionResult> SearchWithAllowedTypes(
+        CancellationToken cancellationToken,
+        string query,
+        int skip = 0,
+        int take = 100,
+        [FromQuery] IEnumerable<Guid>? allowedMemberTypes = null)
     {
-        PagedModel<IEntitySlim> searchResult = await _indexedEntitySearchService.SearchAsync(UmbracoObjectTypes.Member, query, null, allowedMemberTypes, false, "*", skip, take);
+        PagedModel<IEntitySlim> searchResult = await _indexedEntitySearchService.SearchAsync(
+            UmbracoObjectTypes.Member, query, null, allowedMemberTypes, false, "*", skip, take);
         var result = new PagedModel<MemberItemResponseModel>
         {
-            Items = searchResult.Items.OfType<IMemberEntitySlim>().Select(_memberPresentationFactory.CreateItemResponseModel),
+            Items = searchResult.Items.OfType<IMemberEntitySlim>()
+                .Select(_memberPresentationFactory.CreateItemResponseModel),
             Total = searchResult.Total,
         };
 

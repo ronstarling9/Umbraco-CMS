@@ -6,5 +6,6 @@ public class UserSettingsPresentationModel
 
     public int MinNonAlphaNumericLength { get; set; }
 
-    public IEnumerable<ConsentLevelPresentationModel> ConsentLevels { get; set; } = Enumerable.Empty<ConsentLevelPresentationModel>();
+    public IEnumerable<ConsentLevelPresentationModel> ConsentLevels { get; set; }
+        = Enumerable.Empty<ConsentLevelPresentationModel>();
 }

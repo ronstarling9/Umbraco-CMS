@@ -22,7 +22,10 @@ internal abstract class ContentTypeEditingPresentationFactory<TContentType>
         TPropertyTypeViewModel,
         TPropertyTypeContainerViewModel
     >(ContentTypeViewModels.ContentTypeModelBase<TPropertyTypeViewModel, TPropertyTypeContainerViewModel> viewModel)
-            where TContentTypeEditingModel : ContentTypeEditingModels.ContentTypeEditingModelBase<TPropertyTypeEditingModel, TPropertyTypeContainerEditingModel>, new()
+            where TContentTypeEditingModel
+                : ContentTypeEditingModels.ContentTypeEditingModelBase<
+                    TPropertyTypeEditingModel,
+                    TPropertyTypeContainerEditingModel>, new()
             where TPropertyTypeEditingModel : ContentTypeEditingModels.PropertyTypeModelBase, new()
             where TPropertyTypeContainerEditingModel : ContentTypeEditingModels.PropertyTypeContainerModelBase, new()
             where TPropertyTypeViewModel : ContentTypeViewModels.PropertyTypeModelBase
@@ -45,7 +48,9 @@ internal abstract class ContentTypeEditingPresentationFactory<TContentType>
         return editingModel;
     }
 
-    protected Guid? CalculateCreateContainerKey(ReferenceByIdModel? parent, IDictionary<Guid, ContentTypeViewModels.CompositionType> compositions)
+    protected Guid? CalculateCreateContainerKey(
+        ReferenceByIdModel? parent,
+        IDictionary<Guid, ContentTypeViewModels.CompositionType> compositions)
     {
         // special case:
         // the API is somewhat confusing when it comes to inheritance. the parent denotes a container (folder), but it
@@ -93,15 +98,16 @@ internal abstract class ContentTypeEditingPresentationFactory<TContentType>
             .ToDictionary(c => c.Key, c => c.Alias);
 
         return allowedContentTypesAndSortOrder
-            .Select(a =>
-                contentTypeAliasesByKey.TryGetValue(a.Key, out var alias)
-                    ? new ContentTypeSort(a.Key, a.Value, alias)
+            .Select(sortOrderEntry =>
+                contentTypeAliasesByKey.TryGetValue(sortOrderEntry.Key, out var alias)
+                    ? new ContentTypeSort(sortOrderEntry.Key, sortOrderEntry.Value, alias)
                     : null)
             .WhereNotNull()
             .ToArray();
     }
 
-    protected ContentTypeEditingModels.Composition[] MapCompositions(IDictionary<Guid, ContentTypeViewModels.CompositionType> compositions)
+    protected ContentTypeEditingModels.Composition[] MapCompositions(
+        IDictionary<Guid, ContentTypeViewModels.CompositionType> compositions)
         => compositions.Select(composition => new ContentTypeEditingModels.Composition
         {
             Key = composition.Key,

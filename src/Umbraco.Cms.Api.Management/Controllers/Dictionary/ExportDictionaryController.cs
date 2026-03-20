@@ -16,7 +16,9 @@ public class ExportDictionaryController : DictionaryControllerBase
     private readonly IDictionaryItemService _dictionaryItemService;
     private readonly IEntityXmlSerializer _entityXmlSerializer;
 
-    public ExportDictionaryController(IDictionaryItemService dictionaryItemService, IEntityXmlSerializer entityXmlSerializer)
+    public ExportDictionaryController(
+        IDictionaryItemService dictionaryItemService,
+        IEntityXmlSerializer entityXmlSerializer)
     {
         _dictionaryItemService = dictionaryItemService;
         _entityXmlSerializer = entityXmlSerializer;
@@ -38,6 +40,9 @@ public class ExportDictionaryController : DictionaryControllerBase
 
         XElement xml = _entityXmlSerializer.Serialize(dictionaryItem, includeChildren);
 
-        return File(Encoding.UTF8.GetBytes(xml.ToDataString()), MediaTypeNames.Application.Octet, $"{dictionaryItem.ItemKey}.udt");
+        return File(
+            Encoding.UTF8.GetBytes(xml.ToDataString()),
+            MediaTypeNames.Application.Octet,
+            $"{dictionaryItem.ItemKey}.udt");
     }
 }

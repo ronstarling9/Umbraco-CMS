@@ -16,7 +16,9 @@ public class RequireNonNullablePropertiesSchemaFilter : ISchemaFilter
         }
 
         IEnumerable<string> additionalRequiredProps = schema.Properties
-            ?.Where(x => x.Value.Type?.HasFlag(JsonSchemaType.Null) is not true && model.Required?.Contains(x.Key) is not true)
+            ?.Where(x =>
+                x.Value.Type?.HasFlag(JsonSchemaType.Null) is not true
+                && model.Required?.Contains(x.Key) is not true)
             .Select(x => x.Key)
             ?? [];
         schema.Required ??= new SortedSet<string>();

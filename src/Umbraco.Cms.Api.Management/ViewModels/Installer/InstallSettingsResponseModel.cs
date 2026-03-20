@@ -7,5 +7,6 @@ public class InstallSettingsResponseModel
     [Required]
     public UserSettingsPresentationModel User { get; set; } = null!;
 
-    public IEnumerable<DatabaseSettingsPresentationModel> Databases { get; set; } = Enumerable.Empty<DatabaseSettingsPresentationModel>();
+    public IEnumerable<DatabaseSettingsPresentationModel> Databases { get; set; }
+        = Enumerable.Empty<DatabaseSettingsPresentationModel>();
 }

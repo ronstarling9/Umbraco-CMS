@@ -9,7 +9,10 @@ namespace Umbraco.Cms.Api.Management.Mapping.DynamicRoot;
 public class DynamicRootMapDefinition : IMapDefinition
 {
     /// <inheritdoc/>
-    public void DefineMaps(IUmbracoMapper mapper) => mapper.Define<DynamicRootRequestModel, DynamicRootNodeQuery>((source, context) => new DynamicRootNodeQuery { OriginAlias = null!, Context = default }, Map);
+    public void DefineMaps(IUmbracoMapper mapper) =>
+        mapper.Define<DynamicRootRequestModel, DynamicRootNodeQuery>(
+            (source, context) => new DynamicRootNodeQuery { OriginAlias = null!, Context = default },
+            Map);
 
     // Umbraco.Code.MapAll
     private static void Map(DynamicRootRequestModel source, DynamicRootNodeQuery target, MapperContext context)

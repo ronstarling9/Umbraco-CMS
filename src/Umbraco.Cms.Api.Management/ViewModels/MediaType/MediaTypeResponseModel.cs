@@ -2,7 +2,8 @@
 
 namespace Umbraco.Cms.Api.Management.ViewModels.MediaType;
 
-public class MediaTypeResponseModel : ContentTypeResponseModelBase<MediaTypePropertyTypeResponseModel, MediaTypePropertyTypeContainerResponseModel>
+public class MediaTypeResponseModel
+    : ContentTypeResponseModelBase<MediaTypePropertyTypeResponseModel, MediaTypePropertyTypeContainerResponseModel>
 {
     public IEnumerable<MediaTypeSort> AllowedMediaTypes { get; set; } = Enumerable.Empty<MediaTypeSort>();
 

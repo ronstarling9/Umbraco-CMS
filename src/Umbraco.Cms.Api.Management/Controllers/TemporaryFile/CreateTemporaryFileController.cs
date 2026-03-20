@@ -16,7 +16,8 @@ public class CreateTemporaryFileController : TemporaryFileControllerBase
     private readonly ITemporaryFileService _temporaryFileService;
     private readonly IUmbracoMapper _umbracoMapper;
 
-    public CreateTemporaryFileController(ITemporaryFileService temporaryFileService, IUmbracoMapper umbracoMapper)
+    public CreateTemporaryFileController(
+        ITemporaryFileService temporaryFileService, IUmbracoMapper umbracoMapper)
     {
         _temporaryFileService = temporaryFileService;
         _umbracoMapper = umbracoMapper;
@@ -32,9 +33,11 @@ public class CreateTemporaryFileController : TemporaryFileControllerBase
         CancellationToken cancellationToken,
         [FromForm] CreateTemporaryFileRequestModel model)
     {
-        CreateTemporaryFileModel createModel = _umbracoMapper.Map<CreateTemporaryFileRequestModel, CreateTemporaryFileModel>(model)!;
+        CreateTemporaryFileModel createModel =
+            _umbracoMapper.Map<CreateTemporaryFileRequestModel, CreateTemporaryFileModel>(model)!;
 
-        Attempt<TemporaryFileModel?, TemporaryFileOperationStatus> result = await _temporaryFileService.CreateAsync(createModel);
+        Attempt<TemporaryFileModel?, TemporaryFileOperationStatus> result =
+            await _temporaryFileService.CreateAsync(createModel);
 
         return result.Success
             ? CreatedAtId<ByKeyTemporaryFileController>(controller => nameof(controller.ByKey), result.Result!.Key)

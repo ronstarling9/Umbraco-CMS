@@ -19,7 +19,10 @@ public class RootMediaTypeTreeController : MediaTypeTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public RootMediaTypeTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IMediaTypeService mediaTypeService)
+    public RootMediaTypeTreeController(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IMediaTypeService mediaTypeService)
         : base(entityService, flagProviders, mediaTypeService)
     {
     }

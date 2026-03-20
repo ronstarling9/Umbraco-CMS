@@ -18,7 +18,9 @@ public class VerifyResetPasswordTokenController : SecurityControllerBase
     private readonly IUserService _userService;
     private readonly IPasswordConfigurationPresentationFactory _passwordConfigurationPresentationFactory;
 
-    public VerifyResetPasswordTokenController(IUserService userService, IPasswordConfigurationPresentationFactory passwordConfigurationPresentationFactory)
+    public VerifyResetPasswordTokenController(
+        IUserService userService,
+        IPasswordConfigurationPresentationFactory passwordConfigurationPresentationFactory)
     {
         _userService = userService;
         _passwordConfigurationPresentationFactory = passwordConfigurationPresentationFactory;
@@ -37,12 +39,14 @@ public class VerifyResetPasswordTokenController : SecurityControllerBase
         CancellationToken cancellationToken,
         VerifyResetPasswordTokenRequestModel model)
     {
-        Attempt<UserOperationStatus> result = await _userService.VerifyPasswordResetAsync(model.User.Id, model.ResetCode);
+        Attempt<UserOperationStatus> result =
+            await _userService.VerifyPasswordResetAsync(model.User.Id, model.ResetCode);
 
         return result.Success
             ? Ok(new VerifyResetPasswordResponseModel()
             {
-                PasswordConfiguration = _passwordConfigurationPresentationFactory.CreatePasswordConfigurationResponseModel(),
+                PasswordConfiguration =
+                    _passwordConfigurationPresentationFactory.CreatePasswordConfigurationResponseModel(),
             })
             : UserOperationStatusResult(result.Result);
     }

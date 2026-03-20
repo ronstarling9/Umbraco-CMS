@@ -16,7 +16,8 @@ public class AreReferencedMediaController : MediaControllerBase
     private readonly ITrackedReferencesService _trackedReferencesSkipTakeService;
     private readonly IUmbracoMapper _umbracoMapper;
 
-    public AreReferencedMediaController(ITrackedReferencesService trackedReferencesSkipTakeService, IUmbracoMapper umbracoMapper)
+    public AreReferencedMediaController(
+        ITrackedReferencesService trackedReferencesSkipTakeService, IUmbracoMapper umbracoMapper)
     {
         _trackedReferencesSkipTakeService = trackedReferencesSkipTakeService;
         _umbracoMapper = umbracoMapper;
@@ -41,11 +42,14 @@ public class AreReferencedMediaController : MediaControllerBase
         int skip = 0,
         int take = 20)
     {
-        PagedModel<Guid> distinctByKeyItemsWithReferencedRelations = await _trackedReferencesSkipTakeService.GetPagedKeysWithDependentReferencesAsync(ids, Constants.ObjectTypes.Media, skip, take);
+        PagedModel<Guid> distinctByKeyItemsWithReferencedRelations =
+            await _trackedReferencesSkipTakeService.GetPagedKeysWithDependentReferencesAsync(
+                ids, Constants.ObjectTypes.Media, skip, take);
         var pagedViewModel = new PagedViewModel<ReferenceByIdModel>
         {
             Total = distinctByKeyItemsWithReferencedRelations.Total,
-            Items = _umbracoMapper.MapEnumerable<Guid, ReferenceByIdModel>(distinctByKeyItemsWithReferencedRelations.Items),
+            Items = _umbracoMapper.MapEnumerable<Guid, ReferenceByIdModel>(
+                distinctByKeyItemsWithReferencedRelations.Items),
         };
 
         return pagedViewModel;

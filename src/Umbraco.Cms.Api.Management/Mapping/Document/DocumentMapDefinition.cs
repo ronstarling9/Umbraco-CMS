@@ -13,7 +13,8 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Api.Management.Mapping.Document;
 
-public class DocumentMapDefinition : ContentMapDefinition<IContent, DocumentValueResponseModel, DocumentVariantResponseModel>, IMapDefinition
+public class DocumentMapDefinition
+    : ContentMapDefinition<IContent, DocumentValueResponseModel, DocumentVariantResponseModel>, IMapDefinition
 {
     private readonly CommonMapper _commonMapper;
 
@@ -157,5 +158,6 @@ public class DocumentMapDefinition : ContentMapDefinition<IContent, DocumentValu
         }
     }
 
-    private static bool IsInvariant(string? culture) => culture.IsNullOrWhiteSpace() || culture == Core.Constants.System.InvariantCulture;
+    private static bool IsInvariant(string? culture)
+        => culture.IsNullOrWhiteSpace() || culture == Core.Constants.System.InvariantCulture;
 }

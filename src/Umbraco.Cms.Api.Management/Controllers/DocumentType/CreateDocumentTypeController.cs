@@ -44,7 +44,8 @@ public class CreateDocumentTypeController : DocumentTypeControllerBase
         CreateDocumentTypeRequestModel requestModel)
     {
         ContentTypeCreateModel model = _documentTypeEditingPresentationFactory.MapCreateModel(requestModel);
-        Attempt<IContentType?, ContentTypeOperationStatus> result = await _contentTypeEditingService.CreateAsync(model, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IContentType?, ContentTypeOperationStatus> result =
+            await _contentTypeEditingService.CreateAsync(model, CurrentUserKey(_backOfficeSecurityAccessor));
 
         return result.Success
             ? CreatedAtId<ByKeyDocumentTypeController>(controller => nameof(controller.ByKey), result.Result!.Key)

@@ -11,7 +11,8 @@ public class ConfigurationUserController : UserControllerBase
 {
     private readonly IUserPresentationFactory _userPresentationFactory;
 
-    public ConfigurationUserController(IUserPresentationFactory userPresentationFactory) => _userPresentationFactory = userPresentationFactory;
+    public ConfigurationUserController(IUserPresentationFactory userPresentationFactory)
+        => _userPresentationFactory = userPresentationFactory;
 
     [HttpGet("configuration")]
     [MapToApiVersion("1.0")]

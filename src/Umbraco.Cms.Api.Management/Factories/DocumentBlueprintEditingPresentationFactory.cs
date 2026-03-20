@@ -4,7 +4,9 @@ using Umbraco.Cms.Core.Models.ContentEditing;
 
 namespace Umbraco.Cms.Api.Management.Factories;
 
-internal sealed class DocumentBlueprintEditingPresentationFactory : ContentEditingPresentationFactory<DocumentValueModel, DocumentVariantRequestModel>, IDocumentBlueprintEditingPresentationFactory
+internal sealed class DocumentBlueprintEditingPresentationFactory
+    : ContentEditingPresentationFactory<DocumentValueModel, DocumentVariantRequestModel>,
+        IDocumentBlueprintEditingPresentationFactory
 {
     public ContentBlueprintCreateModel MapCreateModel(CreateDocumentBlueprintRequestModel requestModel)
     {

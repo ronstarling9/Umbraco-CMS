@@ -26,12 +26,15 @@ public class ItemTypeMapDefinition : IMapDefinition
     {
         mapper.Define<ILanguage, LanguageItemResponseModel>((_, _) => new LanguageItemResponseModel(), Map);
         mapper.Define<IDataType, DataTypeItemResponseModel>((_, _) => new DataTypeItemResponseModel(), Map);
-        mapper.Define<IDictionaryItem, DictionaryItemItemResponseModel>((_, _) => new DictionaryItemItemResponseModel(), Map);
+        mapper.Define<IDictionaryItem, DictionaryItemItemResponseModel>(
+            (_, _) => new DictionaryItemItemResponseModel(), Map);
         mapper.Define<IContentType, DocumentTypeItemResponseModel>((_, _) => new DocumentTypeItemResponseModel(), Map);
         mapper.Define<IMediaType, MediaTypeItemResponseModel>((_, _) => new MediaTypeItemResponseModel(), Map);
-        mapper.Define<MediaTypeFileExtensionMatchResult, AllowedMediaTypeItemResponseModel>((_, _) => new AllowedMediaTypeItemResponseModel(), Map);
+        mapper.Define<MediaTypeFileExtensionMatchResult, AllowedMediaTypeItemResponseModel>(
+            (_, _) => new AllowedMediaTypeItemResponseModel(), Map);
         mapper.Define<IEntitySlim, MemberGroupItemResponseModel>((_, _) => new MemberGroupItemResponseModel(), Map);
-        mapper.Define<ITemplate, TemplateItemResponseModel>((_, _) => new TemplateItemResponseModel { Alias = string.Empty }, Map);
+        mapper.Define<ITemplate, TemplateItemResponseModel>(
+            (_, _) => new TemplateItemResponseModel { Alias = string.Empty }, Map);
         mapper.Define<IMemberType, MemberTypeItemResponseModel>((_, _) => new MemberTypeItemResponseModel(), Map);
         mapper.Define<IRelationType, RelationTypeItemResponseModel>((_, _) => new RelationTypeItemResponseModel(), Map);
         mapper.Define<IUserGroup, UserGroupItemResponseModel>((_, _) => new UserGroupItemResponseModel(), Map);
@@ -82,7 +85,8 @@ public class ItemTypeMapDefinition : IMapDefinition
     }
 
     // Umbraco.Code.MapAll -Flags -Icon -Id -Name
-    private static void Map(MediaTypeFileExtensionMatchResult source, AllowedMediaTypeItemResponseModel target, MapperContext context)
+    private static void Map(
+        MediaTypeFileExtensionMatchResult source, AllowedMediaTypeItemResponseModel target, MapperContext context)
     {
         Map(source.MediaType, target, context);
         target.MatchedFileExtension = source.IsSpecificMatch;

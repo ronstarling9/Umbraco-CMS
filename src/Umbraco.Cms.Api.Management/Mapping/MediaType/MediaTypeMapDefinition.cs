@@ -8,17 +8,27 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Api.Management.Mapping.MediaType;
 
-public class MediaTypeMapDefinition : ContentTypeMapDefinition<IMediaType, MediaTypePropertyTypeResponseModel, MediaTypePropertyTypeContainerResponseModel>, IMapDefinition
+public class MediaTypeMapDefinition
+    : ContentTypeMapDefinition<
+        IMediaType,
+        MediaTypePropertyTypeResponseModel,
+        MediaTypePropertyTypeContainerResponseModel>,
+        IMapDefinition
 {
     public void DefineMaps(IUmbracoMapper mapper)
     {
         mapper.Define<IMediaType, MediaTypeResponseModel>((_, _) => new MediaTypeResponseModel(), Map);
-        mapper.Define<IMediaType, MediaTypeReferenceResponseModel>((_, _) => new MediaTypeReferenceResponseModel(), Map);
-        mapper.Define<IMediaEntitySlim, MediaTypeReferenceResponseModel>((_, _) => new MediaTypeReferenceResponseModel(), Map);
-        mapper.Define<IContentEntitySlim, MediaTypeReferenceResponseModel>((_, _) => new MediaTypeReferenceResponseModel(), Map);
-        mapper.Define<ISimpleContentType, MediaTypeReferenceResponseModel>((_, _) => new MediaTypeReferenceResponseModel(), Map);
+        mapper.Define<IMediaType, MediaTypeReferenceResponseModel>(
+            (_, _) => new MediaTypeReferenceResponseModel(), Map);
+        mapper.Define<IMediaEntitySlim, MediaTypeReferenceResponseModel>(
+            (_, _) => new MediaTypeReferenceResponseModel(), Map);
+        mapper.Define<IContentEntitySlim, MediaTypeReferenceResponseModel>(
+            (_, _) => new MediaTypeReferenceResponseModel(), Map);
+        mapper.Define<ISimpleContentType, MediaTypeReferenceResponseModel>(
+            (_, _) => new MediaTypeReferenceResponseModel(), Map);
         mapper.Define<IMediaType, AllowedMediaType>((_, _) => new AllowedMediaType(), Map);
-        mapper.Define<ISimpleContentType, MediaTypeCollectionReferenceResponseModel>((_, _) => new MediaTypeCollectionReferenceResponseModel(), Map);
+        mapper.Define<ISimpleContentType, MediaTypeCollectionReferenceResponseModel>(
+            (_, _) => new MediaTypeCollectionReferenceResponseModel(), Map);
     }
 
     // Umbraco.Code.MapAll

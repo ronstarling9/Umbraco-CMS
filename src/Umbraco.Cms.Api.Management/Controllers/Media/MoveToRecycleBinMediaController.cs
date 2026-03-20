@@ -50,7 +50,8 @@ public class MoveToRecycleBinMediaController : MediaControllerBase
             return Forbidden();
         }
 
-        Attempt<IMedia?, ContentEditingOperationStatus> result = await _mediaEditingService.MoveToRecycleBinAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
+        Attempt<IMedia?, ContentEditingOperationStatus> result =
+            await _mediaEditingService.MoveToRecycleBinAsync(id, CurrentUserKey(_backOfficeSecurityAccessor));
         return result.Success
             ? Ok()
             : ContentEditingOperationStatusResult(result.Status);

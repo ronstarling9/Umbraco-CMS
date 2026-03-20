@@ -64,7 +64,9 @@ public class UpdateDictionaryController : DictionaryControllerBase
             return Forbidden();
         }
 
-        IDictionaryItem updated = await _dictionaryPresentationFactory.MapUpdateModelToDictionaryItemAsync(current, updateDictionaryItemRequestModel);
+        IDictionaryItem updated = await _dictionaryPresentationFactory.MapUpdateModelToDictionaryItemAsync(
+            current,
+            updateDictionaryItemRequestModel);
 
         Attempt<IDictionaryItem, DictionaryItemOperationStatus> result =
             await _dictionaryItemService.UpdateAsync(updated, CurrentUserKey(_backOfficeSecurityAccessor));

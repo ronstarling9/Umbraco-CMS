@@ -14,13 +14,20 @@ public class StylesheetViewModelsMapDefinition : IMapDefinition
 {
     public void DefineMaps(IUmbracoMapper mapper)
     {
-        mapper.Define<IStylesheet, StylesheetResponseModel>((_, _) => new StylesheetResponseModel { Content = string.Empty, Name = string.Empty, Path = string.Empty }, Map);
-        mapper.Define<CreateStylesheetRequestModel, StylesheetCreateModel>((_, _) => new StylesheetCreateModel { Name = string.Empty }, Map);
-        mapper.Define<UpdateStylesheetRequestModel, StylesheetUpdateModel>((_, _) => new StylesheetUpdateModel { Content = string.Empty }, Map);
-        mapper.Define<RenameStylesheetRequestModel, StylesheetRenameModel>((_, _) => new StylesheetRenameModel { Name = string.Empty }, Map);
+        mapper.Define<IStylesheet, StylesheetResponseModel>(
+            (_, _) => new StylesheetResponseModel { Content = string.Empty, Name = string.Empty, Path = string.Empty },
+            Map);
+        mapper.Define<CreateStylesheetRequestModel, StylesheetCreateModel>(
+            (_, _) => new StylesheetCreateModel { Name = string.Empty }, Map);
+        mapper.Define<UpdateStylesheetRequestModel, StylesheetUpdateModel>(
+            (_, _) => new StylesheetUpdateModel { Content = string.Empty }, Map);
+        mapper.Define<RenameStylesheetRequestModel, StylesheetRenameModel>(
+            (_, _) => new StylesheetRenameModel { Name = string.Empty }, Map);
 
-        mapper.Define<StylesheetFolderModel, StylesheetFolderResponseModel>((_, _) => new StylesheetFolderResponseModel { Name = string.Empty, Path = string.Empty }, Map);
-        mapper.Define<CreateStylesheetFolderRequestModel, StylesheetFolderCreateModel>((_, _) => new StylesheetFolderCreateModel { Name = string.Empty }, Map);
+        mapper.Define<StylesheetFolderModel, StylesheetFolderResponseModel>(
+            (_, _) => new StylesheetFolderResponseModel { Name = string.Empty, Path = string.Empty }, Map);
+        mapper.Define<CreateStylesheetFolderRequestModel, StylesheetFolderCreateModel>(
+            (_, _) => new StylesheetFolderCreateModel { Name = string.Empty }, Map);
     }
 
     // Umbraco.Code.MapAll
@@ -68,7 +75,8 @@ public class StylesheetViewModelsMapDefinition : IMapDefinition
     }
 
     // Umbraco.Code.MapAll
-    private void Map(CreateStylesheetFolderRequestModel source, StylesheetFolderCreateModel target, MapperContext context)
+    private void Map(
+        CreateStylesheetFolderRequestModel source, StylesheetFolderCreateModel target, MapperContext context)
     {
         target.Name = source.Name;
         target.ParentPath = source.Parent?.Path.VirtualPathToSystemPath();

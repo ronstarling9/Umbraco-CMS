@@ -53,19 +53,23 @@ public class DocumentUrlFactory : IDocumentUrlFactory
         return documentUrlInfoResourceSets;
     }
 
-    public async Task<DocumentUrlInfo?> GetPreviewUrlAsync(IContent content, string providerAlias, string? culture, string? segment)
+    public async Task<DocumentUrlInfo?> GetPreviewUrlAsync(
+        IContent content, string providerAlias, string? culture, string? segment)
     {
-        IUrlProvider? provider = _urlProviders.FirstOrDefault(provider => provider.Alias.InvariantEquals(providerAlias));
+        IUrlProvider? provider =
+            _urlProviders.FirstOrDefault(provider => provider.Alias.InvariantEquals(providerAlias));
         if (provider is null)
         {
-            _logger.LogError("Could not resolve a URL provider requested for preview - it was not registered in the URL providers collection.");
+            _logger.LogError(
+                "Could not resolve a URL provider requested for preview - it was not registered in the URL providers collection.");
             return null;
         }
 
         UrlInfo? previewUrlInfo = await provider.GetPreviewUrlAsync(content, culture, segment);
         if (previewUrlInfo is null)
         {
-            _logger.LogError("The URL provider could not generate a preview URL for content with key: {contentKey}", content.Key);
+            _logger.LogError(
+                "The URL provider could not generate a preview URL for content with key: {contentKey}", content.Key);
             return null;
         }
 
@@ -75,13 +79,15 @@ public class DocumentUrlFactory : IDocumentUrlFactory
             IUser? currentUser = _backOfficeSecurityAccessor.BackOfficeSecurity?.CurrentUser;
             if (currentUser is null)
             {
-                _logger.LogError("Could not access the current backoffice user while attempting to authenticate for preview.");
+                _logger.LogError(
+                    "Could not access the current backoffice user while attempting to authenticate for preview.");
                 return null;
             }
 
             if (await _previewService.TryEnterPreviewAsync(currentUser) is false)
             {
-                _logger.LogError("A server error occured, could not initiate an authenticated preview state for the current user.");
+                _logger.LogError(
+                    "A server error occured, could not initiate an authenticated preview state for the current user.");
                 return null;
             }
         }

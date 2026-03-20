@@ -13,7 +13,8 @@ public class GetStatusProfilingController : ProfilingControllerBase
 {
     private readonly IWebProfilerService _webProfilerService;
 
-    public GetStatusProfilingController(IWebProfilerService webProfilerService) => _webProfilerService = webProfilerService;
+    public GetStatusProfilingController(IWebProfilerService webProfilerService)
+        => _webProfilerService = webProfilerService;
 
     [HttpGet("status")]
     [MapToApiVersion("1.0")]

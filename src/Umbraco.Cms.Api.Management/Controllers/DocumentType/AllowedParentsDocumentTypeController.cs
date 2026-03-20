@@ -29,7 +29,8 @@ public class AllowedParentsDocumentTypeController : DocumentTypeControllerBase
         CancellationToken cancellationToken,
         Guid id)
     {
-        Attempt<IEnumerable<Guid>, ContentTypeOperationStatus> attempt = await _contentTypeService.GetAllowedParentKeysAsync(id);
+        Attempt<IEnumerable<Guid>, ContentTypeOperationStatus> attempt =
+            await _contentTypeService.GetAllowedParentKeysAsync(id);
         if (attempt.Success is false)
         {
             return OperationStatusResult(attempt.Status);

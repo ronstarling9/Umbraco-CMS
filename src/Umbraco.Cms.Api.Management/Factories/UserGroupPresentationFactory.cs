@@ -43,7 +43,8 @@ public class UserGroupPresentationFactory : IUserGroupPresentationFactory
         Guid? mediaStartNodeKey = GetKeyFromId(userGroup.StartMediaId, UmbracoObjectTypes.Media);
         var mediaRootAccess = mediaStartNodeKey is null && userGroup.StartMediaId == Constants.System.Root;
 
-        Attempt<IEnumerable<string>, UserGroupOperationStatus> languageIsoCodesMappingAttempt = await MapLanguageIdsToIsoCodeAsync(userGroup.AllowedLanguages);
+        Attempt<IEnumerable<string>, UserGroupOperationStatus> languageIsoCodesMappingAttempt =
+            await MapLanguageIdsToIsoCodeAsync(userGroup.AllowedLanguages);
 
         if (languageIsoCodesMappingAttempt.Success is false)
         {
@@ -77,7 +78,8 @@ public class UserGroupPresentationFactory : IUserGroupPresentationFactory
         // TODO figure out how to reuse code from Task<UserGroupResponseModel> CreateAsync(IUserGroup userGroup) instead of copying
         Guid? contentStartNodeKey = GetKeyFromId(userGroup.StartContentId, UmbracoObjectTypes.Document);
         Guid? mediaStartNodeKey = GetKeyFromId(userGroup.StartMediaId, UmbracoObjectTypes.Media);
-        Attempt<IEnumerable<string>, UserGroupOperationStatus> languageIsoCodesMappingAttempt = await MapLanguageIdsToIsoCodeAsync(userGroup.AllowedLanguages);
+        Attempt<IEnumerable<string>, UserGroupOperationStatus> languageIsoCodesMappingAttempt =
+            await MapLanguageIdsToIsoCodeAsync(userGroup.AllowedLanguages);
 
         if (languageIsoCodesMappingAttempt.Success is false)
         {
@@ -116,7 +118,8 @@ public class UserGroupPresentationFactory : IUserGroupPresentationFactory
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<UserGroupResponseModel>> CreateMultipleAsync(IEnumerable<IReadOnlyUserGroup> userGroups)
+    public async Task<IEnumerable<UserGroupResponseModel>> CreateMultipleAsync(
+        IEnumerable<IReadOnlyUserGroup> userGroups)
     {
         var userGroupViewModels = new List<UserGroupResponseModel>();
         foreach (IReadOnlyUserGroup userGroup in userGroups)
@@ -128,7 +131,8 @@ public class UserGroupPresentationFactory : IUserGroupPresentationFactory
     }
 
     /// <inheritdoc />
-    public async Task<Attempt<IUserGroup, UserGroupOperationStatus>> CreateAsync(CreateUserGroupRequestModel requestModel)
+    public async Task<Attempt<IUserGroup, UserGroupOperationStatus>> CreateAsync(
+        CreateUserGroupRequestModel requestModel)
     {
         var group = new UserGroup(_shortStringHelper)
         {
@@ -138,7 +142,8 @@ public class UserGroupPresentationFactory : IUserGroupPresentationFactory
             Icon = requestModel.Icon,
             HasAccessToAllLanguages = requestModel.HasAccessToAllLanguages,
             Permissions = requestModel.FallbackPermissions,
-            GranularPermissions = await _permissionPresentationFactory.CreatePermissionSetsAsync(requestModel.Permissions),
+            GranularPermissions = await _permissionPresentationFactory.CreatePermissionSetsAsync(
+                requestModel.Permissions),
         };
 
         if (requestModel.Id.HasValue)
@@ -157,10 +162,12 @@ public class UserGroupPresentationFactory : IUserGroupPresentationFactory
             group.AddAllowedSection(SectionMapper.GetAlias(section));
         }
 
-        Attempt<IEnumerable<int>, UserGroupOperationStatus> languageIsoCodeMappingAttempt = await MapLanguageIsoCodesToIdsAsync(requestModel.Languages);
+        Attempt<IEnumerable<int>, UserGroupOperationStatus> languageIsoCodeMappingAttempt =
+            await MapLanguageIsoCodesToIdsAsync(requestModel.Languages);
         if (languageIsoCodeMappingAttempt.Success is false)
         {
-            return Attempt.FailWithStatus<IUserGroup, UserGroupOperationStatus>(languageIsoCodeMappingAttempt.Status, group);
+            return Attempt.FailWithStatus<IUserGroup, UserGroupOperationStatus>(
+                languageIsoCodeMappingAttempt.Status, group);
         }
 
         foreach (var languageId in languageIsoCodeMappingAttempt.Result)
@@ -172,7 +179,8 @@ public class UserGroupPresentationFactory : IUserGroupPresentationFactory
     }
 
     /// <inheritdoc />
-    public async Task<Attempt<IUserGroup, UserGroupOperationStatus>> UpdateAsync(IUserGroup current, UpdateUserGroupRequestModel request)
+    public async Task<Attempt<IUserGroup, UserGroupOperationStatus>> UpdateAsync(
+        IUserGroup current, UpdateUserGroupRequestModel request)
     {
         Attempt<UserGroupOperationStatus> assignmentAttempt = AssignStartNodesToUserGroup(request, current);
         if (assignmentAttempt.Success is false)
@@ -181,7 +189,8 @@ public class UserGroupPresentationFactory : IUserGroupPresentationFactory
         }
 
         current.ClearAllowedLanguages();
-        Attempt<IEnumerable<int>, UserGroupOperationStatus> languageIdsMappingAttempt = await MapLanguageIsoCodesToIdsAsync(request.Languages);
+        Attempt<IEnumerable<int>, UserGroupOperationStatus> languageIdsMappingAttempt =
+            await MapLanguageIsoCodesToIdsAsync(request.Languages);
         if (languageIdsMappingAttempt.Success is false)
         {
             return Attempt.FailWithStatus(languageIdsMappingAttempt.Status, current);
@@ -205,7 +214,8 @@ public class UserGroupPresentationFactory : IUserGroupPresentationFactory
         current.HasAccessToAllLanguages = request.HasAccessToAllLanguages;
 
         current.Permissions = request.FallbackPermissions;
-        current.GranularPermissions = await _permissionPresentationFactory.CreatePermissionSetsAsync(request.Permissions);
+        current.GranularPermissions =
+            await _permissionPresentationFactory.CreatePermissionSetsAsync(request.Permissions);
 
         return Attempt.SucceedWithStatus(UserGroupOperationStatus.Success, current);
     }
@@ -213,7 +223,8 @@ public class UserGroupPresentationFactory : IUserGroupPresentationFactory
     private static string CleanUserGroupNameOrAliasForXss(string input)
         => input.CleanForXss('[', ']', '(', ')', ':');
 
-    private async Task<Attempt<IEnumerable<string>, UserGroupOperationStatus>> MapLanguageIdsToIsoCodeAsync(IEnumerable<int> ids)
+    private async Task<Attempt<IEnumerable<string>, UserGroupOperationStatus>> MapLanguageIdsToIsoCodeAsync(
+        IEnumerable<int> ids)
     {
         string[] isoCodes = await _languageService.GetIsoCodesByIdsAsync(ids.ToArray());
 
@@ -223,7 +234,8 @@ public class UserGroupPresentationFactory : IUserGroupPresentationFactory
             UserGroupOperationStatus.Success, isoCodes);
     }
 
-    private async Task<Attempt<IEnumerable<int>, UserGroupOperationStatus>> MapLanguageIsoCodesToIdsAsync(IEnumerable<string> isoCodes)
+    private async Task<Attempt<IEnumerable<int>, UserGroupOperationStatus>> MapLanguageIsoCodesToIdsAsync(
+        IEnumerable<string> isoCodes)
     {
         IEnumerable<ILanguage> languages = await _languageService.GetAllAsync();
         int[] languageIds = languages
@@ -232,8 +244,10 @@ public class UserGroupPresentationFactory : IUserGroupPresentationFactory
             .ToArray();
 
         return languageIds.Length == isoCodes.Count()
-            ? Attempt.SucceedWithStatus<IEnumerable<int>, UserGroupOperationStatus>(UserGroupOperationStatus.Success, languageIds)
-            : Attempt.FailWithStatus<IEnumerable<int>, UserGroupOperationStatus>(UserGroupOperationStatus.LanguageNotFound, languageIds);
+            ? Attempt.SucceedWithStatus<IEnumerable<int>, UserGroupOperationStatus>(
+                UserGroupOperationStatus.Success, languageIds)
+            : Attempt.FailWithStatus<IEnumerable<int>, UserGroupOperationStatus>(
+                UserGroupOperationStatus.LanguageNotFound, languageIds);
     }
 
     private Attempt<UserGroupOperationStatus> AssignStartNodesToUserGroup(UserGroupBase source, IUserGroup target)

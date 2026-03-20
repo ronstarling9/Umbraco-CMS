@@ -11,11 +11,14 @@ public class PermissionPresentationFactory : IPermissionPresentationFactory
     private readonly IDictionary<string, IPermissionPresentationMapper> _permissionPresentationMappersByContext;
     private readonly Dictionary<Type, IPermissionPresentationMapper> _permissionPresentationMappersByType;
 
-    public PermissionPresentationFactory(IEnumerable<IPermissionPresentationMapper> permissionPresentationMappers, ILogger<PermissionPresentationFactory> logger)
+    public PermissionPresentationFactory(
+        IEnumerable<IPermissionPresentationMapper> permissionPresentationMappers,
+        ILogger<PermissionPresentationFactory> logger)
     {
         _logger = logger;
         _permissionPresentationMappersByContext = permissionPresentationMappers.ToDictionary(x => x.Context);
-        _permissionPresentationMappersByType = permissionPresentationMappers.ToDictionary(x => x.PresentationModelToHandle);
+        _permissionPresentationMappersByType =
+            permissionPresentationMappers.ToDictionary(x => x.PresentationModelToHandle);
     }
 
     public Task<ISet<IPermissionPresentationModel>> CreateAsync(ISet<IGranularPermission> granularPermissions)
@@ -26,7 +29,8 @@ public class PermissionPresentationFactory : IPermissionPresentationFactory
 
         foreach (IGrouping<string, IGranularPermission> contextGroup in contexts)
         {
-            if (_permissionPresentationMappersByContext.TryGetValue(contextGroup.Key, out IPermissionPresentationMapper? mapper))
+            if (_permissionPresentationMappersByContext.TryGetValue(
+                contextGroup.Key, out IPermissionPresentationMapper? mapper))
             {
                 IEnumerable<IPermissionPresentationModel> mapped = mapper.MapManyAsync(contextGroup);
                 foreach (IPermissionPresentationModel permissionPresentationModel in mapped)
@@ -56,7 +60,8 @@ public class PermissionPresentationFactory : IPermissionPresentationFactory
         ISet<IGranularPermission> granularPermissions = new HashSet<IGranularPermission>();
         foreach (IPermissionPresentationModel permissionViewModel in permissions)
         {
-            if (_permissionPresentationMappersByType.TryGetValue(permissionViewModel.GetType(), out IPermissionPresentationMapper? mapper))
+            if (_permissionPresentationMappersByType.TryGetValue(
+                permissionViewModel.GetType(), out IPermissionPresentationMapper? mapper))
             {
                 IEnumerable<IGranularPermission> mapped = mapper.MapToGranularPermissions(permissionViewModel);
                 foreach (IGranularPermission granularPermission in mapped)
@@ -77,7 +82,8 @@ public class PermissionPresentationFactory : IPermissionPresentationFactory
             }
             else
             {
-                _logger.LogWarning("Unknown mapper for type {Type} to IGranularPermission", permissionViewModel.GetType());
+                _logger.LogWarning(
+                    "Unknown mapper for type {Type} to IGranularPermission", permissionViewModel.GetType());
             }
         }
 

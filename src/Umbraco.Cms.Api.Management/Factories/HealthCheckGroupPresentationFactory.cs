@@ -41,7 +41,8 @@ public class HealthCheckGroupPresentationFactory : IHealthCheckGroupPresentation
         return groups;
     }
 
-    public async Task<HealthCheckGroupWithResultResponseModel> CreateHealthCheckGroupWithResultViewModelAsync(IGrouping<string?, HealthCheck> healthCheckGroup)
+    public async Task<HealthCheckGroupWithResultResponseModel> CreateHealthCheckGroupWithResultViewModelAsync(
+        IGrouping<string?, HealthCheck> healthCheckGroup)
     {
         var healthChecks = new List<HealthCheckWithResultPresentationModel>();
 
@@ -58,7 +59,8 @@ public class HealthCheckGroupPresentationFactory : IHealthCheckGroupPresentation
         return healthCheckGroupViewModel;
     }
 
-    public async Task<HealthCheckWithResultPresentationModel> CreateHealthCheckWithResultViewModelAsync(HealthCheck healthCheck)
+    public async Task<HealthCheckWithResultPresentationModel> CreateHealthCheckWithResultViewModelAsync(
+        HealthCheck healthCheck)
     {
         _logger.LogDebug($"Running health check: {healthCheck.Name}");
 

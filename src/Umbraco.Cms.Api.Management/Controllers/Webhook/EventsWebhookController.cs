@@ -30,7 +30,8 @@ public class EventsWebhookController : WebhookControllerBase
         int skip = 0,
         int take = 100)
     {
-        List<WebhookEventViewModel> events = _umbracoMapper.MapEnumerable<IWebhookEvent, WebhookEventViewModel>(_webhookEventCollection.AsEnumerable());
+        List<WebhookEventViewModel> events = _umbracoMapper
+            .MapEnumerable<IWebhookEvent, WebhookEventViewModel>(_webhookEventCollection.AsEnumerable());
 
         var pagedModel = new PagedViewModel<WebhookEventViewModel>
         {

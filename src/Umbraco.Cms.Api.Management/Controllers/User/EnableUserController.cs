@@ -49,7 +49,9 @@ public class EnableUserController : UserControllerBase
             return Forbidden();
         }
 
-        UserOperationStatus result = await _userService.EnableAsync(CurrentUserKey(_backOfficeSecurityAccessor), model.UserIds.Select(x => x.Id).ToHashSet());
+        UserOperationStatus result = await _userService.EnableAsync(
+            CurrentUserKey(_backOfficeSecurityAccessor),
+            model.UserIds.Select(x => x.Id).ToHashSet());
 
         return result is UserOperationStatus.Success
             ? Ok()

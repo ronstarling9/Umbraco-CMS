@@ -70,7 +70,8 @@ public class ByKeyDocumentCollectionController : DocumentCollectionControllerBas
         int skip = 0,
         int take = 100)
     {
-        Attempt<ListViewPagedModel<IContent>?, ContentCollectionOperationStatus> collectionAttempt = await _contentListViewService.GetListViewItemsByKeyAsync(
+        Attempt<ListViewPagedModel<IContent>?, ContentCollectionOperationStatus> collectionAttempt =
+            await _contentListViewService.GetListViewItemsByKeyAsync(
             CurrentUser(_backOfficeSecurityAccessor),
             id,
             dataTypeId,
@@ -86,7 +87,8 @@ public class ByKeyDocumentCollectionController : DocumentCollectionControllerBas
             return CollectionOperationStatusResult(collectionAttempt.Status);
         }
 
-        List<DocumentCollectionResponseModel> collectionResponseModels = await _documentCollectionPresentationFactory.CreateCollectionModelAsync(collectionAttempt.Result!);
+        List<DocumentCollectionResponseModel> collectionResponseModels =
+            await _documentCollectionPresentationFactory.CreateCollectionModelAsync(collectionAttempt.Result!);
         return CollectionResult(collectionResponseModels, collectionAttempt.Result!.Items.Total);
     }
 }

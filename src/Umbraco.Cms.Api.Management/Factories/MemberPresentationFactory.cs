@@ -49,13 +49,18 @@ internal sealed class MemberPresentationFactory : IMemberPresentationFactory
         IEnumerable<string> roles = _memberService.GetAllRoles(member.Username);
 
         // Get the member groups per role, so we can return the group keys
-        responseModel.Groups = roles.Select(x => _memberGroupService.GetByName(x)).WhereNotNull().Select(x => x.Key).ToArray();
+        responseModel.Groups = roles
+            .Select(x => _memberGroupService.GetByName(x))
+            .WhereNotNull()
+            .Select(x => x.Key)
+            .ToArray();
         return currentUser.HasAccessToSensitiveData()
             ? responseModel
             : await RemoveSensitiveDataAsync(member, responseModel);
     }
 
-    public async Task<IEnumerable<MemberResponseModel>> CreateMultipleAsync(IEnumerable<IMember> members, IUser currentUser)
+    public async Task<IEnumerable<MemberResponseModel>> CreateMultipleAsync(
+        IEnumerable<IMember> members, IUser currentUser)
     {
         var memberResponseModels = new List<MemberResponseModel>();
         foreach (IMember member in members)
@@ -105,7 +110,8 @@ internal sealed class MemberPresentationFactory : IMemberPresentationFactory
         responseModel.LastPasswordChangeDate = null;
 
         IMemberType memberType = await _memberTypeService.GetAsync(member.ContentType.Key)
-                                 ?? throw new InvalidOperationException($"The member type {member.ContentType.Alias} could not be found");
+            ?? throw new InvalidOperationException(
+                    $"The member type {member.ContentType.Alias} could not be found");
 
         var sensitivePropertyAliases = memberType.GetSensitivePropertyTypeAliases().ToArray();
 

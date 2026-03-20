@@ -45,7 +45,8 @@ public class ListTwoFactorProvidersUserController : UserControllerBase
             return Forbidden();
         }
 
-        Attempt<IEnumerable<UserTwoFactorProviderModel>, TwoFactorOperationStatus> result = await _userTwoFactorLoginService.GetProviderNamesAsync(id);
+        Attempt<IEnumerable<UserTwoFactorProviderModel>, TwoFactorOperationStatus> result =
+            await _userTwoFactorLoginService.GetProviderNamesAsync(id);
 
         return result.Success
             ? Ok(result.Result)

@@ -49,7 +49,8 @@ public class AllManifestController : ManifestControllerBase
     public async Task<IActionResult> AllManifests(CancellationToken cancellationToken)
     {
         IEnumerable<PackageManifest> packageManifests = await _packageManifestService.GetAllPackageManifestsAsync();
-        IEnumerable<ManifestResponseModel> models = _umbracoMapper.MapEnumerable<PackageManifest, ManifestResponseModel>(packageManifests);
+        IEnumerable<ManifestResponseModel> models =
+            _umbracoMapper.MapEnumerable<PackageManifest, ManifestResponseModel>(packageManifests);
         ReplaceCacheBusterTokens(models, _backOfficePathGenerator.BackOfficeCacheBustHash);
         return Ok(models);
     }

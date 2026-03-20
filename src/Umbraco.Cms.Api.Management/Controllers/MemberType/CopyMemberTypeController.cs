@@ -38,7 +38,8 @@ public class CopyMemberTypeController : MemberTypeControllerBase
         Guid id,
         CopyMemberTypeRequestModel? copyMemberTypeRequestModel)
     {
-        Attempt<IMemberType?, ContentTypeStructureOperationStatus> result = await _memberTypeService.CopyAsync(id, copyMemberTypeRequestModel?.Target?.Id);
+        Attempt<IMemberType?, ContentTypeStructureOperationStatus> result =
+            await _memberTypeService.CopyAsync(id, copyMemberTypeRequestModel?.Target?.Id);
 
         return result.Success
             ? CreatedAtId<ByKeyMemberTypeController>(controller => nameof(controller.ByKey), result.Result!.Key)

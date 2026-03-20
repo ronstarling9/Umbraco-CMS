@@ -41,7 +41,8 @@ public class CreateUserController : UserControllerBase
     {
         UserCreateModel createModel = await _presentationFactory.CreateCreationModelAsync(model);
 
-        Attempt<UserCreationResult, UserOperationStatus> result = await _userService.CreateAsync(CurrentUserKey(_backOfficeSecurityAccessor), createModel, true);
+        Attempt<UserCreationResult, UserOperationStatus> result =
+            await _userService.CreateAsync(CurrentUserKey(_backOfficeSecurityAccessor), createModel, true);
 
         return result.Success
             ? CreatedAtId<ByKeyUserController>(controller => nameof(controller.ByKey), result.Result.CreatedUser!.Key)

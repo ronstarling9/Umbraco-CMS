@@ -19,7 +19,10 @@ public class ChildrenDocumentTypeTreeController : DocumentTypeTreeControllerBase
     }
 
     [ActivatorUtilitiesConstructor]
-    public ChildrenDocumentTypeTreeController(IEntityService entityService, FlagProviderCollection flagProviders, IContentTypeService contentTypeService)
+    public ChildrenDocumentTypeTreeController(
+        IEntityService entityService,
+        FlagProviderCollection flagProviders,
+        IContentTypeService contentTypeService)
         : base(entityService, flagProviders, contentTypeService)
     {
     }

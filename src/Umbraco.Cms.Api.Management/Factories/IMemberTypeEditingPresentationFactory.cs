@@ -10,5 +10,6 @@ public interface IMemberTypeEditingPresentationFactory
 
     MemberTypeUpdateModel MapUpdateModel(UpdateMemberTypeRequestModel requestModel);
 
-    IEnumerable<AvailableMemberTypeCompositionResponseModel> MapCompositionModels(IEnumerable<ContentTypeAvailableCompositionsResult> compositionResults);
+    IEnumerable<AvailableMemberTypeCompositionResponseModel> MapCompositionModels(
+        IEnumerable<ContentTypeAvailableCompositionsResult> compositionResults);
 }

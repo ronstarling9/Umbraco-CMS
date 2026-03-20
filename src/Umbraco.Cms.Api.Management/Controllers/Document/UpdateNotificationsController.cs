@@ -24,7 +24,11 @@ public class UpdateNotificationsController : DocumentControllerBase
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
 
     [ActivatorUtilitiesConstructor]
-    public UpdateNotificationsController(IAuthorizationService authorizationService, IContentEditingService contentEditingService, INotificationService notificationService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public UpdateNotificationsController(
+        IAuthorizationService authorizationService,
+        IContentEditingService contentEditingService,
+        INotificationService notificationService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
     {
         _authorizationService = authorizationService;
         _contentEditingService = contentEditingService;
@@ -33,7 +37,10 @@ public class UpdateNotificationsController : DocumentControllerBase
     }
 
     [Obsolete("Please use the constructor taking all parameters. Scheduled for removal in Umbraco 18.")]
-    public UpdateNotificationsController(IContentEditingService contentEditingService, INotificationService notificationService, IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
+    public UpdateNotificationsController(
+        IContentEditingService contentEditingService,
+        INotificationService notificationService,
+        IBackOfficeSecurityAccessor backOfficeSecurityAccessor)
         : this(
             StaticServiceProvider.Instance.GetRequiredService<IAuthorizationService>(),
             contentEditingService,
@@ -47,8 +54,10 @@ public class UpdateNotificationsController : DocumentControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [EndpointSummary("Updates notification subscriptions for a document.")]
-    [EndpointDescription("Updates which actions the current user is subscribed to receive notifications for on the specified document.")]
-    public async Task<IActionResult> UpdateNotifications(CancellationToken cancellationToken, Guid id, UpdateDocumentNotificationsRequestModel updateModel)
+    [EndpointDescription(
+        "Updates which actions the current user is subscribed to receive notifications for on the specified document.")]
+    public async Task<IActionResult> UpdateNotifications(
+        CancellationToken cancellationToken, Guid id, UpdateDocumentNotificationsRequestModel updateModel)
     {
         AuthorizationResult authorizationResult = await _authorizationService.AuthorizeResourceAsync(
             User,
@@ -66,7 +75,10 @@ public class UpdateNotificationsController : DocumentControllerBase
             return DocumentNotFound();
         }
 
-        _notificationService.SetNotifications(_backOfficeSecurityAccessor.BackOfficeSecurity?.CurrentUser, content, updateModel.SubscribedActionIds);
+        _notificationService.SetNotifications(
+            _backOfficeSecurityAccessor.BackOfficeSecurity?.CurrentUser,
+            content,
+            updateModel.SubscribedActionIds);
         return Ok();
     }
 }

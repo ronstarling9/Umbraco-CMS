@@ -40,7 +40,9 @@ public class GetAllRedirectUrlManagementController : RedirectUrlManagementContro
             ? _redirectUrlService.GetAllRedirectUrls(skip, take, out total)
             : _redirectUrlService.SearchRedirectUrls(filter, skip, take, out total);
 
-        IEnumerable<RedirectUrlResponseModel> redirectViewModels = _redirectUrlPresentationFactory.CreateMany(redirects);
-        return Task.FromResult<ActionResult<PagedViewModel<RedirectUrlResponseModel>>>(new PagedViewModel<RedirectUrlResponseModel> { Items = redirectViewModels, Total = total });
+        IEnumerable<RedirectUrlResponseModel> redirectViewModels =
+            _redirectUrlPresentationFactory.CreateMany(redirects);
+        return Task.FromResult<ActionResult<PagedViewModel<RedirectUrlResponseModel>>>(
+            new PagedViewModel<RedirectUrlResponseModel> { Items = redirectViewModels, Total = total });
     }
 }

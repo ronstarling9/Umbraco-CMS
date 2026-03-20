@@ -15,7 +15,9 @@ public class ReferencedByDataTypeController : DataTypeControllerBase
     private readonly IDataTypeService _dataTypeService;
     private readonly IRelationTypePresentationFactory _relationTypePresentationFactory;
 
-    public ReferencedByDataTypeController(IDataTypeService dataTypeService, IRelationTypePresentationFactory relationTypePresentationFactory)
+    public ReferencedByDataTypeController(
+        IDataTypeService dataTypeService,
+        IRelationTypePresentationFactory relationTypePresentationFactory)
     {
         _dataTypeService = dataTypeService;
         _relationTypePresentationFactory = relationTypePresentationFactory;

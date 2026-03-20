@@ -32,5 +32,7 @@ public interface IPermissionPresentationMapper
     /// <summary>
     /// Aggregates multiple permission presentation models into a collection containing only one item per entity with aggregated permissions.
     /// </summary>
-    IEnumerable<IPermissionPresentationModel> AggregatePresentationModels(IUser user, IEnumerable<IPermissionPresentationModel> models) => [];
+    IEnumerable<IPermissionPresentationModel> AggregatePresentationModels(
+        IUser user,
+        IEnumerable<IPermissionPresentationModel> models) => [];
 }

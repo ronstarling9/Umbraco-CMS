@@ -80,7 +80,8 @@ internal sealed class DocumentPresentationFactory : IDocumentPresentationFactory
         return responseModel;
     }
 
-    public async Task<DocumentResponseModel> CreateResponseModelAsync(IContent content, ContentScheduleCollection schedule)
+    public async Task<DocumentResponseModel> CreateResponseModelAsync(
+        IContent content, ContentScheduleCollection schedule)
     {
         DocumentResponseModel responseModel = _umbracoMapper.Map<DocumentResponseModel>(content)!;
         _umbracoMapper.Map(schedule, responseModel);
@@ -165,7 +166,9 @@ internal sealed class DocumentPresentationFactory : IDocumentPresentationFactory
     public DocumentTypeReferenceResponseModel CreateDocumentTypeReferenceResponseModel(IDocumentEntitySlim entity)
         => _umbracoMapper.Map<DocumentTypeReferenceResponseModel>(entity)!;
 
-    public Attempt<List<CulturePublishScheduleModel>, ContentPublishingOperationStatus> CreateCulturePublishScheduleModels(PublishDocumentRequestModel requestModel)
+    public Attempt<List<CulturePublishScheduleModel>, ContentPublishingOperationStatus>
+        CreateCulturePublishScheduleModels(
+            PublishDocumentRequestModel requestModel)
     {
         var model = new List<CulturePublishScheduleModel>();
 
@@ -175,8 +178,8 @@ internal sealed class DocumentPresentationFactory : IDocumentPresentationFactory
             {
                 model.Add(new CulturePublishScheduleModel
                 {
-                    Culture = cultureAndScheduleRequestModel.Culture
-                              ?? Constants.System.InvariantCulture // API have `null` for invariant, but service layer has "*".
+                    // API uses `null` for invariant culture, but the service layer uses "*".
+                    Culture = cultureAndScheduleRequestModel.Culture ?? Constants.System.InvariantCulture
                 });
                 continue;
             }
@@ -193,9 +196,11 @@ internal sealed class DocumentPresentationFactory : IDocumentPresentationFactory
                 return Attempt.FailWithStatus(ContentPublishingOperationStatus.UpublishTimeNeedsToBeInFuture, model);
             }
 
-            if (cultureAndScheduleRequestModel.Schedule.UnpublishTime <= cultureAndScheduleRequestModel.Schedule.PublishTime)
+            if (cultureAndScheduleRequestModel.Schedule.UnpublishTime
+                <= cultureAndScheduleRequestModel.Schedule.PublishTime)
             {
-                return Attempt.FailWithStatus(ContentPublishingOperationStatus.UnpublishTimeNeedsToBeAfterPublishTime, model);
+                return Attempt.FailWithStatus(
+                    ContentPublishingOperationStatus.UnpublishTimeNeedsToBeAfterPublishTime, model);
             }
 
             model.Add(new CulturePublishScheduleModel
@@ -214,7 +219,8 @@ internal sealed class DocumentPresentationFactory : IDocumentPresentationFactory
 
     private void PopulateFlagsOnDocuments(DocumentItemResponseModel model)
     {
-        foreach (IFlagProvider signProvider in _flagProviderCollection.Where(x => x.CanProvideFlags<DocumentItemResponseModel>()))
+        foreach (IFlagProvider signProvider in
+            _flagProviderCollection.Where(x => x.CanProvideFlags<DocumentItemResponseModel>()))
         {
             signProvider.PopulateFlagsAsync([model]).GetAwaiter().GetResult();
         }
@@ -222,7 +228,8 @@ internal sealed class DocumentPresentationFactory : IDocumentPresentationFactory
 
     private void PopulateFlagsOnVariants(DocumentVariantItemResponseModel model)
     {
-        foreach (IFlagProvider signProvider in _flagProviderCollection.Where(x => x.CanProvideFlags<DocumentVariantItemResponseModel>()))
+        foreach (IFlagProvider signProvider in
+            _flagProviderCollection.Where(x => x.CanProvideFlags<DocumentVariantItemResponseModel>()))
         {
             signProvider.PopulateFlagsAsync([model]).GetAwaiter().GetResult();
         }

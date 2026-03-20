@@ -37,7 +37,8 @@ public abstract class DictionaryControllerBase : ManagementApiControllerBase
                 .Build()),
         });
 
-    protected IActionResult DictionaryItemNotFound() => OperationStatusResult(DictionaryItemOperationStatus.ItemNotFound, DictionaryItemNotFound);
+    protected IActionResult DictionaryItemNotFound()
+        => OperationStatusResult(DictionaryItemOperationStatus.ItemNotFound, DictionaryItemNotFound);
 
     private IActionResult DictionaryItemNotFound(ProblemDetailsBuilder problemDetailsBuilder)
         => NotFound(problemDetailsBuilder
