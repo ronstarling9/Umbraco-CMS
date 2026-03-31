@@ -30,6 +30,8 @@ public class UnhandledExceptionLoggerMiddleware : IMiddleware
             }
             catch (Exception e)
             {
+                // Intentionally broad: this is the top-level unhandled-exception logger for the entire middleware
+                // pipeline. It must catch all exception types to ensure they are logged before re-throwing.
                 _logger.LogError(
                     e,
                     "Unhandled controller exception occurred for request '{RequestUrl}'",

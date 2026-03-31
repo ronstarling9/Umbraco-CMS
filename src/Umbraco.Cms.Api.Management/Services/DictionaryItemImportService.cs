@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Xml;
+using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Api.Management.Services.OperationStatus;
 using Umbraco.Cms.Core;
@@ -91,7 +92,7 @@ internal sealed class DictionaryItemImportService : IDictionaryItemImportService
                 ? (document, DictionaryImportOperationStatus.Success)
                 : (document, DictionaryImportOperationStatus.InvalidFileContent);
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is XmlException or IOException or UnauthorizedAccessException)
         {
             _logger.LogError(ex, "Error loading UDT file: {FileName}", temporaryFileModel.FileName);
             return (new XDocument(), DictionaryImportOperationStatus.InvalidFileContent);
@@ -116,6 +117,8 @@ internal sealed class DictionaryItemImportService : IDictionaryItemImportService
         }
         catch (Exception ex)
         {
+            // Intentionally broad: ImportDictionaryItem traverses the persistence layer and may throw database-level
+            // exceptions (e.g. SqlException, InvalidOperationException) depending on content configuration.
             _logger.LogError(ex, "Error importing UDT file: {FileName}", temporaryFileModel.FileName);
             return (null, DictionaryImportOperationStatus.InvalidFileContent);
         }
