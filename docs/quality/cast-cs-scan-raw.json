@@ -1,0 +1,447 @@
+{
+  "scan_date": "2026-03-11",
+  "language": "C#",
+  "projects": [
+    {
+      "name": "Umbraco.Cms",
+      "path": "src/Umbraco.Cms",
+      "loc": 0,
+      "violations": {
+        "long_lines": 0,
+        "magic_numbers": 0,
+        "magic_strings": 0,
+        "short_identifiers": 0,
+        "commented_out_code": 0,
+        "method_length": 0,
+        "too_many_parameters": 0,
+        "deep_nesting": 0,
+        "high_cyclomatic_complexity": 0,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 0,
+        "string_concat_in_loops": 0,
+        "god_classes": 0,
+        "copy_paste_blocks": 0
+      }
+    },
+    {
+      "name": "Umbraco.Cms.Api.Common",
+      "path": "src/Umbraco.Cms.Api.Common",
+      "loc": 2244,
+      "violations": {
+        "long_lines": 68,
+        "magic_numbers": 3,
+        "magic_strings": 5,
+        "short_identifiers": 20,
+        "commented_out_code": 2,
+        "method_length": 4,
+        "too_many_parameters": 0,
+        "deep_nesting": 60,
+        "high_cyclomatic_complexity": 2,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 0,
+        "string_concat_in_loops": 1,
+        "god_classes": 0,
+        "copy_paste_blocks": 3
+      }
+    },
+    {
+      "name": "Umbraco.Cms.Api.Delivery",
+      "path": "src/Umbraco.Cms.Api.Delivery",
+      "loc": 3977,
+      "violations": {
+        "long_lines": 151,
+        "magic_numbers": 8,
+        "magic_strings": 17,
+        "short_identifiers": 45,
+        "commented_out_code": 0,
+        "method_length": 15,
+        "too_many_parameters": 12,
+        "deep_nesting": 90,
+        "high_cyclomatic_complexity": 7,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 0,
+        "string_concat_in_loops": 0,
+        "god_classes": 0,
+        "copy_paste_blocks": 73
+      }
+    },
+    {
+      "name": "Umbraco.Cms.Api.Management",
+      "path": "src/Umbraco.Cms.Api.Management",
+      "loc": 42397,
+      "violations": {
+        "long_lines": 1409,
+        "magic_numbers": 140,
+        "magic_strings": 40,
+        "short_identifiers": 963,
+        "commented_out_code": 1,
+        "method_length": 71,
+        "too_many_parameters": 66,
+        "deep_nesting": 645,
+        "high_cyclomatic_complexity": 16,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 14,
+        "string_concat_in_loops": 0,
+        "god_classes": 0,
+        "copy_paste_blocks": 1460
+      }
+    },
+    {
+      "name": "Umbraco.Cms.DevelopmentMode.Backoffice",
+      "path": "src/Umbraco.Cms.DevelopmentMode.Backoffice",
+      "loc": 2153,
+      "violations": {
+        "long_lines": 64,
+        "magic_numbers": 5,
+        "magic_strings": 8,
+        "short_identifiers": 16,
+        "commented_out_code": 1,
+        "method_length": 21,
+        "too_many_parameters": 1,
+        "deep_nesting": 175,
+        "high_cyclomatic_complexity": 11,
+        "empty_catch_blocks": 2,
+        "catching_generic_exception": 2,
+        "string_concat_in_loops": 0,
+        "god_classes": 1,
+        "copy_paste_blocks": 0
+      }
+    },
+    {
+      "name": "Umbraco.Cms.Imaging.ImageSharp",
+      "path": "src/Umbraco.Cms.Imaging.ImageSharp",
+      "loc": 458,
+      "violations": {
+        "long_lines": 15,
+        "magic_numbers": 5,
+        "magic_strings": 0,
+        "short_identifiers": 8,
+        "commented_out_code": 0,
+        "method_length": 2,
+        "too_many_parameters": 2,
+        "deep_nesting": 13,
+        "high_cyclomatic_complexity": 1,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 0,
+        "string_concat_in_loops": 0,
+        "god_classes": 0,
+        "copy_paste_blocks": 0
+      }
+    },
+    {
+      "name": "Umbraco.Cms.Imaging.ImageSharp2",
+      "path": "src/Umbraco.Cms.Imaging.ImageSharp2",
+      "loc": 413,
+      "violations": {
+        "long_lines": 10,
+        "magic_numbers": 5,
+        "magic_strings": 0,
+        "short_identifiers": 8,
+        "commented_out_code": 0,
+        "method_length": 2,
+        "too_many_parameters": 1,
+        "deep_nesting": 15,
+        "high_cyclomatic_complexity": 1,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 0,
+        "string_concat_in_loops": 0,
+        "god_classes": 0,
+        "copy_paste_blocks": 0
+      }
+    },
+    {
+      "name": "Umbraco.Cms.Persistence.EFCore",
+      "path": "src/Umbraco.Cms.Persistence.EFCore",
+      "loc": 1598,
+      "violations": {
+        "long_lines": 58,
+        "magic_numbers": 1,
+        "magic_strings": 7,
+        "short_identifiers": 14,
+        "commented_out_code": 0,
+        "method_length": 10,
+        "too_many_parameters": 9,
+        "deep_nesting": 46,
+        "high_cyclomatic_complexity": 5,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 0,
+        "string_concat_in_loops": 0,
+        "god_classes": 0,
+        "copy_paste_blocks": 40
+      }
+    },
+    {
+      "name": "Umbraco.Cms.Persistence.EFCore.Sqlite",
+      "path": "src/Umbraco.Cms.Persistence.EFCore.Sqlite",
+      "loc": 78,
+      "violations": {
+        "long_lines": 0,
+        "magic_numbers": 0,
+        "magic_strings": 0,
+        "short_identifiers": 1,
+        "commented_out_code": 0,
+        "method_length": 0,
+        "too_many_parameters": 0,
+        "deep_nesting": 0,
+        "high_cyclomatic_complexity": 0,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 0,
+        "string_concat_in_loops": 0,
+        "god_classes": 0,
+        "copy_paste_blocks": 0
+      }
+    },
+    {
+      "name": "Umbraco.Cms.Persistence.EFCore.SqlServer",
+      "path": "src/Umbraco.Cms.Persistence.EFCore.SqlServer",
+      "loc": 73,
+      "violations": {
+        "long_lines": 1,
+        "magic_numbers": 0,
+        "magic_strings": 0,
+        "short_identifiers": 1,
+        "commented_out_code": 0,
+        "method_length": 0,
+        "too_many_parameters": 0,
+        "deep_nesting": 0,
+        "high_cyclomatic_complexity": 0,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 0,
+        "string_concat_in_loops": 0,
+        "god_classes": 0,
+        "copy_paste_blocks": 0
+      }
+    },
+    {
+      "name": "Umbraco.Cms.Persistence.Sqlite",
+      "path": "src/Umbraco.Cms.Persistence.Sqlite",
+      "loc": 1282,
+      "violations": {
+        "long_lines": 19,
+        "magic_numbers": 4,
+        "magic_strings": 17,
+        "short_identifiers": 26,
+        "commented_out_code": 1,
+        "method_length": 7,
+        "too_many_parameters": 3,
+        "deep_nesting": 19,
+        "high_cyclomatic_complexity": 4,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 2,
+        "string_concat_in_loops": 0,
+        "god_classes": 0,
+        "copy_paste_blocks": 0
+      }
+    },
+    {
+      "name": "Umbraco.Cms.Persistence.SqlServer",
+      "path": "src/Umbraco.Cms.Persistence.SqlServer",
+      "loc": 4305,
+      "violations": {
+        "long_lines": 111,
+        "magic_numbers": 130,
+        "magic_strings": 25,
+        "short_identifiers": 66,
+        "commented_out_code": 4,
+        "method_length": 29,
+        "too_many_parameters": 7,
+        "deep_nesting": 279,
+        "high_cyclomatic_complexity": 22,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 1,
+        "string_concat_in_loops": 0,
+        "god_classes": 2,
+        "copy_paste_blocks": 25
+      }
+    },
+    {
+      "name": "Umbraco.Cms.StaticAssets",
+      "path": "src/Umbraco.Cms.StaticAssets",
+      "loc": 0,
+      "violations": {
+        "long_lines": 0,
+        "magic_numbers": 0,
+        "magic_strings": 0,
+        "short_identifiers": 0,
+        "commented_out_code": 0,
+        "method_length": 0,
+        "too_many_parameters": 0,
+        "deep_nesting": 0,
+        "high_cyclomatic_complexity": 0,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 0,
+        "string_concat_in_loops": 0,
+        "god_classes": 0,
+        "copy_paste_blocks": 0
+      }
+    },
+    {
+      "name": "Umbraco.Cms.Targets",
+      "path": "src/Umbraco.Cms.Targets",
+      "loc": 0,
+      "violations": {
+        "long_lines": 0,
+        "magic_numbers": 0,
+        "magic_strings": 0,
+        "short_identifiers": 0,
+        "commented_out_code": 0,
+        "method_length": 0,
+        "too_many_parameters": 0,
+        "deep_nesting": 0,
+        "high_cyclomatic_complexity": 0,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 0,
+        "string_concat_in_loops": 0,
+        "god_classes": 0,
+        "copy_paste_blocks": 0
+      }
+    },
+    {
+      "name": "Umbraco.Core",
+      "path": "src/Umbraco.Core",
+      "loc": 178525,
+      "violations": {
+        "long_lines": 4157,
+        "magic_numbers": 743,
+        "magic_strings": 299,
+        "short_identifiers": 2390,
+        "commented_out_code": 70,
+        "method_length": 474,
+        "too_many_parameters": 624,
+        "deep_nesting": 4480,
+        "high_cyclomatic_complexity": 525,
+        "empty_catch_blocks": 6,
+        "catching_generic_exception": 51,
+        "string_concat_in_loops": 16,
+        "god_classes": 38,
+        "copy_paste_blocks": 2824
+      }
+    },
+    {
+      "name": "Umbraco.Examine.Lucene",
+      "path": "src/Umbraco.Examine.Lucene",
+      "loc": 1375,
+      "violations": {
+        "long_lines": 32,
+        "magic_numbers": 0,
+        "magic_strings": 8,
+        "short_identifiers": 52,
+        "commented_out_code": 1,
+        "method_length": 13,
+        "too_many_parameters": 8,
+        "deep_nesting": 67,
+        "high_cyclomatic_complexity": 5,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 2,
+        "string_concat_in_loops": 0,
+        "god_classes": 0,
+        "copy_paste_blocks": 16
+      }
+    },
+    {
+      "name": "Umbraco.Infrastructure",
+      "path": "src/Umbraco.Infrastructure",
+      "loc": 76290,
+      "violations": {
+        "long_lines": 2250,
+        "magic_numbers": 185,
+        "magic_strings": 399,
+        "short_identifiers": 3232,
+        "commented_out_code": 52,
+        "method_length": 473,
+        "too_many_parameters": 336,
+        "deep_nesting": 3719,
+        "high_cyclomatic_complexity": 262,
+        "empty_catch_blocks": 4,
+        "catching_generic_exception": 71,
+        "string_concat_in_loops": 3,
+        "god_classes": 22,
+        "copy_paste_blocks": 1175
+      }
+    },
+    {
+      "name": "Umbraco.PublishedCache.HybridCache",
+      "path": "src/Umbraco.PublishedCache.HybridCache",
+      "loc": 4940,
+      "violations": {
+        "long_lines": 146,
+        "magic_numbers": 10,
+        "magic_strings": 30,
+        "short_identifiers": 311,
+        "commented_out_code": 0,
+        "method_length": 32,
+        "too_many_parameters": 12,
+        "deep_nesting": 242,
+        "high_cyclomatic_complexity": 17,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 0,
+        "string_concat_in_loops": 0,
+        "god_classes": 1,
+        "copy_paste_blocks": 98
+      }
+    },
+    {
+      "name": "Umbraco.Web.Common",
+      "path": "src/Umbraco.Web.Common",
+      "loc": 13962,
+      "violations": {
+        "long_lines": 370,
+        "magic_numbers": 13,
+        "magic_strings": 18,
+        "short_identifiers": 129,
+        "commented_out_code": 3,
+        "method_length": 52,
+        "too_many_parameters": 32,
+        "deep_nesting": 281,
+        "high_cyclomatic_complexity": 23,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 8,
+        "string_concat_in_loops": 0,
+        "god_classes": 2,
+        "copy_paste_blocks": 263
+      }
+    },
+    {
+      "name": "Umbraco.Web.UI",
+      "path": "src/Umbraco.Web.UI",
+      "loc": 146,
+      "violations": {
+        "long_lines": 6,
+        "magic_numbers": 0,
+        "magic_strings": 0,
+        "short_identifiers": 4,
+        "commented_out_code": 2,
+        "method_length": 0,
+        "too_many_parameters": 0,
+        "deep_nesting": 2,
+        "high_cyclomatic_complexity": 0,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 0,
+        "string_concat_in_loops": 0,
+        "god_classes": 0,
+        "copy_paste_blocks": 0
+      }
+    },
+    {
+      "name": "Umbraco.Web.Website",
+      "path": "src/Umbraco.Web.Website",
+      "loc": 4565,
+      "violations": {
+        "long_lines": 105,
+        "magic_numbers": 12,
+        "magic_strings": 12,
+        "short_identifiers": 36,
+        "commented_out_code": 2,
+        "method_length": 25,
+        "too_many_parameters": 27,
+        "deep_nesting": 100,
+        "high_cyclomatic_complexity": 10,
+        "empty_catch_blocks": 0,
+        "catching_generic_exception": 0,
+        "string_concat_in_loops": 0,
+        "god_classes": 1,
+        "copy_paste_blocks": 72
+      }
+    }
+  ]
+}
