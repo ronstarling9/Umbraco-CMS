@@ -112,6 +112,13 @@ export class UmbBlockActionDefaultElement<
 				--uui-button-padding-left-factor: var(--umb-button-padding-left-factor);
 				--uui-button-padding-right-factor: var(--umb-button-padding-right-factor);
 			}
+
+			/* uui-action-bar only raises a hovered action above its touching sibling
+			   (::slotted(*:hover) { z-index: 1 }), not a focused one, so a keyboard-focused
+			   action's outline gets clipped by the next action. Mirror the lift for focus. */
+			:host(:focus-within) {
+				z-index: 1;
+			}
 		`,
 	];
 }
